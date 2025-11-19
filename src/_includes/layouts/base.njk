@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="{{ site.language }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {# Title #}
+  <title>{{ title | default(site.title) }} | {{ site.title }}</title>
+
+  {# Meta Description #}
+  <meta name="description" content="{{ description | default(excerpt) | default(site.description) }}">
+
+  {# Open Graph #}
+  <meta property="og:title" content="{{ title | default(site.title) }}">
+  <meta property="og:description" content="{{ description | default(excerpt) | default(site.description) }}">
+  <meta property="og:image" content="{{ site.url }}{{ featured_image | default(site.defaultImage) }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:type" content="website">
+
+  {# Twitter Card #}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title | default(site.title) }}">
+  <meta name="twitter:description" content="{{ description | default(excerpt) | default(site.description) }}">
+  <meta name="twitter:image" content="{{ site.url }}{{ featured_image | default(site.defaultImage) }}">
+
+  {# Favicon #}
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  {# Stylesheets #}
+  <link rel="stylesheet" href="/styles/global.css">
+  <link rel="stylesheet" href="/styles/typography.css">
+  <link rel="stylesheet" href="/styles/utilities.css">
+
+  {# Block for additional head content #}
+  {% block head %}{% endblock %}
+</head>
+<body>
+  {# Skip to main content link #}
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  {# Header #}
+  {% include "components/header.njk" %}
+
+  {# Main content #}
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  {# Footer #}
+  {% include "components/footer.njk" %}
+
+  {# Block for additional scripts #}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

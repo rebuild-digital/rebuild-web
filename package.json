@@ -1,5 +1,38 @@
 {
   "dependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "@notionhq/client": "^5.4.0",
+    "dotenv": "^17.2.3"
+  },
+  "name": "rebuild-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "eleventy --serve --watch",
+    "build": "NODE_ENV=production eleventy && npm run minify",
+    "minify": "npm run minify:css && npm run minify:js",
+    "minify:css": "postcss dist/**/*.css --replace --use cssnano",
+    "minify:js": "terser dist/**/*.js --compress --mangle -o dist/bundle.min.js",
+    "serve": "eleventy --serve",
+    "clean": "rm -rf dist .cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:62166/git/mortenbjoern/rebuild-web"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy-img": "^6.0.4",
+    "@11ty/eleventy-plugin-rss": "^2.0.4",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+    "cssnano": "^7.1.2",
+    "eleventy-plugin-postcss": "^3.0.1",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-modules": "^6.0.1",
+    "terser": "^5.44.1"
   }
 }

@@ -1,0 +1,43 @@
+{#
+  Card component
+  Usage: {% include "components/card.njk" %}
+
+  Parameters:
+  - title: Card title
+  - description: Card description
+  - image: Image URL (optional)
+  - link: Link URL (optional)
+  - tags: Array of tags (optional)
+#}
+
+<article class="card">
+  {% if image %}
+    <div class="card-image">
+      <img src="{{ image }}" alt="{{ title }}" loading="lazy">
+    </div>
+  {% endif %}
+
+  <div class="card-content">
+    {% if title %}
+      <h3 class="card-title">
+        {% if link %}
+          <a href="{{ link }}">{{ title }}</a>
+        {% else %}
+          {{ title }}
+        {% endif %}
+      </h3>
+    {% endif %}
+
+    {% if description %}
+      <p class="card-description">{{ description }}</p>
+    {% endif %}
+
+    {% if tags and tags.length > 0 %}
+      <div class="card-tags">
+        {% for tag in tags %}
+          <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</article>

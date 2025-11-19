@@ -1,0 +1,17 @@
+{#
+  Button component
+  Usage: {% include "components/buttons.njk" %}
+
+  Parameters:
+  - text: Button text
+  - url: Link URL
+  - variant: 'primary', 'secondary', or 'outline' (default: 'primary')
+  - size: 'small', 'medium', or 'large' (default: 'medium')
+#}
+
+{% set btnVariant = variant | default('primary') %}
+{% set btnSize = size | default('medium') %}
+
+<a href="{{ url }}" class="btn btn-{{ btnVariant }} btn-{{ btnSize }}">
+  {{ text }}
+</a>

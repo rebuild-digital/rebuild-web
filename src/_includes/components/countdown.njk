@@ -1,0 +1,35 @@
+{#
+  Countdown component
+  Usage: {% include "components/countdown.njk" %}
+
+  Parameters:
+  - targetDate: ISO date string for countdown target
+  - title: Title to display above countdown (optional)
+#}
+
+<div class="countdown" data-target-date="{{ targetDate }}">
+  {% if title %}
+    <h3 class="countdown-title">{{ title }}</h3>
+  {% endif %}
+
+  <div class="countdown-display">
+    <div class="countdown-item">
+      <span class="countdown-value" data-days>0</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-value" data-hours>0</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-value" data-minutes>0</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-value" data-seconds>0</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+</div>
+
+<script src="/scripts/countdown.js"></script>
