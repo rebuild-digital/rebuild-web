@@ -3,6 +3,7 @@
 ## The Stack
 
 ### Build & Development
+
 - **Eleventy (11ty)** - Static site generator
   - Template language: Nunjucks (for layouts/components)
   - Markdown with YAML frontmatter (for journal entries)
@@ -10,15 +11,18 @@
   - Custom filters for date formatting, excerpt generation, etc.
 
 ### Styling & Scripts
+
 - **CSS Modules** - Component-scoped styling with `.module.css` files
 - **JavaScript** - Vanilla JS for interactions (countdown timers, form validation, video controls)
 
 ### Hosting & Infrastructure
+
 - **StaticHost.eu** - Static site hosting (European)
 - **Cloudflare Workers** - Serverless functions for form handling
 - **Bunny CDN** - Video delivery, storage, and font hosting
 
 ### Data & Integration
+
 - **Notion API** - Database for:
   - Form submissions (newsletter, contact)
   - Builders/Projects data (fetched at build time)
@@ -26,17 +30,18 @@
 - **Markdown files** - Journal content
 
 ### Version Control & Deployment
+
 - **Git** - Version control
 - **GitHub/GitLab** - Repository hosting
 - **Automatic deploys** - Push to main = deploy to StaticHost.eu
 
----
-
 ## Detailed Architecture by Page
 
 ### Homepage
-**Template:** Default  
+
+**Template:** Default
 **Components used:**
+
 - Header (with navigation)
 - Animated visual hero (video background or CSS animation?)
 - Rich Text (core message)
@@ -48,15 +53,16 @@
 - Footer
 
 **Technical notes:**
+
 - Hero could use `<video>` element with Bunny CDN source
 - Countdown: client-side JS reads nearest date from `events.json`
 - Newsletter forms submit to Cloudflare Worker → Notion
 
----
-
 ### "Journal" (with M badge - presumably "Many" entries)
-**Template:** Journal (listing page)  
+
+**Template:** Journal (listing page)
 **Components used:**
+
 - Header
 - Rich Text (intro/description)
 - Project List (layout showing all journal entries with filtering)
@@ -64,6 +70,7 @@
 - Footer
 
 **Technical notes:**
+
 - Eleventy collections group posts by tags (Stories, Tags, Resources, Interviews, Frameworks, Design Principles, Toolkits)
 - Each post is generated from markdown
 - Filtering can be:
@@ -72,8 +79,11 @@
 - Pagination if needed
 
 **Individual journal entry:**
+
 **Template:** Journal (single post)
+
 **Components used:**
+
 - Header
 - Rich Text (article content - generated from markdown)
 - Image (featured/inline images)
@@ -83,11 +93,11 @@
 - Card (related posts)
 - Footer
 
----
-
 ### Builders
-**Template:** Default  
+
+**Template:** Default
 **Components used:**
+
 - Header
 - Rich Text (short description)
 - Project List or Card Collection (list of builders)
@@ -98,17 +108,18 @@
 - Footer
 
 **Technical notes:**
+
 - Builders list **fetched from Notion database at build time**
 - Eleventy data file (`_data/builders.js`) queries Notion API
 - Database properties: Name, Description, Image URL, Link, Status, etc.
 - Both CTAs could link to forms or external application pages
 - Build-time fetch means no client-side API calls needed
 
----
-
 ### Gatherings (Events overview)
-**Template:** Event (overview)  
+
+**Template:** Event (overview)
 **Components used:**
+
 - Header
 - Rich Text (high-level info)
 - Rich Text (timeline/narrative)
@@ -116,15 +127,16 @@
 - Footer
 
 **Technical notes:**
+
 - Reads from `events.json`
 - Each card links to individual event page
 - Shows key info: name, date, location
 
----
-
 ### Individual Event Pages (×3)
-**Template:** Event (single)  
+
+**Template:** Event (single)
 **Components used:**
+
 - Header
 - Rich Text (dates + details)
 - Countdown (to this specific event)
@@ -133,15 +145,16 @@
 - Footer
 
 **Technical notes:**
+
 - Each page references specific event in `events.json`
 - Countdown calculates from event date
 - Agenda component displays time-based schedule items
 
----
-
 ### About
-**Template:** Default  
+
+**Template:** Default
 **Components used:**
+
 - Header
 - Rich Text (initiative design + rationale)
 - Rich Text (outcomes)
@@ -152,15 +165,16 @@
 - Footer
 
 **Technical notes:**
+
 - Mostly static content
 - Progress bar: could be data-driven from JSON or hardcoded
 - Video interview via Bunny CDN
 
----
-
 ### Get in Touch
-**Template:** Default  
+
+**Template:** Default
 **Components used:**
+
 - Header
 - Rich Text (press + media kit intro)
 - Buttons (download media kit)
@@ -168,17 +182,17 @@
 - Footer
 
 **Technical notes:**
+
 - Media kit: PDF in `/public/assets/` or Bunny CDN
 - Contact form submits to Cloudflare Worker → Notion
-
----
 
 ## Component Architecture
 
 Based on your components diagram, here's how they map to Eleventy:
 
 ### Content Components (Nunjucks partials)
-```
+
+```text
 /src/_includes/components/
 ├── rich-text.njk       # Accepts markdown/HTML content
 │   └── rich-text.module.css
@@ -195,7 +209,8 @@ Based on your components diagram, here's how they map to Eleventy:
 ```
 
 ### Interactive Components
-```
+
+```text
 /src/_includes/components/
 ├── form.njk            # Form with validation, Cloudflare Worker submission
 │   └── form.module.css
@@ -204,7 +219,8 @@ Based on your components diagram, here's how they map to Eleventy:
 ```
 
 ### Layout Components
-```
+
+```text
 /src/_includes/components/
 ├── project-list.njk    # List/grid of items (journal, builders)
 │   └── project-list.module.css
@@ -221,7 +237,8 @@ Based on your components diagram, here's how they map to Eleventy:
 ```
 
 ### Page Templates
-```
+
+```text
 /src/_includes/layouts/
 ├── default.njk         # Base template (header + content + footer)
 ├── journal.njk         # Journal listing page
@@ -230,7 +247,8 @@ Based on your components diagram, here's how they map to Eleventy:
 ```
 
 ### Global Styles
-```
+
+```text
 /src/styles/
 ├── global.css          # Global styles, CSS variables, resets
 ├── typography.css      # Font definitions (system fonts, future custom font)
@@ -238,32 +256,33 @@ Based on your components diagram, here's how they map to Eleventy:
 ```
 
 **CSS Variables Structure (global.css):**
+
 ```css
 :root {
   /* Primary Colors */
   --color-red: #FF0000;           /* To be defined */
   --color-red-shade: #CC0000;     /* Darker */
   --color-red-tint: #FF6666;      /* Lighter */
-  
+
   --color-blue: #0000FF;          /* To be defined */
   --color-blue-shade: #0000CC;
   --color-blue-tint: #6666FF;
-  
+
   --color-yellow: #FFFF00;        /* To be defined - site background */
   --color-yellow-shade: #CCCC00;
   --color-yellow-tint: #FFFF66;
-  
+
   /* Neutrals */
   --color-off-white: #F5F5F5;     /* To be defined */
   --color-dark: #1A1A1A;          /* To be defined */
   --color-dark-tint-1: #333333;
   --color-dark-tint-2: #4D4D4D;
   --color-dark-tint-3: #666666;
-  
+
   /* Typography */
   --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-custom: var(--font-system); /* Will be replaced with custom sans-serif */
-  
+
   /* Spacing, etc. */
 }
 
@@ -273,11 +292,10 @@ body {
 }
 ```
 
----
-
 ## Data Structure
 
 ### `events.json`
+
 ```json
 {
   "events": [
@@ -300,14 +318,17 @@ body {
 ```
 
 ### Journal markdown frontmatter
+
 ```yaml
 ---
 title: "Post Title"
 date: 2025-11-18
 author: "Author Name"
-tags: 
+tags:
+
   - Stories
   - Resources
+
 excerpt: "Short description for meta description..."
 featured_image: "/assets/images/post-image.jpg"
 featured: false        # Pin to top of journal listing
@@ -316,12 +337,11 @@ featured: false        # Pin to top of journal listing
 ```
 
 **Frontmatter field notes:**
+
 - `featured_image`: Used for Open Graph/social sharing
 - `featured`: Boolean for pinning posts
 - `excerpt`: Used for meta description and previews
 - Structure allows adding fields without breaking existing posts
-
----
 
 ## Eleventy Configuration Highlights
 
@@ -332,11 +352,11 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const rss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = function(eleventyConfig) {
-  
+
   // Plugins
   eleventyConfig.addPlugin(syntaxHighlight); // Code syntax highlighting
   eleventyConfig.addPlugin(rss); // RSS feed generation
-  
+
   // Collections
   eleventyConfig.addCollection("journal", ...);
   eleventyConfig.addCollection("journalByTag", ...);
@@ -345,11 +365,11 @@ module.exports = function(eleventyConfig) {
       .filter(post => post.data.featured === true)
       .sort((a, b) => b.date - a.date);
   });
-  
+
   // Filters
   eleventyConfig.addFilter("dateFormat", ...);
   eleventyConfig.addFilter("excerpt", ...);
-  
+
   // Image shortcode using Eleventy Image
   eleventyConfig.addShortcode("image", async function(src, alt, sizes) {
     let metadata = await Image(src, {
@@ -358,25 +378,25 @@ module.exports = function(eleventyConfig) {
       outputDir: "./dist/assets/images/",
       urlPath: "/assets/images/"
     });
-    
+
     let imageAttributes = {
       alt,
       sizes,
       loading: "lazy",
       decoding: "async"
     };
-    
+
     return Image.generateHTML(metadata, imageAttributes);
   });
-  
+
   // Pass-through
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/styles");
   eleventyConfig.addPassthroughCopy({"src/public": "/"});  // favicon, robots.txt, etc.
-  
+
   // Watch targets
   eleventyConfig.addWatchTarget("src/styles/");
-  
+
   return {
     dir: {
       input: "src",
@@ -391,6 +411,7 @@ module.exports = function(eleventyConfig) {
 ```
 
 ### CSS Modules Setup
+
 ```javascript
 // In .eleventy.js - add PostCSS plugin for CSS Modules
 const postcss = require('postcss');
@@ -401,13 +422,12 @@ const postcssModules = require('postcss-modules');
 // Global styles: global.css
 ```
 
----
-
 ## Data Fetching
 
 ### Notion Data Sources
 
 **Builders Database (`_data/builders.js`):**
+
 ```javascript
 const { Client } = require("@notionhq/client");
 const fs = require('fs');
@@ -417,7 +437,7 @@ const CACHE_FILE = path.join(__dirname, '../../.cache/builders.json');
 
 module.exports = async function() {
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
-  
+
   try {
     const response = await notion.databases.query({
       database_id: process.env.NOTION_BUILDERS_DB_ID,
@@ -426,7 +446,7 @@ module.exports = async function() {
         select: { equals: "Published" }
       }
     });
-    
+
     const data = response.results.map(page => ({
       id: page.id,
       name: page.properties.Name.title[0].plain_text,
@@ -435,20 +455,20 @@ module.exports = async function() {
       link: page.properties.Link?.url || "",
       tags: page.properties.Tags?.multi_select.map(tag => tag.name) || []
     }));
-    
+
     // Cache the data for future builds if Notion API fails
     fs.mkdirSync(path.dirname(CACHE_FILE), { recursive: true });
     fs.writeFileSync(CACHE_FILE, JSON.stringify(data, null, 2));
-    
+
     return data;
   } catch (error) {
     console.warn('Notion API failed, using cached data:', error.message);
-    
+
     // Fall back to cached data if API fails
     if (fs.existsSync(CACHE_FILE)) {
       return JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
     }
-    
+
     console.error('No cached data available');
     return [];
   }
@@ -456,6 +476,7 @@ module.exports = async function() {
 ```
 
 **Notion Database Structure for Builders:**
+
 - **Name** (Title) - Project/Builder name
 - **Description** (Rich Text) - Short description
 - **Image** (Files & Media) - Project image/logo
@@ -464,11 +485,10 @@ module.exports = async function() {
 - **Tags** (Multi-select) - Categories/technologies
 - **Order** (Number) - Display order (optional)
 
----
-
 ## SEO & Meta Tags
 
 ### Meta Tag Structure
+
 ```javascript
 // In _data/site.js
 module.exports = {
@@ -481,6 +501,7 @@ module.exports = {
 ```
 
 ### Page Meta Template (in base layout)
+
 ```html
 <!-- In _includes/layouts/default.njk -->
 <meta name="description" content="{{ description or site.description }}">
@@ -497,12 +518,14 @@ module.exports = {
 ```
 
 ### RSS Feed
+
 - Location: `/feed.xml`
 - Generated automatically via `@11ty/eleventy-plugin-rss`
 - Includes all journal posts
 
 ### robots.txt
-```
+
+```text
 # /src/public/robots.txt
 User-agent: *
 Allow: /
@@ -530,41 +553,45 @@ Sitemap: https://yoursite.com/sitemap.xml
 ```
 
 ### Sitemap
+
 - Auto-generated via `@11ty/eleventy-plugin-sitemap`
 - Includes all pages and journal posts
-
----
 
 ## Error Handling
 
 ### 404 Page
+
 - Custom 404 template: `src/pages/404.html`
 - Styled to match site design
 - Includes navigation back to home/journal
 
 ### Build-Time Failures
+
 - **Notion API failure**: Falls back to cached builders data (see above)
 - **Image processing failure**: Log warning, use original image
 - **Missing frontmatter**: Provide sensible defaults
 
----
-
 ## Forms & Validation
 
 ### Client-Side Validation Rules
+
 ```javascript
 // Newsletter form
+
 - Email: required, valid email format
 - Honeypot field (hidden, should remain empty)
 
-// Contact form  
+// Contact form
+
 - Name: required, min 2 chars, max 100 chars
 - Email: required, valid email format
 - Message: required, min 10 chars, max 1000 chars
 - Honeypot field (hidden, should remain empty)
+
 ```
 
 ### Validation UX
+
 - Inline error messages (red text below field)
 - Field border color change on error (red) and success (green)
 - Disable submit button while submitting
@@ -572,15 +599,15 @@ Sitemap: https://yoursite.com/sitemap.xml
 - Error message for failed submissions (try again)
 
 ### Spam Protection
+
 - Hidden honeypot field
 - Client-side validation before submission
 - Rate limiting on Worker side (optional)
 
----
-
 ## Accessibility Baseline
 
 ### Requirements
+
 - Semantic HTML5 elements (`<nav>`, `<main>`, `<article>`, `<section>`)
 - ARIA labels on interactive elements (buttons, forms, navigation)
 - Keyboard navigation:
@@ -591,14 +618,13 @@ Sitemap: https://yoursite.com/sitemap.xml
 - Alt text for all images
 - Focus indicators visible on all interactive elements
 
----
-
 ## Video Configuration
 
 ### Video Component Features
+
 ```html
 <!-- Example video component usage -->
-<video 
+<video
   src="https://cdn.bunny.net/video.mp4"
   poster="/assets/images/video-poster.jpg"
   controls
@@ -611,17 +637,17 @@ Sitemap: https://yoursite.com/sitemap.xml
 ```
 
 ### Video Guidelines
+
 - Autoplay: Optional parameter, must be muted
 - Controls: Simple native browser controls
 - Poster images: Static frame or custom image
 - Preload: `metadata` for performance
 - Formats: MP4 (primary), WebM (optional fallback)
 
----
-
 ## Browser Support
 
 **Target:** Last 2 versions of modern browsers
+
 - Chrome/Edge (Chromium)
 - Firefox
 - Safari
@@ -629,14 +655,14 @@ Sitemap: https://yoursite.com/sitemap.xml
 - Chrome Mobile (Android)
 
 **No support needed for:**
+
 - Internet Explorer
 - Legacy Edge (pre-Chromium)
-
----
 
 ## Build & Deployment
 
 ### Package.json Scripts
+
 ```json
 {
   "scripts": {
@@ -652,26 +678,28 @@ Sitemap: https://yoursite.com/sitemap.xml
 ```
 
 ### Environment Configuration
+
 - **Development**: Local with hot reload, no minification
 - **Staging**: Full build on StaticHost.eu, staging subdomain
 - **Production**: Full build with minification, caching, custom domain
 
 ### Build Caching Strategy
+
 - Cache `.cache/` directory between builds
-- Cache `node_modules/` 
+- Cache `node_modules/`
 - Invalidate on: package.json changes, Notion data changes
 
 ### Deploy Previews
+
 - Automatic for pull requests
 - Temporary URLs for review
 - Same build process as production
 
----
-
 ## Security
 
 ### Security Headers (Configure on StaticHost.eu or via Worker)
-```
+
+```text
 Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.b-cdn.net; media-src https://videos.b-cdn.net;
 X-Frame-Options: DENY
 X-Content-Type-Options: nosniff
@@ -680,6 +708,7 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 ```
 
 ### CORS for Cloudflare Workers
+
 ```javascript
 // In Worker response
 headers.set('Access-Control-Allow-Origin', 'https://yoursite.com');
@@ -687,42 +716,40 @@ headers.set('Access-Control-Allow-Methods', 'POST');
 headers.set('Access-Control-Allow-Headers', 'Content-Type');
 ```
 
----
-
 ## Rate Limiting & Performance
 
 ### Notion API Rate Limits
+
 - **Rate**: ~3 requests per second
-- **Strategy**: 
+- **Strategy**:
   - Build-time only (not client-side)
   - Cache results between builds
   - Exponential backoff on failures
 
 ### Build Performance
+
 - Incremental builds where possible
 - Parallel processing of images
 - Cache external API calls
 - Target build time: <2 minutes
 
 ### Page Performance Targets (Lighthouse)
+
 - Performance: >90
 - Accessibility: >90
 - Best Practices: >90
 - SEO: 100
 
----
-
 ## Cloudflare Workers for Forms
 
 **Two endpoints needed (form submissions only):**
+
 1. `/api/newsletter` - Newsletter signup
 2. `/api/contact` - Contact form
 
 Each receives POST data and uses Notion API to create database entries.
 
 **Note:** Builders data is fetched at **build time** via Eleventy data files, not via Workers.
-
----
 
 ## Development Workflow
 
@@ -732,14 +759,12 @@ Each receives POST data and uses Notion API to create database entries.
 4. **Auto-deploy:** StaticHost.eu builds and deploys
 5. **Videos & fonts:** Upload to Bunny CDN, reference URLs in content
 
----
-
 ## Directory Structure
 
-```
+```text
 /
 ├── src/
-│   ├── pages/          
+│   ├── pages/
 │   │   ├── index.html        # Homepage
 │   │   ├── about.html
 │   │   ├── builders.html     # Uses builders data from Notion
