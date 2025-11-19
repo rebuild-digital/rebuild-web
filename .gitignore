@@ -7,6 +7,9 @@ dist/
 # Cache
 .cache/
 
+# Cache
+.claude/
+
 # Environment variables
 .env
 
