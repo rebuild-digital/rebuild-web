@@ -10,12 +10,12 @@ module.exports = function(eleventyConfig) {
 
   // Collections
   eleventyConfig.addCollection("journal", collection => {
-    return collection.getFilteredByGlob("src/content/journal/**/*.md")
+    return collection.getFilteredByGlob("src/journal/**/*.md")
       .sort((a, b) => b.date - a.date);
   });
 
   eleventyConfig.addCollection("featuredJournal", collection => {
-    return collection.getFilteredByGlob("src/content/journal/**/*.md")
+    return collection.getFilteredByGlob("src/journal/**/*.md")
       .filter(post => post.data.featured === true)
       .sort((a, b) => b.date - a.date);
   });

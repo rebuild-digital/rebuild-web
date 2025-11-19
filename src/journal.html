@@ -1,0 +1,25 @@
+---
+layout: layouts/journal.njk
+title: Journal
+description: Stories, insights, and reflections from our community of builders
+permalink: /journal/index.html
+---
+
+<div class="journal-grid">
+  {% if collections.journal and collections.journal.length > 0 %}
+    <div class="grid-3">
+      {% for post in collections.journal %}
+        {% set title = post.data.title %}
+        {% set description = post.data.excerpt %}
+        {% set link = post.url %}
+        {% set tags = post.data.tags %}
+        {% set image = post.data.featured_image %}
+        {% include "components/card.njk" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="rich-text">
+      <p>No journal entries yet. Create some in the src/journal/ directory!</p>
+    </div>
+  {% endif %}
+</div>
