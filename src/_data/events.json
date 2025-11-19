@@ -1,0 +1,136 @@
+{
+  "events": [
+    {
+      "id": "event-1",
+      "title": "First Gathering",
+      "date": "2026-03-15T09:00:00Z",
+      "location": "Copenhagen, Denmark",
+      "description": "Join us for our inaugural gathering to explore new ways of building together.",
+      "agenda": [
+        {
+          "time": "09:00",
+          "title": "Registration & Coffee",
+          "description": "Welcome and morning refreshments"
+        },
+        {
+          "time": "10:00",
+          "title": "Opening Keynote",
+          "description": "Setting the vision for collaborative building"
+        },
+        {
+          "time": "11:30",
+          "title": "Workshop Session 1",
+          "description": "Hands-on exploration of key concepts"
+        },
+        {
+          "time": "13:00",
+          "title": "Lunch Break",
+          "description": "Networking and informal discussions"
+        },
+        {
+          "time": "14:30",
+          "title": "Workshop Session 2",
+          "description": "Deep dive into practical applications"
+        },
+        {
+          "time": "16:00",
+          "title": "Panel Discussion",
+          "description": "Insights from experienced builders"
+        },
+        {
+          "time": "17:30",
+          "title": "Closing & Next Steps",
+          "description": "Recap and future planning"
+        }
+      ]
+    },
+    {
+      "id": "event-2",
+      "title": "Second Gathering",
+      "date": "2026-06-20T09:00:00Z",
+      "location": "Amsterdam, Netherlands",
+      "description": "Building on our first gathering, we dive deeper into collaborative practices.",
+      "agenda": [
+        {
+          "time": "09:00",
+          "title": "Registration & Coffee",
+          "description": "Welcome and morning refreshments"
+        },
+        {
+          "time": "10:00",
+          "title": "Opening Session",
+          "description": "Reflections from the first gathering"
+        },
+        {
+          "time": "11:00",
+          "title": "Collaborative Workshop",
+          "description": "Working together on real challenges"
+        },
+        {
+          "time": "13:00",
+          "title": "Lunch Break",
+          "description": "Networking and informal discussions"
+        },
+        {
+          "time": "14:30",
+          "title": "Builder Showcases",
+          "description": "Projects and insights from the community"
+        },
+        {
+          "time": "16:30",
+          "title": "Group Discussions",
+          "description": "Small group explorations"
+        },
+        {
+          "time": "17:30",
+          "title": "Closing",
+          "description": "Wrap-up and looking ahead"
+        }
+      ]
+    },
+    {
+      "id": "event-3",
+      "title": "Third Gathering",
+      "date": "2026-09-10T09:00:00Z",
+      "location": "Berlin, Germany",
+      "description": "Celebrating progress and charting the path forward together.",
+      "agenda": [
+        {
+          "time": "09:00",
+          "title": "Registration & Coffee",
+          "description": "Welcome and morning refreshments"
+        },
+        {
+          "time": "10:00",
+          "title": "Community Review",
+          "description": "Celebrating achievements and learning"
+        },
+        {
+          "time": "11:30",
+          "title": "Future Planning Workshop",
+          "description": "Co-creating the next phase"
+        },
+        {
+          "time": "13:00",
+          "title": "Lunch Break",
+          "description": "Networking and informal discussions"
+        },
+        {
+          "time": "14:30",
+          "title": "Innovation Sessions",
+          "description": "Exploring new ideas and approaches"
+        },
+        {
+          "time": "16:30",
+          "title": "Final Reflections",
+          "description": "Key takeaways and commitments"
+        },
+        {
+          "time": "17:30",
+          "title": "Celebration",
+          "description": "Closing celebration and next steps"
+        }
+      ]
+    }
+  ]
+}

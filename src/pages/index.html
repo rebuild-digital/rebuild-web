@@ -1,0 +1,101 @@
+---
+layout: layouts/default.njk
+title: Home
+description: Building a better future together
+---
+
+<section class="hero pt-2xl pb-2xl">
+  <div class="container">
+    <h1 class="text-center mb-lg">Welcome to Rebuild</h1>
+    <div class="rich-text text-center container-narrow">
+      <p>We're building a community of makers, creators, and innovators working together to shape a better future.</p>
+    </div>
+  </div>
+</section>
+
+<section class="approach pb-xl">
+  <div class="container-narrow">
+    <h2>Our Approach</h2>
+    <p>Through collaboration, shared learning, and collective action, we're reimagining how we build together.</p>
+  </div>
+</section>
+
+<section class="featured-builders pb-xl">
+  <div class="container">
+    <h2 class="mb-lg">Featured Builders</h2>
+
+    {% if builders and builders.length > 0 %}
+      <div class="grid-3">
+        {% for builder in builders | limit(3) %}
+          {% set title = builder.name %}
+          {% set description = builder.description %}
+          {% set image = builder.imageUrl %}
+          {% set link = builder.link %}
+          {% set tags = builder.tags %}
+          {% include "components/card.njk" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No builders available yet. Add some through the Notion database!</p>
+    {% endif %}
+
+    <div class="text-center mt-lg">
+      {% set text = "View All Builders" %}
+      {% set url = "/builders/" %}
+      {% set variant = "primary" %}
+      {% include "components/buttons.njk" %}
+    </div>
+  </div>
+</section>
+
+<section class="featured-journal pb-xl">
+  <div class="container">
+    <h2 class="mb-lg">Recent Journal Entries</h2>
+
+    {% if collections.journal and collections.journal.length > 0 %}
+      <div class="grid-3">
+        {% for post in collections.journal | limit(3) %}
+          {% set title = post.data.title %}
+          {% set description = post.data.excerpt %}
+          {% set link = post.url %}
+          {% set tags = post.data.tags %}
+          {% include "components/card.njk" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No journal entries yet. Create some in the src/content/journal/ directory!</p>
+    {% endif %}
+
+    <div class="text-center mt-lg">
+      {% set text = "View All Entries" %}
+      {% set url = "/journal/" %}
+      {% set variant = "secondary" %}
+      {% include "components/buttons.njk" %}
+    </div>
+  </div>
+</section>
+
+<section class="next-event pb-2xl">
+  <div class="container-narrow">
+    <h2 class="mb-lg text-center">Next Gathering</h2>
+
+    {% set nextEvent = events.events[0] %}
+    {% if nextEvent %}
+      <div class="text-center mb-md">
+        <h3>{{ nextEvent.title }}</h3>
+        <p>{{ nextEvent.location }} &middot; {{ nextEvent.date | dateFormat }}</p>
+      </div>
+
+      {% set targetDate = nextEvent.date %}
+      {% set title = "Time until " + nextEvent.title %}
+      {% include "components/countdown.njk" %}
+
+      <div class="text-center mt-lg">
+        {% set text = "View Event Details" %}
+        {% set url = "/gatherings/" %}
+        {% set variant = "outline" %}
+        {% include "components/buttons.njk" %}
+      </div>
+    {% endif %}
+  </div>
+</section>
