@@ -1,0 +1,372 @@
+/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Layer - Global styles and resets */
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-yellow font-custom text-dark min-h-screen;
+    line-height: 1.6;
+  }
+
+  /* Links */
+  a {
+    @apply transition-fast;
+  }
+
+  a:hover {
+    @apply text-blue;
+  }
+
+  a:focus-visible {
+    @apply outline outline-2 outline-blue outline-offset-2;
+  }
+
+  /* Images */
+  img {
+    @apply max-w-full h-auto block;
+  }
+
+  /* Buttons */
+  button {
+    @apply cursor-pointer border-none bg-transparent;
+    font-family: inherit;
+  }
+
+  /* Lists */
+  ul,
+  ol {
+    list-style-position: inside;
+  }
+
+  /* Typography */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold mb-md;
+    line-height: 1.2;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  h4 {
+    @apply text-xl;
+  }
+
+  h5 {
+    @apply text-lg;
+  }
+
+  h6 {
+    @apply text-base;
+  }
+
+  p {
+    @apply mb-md;
+  }
+
+  /* Responsive typography */
+  @media (max-width: 768px) {
+    h1 {
+      @apply text-3xl;
+    }
+
+    h2 {
+      @apply text-2xl;
+    }
+
+    h3 {
+      @apply text-xl;
+    }
+
+    h4 {
+      @apply text-lg;
+    }
+  }
+}
+
+/* Components Layer - Reusable component patterns */
+@layer components {
+  /* Container variants */
+  .container-narrow {
+    @apply max-w-[800px] mx-auto px-md;
+  }
+
+  .container-wide {
+    @apply max-w-[1400px] mx-auto px-md;
+  }
+
+  /* Skip to main content link for accessibility */
+  .skip-to-main {
+    @apply absolute -left-[9999px] z-[999] p-sm bg-dark text-off-white no-underline;
+  }
+
+  .skip-to-main:focus {
+    @apply left-0 top-0;
+  }
+
+  /* Button Base Styles */
+  .btn {
+    @apply inline-block text-center no-underline font-bold border-2 border-dark rounded-md cursor-pointer transition-all duration-fast;
+  }
+
+  .btn:focus-visible {
+    @apply outline outline-2 outline-blue outline-offset-2;
+  }
+
+  /* Button Variants */
+  .btn-primary {
+    @apply bg-blue text-off-white hover:bg-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A];
+  }
+
+  .btn-secondary {
+    @apply bg-red text-off-white hover:bg-red-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A];
+  }
+
+  .btn-outline {
+    @apply bg-transparent text-dark hover:bg-dark hover:text-off-white;
+  }
+
+  /* Button Sizes */
+  .btn-small {
+    @apply px-sm py-xs text-sm;
+  }
+
+  .btn-medium {
+    @apply px-md py-sm text-base;
+  }
+
+  .btn-large {
+    @apply px-lg py-md text-lg;
+  }
+
+  /* Card Component */
+  .card {
+    @apply bg-off-white border-2 border-dark rounded-md overflow-hidden transition-all duration-base hover:-translate-y-1 hover:shadow-[4px_4px_0_#1A1A1A];
+  }
+
+  .card-image img {
+    @apply w-full h-[200px] object-cover;
+  }
+
+  .card-content {
+    @apply p-md;
+  }
+
+  .card-title {
+    @apply text-lg mb-sm;
+  }
+
+  .card-title a {
+    @apply text-dark no-underline hover:text-blue;
+  }
+
+  .card-description {
+    @apply text-dark-tint-2 mb-md;
+  }
+
+  .card-tags {
+    @apply flex gap-xs flex-wrap;
+  }
+
+  .tag {
+    @apply inline-block px-sm py-xs bg-yellow border border-dark rounded-sm text-sm font-semibold;
+  }
+
+  /* Header Component */
+  .site-header {
+    @apply bg-yellow py-md border-b-2 border-dark;
+  }
+
+  .header-content {
+    @apply flex justify-between items-center gap-lg;
+  }
+
+  @media (max-width: 768px) {
+    .header-content {
+      @apply flex-col gap-sm;
+    }
+  }
+
+  .logo a {
+    @apply text-xl font-bold text-dark no-underline;
+  }
+
+  .main-nav ul {
+    @apply flex gap-md list-none m-0 p-0;
+  }
+
+  @media (max-width: 768px) {
+    .main-nav ul {
+      @apply flex-wrap justify-center gap-sm;
+    }
+  }
+
+  .main-nav a {
+    @apply text-dark no-underline px-sm py-xs transition-fast hover:text-blue focus:text-blue;
+  }
+
+  .main-nav a[aria-current="page"] {
+    @apply font-bold text-blue;
+  }
+
+  /* Footer Component */
+  .site-footer {
+    @apply bg-dark text-off-white py-xl mt-2xl;
+  }
+
+  .footer-content {
+    @apply flex justify-between items-center gap-lg;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      @apply flex-col text-center gap-md;
+    }
+  }
+
+  .footer-info p {
+    @apply m-0;
+  }
+
+  .footer-nav ul {
+    @apply flex gap-md list-none m-0 p-0;
+  }
+
+  @media (max-width: 768px) {
+    .footer-nav ul {
+      @apply flex-wrap justify-center gap-sm;
+    }
+  }
+
+  .footer-nav a {
+    @apply text-off-white no-underline transition-fast hover:text-yellow focus:text-yellow;
+  }
+
+  /* Countdown Component */
+  .countdown {
+    @apply text-center p-lg bg-off-white border-2 border-dark rounded-md;
+  }
+
+  .countdown-title {
+    @apply mb-md text-xl;
+  }
+
+  .countdown-display {
+    @apply flex justify-center gap-lg flex-wrap;
+  }
+
+  .countdown-item {
+    @apply flex flex-col items-center min-w-[80px];
+  }
+
+  @media (max-width: 768px) {
+    .countdown-item {
+      @apply min-w-[60px];
+    }
+  }
+
+  .countdown-value {
+    @apply text-4xl font-bold text-blue leading-none;
+  }
+
+  @media (max-width: 768px) {
+    .countdown-value {
+      @apply text-3xl;
+    }
+  }
+
+  .countdown-label {
+    @apply text-sm text-dark-tint-2 uppercase tracking-wide mt-xs;
+  }
+
+  /* Rich Text Component */
+  .rich-text {
+    line-height: 1.7;
+  }
+
+  .rich-text h2,
+  .rich-text h3,
+  .rich-text h4 {
+    @apply mt-lg mb-md;
+  }
+
+  .rich-text p {
+    @apply mb-md;
+  }
+
+  .rich-text ul,
+  .rich-text ol {
+    @apply mb-md pl-lg;
+  }
+
+  .rich-text li {
+    @apply mb-xs;
+  }
+
+  .rich-text a {
+    @apply text-blue underline hover:text-blue-shade;
+  }
+
+  .rich-text img {
+    @apply max-w-full h-auto my-lg rounded-md;
+  }
+
+  .rich-text blockquote {
+    @apply border-l-4 border-blue pl-md my-lg italic text-dark-tint-2;
+  }
+
+  .rich-text code {
+    @apply bg-dark-tint-3 text-off-white px-[6px] py-[2px] rounded-sm;
+    font-size: 0.9em;
+  }
+
+  .rich-text pre {
+    @apply bg-dark text-off-white p-md rounded-md overflow-x-auto my-lg;
+  }
+
+  .rich-text pre code {
+    @apply bg-transparent p-0;
+  }
+
+  /* Grid Utilities */
+  .grid-2 {
+    @apply grid grid-cols-2 gap-md;
+  }
+
+  .grid-3 {
+    @apply grid grid-cols-3 gap-md;
+  }
+
+  .grid-4 {
+    @apply grid grid-cols-4 gap-md;
+  }
+
+  @media (max-width: 768px) {
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      @apply grid-cols-1;
+    }
+  }
+}

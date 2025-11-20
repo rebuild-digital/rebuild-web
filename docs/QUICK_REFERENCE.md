@@ -19,7 +19,7 @@ A hybrid static website with:
 |-----------|-----------|
 | **Build Tool** | Eleventy (11ty) |
 | **Templates** | Nunjucks |
-| **Styling** | CSS Modules |
+| **Styling** | TailwindCSS |
 | **Content** | Markdown + YAML frontmatter |
 | **Hosting** | StaticHost.eu |
 | **Functions** | Cloudflare Workers |
@@ -33,7 +33,8 @@ A hybrid static website with:
 ```text
 /
 ├── .eleventy.js              # Main Eleventy config
-├── postcss.config.js         # CSS Modules config
+├── postcss.config.js         # PostCSS & TailwindCSS config
+├── tailwind.config.js        # Tailwind configuration
 ├── package.json              # Scripts + dependencies
 ├── src/
 │   ├── pages/                # Static + generated pages
@@ -44,8 +45,8 @@ A hybrid static website with:
 │   │   └── builders.js       # Notion fetch (build-time)
 │   ├── _includes/
 │   │   ├── layouts/          # Page templates
-│   │   └── components/       # Reusable components + CSS
-│   ├── styles/               # Global CSS
+│   │   └── components/       # Reusable components
+│   ├── styles/               # TailwindCSS styles
 │   └── scripts/              # Client-side JS
 ├── api/                      # Cloudflare Workers
 └── dist/                     # Build output (gitignored)
@@ -58,7 +59,7 @@ A hybrid static website with:
 - 3 primaries (red, blue, yellow) + shade + tint each
 - Yellow = persistent site background
 - Off-white + dark with tints
-- Defined as CSS custom properties in `global.css`
+- Defined in `tailwind.config.js` as custom theme colors
 
 ### Typography
 
@@ -167,19 +168,18 @@ npm install dotenv
 
 ## Component Structure
 
-Each component should have:
+Each component is a Nunjucks template (`.njk` file) styled using TailwindCSS utility classes.
 
-- `.njk` file (Nunjucks template)
-- `.module.css` file (scoped styles)
+Component-specific styles are defined in `src/styles/main.css` using Tailwind's `@layer components` directive.
 
 Example:
 
 ```text
 /src/_includes/components/
 ├── card.njk
-├── card.module.css
+├── buttons.njk
 ├── form.njk
-├── form.module.css
+├── header.njk
 etc.
 ```
 
@@ -224,7 +224,7 @@ etc.
 1. **Start dev server**: `npm run dev`
 2. **Create journal post**: Add markdown file to `src/content/journal/`
 3. **Edit page**: Modify HTML in `src/pages/`
-4. **Add component**: Create `.njk` + `.module.css` in `src/_includes/components/`
+4. **Add component**: Create `.njk` file in `src/_includes/components/`, style with Tailwind classes
 5. **Build for production**: `npm run build`
 6. **Deploy**: Push to `main` branch → auto-deploy
 
@@ -290,7 +290,7 @@ Before deploying:
 2. **System fonts only** - Custom font will be added later
 3. **Builders cache** - Don't fail build if Notion API is down
 4. **No framework** - Pure HTML/CSS/JS, no React/Vue/Svelte
-5. **CSS Modules** - Keep styles scoped to components
+5. **TailwindCSS** - Utility-first approach with custom design tokens
 6. **Notion at build time** - Not client-side, only during build
 7. **Videos on CDN** - Never in git repo, always reference Bunny URLs
 8. **Aggressive robots.txt** - Block all AI crawlers
@@ -301,7 +301,7 @@ Before deploying:
 - **Setup guide**: `SETUP_CHECKLIST.md`
 - **All decisions**: `DESIGN_DECISIONS.md`
 - **Eleventy docs**: <https://www.11ty.dev/docs/>
-- **CSS Modules**: <https://github.com/css-modules/css-modules>
+- **TailwindCSS docs**: <https://tailwindcss.com/docs>
 - **Notion API**: <https://developers.notion.com/>
 
 Ready to build! Start with the basic Eleventy setup and directory structure, then build components incrementally.

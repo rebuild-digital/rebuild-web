@@ -9,7 +9,7 @@ This project combines static site generation with modern web infrastructure to c
 ### Key Features
 
 - **Static Site Generation**: Built with Eleventy (11ty) for optimal performance
-- **Component-Based Architecture**: Reusable Nunjucks components with CSS Modules
+- **Component-Based Architecture**: Reusable Nunjucks components with TailwindCSS
 - **Dynamic Content**: Journal posts from Markdown, builders data from Notion
 - **Serverless Forms**: Contact and newsletter forms via Cloudflare Workers
 - **CDN Delivery**: Videos and fonts hosted on Bunny CDN
@@ -21,7 +21,7 @@ This project combines static site generation with modern web infrastructure to c
 |-----------|-----------|
 | **Build Tool** | Eleventy (11ty) |
 | **Templates** | Nunjucks |
-| **Styling** | CSS Modules + Global CSS |
+| **Styling** | TailwindCSS |
 | **Content** | Markdown + YAML frontmatter |
 | **Hosting** | StaticHost.eu |
 | **Functions** | Cloudflare Workers |
@@ -34,7 +34,8 @@ This project combines static site generation with modern web infrastructure to c
 ```text
 /
 ├── .eleventy.js              # Eleventy configuration
-├── postcss.config.js         # PostCSS & CSS Modules config
+├── postcss.config.js         # PostCSS & TailwindCSS config
+├── tailwind.config.js        # Tailwind configuration
 ├── package.json              # Dependencies & scripts
 ├── src/
 │   ├── index.html            # Homepage
@@ -48,8 +49,8 @@ This project combines static site generation with modern web infrastructure to c
 │   │   └── builders.js       # Notion fetch (build-time)
 │   ├── _includes/
 │   │   ├── layouts/          # Page templates
-│   │   └── components/       # Reusable components + CSS
-│   ├── styles/               # Global CSS
+│   │   └── components/       # Reusable components
+│   ├── styles/               # TailwindCSS styles
 │   ├── scripts/              # Client-side JavaScript
 │   └── public/               # Static assets (favicon, robots.txt)
 ├── api/                      # Cloudflare Workers
@@ -275,16 +276,18 @@ Events are managed via `src/_data/events.json`:
 
 ### Component System
 
-Components are built with Nunjucks templates and CSS Modules:
+Components are built with Nunjucks templates and styled using TailwindCSS utility classes:
 
 ```text
 src/_includes/components/
 ├── card.njk              # Component template
-├── card.module.css       # Scoped styles
-├── form.njk
-├── form.module.css
+├── buttons.njk           # Button component
+├── header.njk            # Header component
+├── footer.njk            # Footer component
 └── ...
 ```
+
+Component styles are defined in `src/styles/main.css` using Tailwind's `@layer components` directive.
 
 Use components in pages:
 
@@ -366,7 +369,7 @@ For more detailed information, see:
 ### Code Style
 
 - Use semantic HTML5 elements
-- Follow CSS Modules naming conventions
+- Use TailwindCSS utility classes for styling
 - Keep components small and focused
 - Write accessible markup (ARIA labels, alt text, semantic structure)
 - Ensure color contrast meets WCAG AA standards
