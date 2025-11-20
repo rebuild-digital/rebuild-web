@@ -10,7 +10,7 @@ This checklist covers all accounts, tools, and configurations needed to build an
 - All core Eleventy dependencies installed
 - Project structure created with proper directories
 - Eleventy configuration complete with plugins, collections, filters, and image shortcode
-- Component architecture implemented (7 components with CSS Modules)
+- Component architecture implemented (7 components with TailwindCSS)
 - Layout templates created (5 layouts including base, journal, event)
 - Global site data configured
 - Notion API integration built with caching fallback

@@ -36,7 +36,7 @@ This document captures all key decisions made for the project to serve as a refe
 ### Layout
 
 **Background**: Yellow (primary color) as persistent site background
-**Approach**: Component-based with CSS Modules for scoping
+**Approach**: Component-based with TailwindCSS utility classes
 
 ## Content Strategy
 
@@ -104,11 +104,12 @@ featured: false  # Pin to top
 
 ### Styling
 
-**Approach**: CSS Modules
+**Approach**: TailwindCSS
 
-- Component-scoped styles (`.module.css` files)
-- Global styles for variables, typography, utilities
-- No CSS-in-JS, no preprocessors (yet)
+- Utility-first CSS framework with custom design tokens
+- Component styles defined using `@layer components` in main.css
+- Custom color palette, spacing, and typography scales
+- No preprocessors needed
 
 ### Images
 
@@ -383,7 +384,7 @@ Cloudflare Workers configured for:
 ### Extensibility Points
 
 - Journal frontmatter: Add new fields without breaking old posts
-- Components: CSS Modules allow adding new without conflicts
+- Components: TailwindCSS utilities and component classes make styling consistent
 - Data sources: Easy to add new Notion databases
 - Build plugins: Eleventy plugin ecosystem
 
