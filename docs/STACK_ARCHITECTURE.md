@@ -12,7 +12,7 @@
 
 ### Styling & Scripts
 
-- **CSS Modules** - Component-scoped styling with `.module.css` files
+- **TailwindCSS** - Utility-first CSS framework with custom design tokens
 - **JavaScript** - Vanilla JS for interactions (countdown timers, form validation, video controls)
 
 ### Hosting & Infrastructure
@@ -195,27 +195,21 @@ Based on your components diagram, here's how they map to Eleventy:
 ```text
 /src/_includes/components/
 ├── rich-text.njk       # Accepts markdown/HTML content
-│   └── rich-text.module.css
 ├── quote.njk           # Blockquote with styling
-│   └── quote.module.css
 ├── image.njk           # Responsive image with caption
-│   └── image.module.css
 ├── video.njk           # Video player (Bunny CDN source)
-│   └── video.module.css
 ├── agenda.njk          # Structured schedule display
-│   └── agenda.module.css
 └── buttons.njk         # CTA buttons (primary/secondary variants)
-    └── buttons.module.css
 ```
+
+All component styles are defined in `src/styles/main.css` using Tailwind's `@layer components` directive.
 
 ### Interactive Components
 
 ```text
 /src/_includes/components/
 ├── form.njk            # Form with validation, Cloudflare Worker submission
-│   └── form.module.css
 └── countdown.njk       # Timer component (client-side JS)
-    └── countdown.module.css
 ```
 
 ### Layout Components
@@ -223,17 +217,11 @@ Based on your components diagram, here's how they map to Eleventy:
 ```text
 /src/_includes/components/
 ├── project-list.njk    # List/grid of items (journal, builders)
-│   └── project-list.module.css
 ├── card.njk            # Individual card
-│   └── card.module.css
 ├── card-collection.njk # Grid of cards
-│   └── card-collection.module.css
 ├── accordion.njk       # Expandable sections (FAQ)
-│   └── accordion.module.css
 ├── header.njk          # Site header + nav
-│   └── header.module.css
 └── footer.njk          # Site footer
-    └── footer.module.css
 ```
 
 ### Page Templates
@@ -246,49 +234,39 @@ Based on your components diagram, here's how they map to Eleventy:
 └── event.njk           # Event pages
 ```
 
-### Global Styles
+### Styling
 
 ```text
 /src/styles/
-├── global.css          # Global styles, CSS variables, resets
-├── typography.css      # Font definitions (system fonts, future custom font)
-└── utilities.css       # Utility classes (if needed)
+└── main.css            # TailwindCSS with custom design tokens
 ```
 
-**CSS Variables Structure (global.css):**
+**Tailwind Configuration (`tailwind.config.js`):**
+
+Design tokens are configured in the Tailwind config, extending the default theme with:
+
+- **Colors**: Primary colors (red, blue, yellow) with shades and tints, neutrals (off-white, dark with tints)
+- **Spacing**: Custom scale (xs, sm, md, lg, xl, 2xl)
+- **Border radius**: Custom values (sm, md, lg)
+- **Transitions**: Custom durations (fast, base, slow)
+- **Fonts**: System font stack with custom font placeholder
+
+**Main CSS Structure (`src/styles/main.css`):**
 
 ```css
-:root {
-  /* Primary Colors */
-  --color-red: #FF0000;           /* To be defined */
-  --color-red-shade: #CC0000;     /* Darker */
-  --color-red-tint: #FF6666;      /* Lighter */
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  --color-blue: #0000FF;          /* To be defined */
-  --color-blue-shade: #0000CC;
-  --color-blue-tint: #6666FF;
-
-  --color-yellow: #FFFF00;        /* To be defined - site background */
-  --color-yellow-shade: #CCCC00;
-  --color-yellow-tint: #FFFF66;
-
-  /* Neutrals */
-  --color-off-white: #F5F5F5;     /* To be defined */
-  --color-dark: #1A1A1A;          /* To be defined */
-  --color-dark-tint-1: #333333;
-  --color-dark-tint-2: #4D4D4D;
-  --color-dark-tint-3: #666666;
-
-  /* Typography */
-  --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-custom: var(--font-system); /* Will be replaced with custom sans-serif */
-
-  /* Spacing, etc. */
+/* Base layer - Global resets and defaults */
+@layer base {
+  /* Typography, links, images, etc. */
 }
 
-body {
-  background-color: var(--color-yellow);
-  font-family: var(--font-custom);
+/* Components layer - Component-specific styles */
+@layer components {
+  /* Button variants, card styles, header/footer, etc. */
 }
 ```
 
@@ -410,17 +388,21 @@ module.exports = function(eleventyConfig) {
 };
 ```
 
-### CSS Modules Setup
+### TailwindCSS Setup
+
+TailwindCSS is configured via `tailwind.config.js` and processed through PostCSS:
 
 ```javascript
-// In .eleventy.js - add PostCSS plugin for CSS Modules
-const postcss = require('postcss');
-const postcssModules = require('postcss-modules');
-
-// CSS Modules will generate scoped class names
-// Component styles: component-name.module.css
-// Global styles: global.css
+// postcss.config.js
+module.exports = {
+  plugins: [
+    require('tailwindcss'),
+    require('autoprefixer'),
+  ]
+};
 ```
+
+Component styles use Tailwind's `@apply` directive in `src/styles/main.css` for reusable patterns.
 
 ## Data Fetching
 
@@ -784,11 +766,9 @@ Each receives POST data and uses Notion API to create database entries.
 │   │   └── builders.js       # Fetches builders from Notion at build time
 │   ├── _includes/
 │   │   ├── layouts/          # Page templates
-│   │   └── components/       # Reusable components (each with .module.css)
+│   │   └── components/       # Reusable components
 │   ├── styles/
-│   │   ├── global.css        # Global styles, CSS variables
-│   │   ├── typography.css    # Font definitions (system fonts)
-│   │   └── utilities.css     # Utility classes
+│   │   └── main.css          # TailwindCSS with custom design tokens
 │   ├── scripts/
 │   │   ├── countdown.js      # Countdown timer logic
 │   │   └── forms.js          # Form validation & submission
@@ -806,7 +786,8 @@ Each receives POST data and uses Notion API to create database entries.
 │   └── builders.json         # Cached Notion data
 ├── dist/                     # Build output (gitignored)
 ├── .eleventy.js              # Eleventy config
-├── postcss.config.js         # PostCSS config (CSS Modules)
+├── postcss.config.js         # PostCSS config (TailwindCSS)
+├── tailwind.config.js        # Tailwind configuration
 ├── package.json
 ├── .env                      # Environment variables (gitignored)
 ├── .env.example              # Example env vars (committed)
