@@ -1,7 +1,7 @@
 module.exports = {
-  title: "Rebuild",
+  title: "rebuild.",
   description: "Building a better future together",
-  url: process.env.SITE_URL || "https://yoursite.com",
+  url: process.env.SITE_URL || "https:/rebuild.net",
   defaultImage: "/assets/images/default-og-image.jpg",
   author: "Rebuild Initiative",
   language: "en",
@@ -13,24 +13,24 @@ module.exports = {
       url: "/"
     },
     {
-      name: "Journal",
-      url: "/journal/"
+      name: "Insights",
+      url: "/insights/"
     },
     {
-      name: "Builders",
-      url: "/builders/"
+      name: "Catalog",
+      url: "/catalog/"
     },
     {
       name: "Gatherings",
       url: "/gatherings/"
     },
     {
-      name: "About",
-      url: "/about/"
+      name: "Journey",
+      url: "/journey/"
     },
     {
-      name: "Contact",
-      url: "/contact/"
+      name: "Get in toch",
+      url: "/get-in-touch/"
     }
   ],
 

@@ -250,7 +250,6 @@ featured: false  # Pin to top
 - **Keyboard navigation**:
   - Logical tab order
   - Visible focus indicators
-  - Skip to main content link
 - **Color contrast**: WCAG AA minimum (4.5:1)
 - **Alt text**: All images have descriptive alt attributes
 - **Form labels**: Associated with inputs

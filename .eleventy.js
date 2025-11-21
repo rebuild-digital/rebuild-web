@@ -2,11 +2,15 @@ const Image = require("@11ty/eleventy-img");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const rss = require("@11ty/eleventy-plugin-rss");
 
-module.exports = function(eleventyConfig) {
+module.exports = async function(eleventyConfig) {
 
   // Plugins
   eleventyConfig.addPlugin(syntaxHighlight); // Code syntax highlighting
   eleventyConfig.addPlugin(rss); // RSS feed generation
+
+  // PostCSS plugin (ES module)
+  const postcss = await import("eleventy-plugin-postcss");
+  eleventyConfig.addPlugin(postcss.default); // PostCSS processing for Tailwind
 
   // Collections
   eleventyConfig.addCollection("journal", collection => {
@@ -56,7 +60,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // Pass-through copy
-  eleventyConfig.addPassthroughCopy("src/styles");
+  // Note: src/styles is processed by PostCSS plugin, not copied
   eleventyConfig.addPassthroughCopy("src/scripts");
   eleventyConfig.addPassthroughCopy({"src/public": "/"});
 

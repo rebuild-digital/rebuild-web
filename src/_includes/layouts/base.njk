@@ -33,15 +33,13 @@
   {% block head %}{% endblock %}
 </head>
 <body>
-  {# Skip to main content link #}
-  <a href="#main-content" class="skip-to-main">Skip to main content</a>
 
   {# Header #}
   {% include "components/header.njk" %}
 
   {# Main content #}
-  <main id="main-content">
-    {% block content %}{% endblock %}
+  <main id="main-content" class="bb-rb-gray">
+    {{ content | safe }}
   </main>
 
   {# Footer #}

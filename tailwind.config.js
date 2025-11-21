@@ -8,30 +8,33 @@ module.exports = {
     extend: {
       colors: {
         // Primary colors
-        red: {
+        'rb-red': {
           DEFAULT: '#FF0000',
           shade: '#CC0000',
           tint: '#FF6666',
         },
-        blue: {
+        'rb-blue': {
           DEFAULT: '#0000FF',
           shade: '#0000CC',
           tint: '#6666FF',
         },
-        yellow: {
+        'rb-mint': {
+          DEFAULT: '00FFD5',
+        },
+        // Secondary
+        'rb-yellow': {
           DEFAULT: '#FFFF00',
-          shade: '#CCCC00',
-          tint: '#FFFF66',
+        },
+        'rb-magenta': {
+          DEFAULT: '#F7F0DB',
+        },
+        'rb-brown': {
+          DEFAULT: '#6E160C',
         },
         // Neutrals
-        'off-white': '#F5F5F5',
-        dark: {
-          DEFAULT: '#1A1A1A',
-          tint: {
-            1: '#333333',
-            2: '#4D4D4D',
-            3: '#666666',
-          },
+        'rb-white': '#F5F5F5',
+        'rb-gray': '#D9D9D9',  
+        'rb-dark': '1A1A1A'
         },
       },
       fontFamily: {
@@ -62,6 +65,39 @@ module.exports = {
         'slow': '350ms',
       },
     },
-  },
-  plugins: [],
+  plugins: [
+    function({ addUtilities, theme }) {
+      const spacing = theme('spacing');
+      const transitions = theme('transitionDuration');
+
+      // Add custom spacing utilities
+      const spacingUtilities = {};
+      Object.entries(spacing).forEach(([key, value]) => {
+        if (['xs', 'sm', 'md', 'lg', 'xl', '2xl'].includes(key)) {
+          spacingUtilities[`.p-${key}`] = { padding: value };
+          spacingUtilities[`.px-${key}`] = { 'padding-left': value, 'padding-right': value };
+          spacingUtilities[`.py-${key}`] = { 'padding-top': value, 'padding-bottom': value };
+          spacingUtilities[`.m-${key}`] = { margin: value };
+          spacingUtilities[`.mx-${key}`] = { 'margin-left': value, 'margin-right': value };
+          spacingUtilities[`.my-${key}`] = { 'margin-top': value, 'margin-bottom': value };
+          spacingUtilities[`.mt-${key}`] = { 'margin-top': value };
+          spacingUtilities[`.mb-${key}`] = { 'margin-bottom': value };
+          spacingUtilities[`.ml-${key}`] = { 'margin-left': value };
+          spacingUtilities[`.mr-${key}`] = { 'margin-right': value };
+          spacingUtilities[`.gap-${key}`] = { gap: value };
+          spacingUtilities[`.pl-${key}`] = { 'padding-left': value };
+        }
+      });
+
+      // Add custom transition utilities
+      const transitionUtilities = {};
+      Object.entries(transitions).forEach(([key, value]) => {
+        if (['fast', 'base', 'slow'].includes(key)) {
+          transitionUtilities[`.transition-${key}`] = { 'transition-duration': value };
+        }
+      });
+
+      addUtilities({ ...spacingUtilities, ...transitionUtilities });
+    }
+  ],
 }

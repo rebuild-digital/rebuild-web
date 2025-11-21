@@ -595,7 +595,6 @@ Sitemap: https://yoursite.com/sitemap.xml
 - Keyboard navigation:
   - Tab order follows visual order
   - Forms fully keyboard accessible
-  - Skip to main content link
 - Color contrast: Minimum WCAG AA (4.5:1 for normal text)
 - Alt text for all images
 - Focus indicators visible on all interactive elements

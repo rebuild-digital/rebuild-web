@@ -207,7 +207,6 @@ etc.
 - [ ] Alt text on all images
 - [ ] Color contrast WCAG AA minimum
 - [ ] Form labels associated with inputs
-- [ ] Skip to main content link
 
 ---
 
