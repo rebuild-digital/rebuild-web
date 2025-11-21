@@ -8,6 +8,4 @@ excerpt: "Listen to Margrethe Vestager explain the importance of social platform
 featured: true
 ---
 
-# A word from Margrethe
-
 Video interview here...

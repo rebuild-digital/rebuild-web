@@ -9,8 +9,6 @@ excerpt: "Introducing Rebuild: a new initiative for collaborative building and s
 featured: true
 ---
 
-# Welcome to Rebuild
-
 We're excited to introduce **Rebuild**, a community-driven initiative focused on collaborative building, shared learning, and collective action.
 
 ## What We're Building

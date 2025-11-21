@@ -10,6 +10,4 @@ excerpt: "From the founder of the most entrusted social platform for activists..
 featured: true
 ---
 
-# How Acter is enabling resilient activism across Europe
-
 Story and inter view here...
