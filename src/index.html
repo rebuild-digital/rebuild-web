@@ -4,7 +4,7 @@ title: Home
 description: Building a better future together
 ---
 
-<section class="hero pt-2xl pb-2xl">
+<section class="pt-2xl pb-2xl">
   <div class="">
     <h1 class="text-center mb-lg">Welcome to Rebuild</h1>
     <div class="rich-text text-center">
@@ -13,14 +13,14 @@ description: Building a better future together
   </div>
 </section>
 
-<section class="approach pb-xl">
+<section class="pb-xl">
   <div class="">
     <h2>Our Approach</h2>
     <p>Through collaboration, shared learning, and collective action, we're reimagining how we build together.</p>
   </div>
 </section>
 
-<section class="featured-builders pb-xl">
+<section class="pb-xl">
   <div class="">
     <h2 class="mb-lg">Featured Builders</h2>
 
@@ -40,17 +40,17 @@ description: Building a better future together
     {% endif %}
 
     <div class="text-center mt-lg">
-      {% set text = "View All Builders" %}
-      {% set url = "/builders/" %}
+      {% set text = "View Catalog" %}
+      {% set url = "/catalog/" %}
       {% set variant = "primary" %}
       {% include "components/buttons.njk" %}
     </div>
   </div>
 </section>
 
-<section class="featured-journal pb-xl">
+<section class="pb-xl">
   <div class="pl-3">
-    <h2 class="mb-lg">Recent Journal Entries</h2>
+    <h2 class="mb-lg">Recent insights</h2>
 
     {% if collections.insights and collections.insights.length > 0 %}
       <div class="grid grid-cols-3 gap-md">

@@ -1,8 +1,8 @@
-<header class="py-md border-b-2 border-dark">
+<header class="py-lg">
   <div class="container max-w-[1400px] mx-auto px-md">
-    <div class="flex justify-between items-center gap-lg md:flex-col md:gap-sm">
+    <div class="flex justify-between items-center gap-lg md:gap-sm border-b-2 border-dar pb-md">
       <div>
-        <a href="/" class="text-xl font-bold text-dark no-underline">{{ site.title }}</a>
+        <a href="/" class="text-xl text-dark no-underline">{{ site.title }}</a>
       </div>
 
       <nav aria-label="Main navigation">
@@ -10,7 +10,7 @@
           {% for item in site.main_navigation %}
             <li>
               <a href="{{ item.url }}"
-                 class="text-dark no-underline px-sm py-xs transition-fast hover:text-rb-blue focus:text-rb-blue {% if page.url == item.url %}font-bold text-rb-blue{% endif %}"
+                 class="text-dark no-underline px-sm last:pl-0 py-xs transition-fast hover:text-rb-blue focus:text-rb-blue {% if page.url == item.url %} text-rb-blue{% endif %}"
                  {% if page.url == item.url %}aria-current="page"{% endif %}>
                 {{ item.name }}
               </a>

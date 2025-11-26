@@ -27,5 +27,7 @@ module.exports = {
     'text-rb-blue',
     'text-dark',
     'border-dark',
+    // Gap utilities
+    'gap-xl',
   ],
 };

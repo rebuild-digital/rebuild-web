@@ -1,26 +1,28 @@
-<footer class="text-dark py-xl mt-2xl">
-  <div class="max-w-[1400px] mx-auto px-md">
-    <div class="flex justify-between items-center gap-lg md:flex-col md:text-center md:gap-md">
-      <div>
-        <p class="text-dark">&copy; 2025 {{ site.title }}. All rights reserved.</p>
+<footer class="max-w-[800px] lg:max-w-[1400px] mx-auto px-md mt-3xl">
+  <div class="border-t-2 border-dark mx-auto pt-md">
+    <div class="flex justify-between">
+      <div class="flex flex-col">
+        <p class="text-xl"> {{ site.title }}</p>
+        <p class="text-sm max-w-7xl"> {{site.description }}</p>
+        <p class="text-dark text-xs mt-lg">&copy; 2025 {{ site.title }} All rights reserved.</p>
       </div>
-
-      <nav aria-label="Footer navigation">
-        <ul class="flex gap-md list-none md:flex-wrap md:justify-center md:gap-sm">
+      <nav class="flex text-sm flex-row gap-xl" aria-label="Footer Navigation">
+        <ul class="flex flex-col gap-md list-none md:flex-wrap md:justify-top md:gap-sm">
           {% for item in site.main_navigation %}
             <li>
               <a href="{{ item.url }}" class="text-dark hover:underline transition-fast hover:text-rb-blue focus:text-rb-blue">{{ item.name }}</a>
             </li>
           {% endfor %}
         </ul>
-        <ul class="flex gap-md list-none md:flex-wrap md:justify-center md:gap-sm">
+        <ul class="flex flex-col gap-md list-none md:flex-wrap md:justify-top md:gap-sm">
           {% for item in site.second_navigation %}
             <li>
-              <a href="{{ item.url }}" class="text-dark hover:underline transition-fast hover:text-rb-blue focus:text-rb-blue">{{ item.name }}</a>
+              <a href="{{ item.url }}" class="hover:underline transition-fast hover:text-rb-blue focus:text-rb-blue">{{ item.name }}</a>
             </li>
           {% endfor %}
         </ul>
       </nav>
+      </div>
     </div>
   </div>
 </footer>

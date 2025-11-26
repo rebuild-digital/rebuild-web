@@ -47,6 +47,22 @@
   --spacing-8xl: 24rem;    /* 384px */
   --spacing-9xl: 32rem;    /* 512px */
 
+  /* Max-width scale using spacing values */
+  --max-width-xxs: var(--spacing-xxs);
+  --max-width-xs: var(--spacing-xs);
+  --max-width-sm: var(--spacing-sm);
+  --max-width-md: var(--spacing-md);
+  --max-width-lg: var(--spacing-lg);
+  --max-width-xl: var(--spacing-xl);
+  --max-width-2xl: var(--spacing-2xl);
+  --max-width-3xl: var(--spacing-3xl);
+  --max-width-4xl: var(--spacing-4xl);
+  --max-width-5xl: var(--spacing-5xl);
+  --max-width-6xl: var(--spacing-6xl);
+  --max-width-7xl: var(--spacing-7xl);
+  --max-width-8xl: var(--spacing-8xl);
+  --max-width-9xl: var(--spacing-9xl);
+
   /* ===========================================
      TYPOGRAPHY
      =========================================== */
@@ -233,12 +249,10 @@
   /* Links */
   a {
     @apply transition-fast;
-    @apply text-rb-blue;
-    @apply underline;
   }
 
   a:focus-visible {
-    @apply outline outline-2 outline-rb-blue outline-offset-2;
+    @apply outline-2 outline-rb-blue outline-offset-2;
   }
 
   /* Images */
@@ -371,7 +385,7 @@
   }
 
   .rich-text code {
-    @apply text-off-white px-[6px] py-[2px] rounded-sm;
+    @apply text-off-white px-1.5 py-0.5 rounded-sm;
     font-size: 0.9em;
   }
 
