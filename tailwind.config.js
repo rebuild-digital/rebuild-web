@@ -32,9 +32,12 @@ module.exports = {
           DEFAULT: '#6E160C',
         },
         // Neutrals
-        'rb-white': '#F5F5F5',
-        'rb-gray': '#D9D9D9',  
-        'rb-dark': '1A1A1A'
+        'off-white': '#F5F5F5',
+        'gray': '#D9D9D9',  
+        'dark': {
+          DEFAULT: '1A1A1A',
+          'tint-2': '1A1A1A'
+        },
         },
       },
       fontFamily: {

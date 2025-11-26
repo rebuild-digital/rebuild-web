@@ -19,12 +19,12 @@
   /* Links */
   a {
     @apply transition-fast;
-    @apply text-blue;
+    @apply text-rb-blue;
     @apply underline;
   }
 
   a:focus-visible {
-    @apply outline outline-2 outline-blue outline-offset-2;
+    @apply outline outline-2 outline-rb-blue outline-offset-2;
   }
 
   /* Images */
@@ -120,12 +120,12 @@
   }
 
   .btn:focus-visible {
-    @apply outline outline-2 outline-blue outline-offset-2;
+    @apply outline outline-2 outline-rb-blue outline-offset-2;
   }
 
   /* Button Variants */
   .btn-primary {
-    @apply bg-blue text-off-white hover:bg-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A];
+    @apply bg-rb-blue text-off-white hover:bg-rb-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A];
   }
 
   .btn-secondary {
@@ -133,7 +133,7 @@
   }
 
   .btn-outline {
-    @apply bg-transparent text-dark hover:bg-dark hover:text-off-white;
+    @apply bg-transparent text-dark hover:bg-dark hover:text-rb-white;
   }
 
   /* Button Sizes */
@@ -151,7 +151,7 @@
 
   /* Card Component */
   .card {
-    @apply bg-off-white border-2 border-dark rounded-md overflow-hidden transition-all duration-base hover:-translate-y-1 hover:shadow-[4px_4px_0_#1A1A1A];
+    @apply bg-off-white border-2 border-dark rounded-md overflow-hidden transition-all duration-base hover:shadow-[4px_4px_0_#1A1A1A];
   }
 
   .card-image img {
@@ -167,11 +167,11 @@
   }
 
   .card-title a {
-    @apply text-dark no-underline hover:text-blue;
+    @apply text-dark no-underline hover:text-rb-blue;
   }
 
   .card-description {
-    @apply text-dark-tint-2 mb-md;
+    @apply text-dark mb-md;
   }
 
   .card-tags {
@@ -179,7 +179,7 @@
   }
 
   .tag {
-    @apply inline-block px-sm py-xs bg-yellow border border-dark rounded-sm text-sm font-semibold;
+    @apply inline-block px-sm py-xs bg-rb-yellow border border-dark rounded-sm text-sm font-semibold;
   }
 
   /* Header Component */
@@ -202,7 +202,7 @@
   }
 
   .main-nav ul {
-    @apply flex gap-md list-none m-0 p-0;
+    @apply flex gap-md list-none;
   }
 
   @media (max-width: 768px) {
@@ -212,11 +212,11 @@
   }
 
   .main-nav a {
-    @apply text-dark no-underline px-sm py-xs transition-fast hover:text-blue focus:text-blue;
+    @apply text-dark no-underline px-sm py-xs transition-fast hover:text-rb-blue focus:text-rb-blue;
   }
 
   .main-nav a[aria-current="page"] {
-    @apply font-bold text-blue;
+    @apply font-bold text-rb-blue;
   }
 
   /* Footer Component */
@@ -234,12 +234,8 @@
     }
   }
 
-  .footer-info p {
-    @apply m-0;
-  }
-
   .footer-nav ul {
-    @apply flex gap-md list-none m-0 p-0;
+    @apply flex gap-md list-none;
   }
 
   @media (max-width: 768px) {
@@ -249,7 +245,7 @@
   }
 
   .footer-nav a {
-    @apply text-off-white no-underline transition-fast hover:text-yellow focus:text-yellow;
+    @apply text-off-white no-underline transition-fast hover:text-rb-yellow focus:text-rb-yellow;
   }
 
   /* Countdown Component */
@@ -276,7 +272,7 @@
   }
 
   .countdown-value {
-    @apply text-4xl font-bold text-blue leading-none;
+    @apply text-4xl font-bold text-rb-blue leading-none;
   }
 
   @media (max-width: 768px) {
@@ -286,7 +282,7 @@
   }
 
   .countdown-label {
-    @apply text-sm text-dark-tint-2 uppercase tracking-wide mt-xs;
+    @apply text-sm text-gray uppercase tracking-wide mt-xs;
   }
 
   /* Rich Text Component */
@@ -314,7 +310,7 @@
   }
 
   .rich-text a {
-    @apply text-blue underline hover:text-blue-shade;
+    @apply text-rb-blue underline hover:text-rb-blue-shade;
   }
 
   .rich-text img {
@@ -322,11 +318,11 @@
   }
 
   .rich-text blockquote {
-    @apply border-l-4 border-blue pl-md my-lg italic text-dark-tint-2;
+    @apply border-l-4 border-rb-blue pl-md my-lg italic text-dark-tint-2;
   }
 
   .rich-text code {
-    @apply bg-dark-tint-3 text-off-white px-[6px] py-[2px] rounded-sm;
+    @apply text-off-white px-[6px] py-[2px] rounded-sm;
     font-size: 0.9em;
   }
 
@@ -335,7 +331,7 @@
   }
 
   .rich-text pre code {
-    @apply bg-transparent p-0;
+    @apply bg-transparent;
   }
 
   /* Grid Utilities */
