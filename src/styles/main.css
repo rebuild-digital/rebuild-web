@@ -1,7 +1,221 @@
-/* Tailwind CSS */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* Theme Configuration */
+@theme {
+  /* ===========================================
+     COLORS
+     =========================================== */
+
+  /* Primary Colors */
+  --color-rb-red: #FF0000;
+  --color-rb-red-shade: #CC0000;
+  --color-rb-red-tint: #FF6666;
+
+  --color-rb-blue: #0000FF;
+  --color-rb-blue-shade: #0000CC;
+  --color-rb-blue-tint: #6666FF;
+
+  --color-rb-mint: #00FFD5;
+
+  /* Secondary Colors */
+  --color-rb-yellow: #FFFF00;
+  --color-rb-magenta: #F7F0DB;
+  --color-rb-brown: #6E160C;
+
+  /* Neutrals */
+  --color-off-white: #F5F5F5;
+  --color-gray: #D9D9D9;
+  --color-dark: #1A1A1A;
+
+  /* ===========================================
+     SPACING
+     =========================================== */
+
+  --spacing-xxs: 0.25rem;  /* 4px */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 1rem;      /* 16px */
+  --spacing-md: 1.5rem;    /* 24px */
+  --spacing-lg: 2rem;      /* 32px */
+  --spacing-xl: 3rem;      /* 48px */
+  --spacing-2xl: 4rem;     /* 64px */
+  --spacing-3xl: 6rem;     /* 96px */
+  --spacing-4xl: 8rem;     /* 128px */
+  --spacing-5xl: 12rem;    /* 192px */
+  --spacing-6xl: 16rem;    /* 256px */
+  --spacing-7xl: 20rem;    /* 320px */
+  --spacing-8xl: 24rem;    /* 384px */
+  --spacing-9xl: 32rem;    /* 512px */
+
+  /* ===========================================
+     TYPOGRAPHY
+     =========================================== */
+
+  /* Font Families */
+  --font-custom: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+  --font-size-6xl: 3.75rem;     /* 60px */
+  --font-size-7xl: 4.5rem;      /* 72px */
+  --font-size-8xl: 6rem;        /* 96px */
+  --font-size-9xl: 8rem;        /* 128px */
+
+  /* Font Weights */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  /* Line Heights */
+  --line-height-none: 1;
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+
+  /* Letter Spacing */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  /* ===========================================
+     BORDER RADIUS
+     =========================================== */
+
+  --radius-none: 0px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+
+  /* ===========================================
+     BORDERS
+     =========================================== */
+
+  --border-width-0: 0px;
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+  --border-width-4: 4px;
+  --border-width-8: 8px;
+
+  /* ===========================================
+     SHADOWS
+     =========================================== */
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --shadow-none: 0 0 #0000;
+
+  /* ===========================================
+     TRANSITIONS
+     =========================================== */
+
+  --transition-duration-fast: 150ms;
+  --transition-duration-base: 250ms;
+  --transition-duration-slow: 350ms;
+  --transition-duration-slower: 500ms;
+
+  /* Timing Functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ===========================================
+     Z-INDEX
+     =========================================== */
+
+  --z-0: 0;
+  --z-10: 10;
+  --z-20: 20;
+  --z-30: 30;
+  --z-40: 40;
+  --z-50: 50;
+  --z-auto: auto;
+
+  /* ===========================================
+     BREAKPOINTS
+     =========================================== */
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* ===========================================
+     CONTAINER
+     =========================================== */
+
+  --container-max-width: 1200px;
+  --container-padding: 1.5rem;
+
+  /* ===========================================
+     OPACITY
+     =========================================== */
+
+  --opacity-0: 0;
+  --opacity-5: 0.05;
+  --opacity-10: 0.1;
+  --opacity-20: 0.2;
+  --opacity-25: 0.25;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-75: 0.75;
+  --opacity-80: 0.8;
+  --opacity-90: 0.9;
+  --opacity-95: 0.95;
+  --opacity-100: 1;
+}
+
+/* Custom Transition Utilities */
+@utility transition-fast {
+  transition-duration: var(--transition-duration-fast);
+}
+
+@utility transition-base {
+  transition-duration: var(--transition-duration-base);
+}
+
+@utility transition-slow {
+  transition-duration: var(--transition-duration-slow);
+}
+
+@utility transition-slower {
+  transition-duration: var(--transition-duration-slower);
+}
 
 /* Base Layer - Global styles and resets */
 @layer base {
@@ -105,187 +319,7 @@
 
 /* Components Layer - Reusable component patterns */
 @layer components {
-  /* Container variants */
-  .container-narrow {
-    @apply max-w-[800px] mx-auto px-md;
-  }
-
-  .container-wide {
-    @apply max-w-[1400px] mx-auto px-md;
-  }
-
-  /* Button Base Styles */
-  .btn {
-    @apply inline-block text-center no-underline font-bold border-2 border-dark rounded-md cursor-pointer transition-all duration-fast;
-  }
-
-  .btn:focus-visible {
-    @apply outline outline-2 outline-rb-blue outline-offset-2;
-  }
-
-  /* Button Variants */
-  .btn-primary {
-    @apply bg-rb-blue text-off-white hover:bg-rb-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A];
-  }
-
-  .btn-secondary {
-    @apply bg-red text-off-white hover:bg-red-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A];
-  }
-
-  .btn-outline {
-    @apply bg-transparent text-dark hover:bg-dark hover:text-rb-white;
-  }
-
-  /* Button Sizes */
-  .btn-small {
-    @apply px-sm py-xs text-sm;
-  }
-
-  .btn-medium {
-    @apply px-md py-sm text-base;
-  }
-
-  .btn-large {
-    @apply px-lg py-md text-lg;
-  }
-
-  /* Card Component */
-  .card {
-    @apply bg-off-white border-2 border-dark rounded-md overflow-hidden transition-all duration-base hover:shadow-[4px_4px_0_#1A1A1A];
-  }
-
-  .card-image img {
-    @apply w-full h-[200px] object-cover;
-  }
-
-  .card-content {
-    @apply p-md;
-  }
-
-  .card-title {
-    @apply text-lg mb-sm;
-  }
-
-  .card-title a {
-    @apply text-dark no-underline hover:text-rb-blue;
-  }
-
-  .card-description {
-    @apply text-dark mb-md;
-  }
-
-  .card-tags {
-    @apply flex gap-xs flex-wrap;
-  }
-
-  .tag {
-    @apply inline-block px-sm py-xs bg-rb-yellow border border-dark rounded-sm text-sm font-semibold;
-  }
-
-  /* Header Component */
-  .site-header {
-    @apply py-md border-b-2 border-dark;
-  }
-
-  .header-content {
-    @apply flex justify-between items-center gap-lg;
-  }
-
-  @media (max-width: 768px) {
-    .header-content {
-      @apply flex-col gap-sm;
-    }
-  }
-
-  .logo a {
-    @apply text-xl font-bold text-dark no-underline;
-  }
-
-  .main-nav ul {
-    @apply flex gap-md list-none;
-  }
-
-  @media (max-width: 768px) {
-    .main-nav ul {
-      @apply flex-wrap justify-center gap-sm;
-    }
-  }
-
-  .main-nav a {
-    @apply text-dark no-underline px-sm py-xs transition-fast hover:text-rb-blue focus:text-rb-blue;
-  }
-
-  .main-nav a[aria-current="page"] {
-    @apply font-bold text-rb-blue;
-  }
-
-  /* Footer Component */
-  .site-footer {
-    @apply text-dark py-xl mt-2xl;
-  }
-
-  .footer-content {
-    @apply flex justify-between items-center gap-lg;
-  }
-
-  @media (max-width: 768px) {
-    .footer-content {
-      @apply flex-col text-center gap-md;
-    }
-  }
-
-  .footer-nav ul {
-    @apply flex gap-md list-none;
-  }
-
-  @media (max-width: 768px) {
-    .footer-nav ul {
-      @apply flex-wrap justify-center gap-sm;
-    }
-  }
-
-  .footer-nav a {
-    @apply text-off-white no-underline transition-fast hover:text-rb-yellow focus:text-rb-yellow;
-  }
-
-  /* Countdown Component */
-  .countdown {
-    @apply text-center p-lg bg-off-white border-2 border-dark rounded-md;
-  }
-
-  .countdown-title {
-    @apply mb-md text-xl;
-  }
-
-  .countdown-display {
-    @apply flex justify-center gap-lg flex-wrap;
-  }
-
-  .countdown-item {
-    @apply flex flex-col items-center min-w-[80px];
-  }
-
-  @media (max-width: 768px) {
-    .countdown-item {
-      @apply min-w-[60px];
-    }
-  }
-
-  .countdown-value {
-    @apply text-4xl font-bold text-rb-blue leading-none;
-  }
-
-  @media (max-width: 768px) {
-    .countdown-value {
-      @apply text-3xl;
-    }
-  }
-
-  .countdown-label {
-    @apply text-sm text-gray uppercase tracking-wide mt-xs;
-  }
-
-  /* Rich Text Component */
+  /* Rich Text Component - Keep this as a semantic wrapper for markdown content */
   .rich-text {
     line-height: 1.7;
   }
@@ -318,7 +352,7 @@
   }
 
   .rich-text blockquote {
-    @apply border-l-4 border-rb-blue pl-md my-lg italic text-dark-tint-2;
+    @apply border-l-4 border-rb-blue pl-md my-lg italic text-dark;
   }
 
   .rich-text code {
@@ -332,30 +366,5 @@
 
   .rich-text pre code {
     @apply bg-transparent;
-  }
-
-  /* Grid Utilities */
-  .grid-2 {
-    @apply grid grid-cols-2 gap-md;
-  }
-
-  .grid-3 {
-    @apply grid grid-cols-3 gap-md;
-  }
-
-  .grid-4 {
-    @apply grid grid-cols-4 gap-md;
-  }
-
-  .grid-5 {
-    @apply grid grid-cols-5 gap-md;
-  }
-
-  @media (max-width: 768px) {
-    .grid-2,
-    .grid-3,
-    .grid-4 {
-      @apply grid-cols-1;
-    }
   }
 }

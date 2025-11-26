@@ -1,15 +1,15 @@
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-content">
-      <div class="footer-info">
+<footer class="text-dark py-xl mt-2xl">
+  <div class="max-w-[1400px] mx-auto px-md">
+    <div class="flex justify-between items-center gap-lg md:flex-col md:text-center md:gap-md">
+      <div>
         <p>&copy; 2025 {{ site.title }}. All rights reserved.</p>
       </div>
 
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <ul>
+      <nav aria-label="Footer navigation">
+        <ul class="flex gap-md list-none md:flex-wrap md:justify-center md:gap-sm">
           {% for item in site.navigation %}
             <li>
-              <a href="{{ item.url }}">{{ item.name }}</a>
+              <a href="{{ item.url }}" class="text-off-white no-underline transition-fast hover:text-rb-yellow focus:text-rb-yellow">{{ item.name }}</a>
             </li>
           {% endfor %}
         </ul>

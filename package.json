@@ -2,6 +2,7 @@
   "dependencies": {
     "@11ty/eleventy": "^3.1.2",
     "@notionhq/client": "^5.4.0",
+    "@tailwindcss/postcss": "^4.0.0",
     "dotenv": "^17.2.3"
   },
   "name": "rebuild-web",
@@ -9,10 +10,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "eleventy --serve --watch",
-    "build": "NODE_ENV=production eleventy && npm run minify",
-    "minify": "npm run minify:css && npm run minify:js",
-    "minify:css": "postcss dist/**/*.css --replace --use cssnano",
+    "dev": "npm run dev:css & eleventy --serve --watch",
+    "dev:css": "tailwindcss -i ./src/styles/main.css -o ./dist/styles/main.css --watch",
+    "build": "npm run build:eleventy && npm run build:css && npm run minify",
+    "build:eleventy": "NODE_ENV=production eleventy",
+    "build:css": "tailwindcss -i ./src/styles/main.css -o ./dist/styles/main.css --minify",
+    "minify": "npm run minify:js",
     "minify:js": "terser dist/**/*.js --compress --mangle -o dist/bundle.min.js",
     "serve": "eleventy --serve",
     "clean": "rm -rf dist .cache"
@@ -28,12 +31,12 @@
     "@11ty/eleventy-img": "^6.0.4",
     "@11ty/eleventy-plugin-rss": "^2.0.4",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+    "@tailwindcss/cli": "^4.1.17",
     "autoprefixer": "^10.4.22",
     "cssnano": "^7.1.2",
-    "eleventy-plugin-postcss": "^3.0.1",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
-    "tailwindcss": "^3.4.18",
+    "tailwindcss": "^4.1.17",
     "terser": "^5.44.1"
   }
 }

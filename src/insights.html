@@ -7,7 +7,7 @@ permalink: /insights/index.html
 
 <div class="">
   {% if collections.journal and collections.journal.length > 0 %}
-    <div class="grid-3">
+    <div class="grid grid-cols-3 gap-md md:grid-cols-1">
       {% for post in collections.journal %}
         {% set title = post.data.title %}
         {% set description = post.data.excerpt %}

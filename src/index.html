@@ -5,23 +5,23 @@ description: Building a better future together
 ---
 
 <section class="hero pt-2xl pb-2xl">
-  <div class="container">
+  <div class="">
     <h1 class="text-center mb-lg">Welcome to Rebuild</h1>
-    <div class="rich-text text-center container-narrow">
+    <div class="rich-text text-center">
       <p>We're building a community of makers, creators, and innovators working together to shape a better future.</p>
     </div>
   </div>
 </section>
 
 <section class="approach pb-xl">
-  <div class="container-narrow">
+  <div class="">
     <h2>Our Approach</h2>
     <p>Through collaboration, shared learning, and collective action, we're reimagining how we build together.</p>
   </div>
 </section>
 
 <section class="featured-builders pb-xl">
-  <div class="container">
+  <div class="">
     <h2 class="mb-lg">Featured Builders</h2>
 
     {% if builders and builders.length > 0 %}
@@ -49,11 +49,11 @@ description: Building a better future together
 </section>
 
 <section class="featured-journal pb-xl">
-  <div class="container">
+  <div class="pl-3">
     <h2 class="mb-lg">Recent Journal Entries</h2>
 
     {% if collections.journal and collections.journal.length > 0 %}
-      <div class="grid-3">
+      <div class="grid grid-cols-3 gap-md">
         {% for post in collections.journal | limit(3) %}
           {% set title = post.data.title %}
           {% set description = post.data.excerpt %}
@@ -76,7 +76,7 @@ description: Building a better future together
 </section>
 
 <section class="next-event pb-2xl">
-  <div class="container-narrow">
+  <div class="">
     <h2 class="mb-lg text-center">Next Gathering</h2>
 
     {% set nextEvent = events.events[0] %}

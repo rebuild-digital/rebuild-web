@@ -9,13 +9,13 @@ permalink: /gatherings/index.html
   <div class="container">
     <header class="mb-xl text-center">
       <h1>{{ title }}</h1>
-      <div class="rich-text container-narrow">
+      <div class="rich-text max-w-[800px] mx-auto px-md">
         <p>{{ description }}</p>
       </div>
     </header>
 
     {% if events.events and events.events.length > 0 %}
-      <div class="events-list container-narrow">
+      <div class="max-w-[800px] mx-auto px-md">
         {% for event in events.events %}
           <article class="event-card mb-xl">
             <header class="mb-md">

@@ -1,15 +1,17 @@
-<header class="site-header">
-  <div class="container">
-    <div class="header-content">
-      <div class="logo">
-        <a href="/">{{ site.title }}</a>
+<header class="py-md border-b-2 border-dark">
+  <div class="max-w-[1400px] mx-auto px-md">
+    <div class="flex justify-between items-center gap-lg md:flex-col md:gap-sm">
+      <div>
+        <a href="/" class="text-xl font-bold text-dark no-underline">{{ site.title }}</a>
       </div>
 
-      <nav class="main-nav" aria-label="Main navigation">
-        <ul>
+      <nav aria-label="Main navigation">
+        <ul class="flex gap-md list-none md:flex-wrap md:justify-center md:gap-sm">
           {% for item in site.navigation %}
             <li>
-              <a href="{{ item.url }}" {% if page.url == item.url %}aria-current="page"{% endif %}>
+              <a href="{{ item.url }}"
+                 class="text-dark no-underline px-sm py-xs transition-fast hover:text-rb-blue focus:text-rb-blue {% if page.url == item.url %}font-bold text-rb-blue{% endif %}"
+                 {% if page.url == item.url %}aria-current="page"{% endif %}>
                 {{ item.name }}
               </a>
             </li>

@@ -27,7 +27,7 @@ There are many ways to participate in Rebuild:
 2. **Share your work**: Contribute to our journal with stories and insights
 3. **Become a builder**: Apply to join our community of active contributors
 
-## What's Next 
+## What's Next
 
 Over the coming months, we'll be hosting gatherings across Europe, publishing stories from our community, and launching collaborative projects. Stay tuned for updates!
 

@@ -32,13 +32,13 @@
   {# Block for additional head content #}
   {% block head %}{% endblock %}
 </head>
-<body>
+<body class="bg-gray">
 
   {# Header #}
   {% include "components/header.njk" %}
 
   {# Main content #}
-  <main id="main-content" class="bb-rb-gray">
+  <main id="main-content" class="max-w-[800px] lg:max-w-[1400px] mx-auto px-md">
     {{ content | safe }}
   </main>
 

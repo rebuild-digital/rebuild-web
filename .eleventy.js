@@ -8,9 +8,7 @@ module.exports = async function(eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight); // Code syntax highlighting
   eleventyConfig.addPlugin(rss); // RSS feed generation
 
-  // PostCSS plugin (ES module)
-  const postcss = await import("eleventy-plugin-postcss");
-  eleventyConfig.addPlugin(postcss.default); // PostCSS processing for Tailwind
+  // Note: CSS is processed separately by Tailwind CLI, not copied here
 
   // Collections
   eleventyConfig.addCollection("journal", collection => {

@@ -10,18 +10,18 @@
   - tags: Array of tags (optional)
 #}
 
-<article class="card">
+<article class="bg-off-white border-2 border-dark rounded-md overflow-hidden transition-all duration-base hover:shadow-[4px_4px_0_#1A1A1A]">
   {% if image %}
-    <div class="card-image">
-      <img src="{{ image }}" alt="{{ title }}" loading="lazy">
+    <div>
+      <img src="{{ image }}" alt="{{ title }}" loading="lazy" class="w-full h-[200px] object-cover">
     </div>
   {% endif %}
 
-  <div class="card-content">
+  <div class="p-md">
     {% if title %}
-      <h3 class="card-title">
+      <h3 class="text-lg mb-sm">
         {% if link %}
-          <a href="{{ link }}">{{ title }}</a>
+          <a href="{{ link }}" class="text-dark no-underline hover:text-rb-blue">{{ title }}</a>
         {% else %}
           {{ title }}
         {% endif %}
@@ -29,13 +29,13 @@
     {% endif %}
 
     {% if description %}
-      <p class="card-description">{{ description }}</p>
+      <p class="text-dark mb-md">{{ description }}</p>
     {% endif %}
 
     {% if tags and tags.length > 0 %}
-      <div class="card-tags">
+      <div class="flex gap-xs flex-wrap">
         {% for tag in tags %}
-          <span class="tag">{{ tag }}</span>
+          <span class="inline-block px-sm py-xs bg-rb-yellow border border-dark rounded-sm text-sm font-semibold">{{ tag }}</span>
         {% endfor %}
       </div>
     {% endif %}

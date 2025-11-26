@@ -9,13 +9,13 @@ permalink: /catalog/index.html
   <div class="container">
     <header class="mb-xl text-center">
       <h1>{{ title }}</h1>
-      <div class="rich-text container-narrow">
+      <div class="rich-text max-w-[800px] mx-auto px-md">
         <p>{{ description }}</p>
       </div>
     </header>
 
     {% if builders and builders.length > 0 %}
-      <div class="grid-3">
+      <div class="grid grid-cols-3 gap-md md:grid-cols-1">
         {% for builder in builders %}
           {% set title = builder.name %}
           {% set description = builder.description %}
