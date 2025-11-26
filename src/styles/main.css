@@ -319,6 +319,21 @@
 
 /* Components Layer - Reusable component patterns */
 @layer components {
+  /* Filter Button Component */
+  .filter-button {
+    @apply inline-block px-md py-xs bg-off-white border-2 border-dark text-sm font-semibold transition-all duration-fast;
+    @apply hover:bg-dark hover:text-off-white;
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rb-blue;
+  }
+
+  .filter-button.active {
+    @apply bg-rb-blue text-off-white border-rb-blue;
+  }
+
+  .filter-button.active:hover {
+    @apply bg-rb-blue-shade border-rb-blue-shade;
+  }
+
   /* Rich Text Component - Keep this as a semantic wrapper for markdown content */
   .rich-text {
     line-height: 1.7;

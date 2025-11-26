@@ -1,42 +1,58 @@
 module.exports = {
   title: "rebuild.",
   description: "Building a better future together",
-  url: process.env.SITE_URL || "https:/rebuild.net",
+  url: process.env.SITE_URL || "https:/www.rebuild.net",
   defaultImage: "/assets/images/default-og-image.jpg",
-  author: "Rebuild Initiative",
+  author: "rebuild team",
   language: "en",
 
   // Navigation
-  navigation: [
+  main_navigation: [
     {
       name: "Home",
-      url: "/"
+      url: "/",
     },
     {
       name: "Insights",
-      url: "/insights/"
+      url: "/insights/",
     },
     {
       name: "Catalog",
-      url: "/catalog/"
+      url: "/catalog/",
     },
     {
       name: "Gatherings",
-      url: "/gatherings/"
+      url: "/gatherings/",
     },
     {
       name: "Journey",
-      url: "/journey/"
+      url: "/journey/",
     },
     {
       name: "Get in toch",
-      url: "/get-in-touch/"
-    }
+      url: "/get-in-touch/",
+    },
+  ],
+
+  // Second navigation
+  second_navigation: [
+    {
+      name: "Team",
+      url: "/team/",
+    },
+    {
+      name: "Changelog",
+      url: "/changelog/",
+    },
+    {
+      name: "Privacy",
+      url: "/privacy/",
+    },
   ],
 
   // Social links (optional)
   social: {
     // twitter: "https://twitter.com/rebuild",
     // linkedin: "https://linkedin.com/company/rebuild",
-  }
+  },
 };

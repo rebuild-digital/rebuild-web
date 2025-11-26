@@ -7,7 +7,7 @@ tags:
   - Builder Notes
   - Visions
 excerpt: "From the founder of the most entrusted social platform for activists..."
-featured: true
+featured: false
 ---
 
 Story and inter view here...

@@ -22,6 +22,17 @@ module.exports = async function(eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  eleventyConfig.addCollection("insights", collection => {
+    return collection.getFilteredByGlob("src/insights/**/*.md")
+      .sort((a, b) => b.date - a.date);
+  });
+
+  eleventyConfig.addCollection("featuredInsights", collection => {
+    return collection.getFilteredByGlob("src/insights/**/*.md")
+      .filter(post => post.data.featured === true)
+      .sort((a, b) => b.date - a.date);
+  });
+
   // Filters
   eleventyConfig.addFilter("dateFormat", (date) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };

@@ -5,21 +5,93 @@ description: Stories, insights, and reflections from our community of builders
 permalink: /insights/index.html
 ---
 
-<div class="">
-  {% if collections.journal and collections.journal.length > 0 %}
-    <div class="grid grid-cols-3 gap-md md:grid-cols-1">
-      {% for post in collections.journal %}
-        {% set title = post.data.title %}
-        {% set description = post.data.excerpt %}
-        {% set link = post.url %}
-        {% set tags = post.data.tags %}
-        {% set image = post.data.featured_image %}
-        {% include "components/card.njk" %}
+{% if collections.insights and collections.insights.length > 0 %}
+  {# Extract all unique tags from insights #}
+  {% set allTags = [] %}
+  {% for post in collections.insights %}
+    {% if post.data.tags %}
+      {% for tag in post.data.tags %}
+        {% if tag not in allTags %}
+          {% set allTags = (allTags.push(tag), allTags) %}
+        {% endif %}
       {% endfor %}
+    {% endif %}
+  {% endfor %}
+
+  {# Filter and Sort Controls #}
+  <div class="flex justify-between mb-xl border-b-2 border-dark">
+    {# Sort Controls #}
+    <div class="mb-sm">
+      <h3 class="text-base font-semibold mb-sm">Sort by:</h3>
+      <div class="flex gap-xs flex-wrap">
+        <button
+          data-sort="recency"
+          class="filter-button active"
+          aria-label="Sort by recency">
+          Recency
+        </button>
+        <button
+          data-sort="alphabetical"
+          class="filter-button"
+          aria-label="Sort alphabetically">
+          Alphabetical
+        </button>
+      </div>
     </div>
-  {% else %}
-    <div class="rich-text">
-      <p>No journal entries yet. Create some in the src/journal/ directory!</p>
-    </div>
-  {% endif %}
-</div>
+
+    {# Tag Filter Controls #}
+    {% if allTags.length > 0 %}
+      <div>
+        <h3 class="text-sm font-semibold mb-sm">Filter by tag:</h3>
+        <div class="flex gap-xs flex-wrap">
+          {% for tag in allTags %}
+            <button
+              data-tag-filter="{{ tag }}"
+              class="filter-button"
+              aria-label="Filter by {{ tag }}">
+              {{ tag }}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {# Cards Grid #}
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-sm md:gap-md"
+    data-insights-grid>
+    {% for post in collections.insights %}
+      {% set title = post.data.title %}
+      {% set description = post.data.excerpt %}
+      {% set link = post.url %}
+      {% set tags = post.data.tags %}
+      {% set image = post.data.featured_image %}
+      {% set featured = post.data.featured %}
+      {% set date = post.data.date %}
+
+      {# Wrap card in a div with data attributes #}
+      <div
+        data-insight-card
+        data-title="{{ title }}"
+        data-date="{{ date }}"
+        data-featured="{{ featured or false }}"
+        data-tags="{% if tags %}{{ tags | join(',') }}{% endif %}">
+        {% include "components/card.njk" %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {# Empty State #}
+  <div data-empty-state style="display: none;" class="rich-text">
+    <p>No insights match your current filters. Try selecting different options.</p>
+  </div>
+
+  {# Include the filter script #}
+  <script src="/scripts/insights-filter.js"></script>
+
+{% else %}
+  <div class="rich-text">
+    <p>No insights yet. Create some in the src/insights/ directory!</p>
+  </div>
+{% endif %}

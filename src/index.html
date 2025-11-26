@@ -52,9 +52,9 @@ description: Building a better future together
   <div class="pl-3">
     <h2 class="mb-lg">Recent Journal Entries</h2>
 
-    {% if collections.journal and collections.journal.length > 0 %}
+    {% if collections.insights and collections.insights.length > 0 %}
       <div class="grid grid-cols-3 gap-md">
-        {% for post in collections.journal | limit(3) %}
+        {% for post in collections.insights | limit(3) %}
           {% set title = post.data.title %}
           {% set description = post.data.excerpt %}
           {% set link = post.url %}
@@ -68,14 +68,14 @@ description: Building a better future together
 
     <div class="text-center mt-lg">
       {% set text = "View All Entries" %}
-      {% set url = "/journal/" %}
+      {% set url = "/insights/" %}
       {% set variant = "secondary" %}
       {% include "components/buttons.njk" %}
     </div>
   </div>
 </section>
 
-<section class="next-event pb-2xl">
+<section class="pb-2xl">
   <div class="">
     <h2 class="mb-lg text-center">Next Gathering</h2>
 
