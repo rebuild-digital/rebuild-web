@@ -235,6 +235,12 @@
 
 /* Base Layer - Global styles and resets */
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   html {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
@@ -244,6 +250,14 @@
   body {
     @apply font-custom text-dark min-h-screen;
     line-height: 1.6;
+  }
+
+  /* Ensure form inputs don't overflow */
+  input,
+  textarea,
+  select {
+    box-sizing: border-box;
+    min-width: 0;
   }
 
   /* Links */

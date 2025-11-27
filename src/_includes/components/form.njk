@@ -30,7 +30,7 @@
 {% set submitBtnText = submitText | default('Submit') %}
 {% set submitBtnVariant = submitVariant | default('primary') %}
 
-<div class="form-wrapper">
+<div class="form-wrapper w-full max-w-full" style="width: 100%; max-width: 100%;">
   {% if title %}
     <h2 class="text-2xl mb-md">{{ title }}</h2>
   {% endif %}
@@ -43,7 +43,8 @@
     id="{{ formId }}"
     action="{{ action }}"
     method="{{ formMethod }}"
-    class="form bg-off-white border-2 border-dark p-lg"
+    class="form bg-off-white w-full max-w-full"
+    style="width: 100%; max-width: 100%;"
   >
     {% for field in fields %}
       {% if field.type == 'hidden' %}
@@ -80,14 +81,16 @@
               rows="{{ field.rows | default(4) }}"
               {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
               {% if field.required %}required{% endif %}
-              class="w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-rb-blue {{ field.class }}"
+              class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-rb-blue {{ field.class }}"
+              style="width: 100%; max-width: 100%;"
             ></textarea>
           {% elif field.type == 'select' %}
             <select
               id="{{ field.id | default(field.name) }}"
               name="{{ field.name }}"
               {% if field.required %}required{% endif %}
-              class="w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-rb-blue {{ field.class }}"
+              class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-rb-blue {{ field.class }}"
+              style="width: 100%; max-width: 100%;"
             >
               <option value="">{% if field.placeholder %}{{ field.placeholder }}{% else %}Select an option{% endif %}</option>
               {% for option in field.options %}
@@ -131,7 +134,8 @@
               name="{{ field.name }}"
               {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
               {% if field.required %}required{% endif %}
-              class="w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-rb-blue {{ field.class }}"
+              class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-rb-blue {{ field.class }}"
+              style="width: 100%; max-width: 100%;"
             >
           {% endif %}
 

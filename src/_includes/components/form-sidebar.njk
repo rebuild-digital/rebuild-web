@@ -10,20 +10,20 @@
 
 <aside
   id="form-sidebar"
-  class="fixed top-0 right-0 h-full w-full md:w-[500px] lg:w-[600px] bg-off-white border-l-2 border-dark transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto"
+  class="fixed top-0 right-0 h-full w-full md:w-[500px] lg:w-[600px] bg-off-white md:border-l-2 border-dark transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto overflow-x-hidden"
 >
-  <div class="p-lg">
+  <div class="h-full p-md md:p-lg" style="width: 100%; max-width: 100vw;">
     {# Close button #}
     <button
       id="form-sidebar-close"
-      class="absolute top-md right-md text-2xl leading-none hover:text-rb-blue transition-colors"
+      class="absolute top-md right-md text-2xl leading-none hover:text-rb-blue transition-colors z-10"
       aria-label="Close"
     >
       &times;
     </button>
 
     {# Content container - will be populated dynamically #}
-    <div id="form-sidebar-content" class="mt-2xl">
+    <div id="form-sidebar-content" class="mt-2xl" style="width: 100%; max-width: 100%;">
       {# Forms will be loaded here dynamically #}
     </div>
   </div>

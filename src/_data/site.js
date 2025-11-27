@@ -49,10 +49,4 @@ module.exports = {
       url: "/privacy/",
     },
   ],
-
-  // Social links (optional)
-  social: {
-    // twitter: "https://twitter.com/rebuild",
-    // linkedin: "https://linkedin.com/company/rebuild",
-  },
 };
