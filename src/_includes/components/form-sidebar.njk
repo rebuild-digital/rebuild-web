@@ -1,0 +1,115 @@
+{#
+  Form Sidebar/Modal Component
+  Usage: Include this once in your layout, then use JavaScript to open it with forms
+
+  On desktop: Slides in from right, pushes content left
+  On mobile: Full-screen modal
+#}
+
+<div id="form-sidebar-overlay" class="hidden fixed inset-0 bg-dark bg-opacity-50 z-40 md:hidden transition-opacity duration-300"></div>
+
+<aside
+  id="form-sidebar"
+  class="fixed top-0 right-0 h-full w-full md:w-[500px] lg:w-[600px] bg-off-white border-l-2 border-dark transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto"
+>
+  <div class="p-lg">
+    {# Close button #}
+    <button
+      id="form-sidebar-close"
+      class="absolute top-md right-md text-2xl leading-none hover:text-rb-blue transition-colors"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+
+    {# Content container - will be populated dynamically #}
+    <div id="form-sidebar-content" class="mt-2xl">
+      {# Forms will be loaded here dynamically #}
+    </div>
+  </div>
+</aside>
+
+<script>
+  (function() {
+    const sidebar = document.getElementById('form-sidebar');
+    const overlay = document.getElementById('form-sidebar-overlay');
+    const closeBtn = document.getElementById('form-sidebar-close');
+    const content = document.getElementById('form-sidebar-content');
+    const body = document.body;
+
+    function openSidebar(formContent) {
+      // Set content
+      content.innerHTML = formContent;
+
+      // Show overlay on mobile
+      overlay.classList.remove('hidden');
+      setTimeout(() => overlay.style.opacity = '1', 10);
+
+      // Slide in sidebar
+      sidebar.classList.remove('translate-x-full');
+
+      // On desktop, push page content left
+      if (window.innerWidth >= 768) {
+        body.style.transition = 'transform 300ms ease-in-out';
+      }
+
+      // Prevent body scroll
+      body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      // Hide overlay
+      overlay.style.opacity = '0';
+      setTimeout(() => overlay.classList.add('hidden'), 300);
+
+      // Slide out sidebar
+      sidebar.classList.add('translate-x-full');
+
+      // Reset page position
+      body.style.transform = '';
+
+      // Restore body scroll
+      body.style.overflow = '';
+
+      // Clear content after animation
+      setTimeout(() => {
+        content.innerHTML = '';
+      }, 300);
+    }
+
+    // Close button click
+    closeBtn.addEventListener('click', closeSidebar);
+
+    // Overlay click (mobile)
+    overlay.addEventListener('click', closeSidebar);
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !sidebar.classList.contains('translate-x-full')) {
+        closeSidebar();
+      }
+    });
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (!sidebar.classList.contains('translate-x-full')) {
+          if (window.innerWidth >= 768) {
+            body.style.transform = 'translateX(-250px)';
+            overlay.classList.add('hidden');
+          } else {
+            body.style.transform = '';
+            overlay.classList.remove('hidden');
+            overlay.style.opacity = '1';
+          }
+        }
+      }, 250);
+    });
+
+    // Expose global function to open sidebar
+    window.openFormSidebar = openSidebar;
+    window.closeFormSidebar = closeSidebar;
+  })();
+</script>
