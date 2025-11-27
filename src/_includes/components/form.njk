@@ -32,7 +32,7 @@
 
 <div class="form-wrapper w-full max-w-full" style="width: 100%; max-width: 100%;">
   {% if title %}
-    <h2 class="text-2xl mb-md">{{ title }}</h2>
+    <h2 class="text-3xl mb-md">{{ title }}</h2>
   {% endif %}
 
   {% if description %}
@@ -148,7 +148,7 @@
     {% endfor %}
 
     {# Submit button #}
-    <div class="form-actions mt-lg">
+    <div class="form-actions mt-lg pb-lg">
       {% set baseClasses = "inline-block text-center no-underline font-bold border-2 border-dark cursor-pointer transition-all duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-rb-blue focus-visible:outline-offset-2" %}
 
       {% if submitBtnVariant == 'primary' %}

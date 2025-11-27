@@ -5,12 +5,74 @@
         <a href="/" class="text-xl text-dark no-underline">{{ site.title }}</a>
       </div>
 
-      <nav aria-label="Main navigation">
+      {# Desktop Navigation #}
+      <nav aria-label="Main navigation" class="hidden md:block">
         <ul class="flex gap-md list-none md:flex-wrap md:justify-center md:gap-sm">
           {% for item in site.main_navigation %}
             <li>
               <a href="{{ item.url }}"
                  class="text-dark no-underline px-sm last:pl-0 py-xs transition-fast hover:text-rb-blue focus:text-rb-blue {% if page.url == item.url %} text-rb-blue{% endif %}"
+                 {% if page.url == item.url %}aria-current="page"{% endif %}>
+                {{ item.name }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      {# Mobile Menu Button #}
+      <button
+        id="mobile-menu-toggle"
+        class="md:hidden text-dark flex items-center gap-xs text-lg font-normal bg-transparent border-none cursor-pointer p-0"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Toggle navigation menu">
+        <span id="menu-text">Menu</span>
+        <span id="menu-icon" class="text-2xl leading-none align-top pb-1" aria-hidden="true">+</span>
+      </button>
+    </div>
+  </div>
+
+  {# Mobile Menu Overlay #}
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 bg-gray z-50 hidden md:hidden"
+    aria-hidden="true">
+    <div class="container max-w-[1400px] mx-auto px-md py-lg">
+      {# Mobile Menu Header #}
+      <div class="flex justify-between items-center border-b-2 border-dark pb-md mb-lg">
+        <a href="/" class="text-xl text-dark no-underline">{{ site.title }}</a>
+        <button
+          id="mobile-menu-close"
+          class="text-dark flex items-center gap-xs text-lg font-normal bg-transparent border-none cursor-pointer p-0"
+          aria-label="Close navigation menu">
+          <span>Close</span>
+          <span class="text-2xl leading-none" aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      {# Mobile Navigation #}
+      <nav aria-label="Mobile navigation" class="mt-3xl">
+        <ul class="list-none flex flex-col gap-xl">
+          {% for item in site.main_navigation %}
+            <li>
+              <a href="{{ item.url }}"
+                 class="text-dark text-4xl no-underline block transition-fast hover:text-rb-blue focus:text-rb-blue {% if page.url == item.url %} text-rb-blue{% endif %}"
+                 {% if page.url == item.url %}aria-current="page"{% endif %}>
+                {{ item.name }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      {# Secondary Navigation in Mobile Menu #}
+      <nav aria-label="Secondary navigation" class="mt-2xl pt-lg border-b-2 border-dark pb-lg">
+        <ul class="list-none flex gap-lg flex-wrap">
+          {% for item in site.second_navigation %}
+            <li>
+              <a href="{{ item.url }}"
+                 class="text-dark text-xl no-underline transition-fast hover:text-rb-blue focus:text-rb-blue {% if page.url == item.url %} text-rb-blue{% endif %}"
                  {% if page.url == item.url %}aria-current="page"{% endif %}>
                 {{ item.name }}
               </a>
