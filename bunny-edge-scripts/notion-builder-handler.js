@@ -5,12 +5,65 @@
  * and forwards them to a Notion database.
  *
  * Setup:
- * 1. Deploy this as a Bunny Edge Script
- * 2. Configure the routes:
- *    - POST /api/builder-promotion
- *    - POST /api/builder-application
- * 3. Set environment variables for Notion API
- * 4. Create a Notion database with the appropriate properties
+ *
+ * 1. Create a Notion Integration and Database:
+ *    a. Go to https://www.notion.so/my-integrations
+ *    b. Click "+ New integration" and give it a name (e.g., "Builder Forms")
+ *    c. Copy the "Internal Integration Token" (starts with "secret_")
+ *    d. Create a new database in Notion with these properties:
+ *       - Name (Title)
+ *       - Type (Select: "Promotion", "Standard Application", "Featured Application")
+ *       - Website (URL)
+ *       - Email (Email)
+ *       - Phone (Phone)
+ *       - Category (Select)
+ *       - Location (Select)
+ *       - Description (Text)
+ *       - Impact (Text)
+ *       - Stage (Select)
+ *       - Team Size (Text)
+ *       - Newsletter (Checkbox)
+ *       - Submitted By (Text)
+ *       - Relationship (Text)
+ *       - Why Featured (Text)
+ *       - Social Media (URL)
+ *       - Status (Select: "New", "Reviewing", "Approved", "Rejected")
+ *       - Submitted At (Date)
+ *    e. Click "..." on your database → "Add connections" → Select your integration
+ *    f. Copy the database ID from the URL: notion.so/workspace/DATABASE_ID?v=...
+ *
+ * 2. Deploy as a Bunny Edge Script:
+ *    a. Log in to bunny.net dashboard
+ *    b. Navigate to Edge Platform → Scripting
+ *    c. Click "Add Script" and provide a name (e.g., "Builder Forms Handler")
+ *    d. Select "Standalone" type with "Default standalone" template
+ *    e. After creation, note the "Hostname" shown (e.g., script-abc123.b-cdn.net)
+ *       This is your Edge Script URL that you'll use in step 3
+ *    f. Copy this entire script into the editor
+ *    g. Update lines 189-190 with your actual Notion credentials:
+ *       - Replace 'your-notion-integration-token' with your integration token
+ *       - Replace 'your-notion-database-id' with your database ID
+ *    h. Uncomment lines 203-212 (the actual Notion API call)
+ *    i. Comment out lines 216-217 (the placeholder response)
+ *    j. Click "Save" then "Publish" to deploy (changes apply immediately)
+ *
+ *    Note: If you see a "508 Loop Detected" error in the preview pane, this is
+ *    expected for standalone scripts. The script should work correctly once
+ *    deployed and accessed via its hostname URL.
+ *
+ * 3. Configure Your Frontend:
+ *    Update your form submissions to POST to:
+ *    - https://[your-edge-script-url]/api/builder-promotion
+ *    - https://[your-edge-script-url]/api/builder-application
+ *    (The unique URL is provided after creating the Edge Script)
+ *
+ * 4. Update CORS Settings (Production):
+ *    Change line 28 from '*' to your actual domain:
+ *    'Access-Control-Allow-Origin': 'https://yourdomain.com'
+ *
+ * Note: The Notion API version in this script (2022-06-28) should be updated
+ * to the latest version. Check https://developers.notion.com/reference/versioning
+ * for the current version and update line 209 accordingly.
  */
 
 addEventListener('fetch', event => {

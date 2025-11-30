@@ -10,78 +10,64 @@
   - description: Form description (optional, default provided)
 #}
 
-{% set formTitle = title | default('Promote a Builder') %}
-{% set formDescription = description | default('Know an amazing builder who should be in our catalog? Let us know about them!') %}
+{% set formTitle = title | default('Promote a builder') %}
+{% set formDescription = description | default('Do you know of a promising startup or builder who should be in our catalog? Let us know about them!') %}
 
 {% set builderPromoFields = [
   {
-    type: 'text',
-    name: 'builder_name',
-    label: 'Builder or Organization Name',
-    placeholder: 'Acme Rebuilders Co.',
-    required: true,
-    helpText: 'The name of the person or organization you want to promote'
+    "type": "text",
+    "name": "builder_name",
+    "label": "Name",
+    "placeholder": "Sleeve",
+    "required": true,
+    "helpText": "The name of the person or organization you want to promote"
   },
   {
-    type: 'url',
-    name: 'builder_website',
-    label: 'Website or LinkedIn',
-    placeholder: 'https://example.com',
-    required: true,
-    helpText: 'Where can we learn more about this builder?'
+    "type": "url",
+    "name": "builder_website",
+    "label": "Website or LinkedIn",
+    "placeholder": "https://example.com",
+    "required": true,
+    "helpText": "Where can we learn more about this builder?"
   },
   {
-    type: 'select',
-    name: 'builder_category',
-    label: 'Category',
-    required: true,
-    options: [
-      'Technology & Software',
-      'Social Enterprise',
-      'Community Building',
-      'Education & Training',
-      'Policy & Advocacy',
-      'Arts & Culture',
-      'Environment & Sustainability',
-      'Other'
-    ]
+    "type": "textarea",
+    "name": "why_promote",
+    "label": "Why should they be in the catalog?",
+    "placeholder": "Tell us what makes them special and how they are contributing to rebuilding social infrastructure in Europe.",
+    "required": true,
+    "rows": 5,
+    "helpText": "Share what impact they are making and why the rebuild community should know about them."
   },
   {
-    type: 'textarea',
-    name: 'why_promote',
-    label: 'Why should they be in the catalog?',
-    placeholder: 'Tell us what makes this builder special and how they are contributing to rebuilding social infrastructure...',
-    required: true,
-    rows: 6,
-    helpText: 'Share what impact they are making and why the Rebuild community should know about them'
+    "type": "text",
+    "name": "your_name",
+    "label": "Your Name",
+    "placeholder": "Your name",
+    "required": false,
+    "helpText": "Optional: Add if we can contact you later, if we need more information."
   },
   {
-    type: 'text',
-    name: 'your_name',
-    label: 'Your Name',
-    placeholder: 'Your name',
-    required: true
+    "type": "email",
+    "name": "your_email",
+    "label": "Your Email",
+    "placeholder": "your@email.com",
+    "required": false,
+    "helpText": "Optional: Add if we can contact you later, if we need more information."
   },
   {
-    type: 'email',
-    name: 'your_email',
-    label: 'Your Email',
-    placeholder: 'your@email.com',
-    required: true,
-    helpText: 'We may contact you if we need more information'
-  },
-  {
-    type: 'text',
-    name: 'your_relationship',
-    label: 'Your Relationship to Builder',
-    placeholder: 'e.g., colleague, friend, community member',
-    required: false,
-    helpText: 'Optional: How do you know this builder?'
+    "type": "text",
+    "name": "your_relationship",
+    "label": "Your relationship to the promotion",
+    "placeholder": "e.g., colleague, friend, community member",
+    "required": false,
+    "helpText": "Optional: How do you know this builder or startup? Add if we can contact you later, if we need more information."
   }
 ] %}
 
 {% set formId = 'builder-promo-form' %}
-{% set action = '/api/builder-promotion' %}
+{# TODO: Replace with your actual Bunny Edge Script URL from step 2j of deployment #}
+{% set action = 'https://rebuild-applications-od76p.b-cdn.net/api/builder-promotion' %}
 {% set method = 'POST' %}
 {% set title = formTitle %}
 {% set description = formDescription %}

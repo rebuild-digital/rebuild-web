@@ -1,0 +1,127 @@
+{#
+  Builder Row Component
+  Usage: {% include "components/builder-row.njk" %}
+
+  Parameters:
+  - builder: Builder object with name, link, category, country, description, tags, etc.
+  - expandable: Boolean - whether the row can be expanded (default: true)
+#}
+
+{% set isExpandable = expandable if expandable is defined else true %}
+
+<div class="builder-row border-b-2 border-dark py-md" data-builder-id="{{ builder.id }}">
+  <div class="builder-row-header flex items-center justify-between gap-md cursor-pointer hover:bg-gray-50 px-sm py-xs -mx-sm transition-colors duration-base">
+    <div class="flex-1 grid grid-cols-[2fr_1.5fr_1fr_1fr] gap-md items-center md:grid-cols-1">
+      {# Name #}
+      <div class="builder-name">
+        <h3 class="text-lg font-semibold">
+          {% if builder.link %}
+            <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="text-dark no-underline hover:text-rb-blue" onclick="event.stopPropagation()">
+              {{ builder.name }}
+            </a>
+          {% else %}
+            {{ builder.name }}
+          {% endif %}
+        </h3>
+      </div>
+
+      {# URL #}
+      <div class="builder-url text-sm text-gray-600 md:hidden">
+        {% if builder.link %}
+          <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="hover:text-rb-blue" onclick="event.stopPropagation()">
+            {{ builder.link | replace("https://", "") | replace("http://", "") | truncate(40) }}
+          </a>
+        {% endif %}
+      </div>
+
+      {# Category #}
+      <div class="builder-category text-sm md:hidden">
+        {% if builder.category and builder.category.length > 0 %}
+          <span class="inline-block px-sm py-xs border border-dark text-xs font-semibold">
+            {{ builder.category[0] }}
+          </span>
+        {% endif %}
+      </div>
+
+      {# Country #}
+      <div class="builder-country text-sm md:hidden">
+        {% if builder.country and builder.country.length > 0 %}
+          {{ builder.country | join(", ") }}
+        {% endif %}
+      </div>
+    </div>
+
+    {# Expand/Collapse Button #}
+    {% if isExpandable %}
+      <button class="builder-toggle w-8 h-8 flex items-center justify-center border-2 border-dark hover:bg-dark hover:text-white transition-colors duration-base flex-shrink-0" aria-label="Toggle details">
+        <svg class="builder-icon-plus w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="0" x2="8" y2="16" />
+          <line x1="0" y1="8" x2="16" y2="8" />
+        </svg>
+        <svg class="builder-icon-close w-4 h-4 hidden" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="0" y1="0" x2="16" y2="16" />
+          <line x1="16" y1="0" x2="0" y2="16" />
+        </svg>
+      </button>
+    {% endif %}
+  </div>
+
+  {# Expanded Content #}
+  {% if isExpandable %}
+    <div class="builder-row-content hidden mt-md px-sm">
+      <div class="grid grid-cols-2 gap-lg md:grid-cols-1">
+        <div>
+          {# Tags #}
+          {% if builder.tags and builder.tags.length > 0 %}
+            <div class="mb-md">
+              <h4 class="text-sm font-semibold mb-xs">Tags</h4>
+              <div class="flex gap-xs flex-wrap">
+                {% for tag in builder.tags %}
+                  <span class="inline-block px-sm py-xs border border-dark text-xs">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+
+          {# Description #}
+          {% if builder.description %}
+            <div class="mb-md">
+              <h4 class="text-sm font-semibold mb-xs">Description</h4>
+              <p class="text-sm">{{ builder.description }}</p>
+            </div>
+          {% endif %}
+        </div>
+
+        <div>
+          {# Additional Info #}
+          <div class="space-y-sm">
+            {% if builder.stage %}
+              <div>
+                <h4 class="text-sm font-semibold">Stage</h4>
+                <p class="text-sm">{{ builder.stage }}</p>
+              </div>
+            {% endif %}
+
+            {% if builder.yearFounded %}
+              <div>
+                <h4 class="text-sm font-semibold">Founded</h4>
+                <p class="text-sm">{{ builder.yearFounded }}</p>
+              </div>
+            {% endif %}
+
+            {% if builder.category and builder.category.length > 1 %}
+              <div>
+                <h4 class="text-sm font-semibold">Categories</h4>
+                <div class="flex gap-xs flex-wrap">
+                  {% for cat in builder.category %}
+                    <span class="inline-block px-sm py-xs border border-dark text-xs">{{ cat }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
