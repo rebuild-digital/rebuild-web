@@ -15,17 +15,8 @@ permalink: /catalog/index.html
     </header>
 
     {% if builders and builders.length > 0 %}
-      {# Header Row #}
-      <div class="builders-header grid grid-cols-[2fr_1.5fr_1fr_1fr_auto] gap-md items-center px-sm py-sm border-b-2 border-dark font-semibold text-sm mb-md md:hidden">
-        <div>Name</div>
-        <div>URL</div>
-        <div>Category</div>
-        <div>Country</div>
-        <div class="w-8"></div>
-      </div>
 
-      {# Builder Rows #}
-      <div class="builders-list">
+      <div class="builders-list flex flex-col gap-md">
         {% for builder in builders %}
           {% include "components/builder-row.njk" %}
         {% endfor %}

@@ -9,45 +9,44 @@
 
 {% set isExpandable = expandable if expandable is defined else true %}
 
-<div class="builder-row border-b-2 border-dark py-md" data-builder-id="{{ builder.id }}">
-  <div class="builder-row-header flex items-center justify-between gap-md cursor-pointer hover:bg-gray-50 px-sm py-xs -mx-sm transition-colors duration-base">
-    <div class="flex-1 grid grid-cols-[2fr_1.5fr_1fr_1fr] gap-md items-center md:grid-cols-1">
-      {# Name #}
-      <div class="builder-name">
-        <h3 class="text-lg font-semibold">
-          {% if builder.link %}
-            <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="text-dark no-underline hover:text-rb-blue" onclick="event.stopPropagation()">
+<div class="builder-row border-b-2 border-dark" data-builder-id="{{ builder.id }}">
+  <div class="builder-row-header flex flex-row items-center justify-between gap-md cursor-pointer px-sm py-xs -mx-sm">
+    <div class="flex flex-1 flex-row justify-between items-center">
+      
+      <div class="flex flex-row gap-xl">
+        {# Name #}
+        <div class="builder-name">
+          <h3 class="text-5xl font-mono">
               {{ builder.name }}
+          </h3>
+        </div>
+
+        {# URL - Hidden on mobile and above mobile #}
+        <div class="builder-url text-sm text-gray-600 hidden lg:block">
+          {% if builder.link %}
+            <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="hover:text-rb-blue" onclick="event.stopPropagation()">
+              {{ builder.link | replace("https://", "") | replace("http://", "") | truncate(40) }}
             </a>
-          {% else %}
-            {{ builder.name }}
           {% endif %}
-        </h3>
+        </div>
       </div>
 
-      {# URL #}
-      <div class="builder-url text-sm text-gray-600 md:hidden">
-        {% if builder.link %}
-          <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="hover:text-rb-blue" onclick="event.stopPropagation()">
-            {{ builder.link | replace("https://", "") | replace("http://", "") | truncate(40) }}
-          </a>
-        {% endif %}
-      </div>
+      <div class="flex flex-row gap-md pr-xl">
+        {# Category - Hidden on mobile and above mobile #}
+        <div class="builder-category text-sm hidden lg:block">
+          {% if builder.category and builder.category.length > 0 %}
+            <span class="inline-block px-sm py-xs border border-dark text-xs">
+              {{ builder.category[0] }}
+            </span>
+          {% endif %}
+        </div>
 
-      {# Category #}
-      <div class="builder-category text-sm md:hidden">
-        {% if builder.category and builder.category.length > 0 %}
-          <span class="inline-block px-sm py-xs border border-dark text-xs font-semibold">
-            {{ builder.category[0] }}
-          </span>
-        {% endif %}
-      </div>
-
-      {# Country #}
-      <div class="builder-country text-sm md:hidden">
-        {% if builder.country and builder.country.length > 0 %}
-          {{ builder.country | join(", ") }}
-        {% endif %}
+        {# Country - Hidden on mobile and above mobile #}
+        <div class="builder-country text-sm hidden lg:block">
+          {% if builder.country and builder.country.length > 0 %}
+            {{ builder.country | join(", ") }}
+          {% endif %}
+        </div>
       </div>
     </div>
 
@@ -68,59 +67,49 @@
 
   {# Expanded Content #}
   {% if isExpandable %}
-    <div class="builder-row-content hidden mt-md px-sm">
+    <div class="builder-row-content hidden my-lg px-xxs">
       <div class="grid grid-cols-2 gap-lg md:grid-cols-1">
         <div>
-          {# Tags #}
+
+          {# Tags 
           {% if builder.tags and builder.tags.length > 0 %}
             <div class="mb-md">
-              <h4 class="text-sm font-semibold mb-xs">Tags</h4>
               <div class="flex gap-xs flex-wrap">
                 {% for tag in builder.tags %}
                   <span class="inline-block px-sm py-xs border border-dark text-xs">{{ tag }}</span>
                 {% endfor %}
               </div>
             </div>
-          {% endif %}
+          {% endif %} #}
 
           {# Description #}
           {% if builder.description %}
-            <div class="mb-md">
-              <h4 class="text-sm font-semibold mb-xs">Description</h4>
+            <div class="max-w-[320px]">
               <p class="text-sm">{{ builder.description }}</p>
             </div>
           {% endif %}
         </div>
 
-        <div>
-          {# Additional Info #}
-          <div class="space-y-sm">
+        {# <div>
+           Additional Info 
+          <div class="space-y-sm text-sm">
             {% if builder.stage %}
-              <div>
-                <h4 class="text-sm font-semibold">Stage</h4>
-                <p class="text-sm">{{ builder.stage }}</p>
-              </div>
+              <p>{{ builder.stage }}</p>
             {% endif %}
 
             {% if builder.yearFounded %}
-              <div>
-                <h4 class="text-sm font-semibold">Founded</h4>
-                <p class="text-sm">{{ builder.yearFounded }}</p>
-              </div>
+              <p>{{ builder.yearFounded }}</p>
             {% endif %}
 
             {% if builder.category and builder.category.length > 1 %}
-              <div>
-                <h4 class="text-sm font-semibold">Categories</h4>
-                <div class="flex gap-xs flex-wrap">
-                  {% for cat in builder.category %}
-                    <span class="inline-block px-sm py-xs border border-dark text-xs">{{ cat }}</span>
-                  {% endfor %}
-                </div>
+              <div class="flex gap-xs flex-wrap">
+                {% for cat in builder.category %}
+                  <span class="inline-block px-sm py-xs border border-dark text-xs">{{ cat }}</span>
+                {% endfor %}
               </div>
             {% endif %}
           </div>
-        </div>
+        </div> #}
       </div>
     </div>
   {% endif %}
