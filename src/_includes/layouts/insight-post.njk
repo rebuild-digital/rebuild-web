@@ -4,35 +4,37 @@ layout: layouts/base.njk
 
 {% block content %}
 <article class="pt-xl pb-2xl">
-  <header class="mb-xl">
-    <h1>{{ title }}</h1>
-
-    <div class="post-meta flex gap-md align-center mb-md">
-      {% if date %}
-        <time datetime="{{ date | dateFormat }}">{{ date | dateFormat }}</time>
-      {% endif %}
-      {% if author %}
-        <span class="author">By {{ author }}</span>
-      {% endif %}
+  {% if featured_image %}
+    <div class="featured-image mb-xl -mx-md">
+      <img src="{{ featured_image }}" alt="{{ title }}" loading="lazy" class="w-full h-auto rounded-md">
     </div>
+  {% endif %}
 
-    {% if tags %}
-      <div class="post-tags flex gap-sm flex-wrap mb-md">
-        {% for tag in tags %}
-          <span class="tag">{{ tag }}</span>
-        {% endfor %}
+  <div class="mx-auto max-w-[75ch]">
+    <header class="">
+      <h1 class="text-5xl mb-md">{{ title }}</h1>
+
+      <div class="post-meta flex gap-md items-center mb-md text-gray">
+        {% if date %}
+          <time datetime="{{ date | dateFormat }}">{{ date | dateFormat }}</time>
+        {% endif %}
+        {% if author %}
+          <span class="author">By {{ author }}</span>
+        {% endif %}
       </div>
-    {% endif %}
 
-    {% if featured_image %}
-      <div class="featured-image mb-lg">
-        <img src="{{ featured_image }}" alt="{{ title }}" loading="lazy">
-      </div>
-    {% endif %}
-  </header>
+      {% if tags %}
+        <div class="post-tags flex gap-sm flex-wrap mb-md">
+          {% for tag in tags %}
+            <span class="tag px-sm py-xs bg-off-white border border-dark text-xs rounded-sm">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </header>
 
-  <div class="post-content rich-text">
-    {{ content | safe }}
+    <div class="post-content rich-text">
+      {{ content | safe }}
+    </div>
   </div>
 </article>
 {% endblock %}
