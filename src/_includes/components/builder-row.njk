@@ -24,7 +24,7 @@
         {# URL - Hidden on mobile and above mobile #}
         <div class="builder-url text-sm text-gray-600 hidden lg:block">
           {% if builder.link %}
-            <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="hover:text-rb-blue" onclick="event.stopPropagation()">
+            <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue" onclick="event.stopPropagation()">
               {{ builder.link | replace("https://", "") | replace("http://", "") | truncate(40) }}
             </a>
           {% endif %}

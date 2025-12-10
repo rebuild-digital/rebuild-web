@@ -7,27 +7,27 @@
   - title: Title to display above countdown (optional)
 #}
 
-<div class="text-center p-lg bg-off-white border-2 border-dark" data-target-date="{{ targetDate }}">
+<div class="text-center p-lg bg-light border-2 border-dark" data-target-date="{{ targetDate }}">
   {% if title %}
     <h3 class="mb-md text-xl">{{ title }}</h3>
   {% endif %}
 
   <div class="flex justify-center gap-lg flex-wrap">
     <div class="flex flex-col items-center min-w-20 md:min-w-[60px]">
-      <span class="text-4xl md:text-3xl leading-none font-bold text-rb-blue" data-days>0</span>
-      <span class="mt-xs text-sm tracking-wide text-gray uppercase">Days</span>
+      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-days>0</span>
+      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Days</span>
     </div>
     <div class="flex flex-col items-center min-w-[20 md:min-w-[60px]">
-      <span class="text-4xl md:text-3xl leading-none font-bold text-rb-blue" data-hours>0</span>
-      <span class="mt-xs text-sm tracking-wide text-gray uppercase">Hours</span>
+      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-hours>0</span>
+      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Hours</span>
     </div>
     <div class="flex flex-col items-center min-w-20 md:min-w-[60px]">
-      <span class="text-4xl md:text-3xl leading-none font-bold text-rb-blue" data-minutes>0</span>
-      <span class="mt-xs text-sm tracking-wide text-gray uppercase">Minutes</span>
+      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-minutes>0</span>
+      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Minutes</span>
     </div>
     <div class="flex flex-col items-center min-w-20 md:min-w-[60px]">
-      <span class="text-4xl md:text-3xl leading-none font-bold text-rb-blue" data-seconds>0</span>
-      <span class="mt-xs text-sm tracking-wide text-gray uppercase">Seconds</span>
+      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-seconds>0</span>
+      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Seconds</span>
     </div>
   </div>
 </div>

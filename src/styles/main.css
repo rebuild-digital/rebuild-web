@@ -8,25 +8,36 @@
      =========================================== */
 
   /* Primary Colors */
-  --color-rb-red: #FF0000;
-  --color-rb-red-shade: #CC0000;
-  --color-rb-red-tint: #FF6666;
+  --color-red: #AC1D24;
+  --color-red-shade: #8A1F1F;
+  --color-red-tint: #D16B6B;
 
-  --color-rb-blue: #0000FF;
-  --color-rb-blue-shade: #0000CC;
-  --color-rb-blue-tint: #6666FF;
+  --color-blue: #6BA1CC;
+  --color-blue-shade: #3D5F83;
+  --color-blue-tint: #8FB5D9;
 
-  --color-rb-mint: #00FFD5;
+  --color-green: #669E67;
+  --color-green-shade: #316139;
+  --color-green-tint: #73B088;
+  
+  --color-blush: #E1AEB0;
+  --color-blush-shade: #B17D7D;
+  --color-blush-tint: #E8CDCD;
 
-  /* Secondary Colors */
-  --color-rb-yellow: #FFFF00;
-  --color-rb-magenta: #F7F0DB;
-  --color-rb-brown: #6E160C;
+  --color-blonde: #F4E2D2;
+  --color-blonde-shade: #D4B59A;
+  --color-blonde-tint: #F7EBE0;
+  
+  --color-orange: #BF6E36;
+  --color-orange-shade: #9A5E2E;
+  --color-orange-tint: #9A5E2E;
 
   /* Neutrals */
-  --color-off-white: #F5F5F5;
-  --color-gray: #D9D9D9;
-  --color-dark: #1A1A1A;
+  --color-light: #E8E8E8;
+  --color-lighter: #D9D9E0;
+  --color-muted: #9C9CB4;
+  --color-darker: #5F5F79;
+  --color-dark: #22223E;
 
   /* ===========================================
      SPACING
@@ -266,7 +277,7 @@
   }
 
   a:focus-visible {
-    @apply outline-2 outline-rb-blue outline-offset-2;
+    @apply outline-2 outline-blue outline-offset-2;
   }
 
   /* Images */
@@ -349,17 +360,17 @@
 @layer components {
   /* Filter Button Component */
   .filter-button {
-    @apply inline-block px-md py-xs bg-off-white border-2 border-dark text-sm font-semibold transition-all duration-fast;
-    @apply hover:bg-dark hover:text-off-white;
-    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rb-blue;
+    @apply inline-block px-md py-xs bg-light border-2 border-dark text-sm font-semibold transition-all duration-fast;
+    @apply hover:bg-dark hover:text-light;
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue;
   }
 
   .filter-button.active {
-    @apply bg-rb-blue text-off-white border-rb-blue;
+    @apply bg-blue text-light border-blue;
   }
 
   .filter-button.active:hover {
-    @apply bg-rb-blue-shade border-rb-blue-shade;
+    @apply bg-blue-shade border-blue-shade;
   }
 
   /* Rich Text Component - Keep this as a semantic wrapper for markdown content */
@@ -383,7 +394,7 @@
   }
 
   .rich-text h2 {
-    @apply text-4xl border-b-2 border-gray pb-xs;
+    @apply text-4xl border-b-2 border-muted pb-xs;
   }
 
   .rich-text h3 {
@@ -399,7 +410,7 @@
   }
 
   .rich-text h6 {
-    @apply text-lg text-gray;
+    @apply text-lg text-muted;
   }
 
   /* Paragraphs and text formatting */
@@ -417,7 +428,7 @@
   }
 
   .rich-text small {
-    @apply text-sm text-gray block mt-md;
+    @apply text-sm text-muted block mt-md;
   }
 
   /* Lists */
@@ -450,7 +461,7 @@
 
   /* Links */
   .rich-text a {
-    @apply text-rb-blue underline hover:text-rb-blue-shade transition-fast;
+    @apply text-blue underline hover:text-blue-shade transition-fast;
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
   }
@@ -469,12 +480,12 @@
   }
 
   .rich-text figcaption {
-    @apply text-sm text-gray italic mt-xs text-center;
+    @apply text-sm text-muted italic mt-xs text-center;
   }
 
   /* Blockquotes */
   .rich-text blockquote {
-    @apply border-l-4 border-rb-blue pl-md my-lg italic bg-off-white p-md rounded-r-md;
+    @apply border-l-4 border-blue pl-md my-lg italic bg-light p-md rounded-r-md;
     quotes: """ """ "'" "'";
   }
 
@@ -496,17 +507,17 @@
 
   /* Code blocks */
   .rich-text code {
-    @apply bg-dark text-rb-mint px-1.5 py-0.5 rounded-sm font-mono;
+    @apply bg-dark text-green px-1.5 py-0.5 rounded-sm font-mono;
     font-size: 0.9em;
   }
 
   .rich-text pre {
-    @apply bg-dark text-off-white p-md rounded-md overflow-x-auto my-lg shadow-md;
+    @apply bg-dark text-light p-md rounded-md overflow-x-auto my-lg shadow-md;
     line-height: 1.5;
   }
 
   .rich-text pre code {
-    @apply bg-transparent text-off-white p-0;
+    @apply bg-transparent text-light p-0;
   }
 
   /* Syntax highlighting support */
@@ -520,7 +531,7 @@
   }
 
   .rich-text thead {
-    @apply bg-dark text-off-white;
+    @apply bg-dark text-light;
   }
 
   .rich-text th {
@@ -528,20 +539,20 @@
   }
 
   .rich-text td {
-    @apply px-md py-xs border border-gray;
+    @apply px-md py-xs border border-muted;
   }
 
   .rich-text tbody tr:nth-child(even) {
-    @apply bg-off-white;
+    @apply bg-light;
   }
 
   .rich-text tbody tr:hover {
-    @apply bg-rb-magenta transition-fast;
+    @apply bg-blush transition-fast;
   }
 
   /* Horizontal rules */
   .rich-text hr {
-    @apply my-xl border-0 border-t-2 border-gray;
+    @apply my-xl border-0 border-t-2 border-muted;
   }
 
   /* Callout boxes */
@@ -550,19 +561,19 @@
   }
 
   .rich-text .callout-info {
-    @apply bg-blue-50 border-rb-blue;
+    @apply bg-blue-tint border-blue;
   }
 
   .rich-text .callout-warning {
-    @apply bg-yellow-50 border-rb-yellow;
+    @apply bg-orange-tint border-orange;
   }
 
   .rich-text .callout-error {
-    @apply bg-red-50 border-rb-red;
+    @apply bg-red-tint border-red;
   }
 
   .rich-text .callout-success {
-    @apply bg-green-50 border-rb-mint;
+    @apply bg-green-tint border-green;
   }
 
   /* Definition lists */
@@ -575,22 +586,22 @@
   }
 
   .rich-text dd {
-    @apply ml-lg mb-md text-gray;
+    @apply ml-lg mb-md text-muted;
   }
 
   /* Keyboard and abbreviation elements */
   .rich-text kbd {
-    @apply bg-gray text-dark px-xs py-xxs rounded-sm font-mono text-sm border border-dark;
+    @apply bg-muted text-dark px-xs py-xxs rounded-sm font-mono text-sm border border-dark;
   }
 
   .rich-text abbr[title] {
-    @apply cursor-help border-b-2 border-dotted border-rb-blue;
+    @apply cursor-help border-b-2 border-dotted border-blue;
     text-decoration: none;
   }
 
   /* Mark/highlight */
   .rich-text mark {
-    @apply bg-rb-yellow px-xs;
+    @apply bg-orange px-xs;
   }
 
   /* Responsive adjustments */

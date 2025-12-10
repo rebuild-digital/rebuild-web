@@ -14,66 +14,66 @@ permalink: /form-demo/
 
     <div class="space-y-lg">
       {# Example 1: Builder Promotion #}
-      <div class="bg-off-white border-2 border-dark p-lg">
+      <div class="bg-light border-2 border-dark p-lg">
         <h2 class="text-2xl mb-md">Nominate a Builder</h2>
         <p class="text-dark mb-md">
           Know someone doing amazing work? Use this form to nominate them for the builder catalog.
         </p>
         <button
           data-form="builder-promo"
-          class="inline-block text-center font-bold border-2 border-dark cursor-pointer transition-all duration-fast bg-dark text-off-white hover:bg-rb-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A] px-md py-sm text-base"
+          class="inline-block text-center font-bold border-2 border-dark cursor-pointer transition-all duration-fast bg-dark text-light hover:bg-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A] px-md py-sm text-base"
         >
           Nominate a Builder
         </button>
       </div>
 
       {# Example 2: Builder Application #}
-      <div class="bg-off-white border-2 border-dark p-lg">
+      <div class="bg-light border-2 border-dark p-lg">
         <h2 class="text-2xl mb-md">Apply to Join</h2>
         <p class="text-dark mb-md">
           Are you working to rebuild social infrastructure? Apply to join our builder catalog.
         </p>
         <button
           data-form="builder-application"
-          class="inline-block text-center font-bold border-2 border-dark cursor-pointer transition-all duration-fast bg-dark text-off-white hover:bg-rb-red-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A] px-md py-sm text-base"
+          class="inline-block text-center font-bold border-2 border-dark cursor-pointer transition-all duration-fast bg-dark text-light hover:bg-red-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A] px-md py-sm text-base"
         >
           Apply Now
         </button>
       </div>
 
       {# Example 3: Newsletter #}
-      <div class="bg-off-white border-2 border-dark p-lg">
+      <div class="bg-light border-2 border-dark p-lg">
         <h2 class="text-2xl mb-md">Subscribe to Newsletter</h2>
         <p class="text-dark mb-md">
           Get monthly updates about new builders, upcoming events, and community insights.
         </p>
         <button
           data-form="newsletter"
-          class="inline-block text-center font-bold border-2 border-dark cursor-pointer transition-all duration-fast bg-dark text-off-white hover:bg-dark hover:text-off-white px-md py-sm text-base"
+          class="inline-block text-center font-bold border-2 border-dark cursor-pointer transition-all duration-fast bg-dark text-light hover:bg-dark hover:text-light px-md py-sm text-base"
         >
           Subscribe
         </button>
       </div>
 
       {# Text link example #}
-      <div class="bg-off-white border-2 border-dark p-lg">
+      <div class="bg-light border-2 border-dark p-lg">
         <h2 class="text-2xl mb-md">Text Link Example</h2>
         <p class="text-dark mb-md">
           The data-form attribute works on any clickable element, including text links:
-          <a href="#" data-form="builder-promo" class="text-rb-blue hover:underline font-semibold">Nominate a builder</a> or
-          <a href="#" data-form="newsletter" class="text-rb-blue hover:underline font-semibold">subscribe to our newsletter</a>.
+          <a href="#" data-form="builder-promo" class="text-blue hover:underline font-semibold">Nominate a builder</a> or
+          <a href="#" data-form="newsletter" class="text-blue hover:underline font-semibold">subscribe to our newsletter</a>.
         </p>
       </div>
     </div>
 
     {# Implementation guide #}
-    <div class="mt-2xl bg-gray border-2 border-dark p-lg">
+    <div class="mt-2xl bg-muted border-2 border-dark p-lg">
       <h2 class="text-3xl mb-md">How to Use</h2>
       <p class="text-dark mb-md">
-        Add the <code class="bg-dark text-off-white px-xs py-xs">data-form</code> attribute to any button or link:
+        Add the <code class="bg-dark text-light px-xs py-xs">data-form</code> attribute to any button or link:
       </p>
 
-      <div class="bg-dark text-off-white p-md mb-md font-mono text-sm">
+      <div class="bg-dark text-light p-md mb-md font-mono text-sm">
         &lt;button data-form="builder-promo"&gt;Nominate a Builder&lt;/button&gt;<br>
         &lt;button data-form="builder-application"&gt;Apply Now&lt;/button&gt;<br>
         &lt;button data-form="newsletter"&gt;Subscribe&lt;/button&gt;

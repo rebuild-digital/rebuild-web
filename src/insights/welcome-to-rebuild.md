@@ -145,18 +145,6 @@ Over the coming months, we'll be focusing on several key initiatives:
 - **February 2026**: Community survey and needs assessment
 - **Q2 2026**: Regional chapters in 5 European cities
 
-## Important Considerations
-
-Before you dive in, here are some things to keep in mind:
-
-<div class="callout callout-warning">
-⚠️ **Note**: Rebuild is in active development. Expect rapid changes, frequent updates, and the occasional breaking change. We're building in public, which means you'll see both our successes and our failures.
-</div>
-
-<div class="callout callout-info">
-ℹ️ **For Developers**: All our code is open source under the MIT license. Feel free to fork, modify, and use it in your own projects. We'd love to hear about what you build!
-</div>
-
 ## Resources & Further Reading
 
 ### Essential Reading
@@ -211,4 +199,4 @@ See our [submission guidelines](/contribute) for more information.
 
 *Want to learn more? [Get in touch](/contact/) or explore our [upcoming gatherings](/gatherings/).*
 
-<small>Last updated: 2025-11-19 | [View revision history](https://github.com/rebuild/rebuild-web/commits/main/src/insights/welcome-to-rebuild.md)</small>
+Last updated: 2025-11-19 | [View revision history](https://github.com/rebuild/rebuild-web/commits/main/src/insights/welcome-to-rebuild.md)

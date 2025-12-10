@@ -13,12 +13,12 @@ class InsightsFilter {
 
     // Define tag color palette (using your brand colors)
     this.tagColors = [
-      { bg: 'bg-rb-yellow', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-rb-mint', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-rb-blue-tint', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-rb-red-tint', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-rb-magenta', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-off-white', border: 'border-rb-blue', text: 'text-rb-blue' },
+      { bg: 'bg-orange', border: 'border-dark', text: 'text-dark' },
+      { bg: 'bg-green', border: 'border-dark', text: 'text-dark' },
+      { bg: 'bg-blue-tint', border: 'border-dark', text: 'text-dark' },
+      { bg: 'bg-red-tint', border: 'border-dark', text: 'text-dark' },
+      { bg: 'bg-blush', border: 'border-dark', text: 'text-dark' },
+      { bg: 'bg-light', border: 'border-blue', text: 'text-blue' },
     ];
 
     this.init();

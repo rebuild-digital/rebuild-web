@@ -7,11 +7,13 @@ The sidebar form system provides a modern UX pattern where forms slide in from t
 ## How It Works
 
 ### Desktop (≥768px)
+
 - Form slides in from right as a 500-600px sidebar
 - Main page content slides left to make room
 - Click X or ESC to close
 
 ### Mobile (<768px)
+
 - Form appears as full-screen modal
 - Dark overlay behind form
 - Click overlay, X, or ESC to close
@@ -27,6 +29,7 @@ The sidebar form system provides a modern UX pattern where forms slide in from t
 ```
 
 Works on any clickable element:
+
 ```html
 <a href="#" data-form="builder-promo">Nominate someone</a>
 ```
@@ -51,7 +54,7 @@ window.closeFormSidebar();
 
 ## File Structure
 
-```
+```code
 src/
 ├── _includes/
 │   ├── components/

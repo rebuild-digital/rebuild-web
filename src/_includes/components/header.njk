@@ -11,7 +11,7 @@
           {% for item in site.main_navigation %}
             <li>
               <a href="{{ item.url }}"
-                 class="text-dark no-underline px-sm last:pl-0 py-xs transition-fast hover:text-rb-blue focus:text-rb-blue {% if page.url == item.url %} text-rb-blue{% endif %}"
+                 class="text-dark no-underline px-sm last:pl-0 py-xs transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
                  {% if page.url == item.url %}aria-current="page"{% endif %}>
                 {{ item.name }}
               </a>
@@ -36,7 +36,7 @@
   {# Mobile Menu Overlay #}
   <div
     id="mobile-menu"
-    class="fixed inset-0 bg-gray z-50 hidden md:hidden"
+    class="fixed inset-0 bg-muted z-50 hidden md:hidden"
     aria-hidden="true">
     <div class="container max-w-[1400px] mx-auto px-md py-lg">
       {# Mobile Menu Header #}
@@ -57,7 +57,7 @@
           {% for item in site.main_navigation %}
             <li>
               <a href="{{ item.url }}"
-                 class="text-dark text-4xl no-underline block transition-fast hover:text-rb-blue focus:text-rb-blue {% if page.url == item.url %} text-rb-blue{% endif %}"
+                 class="text-dark text-4xl no-underline block transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
                  {% if page.url == item.url %}aria-current="page"{% endif %}>
                 {{ item.name }}
               </a>
@@ -72,7 +72,7 @@
           {% for item in site.second_navigation %}
             <li>
               <a href="{{ item.url }}"
-                 class="text-dark text-xl no-underline transition-fast hover:text-rb-blue focus:text-rb-blue {% if page.url == item.url %} text-rb-blue{% endif %}"
+                 class="text-dark text-xl no-underline transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
                  {% if page.url == item.url %}aria-current="page"{% endif %}>
                 {{ item.name }}
               </a>

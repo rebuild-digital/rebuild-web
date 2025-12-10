@@ -20,14 +20,14 @@
                 name="first_name"
                 placeholder="Firstname"
                 required
-                class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-rb-blue"
+                class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
               >
               <input
                 type="email"
                 name="email"
                 placeholder="Email"
                 required
-                class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-rb-blue"
+                class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
               >
               <button
                 type="submit"
@@ -36,14 +36,14 @@
                 Subscribe
               </button>
             </div>
-            <div id="footer-newsletter-success" class="hidden bg-rb-mint border-2 border-dark p-xs transition-opacity duration-300">
+            <div id="footer-newsletter-success" class="hidden bg-green border-2 border-dark p-xs transition-opacity duration-300">
               <p class="text-dark text-xs font-semibold">Thanks for subscribing!</p>
             </div>
-            <div id="footer-newsletter-error" class="hidden bg-rb-red text-off-white border-2 border-dark p-xs transition-opacity duration-300">
+            <div id="footer-newsletter-error" class="hidden bg-red text-light border-2 border-dark p-xs transition-opacity duration-300">
               <p class="text-xs font-semibold">Something went wrong. Please try again.</p>
             </div>
           </form>
-          <a class="hover:underline hover:text-rb-blue" href="https://google.com">Follow us on Linkedin</a>
+          <a class="hover:underline hover:text-blue" href="https://google.com">Follow us on Linkedin</a>
         </div>
       </div>
 
@@ -52,14 +52,14 @@
           <ul class="flex flex-col gap-sm md:gap-md list-none md:flex-wrap md:justify-top">
             {% for item in site.main_navigation %}
               <li>
-                <a href="{{ item.url }}" class="text-dark hover:underline transition-fast hover:text-rb-blue focus:text-rb-blue">{{ item.name }}</a>
+                <a href="{{ item.url }}" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">{{ item.name }}</a>
               </li>
             {% endfor %}
           </ul>
           <ul class="flex flex-col gap-sm md:gap-md list-none md:flex-wrap md:justify-top">
             {% for item in site.second_navigation %}
               <li>
-                <a href="{{ item.url }}" class="hover:underline transition-fast hover:text-rb-blue focus:text-rb-blue">{{ item.name }}</a>
+                <a href="{{ item.url }}" class="hover:underline transition-fast hover:text-blue focus:text-blue">{{ item.name }}</a>
               </li>
             {% endfor %}
           </ul>

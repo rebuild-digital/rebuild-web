@@ -14,7 +14,7 @@ layout: layouts/base.njk
     <header class="">
       <h1 class="text-5xl mb-md">{{ title }}</h1>
 
-      <div class="post-meta flex gap-md items-center mb-md text-gray">
+      <div class="post-meta flex gap-md items-center mb-md text-muted">
         {% if date %}
           <time datetime="{{ date | dateFormat }}">{{ date | dateFormat }}</time>
         {% endif %}
@@ -26,7 +26,7 @@ layout: layouts/base.njk
       {% if tags %}
         <div class="post-tags flex gap-sm flex-wrap mb-md">
           {% for tag in tags %}
-            <span class="tag px-sm py-xs bg-off-white border border-dark text-xs rounded-sm">{{ tag }}</span>
+            <span class="tag px-sm py-xs bg-light border border-dark text-xs rounded-sm">{{ tag }}</span>
           {% endfor %}
         </div>
       {% endif %}
