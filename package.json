@@ -12,7 +12,8 @@
   "scripts": {
     "dev": "npm run dev:css & eleventy --serve --watch",
     "dev:css": "tailwindcss -i ./src/styles/main.css -o ./dist/styles/main.css --watch",
-    "build": "npm run build:eleventy && npm run build:css && npm run minify",
+    "build": "npm run build:eleventy && npm run build:css",
+    "build:production": "npm run build:eleventy && npm run build:css && npm run minify",
     "build:eleventy": "NODE_ENV=production eleventy",
     "build:css": "tailwindcss -i ./src/styles/main.css -o ./dist/styles/main.css --minify",
     "minify": "npm run minify:js",
