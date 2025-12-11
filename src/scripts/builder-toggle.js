@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const content = row.querySelector('.builder-row-content');
     const toggle = row.querySelector('.builder-toggle');
     const iconPlus = row.querySelector('.builder-icon-plus');
-    const iconClose = row.querySelector('.builder-icon-close');
+    const iconMinus = row.querySelector('.builder-icon-minus');
 
     // Only add click handler if toggle button exists (expandable mode)
     if (!toggle) return;
@@ -23,13 +23,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Collapse
         content.classList.add('hidden');
         iconPlus.classList.remove('hidden');
-        iconClose.classList.add('hidden');
+        iconMinus.classList.add('hidden');
         row.classList.remove('builder-row-expanded');
       } else {
         // Expand
         content.classList.remove('hidden');
         iconPlus.classList.add('hidden');
-        iconClose.classList.remove('hidden');
+        iconMinus.classList.remove('hidden');
         row.classList.add('builder-row-expanded');
       }
     });

@@ -49,6 +49,46 @@ module.exports = async function(eleventyConfig) {
     return array.slice(0, limit);
   });
 
+  // Category colors filter
+  eleventyConfig.addFilter("categoryColors", (categories) => {
+    const categoryColors = {
+      // Social & Community
+      'Community': { bg: 'bg-blue', text: 'text-dark' },
+      'Community of interest': { bg: 'bg-blue-tint', text: 'text-dark' },
+      'Groups': { bg: 'bg-blue-shade', text: 'text-light' },
+      'Networking': { bg: 'bg-blush', text: 'text-dark' },
+
+      // Content Sharing
+      'Media sharing': { bg: 'bg-green', text: 'text-dark' },
+      'Photo sharing': { bg: 'bg-green-tint', text: 'text-dark' },
+      'Video sharing': { bg: 'bg-green-shade', text: 'text-light' },
+      'Creator Platform': { bg: 'bg-blonde', text: 'text-dark' },
+
+      // Communication
+      'Messaging': { bg: 'bg-orange', text: 'text-light' },
+      'Microblogging': { bg: 'bg-orange-tint', text: 'text-dark' },
+      'Forum': { bg: 'bg-orange-shade', text: 'text-light' },
+
+      // Specialized
+      'Dating': { bg: 'bg-red', text: 'text-light' },
+      'Events': { bg: 'bg-red-tint', text: 'text-dark' },
+      'Location': { bg: 'bg-blush-tint', text: 'text-dark' },
+      'Marketplace': { bg: 'bg-blonde-shade', text: 'text-dark' },
+
+      // Technical
+      'Infrastructure': { bg: 'bg-muted', text: 'text-light' },
+      'Bundled': { bg: 'bg-darker', text: 'text-light' },
+
+      // Fallback
+      'Other': { bg: 'bg-light', text: 'text-dark' }
+    };
+
+    if (!categories || categories.length === 0) {
+      return categoryColors['Other'];
+    }
+    return categoryColors[categories[0]] || categoryColors['Other'];
+  });
+
   // Image shortcode using Eleventy Image
   eleventyConfig.addShortcode("image", async function(src, alt, sizes) {
     let metadata = await Image(src, {

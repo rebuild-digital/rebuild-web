@@ -1,0 +1,10 @@
+<div class="pt-xl">
+  <div class="mb-5xl font-normal flex flex-row justify-between items-start">
+    <h1 class="font-normal text-7xl">{{ title }}</h1>
+    {% if description %}
+      <div class="max-w-[460px] text-xl text-dark">
+        {{ description | safe }}
+      </div>
+    {% endif %}
+  </div>
+</div>

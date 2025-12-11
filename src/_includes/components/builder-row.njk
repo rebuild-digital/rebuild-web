@@ -7,110 +7,67 @@
   - expandable: Boolean - whether the row can be expanded (default: true)
 #}
 
-{% set isExpandable = expandable if expandable is defined else true %}
+{% set isExpandable = expandable if expandable is defined else 
+  true %}
 
-<div class="builder-row border-b-2 border-dark" data-builder-id="{{ builder.id }}">
-  <div class="builder-row-header flex flex-row items-center justify-between gap-md cursor-pointer px-sm py-xs -mx-sm">
-    <div class="flex flex-1 flex-row justify-between items-center">
-      
-      <div class="flex flex-row gap-xl">
-        {# Name #}
-        <div class="builder-name">
-          <h3 class="text-5xl font-mono">
-              {{ builder.name }}
-          </h3>
-        </div>
-
-        {# URL - Hidden on mobile and above mobile #}
-        <div class="builder-url text-sm text-gray-600 hidden lg:block">
-          {% if builder.link %}
-            <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue" onclick="event.stopPropagation()">
-              {{ builder.link | replace("https://", "") | replace("http://", "") | truncate(40) }}
-            </a>
-          {% endif %}
-        </div>
-      </div>
-
-      <div class="flex flex-row gap-md pr-xl">
-        {# Category - Hidden on mobile and above mobile #}
-        <div class="builder-category text-sm hidden lg:block">
-          {% if builder.category and builder.category.length > 0 %}
-            <span class="inline-block px-sm py-xs border border-dark text-xs">
-              {{ builder.category[0] }}
-            </span>
-          {% endif %}
-        </div>
-
-        {# Country - Hidden on mobile and above mobile #}
-        <div class="builder-country text-sm hidden lg:block">
-          {% if builder.country and builder.country.length > 0 %}
-            {{ builder.country | join(", ") }}
-          {% endif %}
-        </div>
-      </div>
-    </div>
+<div class="builder-row bg-lighter p-lg" data-builder-id="{{ builder.id }}">
+  <div class="builder-row-header flex flex-row items-center justify-between gap-md {% if isExpandable %}cursor-pointer{% endif %}">
+    {# Name #}
+    <h3 class="text-3xl font-normal">
+      <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="text-dark hover:underline break-all" {% if isExpandable %}onclick="event.stopPropagation()"{% endif %}>
+        {{ builder.name }}
+      </a>
+    </h3>
 
     {# Expand/Collapse Button #}
     {% if isExpandable %}
-      <button class="builder-toggle w-8 h-8 flex items-center justify-center border-2 border-dark hover:bg-dark hover:text-white transition-colors duration-base flex-shrink-0" aria-label="Toggle details">
-        <svg class="builder-icon-plus w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="8" y1="0" x2="8" y2="16" />
-          <line x1="0" y1="8" x2="16" y2="8" />
+      <button class="builder-toggle shrink-0 text-3xl leading-none" aria-label="Toggle details">
+        <svg class="builder-icon-plus w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
-        <svg class="builder-icon-close w-4 h-4 hidden" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="0" y1="0" x2="16" y2="16" />
-          <line x1="16" y1="0" x2="0" y2="16" />
+        <svg class="builder-icon-minus w-12 h-12 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+          <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
       </button>
     {% endif %}
   </div>
 
-  {# Expanded Content #}
-  {% if isExpandable %}
-    <div class="builder-row-content hidden my-lg px-xxs">
-      <div class="grid grid-cols-2 gap-lg md:grid-cols-1">
-        <div>
-
-          {# Tags 
-          {% if builder.tags and builder.tags.length > 0 %}
-            <div class="mb-md">
-              <div class="flex gap-xs flex-wrap">
-                {% for tag in builder.tags %}
-                  <span class="inline-block px-sm py-xs border border-dark text-xs">{{ tag }}</span>
-                {% endfor %}
-              </div>
-            </div>
-          {% endif %} #}
-
-          {# Description #}
-          {% if builder.description %}
-            <div class="max-w-[320px]">
-              <p class="text-sm">{{ builder.description }}</p>
-            </div>
-          {% endif %}
-        </div>
-
-        {# <div>
-           Additional Info 
-          <div class="space-y-sm text-sm">
-            {% if builder.stage %}
-              <p>{{ builder.stage }}</p>
-            {% endif %}
-
-            {% if builder.yearFounded %}
-              <p>{{ builder.yearFounded }}</p>
-            {% endif %}
-
-            {% if builder.category and builder.category.length > 1 %}
-              <div class="flex gap-xs flex-wrap">
-                {% for cat in builder.category %}
-                  <span class="inline-block px-sm py-xs border border-dark text-xs">{{ cat }}</span>
-                {% endfor %}
-              </div>
-            {% endif %}
-          </div>
-        </div> #}
+  {# Expandable Content #}
+  <div class="builder-row-content {% if isExpandable %}hidden{% endif %} mt-lg">
+    {# URL #}
+    {# {% if builder.link %}
+      <div class="mb-md">
+        <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="text-darker underline hover:text-blue break-all" {% if isExpandable %}onclick="event.stopPropagation()"{% endif %}>
+          {{ builder.link }}
+        </a>
       </div>
+    {% endif %} #}
+
+    {# Description #}
+    {% if builder.description %}
+      <div class="mb-md text-base leading-tight">
+        <p>{{ builder.description }}</p>
+      </div>
+    {% endif %}
+
+    <div class="flex flex-row justify-between mt-xl">
+      {# Tags #}
+      {% if builder.category and builder.category.length > 0 %}
+        <div class="flex gap-xs flex-wrap mb-md">
+          {% for cat in builder.category %}
+            {% set colors = [cat] | categoryColors %}
+            <span class="inline-block px-md py-xs {{ colors.bg }} {{ colors.text }} text-sm">{{ cat }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {# Country #}
+      {% if builder.country and builder.country.length > 0 %}
+        <div class="text-sm">
+          From {{ builder.country | join(", ") }}
+        </div>
+      {% endif %}
     </div>
-  {% endif %}
+  </div>
 </div>
