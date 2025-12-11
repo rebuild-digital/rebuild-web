@@ -21,16 +21,14 @@
     "placeholder": "Sleeve",
     "required": true,
     "helpText": "The name of the person or organization you want to promote"
-  },
-  {
+  }, {
     "type": "url",
     "name": "builder_website",
     "label": "Website or LinkedIn",
     "placeholder": "https://example.com",
     "required": true,
     "helpText": "Where can we learn more about this builder?"
-  },
-  {
+  }, {
     "type": "textarea",
     "name": "why_promote",
     "label": "Why should they be in the directory?",
@@ -38,24 +36,21 @@
     "required": true,
     "rows": 5,
     "helpText": "Share what impact they are making and why the rebuild community should know about them."
-  },
-  {
+  }, {
     "type": "text",
     "name": "your_name",
     "label": "Your Name",
     "placeholder": "Your name",
     "required": false,
     "helpText": "Optional: Add if we can contact you later, if we need more information."
-  },
-  {
+  }, {
     "type": "email",
     "name": "your_email",
     "label": "Your Email",
     "placeholder": "your@email.com",
     "required": false,
     "helpText": "Optional: Add if we can contact you later, if we need more information."
-  },
-  {
+  }, {
     "type": "text",
     "name": "your_relationship",
     "label": "Your relationship to the promotion",
@@ -67,7 +62,7 @@
 
 {% set formId = 'builder-promo-form' %}
 {# TODO: Replace with your actual Bunny Edge Script URL from step 2j of deployment #}
-{% set action = 'https://rebuild-applications-od76p.b-cdn.net/api/builder-promotion' %}
+{% set action = 'https://rebuild-staging.b-cdn.net/api/builder-promotion' %}
 {% set method = 'POST' %}
 {% set title = formTitle %}
 {% set description = formDescription %}
