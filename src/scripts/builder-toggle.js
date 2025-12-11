@@ -1,6 +1,6 @@
 /**
  * Builder Row Toggle Functionality
- * Handles expanding/collapsing builder rows on the catalog page
+ * Handles expanding/collapsing builder rows on the directory page
  */
 
 document.addEventListener('DOMContentLoaded', function() {

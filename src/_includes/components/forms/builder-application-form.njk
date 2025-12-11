@@ -2,7 +2,7 @@
   Builder Application Form
   Usage: {% include "components/builder-application-form.njk" %}
 
-  This form allows builders to apply to become part of the Rebuild catalog
+  This form allows builders to apply to become part of the Rebuild directory
   and potentially be featured. Submissions are sent to a Notion database
   via Bunny Edge Script (same database as promotions).
 
@@ -15,12 +15,12 @@
 {% set isFeatured = featured | default(false) %}
 
 {% if isFeatured %}
-  {% set formTitle = title | default('Apply to be a Featured Builder') %}
-  {% set formDescription = description | default('Featured builders are highlighted in our catalog and communications. Tell us about your work rebuilding social infrastructure in Europe.') %}
+  {% set formTitle = title | default('Apply to be a featured entrepreneur') %}
+  {% set formDescription = description | default('Featured builders are highlighted in our directory and communications. Tell us about your work rebuilding social infrastructure in Europe.') %}
   {% set applicationType = 'featured' %}
 {% else %}
-  {% set formTitle = title | default('Join the Builder Catalog') %}
-  {% set formDescription = description | default('Are you working to rebuild social infrastructure in Europe? Join our catalog of builders and connect with a community of like-minded changemakers.') %}
+  {% set formTitle = title | default('Join the directory') %}
+  {% set formDescription = description | default('Are you working to rebuild social infrastructure in Europe? Join our directory of builders and connect with a community of like-minded changemakers.') %}
   {% set applicationType = 'standard' %}
 {% endif %}
 
@@ -159,7 +159,7 @@
     {
       type: 'checkbox',
       name: 'consent',
-      label: 'I agree to be included in the Rebuild catalog and understand that my information will be shared publicly.',
+      label: 'I agree to be included in the Rebuild directory and understand that my information will be shared publicly.',
       required: true
     },
     {
@@ -292,7 +292,7 @@
     {
       type: 'checkbox',
       name: 'consent',
-      label: 'I agree to be included in the Rebuild catalog and understand that my information will be shared publicly.',
+      label: 'I agree to be included in the Rebuild directory and understand that my information will be shared publicly.',
       required: true
     },
     {

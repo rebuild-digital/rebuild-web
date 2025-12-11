@@ -8,8 +8,8 @@ The form system consists of:
 
 1. **Base Form Component** ([form.njk](src/_includes/components/form.njk)) - A flexible, extensible form builder
 2. **Newsletter Form** ([newsletter-form.njk](src/_includes/components/newsletter-form.njk)) - Newsletter signup with inline and standard layouts
-3. **Builder Promotion Form** ([builder-promo-form.njk](src/_includes/components/builder-promo-form.njk)) - Nominate builders for the catalog
-4. **Builder Application Form** ([builder-application-form.njk](src/_includes/components/builder-application-form.njk)) - Apply to join the catalog
+3. **Builder Promotion Form** ([builder-promo-form.njk](src/_includes/components/builder-promo-form.njk)) - Nominate builders for the directory
+4. **Builder Application Form** ([builder-application-form.njk](src/_includes/components/builder-application-form.njk)) - Apply to join the directory
 
 All forms follow the site's design system with:
 

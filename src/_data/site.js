@@ -1,6 +1,7 @@
 module.exports = {
   title: "rebuild.",
-  description: "A catalyst to rebuild European social platforms by fostering connections, directing talent and getting back to building.",
+  description:
+    "A catalyst to rebuild European social platforms by fostering connections, directing talent and getting back to building.",
   url: process.env.SITE_URL || "https:/www.rebuild.net",
   defaultImage: "/assets/images/default-og-image.jpg",
   author: "rebuild team",
@@ -9,16 +10,12 @@ module.exports = {
   // Navigation
   main_navigation: [
     {
-      name: "Home",
-      url: "/",
-    },
-    {
       name: "Insights",
       url: "/insights/",
     },
     {
-      name: "Catalog",
-      url: "/catalog/",
+      name: "Directory",
+      url: "/directory/",
     },
     {
       name: "Gatherings",

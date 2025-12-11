@@ -38,7 +38,7 @@ Processes both builder promotion and application form submissions, sending them 
 **Endpoints:**
 
 - `POST /api/builder-promotion` - For promoting existing builders
-- `POST /api/builder-application` - For builders applying to join the catalog
+- `POST /api/builder-application` - For builders applying to join the directory
 
 **Builder Promotion Fields:**
 
@@ -65,7 +65,7 @@ Processes both builder promotion and application form submissions, sending them 
 - `application_type` (hidden) - 'standard' or 'featured'
 - `why_featured` (optional) - Why should they be featured (for featured apps)
 - `social_media` (optional) - Social media profile
-- `consent` (required) - Public catalog consent
+- `consent` (required) - Public directory consent
 - `newsletter` (optional) - Newsletter opt-in
 
 ## Setup Instructions

@@ -36,8 +36,8 @@ Works on any clickable element:
 
 ### Available Forms
 
-- **builder-promo** - Nominate a builder for the catalog
-- **builder-application** - Apply to join the catalog
+- **builder-promo** - Nominate a builder for the directory
+- **builder-application** - Apply to join the directory
 - **newsletter** - Newsletter signup
 
 ### JavaScript API

@@ -2,7 +2,7 @@
   Builder Promotion Form
   Usage: {% include "components/builder-promo-form.njk" %}
 
-  This form allows users to promote a builder to the Rebuild catalog.
+  This form allows users to promote a builder to the Rebuild directory.
   Submissions are sent to a Notion database via Bunny Edge Script.
 
   Parameters:
@@ -11,7 +11,7 @@
 #}
 
 {% set formTitle = title | default('Promote a builder') %}
-{% set formDescription = description | default('Do you know of a promising startup or builder who should be in our catalog? Let us know about them!') %}
+{% set formDescription = description | default('Do you know of a promising startup or builder who should be in our directory? Let us know about them!') %}
 
 {% set builderPromoFields = [
   {
@@ -33,7 +33,7 @@
   {
     "type": "textarea",
     "name": "why_promote",
-    "label": "Why should they be in the catalog?",
+    "label": "Why should they be in the directory?",
     "placeholder": "Tell us what makes them special and how they are contributing to rebuilding social infrastructure in Europe.",
     "required": true,
     "rows": 5,
@@ -74,6 +74,6 @@
 {% set submitText = 'Submit Promotion' %}
 {% set submitVariant = 'primary' %}
 {% set fields = builderPromoFields %}
-{% set successMessage = 'Thank you for the recommendation! We will review this builder for inclusion in our catalog.' %}
+{% set successMessage = 'Thank you for the recommendation! We will review this builder for inclusion in our directory.' %}
 {% set errorMessage = 'Sorry, we could not submit your promotion. Please try again or contact us directly.' %}
 {% include "components/form.njk" %}
