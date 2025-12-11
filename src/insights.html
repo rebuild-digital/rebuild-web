@@ -5,6 +5,8 @@ description: Stories, insights, and reflections from our community of builders
 permalink: /insights/index.html
 ---
 
+<hr>
+
 {% if collections.insights and collections.insights.length > 0 %}
   {# Extract all unique tags from insights #}
   {% set allTags = [] %}
@@ -19,7 +21,7 @@ permalink: /insights/index.html
   {% endfor %}
 
   {# Filter and Sort Controls #}
-  <div class="flex justify-between mb-md">
+  <div class="flex justify-between mb-md mt-lg">
     {# Sort Controls #}
     <div class="mb-sm">
       <div class="flex gap-xs flex-wrap">
@@ -38,7 +40,6 @@ permalink: /insights/index.html
       </div>
     </div>
   </div>
-  <hr>
 
   {# Cards Grid - Masonry Layout #}
   <div

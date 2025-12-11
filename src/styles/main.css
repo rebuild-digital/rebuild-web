@@ -300,7 +300,7 @@
 
   /* Buttons */
   button {
-    @apply cursor-pointer border-none bg-transparent;
+    @apply cursor-pointer bg-transparent;
     font-family: inherit;
   }
 
