@@ -41,6 +41,12 @@
       // Set content
       content.innerHTML = formContent;
 
+      // Reinitialize form handlers for dynamically loaded forms
+      const form = content.querySelector('form[data-ajax-form]');
+      if (form && window.initializeFormHandler) {
+        window.initializeFormHandler(form);
+      }
+
       // Show overlay on mobile
       overlay.classList.remove('hidden');
       setTimeout(() => overlay.style.opacity = '1', 10);
