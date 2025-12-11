@@ -1,9 +1,12 @@
-import * as BunnySDK from "https://esm.sh/@bunny.net/[email protected]";
+import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
 
 // Middleware script with automatic origin passthrough
 
 BunnySDK.net.http
-  .servePullZone()
+
+  .servePullZone({
+    origin: "https://rebuild-staging.statichost.page", // ✅ Specify origin explicitly
+  })
 
   .onOriginRequest(async (context) => {
     const request = context.request;
@@ -84,10 +87,12 @@ async function handleFormSubmission(request, url, corsHeaders) {
 
     // Send to Notion
 
-    const notionResponse = await sendToNotion(submission.data, isPromotion);
+    const notionResponse = await sendToNotion(submission.data, isPromotion, request);
 
     if (!notionResponse.ok) {
-      throw new Error("Failed to create Notion entry");
+      const errorBody = await notionResponse.text();
+      console.error("Notion API error:", notionResponse.status, errorBody);
+      throw new Error(`Failed to create Notion entry: ${notionResponse.status} - ${errorBody}`);
     }
 
     return new Response(
@@ -134,13 +139,11 @@ function parseFormData(formData, isPromotion) {
 
       builderWebsite: formData.get("builder_website"),
 
-      builderCategory: formData.get("builder_category"),
-
       whyPromote: formData.get("why_promote"),
 
-      yourName: formData.get("your_name"),
+      yourName: formData.get("your_name") || "Anonymous",
 
-      yourEmail: formData.get("your_email"),
+      yourEmail: formData.get("your_email") || "Not provided",
 
       yourRelationship: formData.get("your_relationship") || "Not specified",
 
@@ -151,13 +154,7 @@ function parseFormData(formData, isPromotion) {
 
     if (!data.builderWebsite) errors.push("Builder website is required");
 
-    if (!data.builderCategory) errors.push("Category is required");
-
     if (!data.whyPromote) errors.push("Reason for promotion is required");
-
-    if (!data.yourName) errors.push("Your name is required");
-
-    if (!data.yourEmail) errors.push("Your email is required");
 
     return { isValid: errors.length === 0, errors, data };
   } else {
@@ -219,10 +216,11 @@ function parseFormData(formData, isPromotion) {
   }
 }
 
-async function sendToNotion(data, isPromotion) {
-  const NOTION_API_KEY = BunnyCDN.EdgeStorage.get("NOTION_TOKEN");
+async function sendToNotion(data, isPromotion, request) {
+  // Environment variables in Bunny EdgeScript are accessed via Deno.env
+  const NOTION_API_KEY = Deno.env.get("NOTION_TOKEN");
 
-  const NOTION_DATABASE_ID = BunnyCDN.EdgeStorage.get("NOTION_BUILDERS_DB_ID");
+  const NOTION_DATABASE_ID = Deno.env.get("NOTION_BUILDERS_DB_ID");
 
   const properties = isPromotion
     ? buildPromotionProperties(data)
@@ -233,6 +231,8 @@ async function sendToNotion(data, isPromotion) {
 
     properties: properties,
   };
+
+  console.log("Sending to Notion:", JSON.stringify(notionPayload, null, 2));
 
   return fetch("https://api.notion.com/v1/pages", {
     method: "POST",
@@ -257,8 +257,6 @@ function buildPromotionProperties(data) {
 
     Website: { url: data.builderWebsite },
 
-    Category: { select: { name: data.builderCategory } },
-
     Description: { rich_text: [{ text: { content: data.whyPromote } }] },
 
     "Submitted By": {
@@ -269,7 +267,7 @@ function buildPromotionProperties(data) {
 
     Relationship: { rich_text: [{ text: { content: data.yourRelationship } }] },
 
-    Status: { select: { name: "New" } },
+    Status: { status: { name: "New" } },
 
     "Submitted At": { date: { start: data.submittedAt } },
   };
@@ -308,7 +306,7 @@ function buildApplicationProperties(data) {
 
     Newsletter: { checkbox: data.newsletter },
 
-    Status: { select: { name: "New" } },
+    Status: { status: { name: "New" } },
 
     "Submitted At": { date: { start: data.submittedAt } },
   };
