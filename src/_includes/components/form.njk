@@ -43,6 +43,7 @@
     id="{{ formId }}"
     action="{{ action }}"
     method="{{ formMethod }}"
+    data-ajax-form
     class="form bg-light w-full max-w-full"
     style="width: 100%; max-width: 100%;"
   >
@@ -178,71 +179,3 @@
     </div>
   </form>
 </div>
-
-<script>
-  // Form submission handler
-  (function() {
-    const form = document.getElementById('{{ formId }}');
-    if (!form) {
-      console.error('Form not found: {{ formId }}');
-      return;
-    }
-
-    console.log('Form handler initialized for: {{ formId }}');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      console.log('Form submitting via JavaScript');
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const successEl = document.getElementById('{{ formId }}-success');
-      const errorEl = document.getElementById('{{ formId }}-error');
-
-      // Hide previous messages
-      successEl.classList.add('hidden');
-      errorEl.classList.add('hidden');
-
-      // Disable submit button
-      submitBtn.disabled = true;
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Submitting...';
-
-      try {
-        const formData = new FormData(form);
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        const data = await response.json();
-        console.log('Response:', data);
-
-        if (response.ok) {
-          successEl.classList.remove('hidden');
-          form.reset();
-          // Scroll to success message
-          successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else {
-          // Show error message with details if available
-          if (data.details) {
-            errorEl.querySelector('p').textContent = data.details.join(', ');
-          }
-          errorEl.classList.remove('hidden');
-          errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      } catch (error) {
-        console.error('Form submission error:', error);
-        errorEl.classList.remove('hidden');
-        errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-      }
-    });
-  })();
-</script>
