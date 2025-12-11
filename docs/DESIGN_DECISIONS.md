@@ -14,7 +14,7 @@ This document captures all key decisions made for the project to serve as a refe
 
 **Neutrals**:
 
-- **Off-white**: For text on dark backgrounds
+- **Light**: For text on dark backgrounds
 - **Dark**: Primary text color + 3 tints for hierarchy
 
 **Implementation**: CSS custom properties in `global.css` (see STACK_ARCHITECTURE.md for structure)
@@ -51,7 +51,7 @@ author: "Author Name"
 tags: [Stories, Resources, etc.]
 excerpt: "Meta description..."
 featured_image: "/assets/images/post-image.jpg"
-featured: false  # Pin to top
+featured: false # Pin to top
 ```
 
 **Features**:

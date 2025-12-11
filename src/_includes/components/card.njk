@@ -10,34 +10,36 @@
   - tags: Array of tags (optional)
 #}
 
-<article class="bg-light border-2 border-dark overflow-hidden transition-all duration-base hover:shadow-[4px_4px_0_#1A1A1A]">
+<article class="overflow-hidden transition-all duration-base">
   {% if image %}
     <div>
-      <img src="{{ image }}" alt="{{ title }}" loading="lazy" class="w-full h-[200px] object-cover">
+      <a href="{{ link }}">
+        <img src="{{ image }}" alt="{{ title }}" loading="lazy" class="w-full object-cover">
+      </a>
     </div>
   {% endif %}
 
-  <div class="p-md">
+  <div class="mt-md">
     {% if title %}
-      <h3 class="text-lg mb-sm">
+      <h3 class="text-xl lg:text-3xl mb-sm">
         {% if link %}
-          <a href="{{ link }}" class="text-dark no-underline hover:text-blue">{{ title }}</a>
+          <a href="{{ link }}" class="text-dark no-underline hover:underline">{{ title }}</a>
         {% else %}
           {{ title }}
         {% endif %}
       </h3>
     {% endif %}
 
-    {% if description %}
-      <p class="text-dark mb-md">{{ description }}</p>
+    {% if author %}
+      <p class="text-dark">— {{ author }}</p>
     {% endif %}
 
-    {% if tags and tags.length > 0 %}
+    {# {% if tags and tags.length > 0 %}
       <div class="flex gap-xs flex-wrap">
         {% for tag in tags %}
           <span class="inline-block px-sm py-xs border border-dark text-xs font-semibold">{{ tag }}</span>
         {% endfor %}
       </div>
-    {% endif %}
+    {% endif %} #}
   </div>
 </article>

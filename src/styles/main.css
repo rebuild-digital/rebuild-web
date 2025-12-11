@@ -3,8 +3,8 @@
 
 /* Font Face Declarations */
 @font-face {
-  font-family: 'ABC Social Mono';
-  src: url('/fonts/ABCSocialMono-Book.woff2') format('woff2');
+  font-family: "ABC Social Mono";
+  src: url("/fonts/ABCSocialMono-Book.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -17,55 +17,55 @@
      =========================================== */
 
   /* Primary Colors */
-  --color-red: #AC1D24;
-  --color-red-shade: #8A1F1F;
-  --color-red-tint: #D16B6B;
+  --color-red: #ac1d24;
+  --color-red-shade: #8a1f1f;
+  --color-red-tint: #d16b6b;
 
-  --color-blue: #6BA1CC;
-  --color-blue-shade: #3D5F83;
-  --color-blue-tint: #8FB5D9;
+  --color-blue: #6ba1cc;
+  --color-blue-shade: #3d5f83;
+  --color-blue-tint: #8fb5d9;
 
-  --color-green: #669E67;
+  --color-green: #669e67;
   --color-green-shade: #316139;
-  --color-green-tint: #73B088;
-  
-  --color-blush: #E1AEB0;
-  --color-blush-shade: #B17D7D;
-  --color-blush-tint: #E8CDCD;
+  --color-green-tint: #73b088;
 
-  --color-blonde: #F4E2D2;
-  --color-blonde-shade: #D4B59A;
-  --color-blonde-tint: #F7EBE0;
-  
-  --color-orange: #BF6E36;
-  --color-orange-shade: #9A5E2E;
-  --color-orange-tint: #9A5E2E;
+  --color-blush: #e1aeb0;
+  --color-blush-shade: #b17d7d;
+  --color-blush-tint: #e8cdcd;
+
+  --color-blonde: #f4e2d2;
+  --color-blonde-shade: #d4b59a;
+  --color-blonde-tint: #f7ebe0;
+
+  --color-orange: #bf6e36;
+  --color-orange-shade: #9a5e2e;
+  --color-orange-tint: #9a5e2e;
 
   /* Neutrals */
-  --color-light: #E8E8E8;
-  --color-lighter: #D9D9E0;
-  --color-muted: #9C9CB4;
-  --color-darker: #5F5F79;
-  --color-dark: #22223E;
+  --color-light: #e8e8e8;
+  --color-lighter: #d9d9e0;
+  --color-muted: #9c9cb4;
+  --color-darker: #5f5f79;
+  --color-dark: #22223e;
 
   /* ===========================================
      SPACING
      =========================================== */
 
-  --spacing-xxs: 0.25rem;  /* 4px */
-  --spacing-xs: 0.5rem;    /* 8px */
-  --spacing-sm: 1rem;      /* 16px */
-  --spacing-md: 1.5rem;    /* 24px */
-  --spacing-lg: 2rem;      /* 32px */
-  --spacing-xl: 3rem;      /* 48px */
-  --spacing-2xl: 4rem;     /* 64px */
-  --spacing-3xl: 6rem;     /* 96px */
-  --spacing-4xl: 8rem;     /* 128px */
-  --spacing-5xl: 12rem;    /* 192px */
-  --spacing-6xl: 16rem;    /* 256px */
-  --spacing-7xl: 20rem;    /* 320px */
-  --spacing-8xl: 24rem;    /* 384px */
-  --spacing-9xl: 32rem;    /* 512px */
+  --spacing-xxs: 0.25rem; /* 4px */
+  --spacing-xs: 0.5rem; /* 8px */
+  --spacing-sm: 1rem; /* 16px */
+  --spacing-md: 1.5rem; /* 24px */
+  --spacing-lg: 2rem; /* 32px */
+  --spacing-xl: 3rem; /* 48px */
+  --spacing-2xl: 4rem; /* 64px */
+  --spacing-3xl: 6rem; /* 96px */
+  --spacing-4xl: 8rem; /* 128px */
+  --spacing-5xl: 12rem; /* 192px */
+  --spacing-6xl: 16rem; /* 256px */
+  --spacing-7xl: 20rem; /* 320px */
+  --spacing-8xl: 24rem; /* 384px */
+  --spacing-9xl: 32rem; /* 512px */
 
   /* Max-width scale using spacing values */
   --max-width-xxs: var(--spacing-xxs);
@@ -88,25 +88,27 @@
      =========================================== */
 
   /* Font Families */
-  --font-custom: 'ABC Social Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-custom: "ABC Social Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, monospace;
   --font-sans: system-ui, -apple-system, sans-serif;
   --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: 'ABC Social Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-mono: "ABC Social Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, monospace;
 
   /* Font Sizes */
-  --font-size-xs: 0.75rem;      /* 12px */
-  --font-size-sm: 0.875rem;     /* 14px */
-  --font-size-base: 1rem;       /* 16px */
-  --font-size-lg: 1.125rem;     /* 18px */
-  --font-size-xl: 1.25rem;      /* 20px */
-  --font-size-2xl: 1.5rem;      /* 24px */
-  --font-size-3xl: 1.875rem;    /* 30px */
-  --font-size-4xl: 2.25rem;     /* 36px */
-  --font-size-5xl: 3rem;        /* 48px */
-  --font-size-6xl: 3.75rem;     /* 60px */
-  --font-size-7xl: 4.5rem;      /* 72px */
-  --font-size-8xl: 6rem;        /* 96px */
-  --font-size-9xl: 8rem;        /* 128px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
+  --font-size-6xl: 3.75rem; /* 60px */
+  --font-size-7xl: 4.5rem; /* 72px */
+  --font-size-8xl: 6rem; /* 96px */
+  --font-size-9xl: 8rem; /* 128px */
 
   /* Font Weights */
   --font-weight-thin: 100;
@@ -165,8 +167,10 @@
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
   --shadow-none: 0 0 #0000;
@@ -313,7 +317,7 @@
   h4,
   h5,
   h6 {
-    @apply font-bold mb-md;
+    /* @apply font-bold mb-md; */
     line-height: 1.2;
   }
 
@@ -369,17 +373,14 @@
 @layer components {
   /* Filter Button Component */
   .filter-button {
-    @apply inline-block px-md py-xs bg-light border-2 border-dark text-sm font-semibold transition-all duration-fast;
+    @apply inline-block px-sm py-xs bg-light border-2 border-dark text-sm transition-all duration-fast;
     @apply hover:bg-dark hover:text-light;
     @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue;
   }
 
   .filter-button.active {
-    @apply bg-blue text-light border-blue;
-  }
-
-  .filter-button.active:hover {
-    @apply bg-blue-shade border-blue-shade;
+    @apply bg-light text-dark;
+    @apply border-2 border-dark;
   }
 
   /* Rich Text Component - Keep this as a semantic wrapper for markdown content */
@@ -394,7 +395,7 @@
   .rich-text h4,
   .rich-text h5,
   .rich-text h6 {
-    @apply font-bold mb-md mt-xl;
+    @apply mb-md mt-xl;
     line-height: 1.3;
   }
 
@@ -412,6 +413,7 @@
 
   .rich-text h4 {
     @apply text-2xl;
+    @apply mb-xl;
   }
 
   .rich-text h5 {
@@ -432,10 +434,6 @@
     @apply font-bold text-dark;
   }
 
-  .rich-text em {
-    @apply italic;
-  }
-
   .rich-text small {
     @apply text-sm text-muted block mt-md;
   }
@@ -443,11 +441,12 @@
   /* Lists */
   .rich-text ul,
   .rich-text ol {
-    @apply mb-md pl-lg space-y-xs;
+    @apply mb-xl space-y-xs;
   }
 
   .rich-text ul {
-    list-style-type: disc;
+    list-style-type: "●";
+    list-style-position: outside;
   }
 
   .rich-text ol {
@@ -455,7 +454,7 @@
   }
 
   .rich-text li {
-    @apply mb-xs pl-xs;
+    @apply mb-xs pl-md;
     line-height: 1.7;
   }
 
@@ -481,7 +480,7 @@
 
   /* Images */
   .rich-text img {
-    @apply max-w-full h-auto my-lg rounded-md shadow-md;
+    @apply max-w-full h-auto my-2xl;
   }
 
   .rich-text figure {
@@ -489,17 +488,17 @@
   }
 
   .rich-text figcaption {
-    @apply text-sm text-muted italic mt-xs text-center;
+    @apply text-sm text-muted mt-xs text-center;
   }
 
   /* Blockquotes */
   .rich-text blockquote {
-    @apply border-l-4 border-blue pl-md my-lg italic bg-light p-md rounded-r-md;
-    quotes: """ """ "'" "'";
+    @apply border-l-4 border-blue pl-md my-2xl bg-light;
+    quotes: "" " " "" "'" "'";
   }
 
   .rich-text blockquote p {
-    @apply mb-xs text-base;
+    @apply mb-xs text-3xl;
   }
 
   .rich-text blockquote p:last-child {
@@ -507,7 +506,7 @@
   }
 
   .rich-text blockquote cite {
-    @apply not-italic text-sm font-semibold block mt-xs;
+    @apply text-sm block mt-lg not-italic;
   }
 
   .rich-text blockquote cite::before {
@@ -516,12 +515,12 @@
 
   /* Code blocks */
   .rich-text code {
-    @apply bg-dark text-green px-1.5 py-0.5 rounded-sm font-mono;
+    @apply bg-dark text-green px-1.5 py-0.5 font-mono;
     font-size: 0.9em;
   }
 
   .rich-text pre {
-    @apply bg-dark text-light p-md rounded-md overflow-x-auto my-lg shadow-md;
+    @apply bg-dark text-light p-md overflow-x-auto my-lg shadow-md;
     line-height: 1.5;
   }
 
@@ -566,7 +565,7 @@
 
   /* Callout boxes */
   .rich-text .callout {
-    @apply p-md my-lg rounded-md border-l-4;
+    @apply p-md my-lg border-l-4;
   }
 
   .rich-text .callout-info {
@@ -600,7 +599,7 @@
 
   /* Keyboard and abbreviation elements */
   .rich-text kbd {
-    @apply bg-muted text-dark px-xs py-xxs rounded-sm font-mono text-sm border border-dark;
+    @apply bg-muted text-dark px-xs py-xxs font-mono text-sm border border-dark;
   }
 
   .rich-text abbr[title] {
@@ -643,7 +642,7 @@
 
   /* Beta Banner Component */
   .beta-banner {
-    @apply bg-blue text-off-white py-xs overflow-hidden border-b-2 border-dark;
+    @apply bg-light text-dark py-xs overflow-hidden;
   }
 
   .marquee {
@@ -651,12 +650,12 @@
   }
 
   .marquee-content {
-    @apply flex gap-xl whitespace-nowrap;
-    animation: marquee 60s linear infinite;
+    @apply flex gap-sm whitespace-nowrap;
+    animation: marquee-reverse 60s linear infinite;
   }
 
   .marquee-text {
-    @apply inline-block text-sm font-semibold px-xl;
+    @apply inline-block text-sm px-sm;
   }
 
   /* Pause animation on hover */
@@ -667,12 +666,12 @@
 
 /* Utilities Layer - Custom animations */
 @layer utilities {
-  @keyframes marquee {
+  @keyframes marquee-reverse {
     0% {
-      transform: translateX(0);
+      transform: translateX(-50%);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(0);
     }
   }
 }

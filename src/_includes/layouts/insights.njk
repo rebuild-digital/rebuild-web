@@ -4,8 +4,8 @@ layout: layouts/base.njk
 
 <div class="container">
   <section class="insights-listing pt-xl pb-2xl">
-    <header class="mb-xl">
-      <h1>{{ title | default("Insights") }}</h1>
+    <header class="mb-3xl font-normal">
+      <h1 class="font-normal text-7xl">{{ title | default("Insights") }}</h1>
       {% if description %}
         <div class="rich-text">
           {{ description | safe }}

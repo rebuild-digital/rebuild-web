@@ -19,47 +19,29 @@ permalink: /insights/index.html
   {% endfor %}
 
   {# Filter and Sort Controls #}
-  <div class="flex justify-between mb-xl border-b-2 border-dark">
+  <div class="flex justify-between mb-md">
     {# Sort Controls #}
     <div class="mb-sm">
-      <h3 class="text-base font-semibold mb-sm">Sort by:</h3>
       <div class="flex gap-xs flex-wrap">
         <button
           data-sort="recency"
-          class="filter-button active"
+          class="inline-block text-sm"
           aria-label="Sort by recency">
-          Recency
+          Most recent ↓
         </button>
-        <button
+        {# <button
           data-sort="alphabetical"
           class="filter-button"
           aria-label="Sort alphabetically">
           Alphabetical
-        </button>
+        </button> #}
       </div>
     </div>
-
-    {# Tag Filter Controls #}
-    {% if allTags.length > 0 %}
-      <div>
-        <h3 class="text-sm font-semibold mb-sm">Filter by tag:</h3>
-        <div class="flex gap-xs flex-wrap">
-          {% for tag in allTags %}
-            <button
-              data-tag-filter="{{ tag }}"
-              class="filter-button"
-              aria-label="Filter by {{ tag }}">
-              {{ tag }}
-            </button>
-          {% endfor %}
-        </div>
-      </div>
-    {% endif %}
   </div>
 
-  {# Cards Grid #}
+  {# Cards Grid - Masonry Layout #}
   <div
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-sm md:gap-md"
+    class="columns-1 md:columns-2 gap-md md:gap-xl"
     data-insights-grid>
     {% for post in collections.insights %}
       {% set title = post.data.title %}
@@ -69,12 +51,15 @@ permalink: /insights/index.html
       {% set image = post.data.featured_image %}
       {% set featured = post.data.featured %}
       {% set date = post.data.date %}
+      {% set author = post.data.author %}
 
       {# Wrap card in a div with data attributes #}
       <div
+        class="break-inside-avoid mb-md md:mb-xl"
         data-insight-card
         data-title="{{ title }}"
         data-date="{{ date }}"
+        data-author="{{ author }}"
         data-featured="{{ featured or false }}"
         data-tags="{% if tags %}{{ tags | join(',') }}{% endif %}">
         {% include "components/card.njk" %}
