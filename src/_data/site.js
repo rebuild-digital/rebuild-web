@@ -4,6 +4,7 @@ module.exports = {
     "A catalyst to rebuild European social platforms by fostering connections, directing talent and getting back to building.",
   url: process.env.SITE_URL || "https:/www.rebuild.net",
   defaultImage: "/assets/images/default-og-image.jpg",
+  logo: "/assets/images/logo.svg",
   author: "rebuild team",
   language: "en",
 
@@ -24,6 +25,10 @@ module.exports = {
     {
       name: "Journey",
       url: "/journey/",
+    },
+    {
+      name: "People",
+      url: "/people/",
     },
     {
       name: "Get in touch",

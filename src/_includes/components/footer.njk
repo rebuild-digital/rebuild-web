@@ -2,12 +2,16 @@
   <div class="border-t-2 border-dark mx-auto pt-md">
     <div class="flex flex-col md:flex-row justify-between">
       <div class="flex flex-col">
-        <p class="text-xl"> {{ site.title }}</p>
-        <p class="text-sm max-w-7xl"> {{site.description }}</p>
+        <div class="py-2 h-12">
+          <img src={{site.logo}} alt="Rebuild logo."/>
+        </div>
+        <p class="text-sm max-w-7xl">
+          {{site.description }}</p>
 
         {# Newsletter signup form #}
         <div class="text-sm mt-lg">
-          <p class="text-sm mb-xs">Get our newsletter</p>
+          <p class="text-sm mb-xs">Get our newsletter or <a class="underline hover:text-blue" href="https://google.com">follow us on Linkedin</a>
+          </p>
           <form
             id="footer-newsletter-form"
             action="/api/newsletter-signup"
@@ -43,27 +47,27 @@
               <p class="text-xs font-semibold">Something went wrong. Please try again.</p>
             </div>
           </form>
-          <a class="hover:underline hover:text-blue" href="https://google.com">Follow us on Linkedin</a>
+
         </div>
       </div>
 
       {# NAVIGATION #}
-        <nav class="flex text-sm flex-row gap-xl mt-xl md:mt-0" aria-label="Footer Navigation">
-          <ul class="flex flex-col gap-sm md:gap-md list-none md:flex-wrap md:justify-top">
-            {% for item in site.main_navigation %}
-              <li>
-                <a href="{{ item.url }}" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">{{ item.name }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-          <ul class="flex flex-col gap-sm md:gap-md list-none md:flex-wrap md:justify-top">
-            {% for item in site.second_navigation %}
-              <li>
-                <a href="{{ item.url }}" class="hover:underline transition-fast hover:text-blue focus:text-blue">{{ item.name }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-        </nav>
+      <nav class="flex text-sm flex-row gap-xl mt-xl md:mt-0" aria-label="Footer Navigation">
+        <ul class="flex flex-col gap-sm md:gap-md list-none md:flex-wrap md:justify-top">
+          {% for item in site.main_navigation %}
+            <li>
+              <a href="{{ item.url }}" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">{{ item.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+        <ul class="flex flex-col gap-sm md:gap-md list-none md:flex-wrap md:justify-top">
+          {% for item in site.second_navigation %}
+            <li>
+              <a href="{{ item.url }}" class="hover:underline transition-fast hover:text-blue focus:text-blue">{{ item.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
     </div>
     <p class="text-dark text-xs mt-xl">&copy; 2025 {{ site.title }} All rights reserved.</p>
   </div>
@@ -71,25 +75,31 @@
 
 <script>
   // Footer newsletter form submission handler
-  (function() {
+  (function () {
     const form = document.getElementById('footer-newsletter-form');
-    if (!form) return;
-
+    if (!form) 
+      return;
+    
     let fadeTimeout;
 
     function showMessage(element) {
       // Clear any existing timeout
-      if (fadeTimeout) clearTimeout(fadeTimeout);
-
+      if (fadeTimeout) 
+        clearTimeout(fadeTimeout);
+      
       // Show the message
-      element.classList.remove('hidden');
+      element
+        .classList
+        .remove('hidden');
       element.style.opacity = '1';
 
       // Fade out after 3 seconds
       fadeTimeout = setTimeout(() => {
         element.style.opacity = '0';
         setTimeout(() => {
-          element.classList.add('hidden');
+          element
+            .classList
+            .add('hidden');
         }, 300); // Wait for fade transition to complete
       }, 3000);
     }
@@ -101,8 +111,12 @@
       const errorEl = document.getElementById('footer-newsletter-error');
 
       // Hide both messages
-      successEl.classList.add('hidden');
-      errorEl.classList.add('hidden');
+      successEl
+        .classList
+        .add('hidden');
+      errorEl
+        .classList
+        .add('hidden');
 
       submitBtn.disabled = true;
       const originalText = submitBtn.textContent;
@@ -113,7 +127,9 @@
         const response = await fetch(form.action, {
           method: 'POST',
           body: formData,
-          headers: { 'Accept': 'application/json' }
+          headers: {
+            'Accept': 'application/json'
+          }
         });
 
         if (response.ok) {
