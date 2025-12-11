@@ -369,4 +369,39 @@
       @apply grid-cols-1;
     }
   }
+
+  /* Beta Banner Component */
+  .beta-banner {
+    @apply bg-blue text-off-white py-xs overflow-hidden border-b-2 border-dark;
+  }
+
+  .marquee {
+    @apply relative w-full overflow-hidden;
+  }
+
+  .marquee-content {
+    @apply flex gap-xl whitespace-nowrap;
+    animation: marquee 60s linear infinite;
+  }
+
+  .marquee-text {
+    @apply inline-block text-sm font-semibold px-xl;
+  }
+
+  /* Pause animation on hover */
+  .beta-banner:hover .marquee-content {
+    animation-play-state: paused;
+  }
+}
+
+/* Utilities Layer - Custom animations */
+@layer utilities {
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }
