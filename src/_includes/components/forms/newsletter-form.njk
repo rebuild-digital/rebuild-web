@@ -19,7 +19,7 @@
   <div class="newsletter-form-inline">
     <form
       id="newsletter-form-inline"
-      action="/api/newsletter-signup"
+      action="{{ site.apiUrl }}/api/newsletter-signup"
       method="POST"
       class="flex gap-sm items-end"
     >
@@ -160,7 +160,7 @@
   ] %}
 
   {% set formId = 'newsletter-form' %}
-  {% set action = '/api/newsletter-signup' %}
+  {% set action = site.apiUrl + '/api/newsletter-signup' %}
   {% set method = 'POST' %}
   {% set title = formTitle %}
   {% set description = formDescription %}
