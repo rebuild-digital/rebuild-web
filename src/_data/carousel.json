@@ -1,0 +1,31 @@
+{
+  "slides": [
+    {
+      "id": "slide-1",
+      "headline": "Social Platform Taxonomy",
+      "subheader": "Social platforms take many shapes. Explore and use this taxonomy to navigate the landscape.",
+      "image": "/assets/images/taxonomy-icons.png",
+      "ctaText": "See the frameworks",
+      "ctaLink": "/frameworks/#Social Platform Taxonomy",
+      "bgColor": "#dde2de"
+    },
+    {
+      "id": "slide-2",
+      "headline": "Portrait of Daniela Hinrichs, founder of Xing",
+      "subheader": "Id at quas sed et molestiae velit voluptate nisi ratione. Id at quas sed et molestiae velit voluptate nisi ratione.",
+      "image": "/assets/images/daniela-hinrichs.png",
+      "ctaText": "Read the interview",
+      "ctaLink": "/insights/daniela-hinrichs",
+      "bgColor": "#dfd4d4"
+    },
+    {
+      "id": "slide-3",
+      "headline": "Gatherings",
+      "subheader": "Building social platforms? Learn more about our gatherings, designed to foster collaboration and accelerate development.",
+      "image": "/assets/images/gatherings-teaser.png",
+      "ctaText": "Learn more",
+      "ctaLink": "/gatherings/",
+      "bgColor": "#dce0e4"
+    }
+  ]
+}

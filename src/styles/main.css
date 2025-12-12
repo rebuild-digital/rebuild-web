@@ -284,6 +284,23 @@
     min-width: 0;
   }
 
+  /* Placeholder styling for form inputs */
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-muted);
+    opacity: 1; /* Firefox applies opacity by default */
+  }
+
+  /* Style the placeholder option in select elements */
+  select option[value=""] {
+    color: var(--color-muted);
+  }
+
+  /* Reset select text color when valid option is selected */
+  select:valid {
+    color: var(--color-dark);
+  }
+
   /* Links */
   a {
     @apply transition-fast;
@@ -642,7 +659,7 @@
 
   /* Beta Banner Component */
   .beta-banner {
-    @apply bg-light text-dark py-xs overflow-hidden;
+    @apply bg-light text-dark py-xs overflow-hidden border-t border-dark;
   }
 
   .marquee {
@@ -662,6 +679,94 @@
   .beta-banner:hover .marquee-content {
     animation-play-state: paused;
   }
+
+  /* Hero Splash Component */
+  .hero-splash {
+    @apply relative overflow-hidden;
+    height: 110vh;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-top: calc(
+      -1 * (192px + var(--spacing-md))
+    ); /* Offset header height + beta banner */
+    z-index: 1; /* Below header (z-50) but above body content */
+  }
+
+  .hero-video {
+    @apply absolute top-0 left-0 w-full h-full object-cover;
+    z-index: 1;
+  }
+
+  .hero-content {
+    @apply relative flex flex-col items-start justify-center h-full;
+    @apply max-w-[1400px] mx-auto px-md;
+    padding-top: 192px; /* Account for header height */
+    z-index: 2; /* Above video */
+  }
+
+  .hero-title {
+    @apply text-light w-full mx-auto text-6xl md:text-7xl lg:text-8xl font-normal leading-none mb-3xl text-center;
+    max-width: 1000px;
+  }
+
+  .hero-explore {
+    @apply text-light w-full mx-auto text-xl no-underline transition-fast text-center;
+    @apply hover:underline;
+    @apply mt-3xl;
+  }
+
+  /* Header Transitions */
+  header {
+    @apply transition-all duration-300 bg-light;
+  }
+
+  header a,
+  header button,
+  header span {
+    @apply text-dark;
+  }
+
+  header .border-b-2 {
+    @apply border-dark;
+  }
+
+  header.transparent {
+    @apply bg-transparent;
+  }
+
+  header.transparent .border-b-2 {
+    @apply border-light;
+  }
+
+  header.transparent a,
+  header.transparent button,
+  header.transparent span {
+    @apply text-light;
+  }
+
+  header.transparent img {
+    filter: brightness(0) invert(1);
+  }
+
+  header.transparent .beta-banner {
+    @apply bg-transparent border-light;
+  }
+
+  header.transparent .marquee-text {
+    @apply text-light;
+  }
+
+  /* Ensure smooth transitions */
+  header a,
+  header button,
+  header span,
+  header img,
+  header .border-b-2,
+  header .beta-banner,
+  header .marquee-text {
+    @apply transition-all duration-300;
+  }
 }
 
 /* Utilities Layer - Custom animations */
@@ -673,5 +778,11 @@
     100% {
       transform: translateX(0);
     }
+  }
+
+  /* Programmes Animation */
+  .programme-item-visible {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
   }
 }

@@ -1,35 +1,118 @@
 {#
-  Engage component
+  Engage Component
   Usage: {% include "components/engage.njk" %}
 
-  Parameters:
-  - targetDate: ISO date string for countdown target
-  - title: Title to display above countdown (optional)
+  Displays engagement options with buttons
 #}
 
-<div class="text-center p-lg bg-light border-2 border-dark" data-target-date="{{ targetDate }}">
-  {% if title %}
-    <h3 class="mb-md text-xl">{{ title }}</h3>
-  {% endif %}
+<section class="relative w-full text-center py-3xl">
+  <div class="max-w-[1400px] mx-auto px-md">
 
-  <div class="flex justify-center gap-lg flex-wrap">
-    <div class="flex flex-col items-center min-w-20 md:min-w-[60px]">
-      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-days>0</span>
-      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Days</span>
+    {# Section Title #}
+    <h2 class="text-4xl md:text-5xl font-normal text-dark mb-2xl">Engage with us</h2>
+
+    {# Engagement Grid #}
+    <div class="flex flex-wrap justify-center gap-md">
+      {# Give feedback - opens email #}
+      <a
+        href="#"
+        id="feedback-button"
+        class="px-xl py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 no-underline w-fit"
+      >
+        Give feedback
+      </a>
+
+      {# Subscribe to newsletter #}
+      <button
+        data-form="newsletter"
+        class="px-xl py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Subscribe to our newsletter
+      </button>
+
+      {# Comment on this page #}
+      <button
+        data-form="comment"
+        class="px-xl py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Comment on this page
+      </button>
+
+      {# Promote a startup #}
+      <button
+        data-form="builder-promo"
+        class="px-xl py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Promote a startup
+      </button>
+
+      {# Apply as a builder #}
+      <button
+        data-form="builder-application"
+        class="px-xl py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Apply as a builder
+      </button>
+
+      {# Share this page - copies URL #}
+      <button
+        id="share-button"
+        class="px-xl py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Share this page
+      </button>
     </div>
-    <div class="flex flex-col items-center min-w-[20 md:min-w-[60px]">
-      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-hours>0</span>
-      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Hours</span>
-    </div>
-    <div class="flex flex-col items-center min-w-20 md:min-w-[60px]">
-      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-minutes>0</span>
-      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Minutes</span>
-    </div>
-    <div class="flex flex-col items-center min-w-20 md:min-w-[60px]">
-      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-seconds>0</span>
-      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Seconds</span>
-    </div>
+
+    {# Engage Scripts #}
+    <script>
+      // Feedback button - opens email with pre-filled subject
+      document
+        .getElementById('feedback-button')
+        .addEventListener('click', function (e) {
+          e.preventDefault();
+          const currentUrl = window.location.href;
+          const subject = encodeURIComponent(`Feedback for ${currentUrl}`);
+          window.location.href = `mailto:team@rebuild.net?subject=${subject}`;
+        });
+
+      // Share button - copies current URL
+      document
+        .getElementById('share-button')
+        .addEventListener('click', async function () {
+          const currentUrl = window.location.href;
+          const button = this;
+
+          try {
+            await navigator
+              .clipboard
+              .writeText(currentUrl);
+            button.textContent = 'Copied URL';
+
+            // Reset text after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Share this page';
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy URL:', err);
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = currentUrl;
+            document
+              .body
+              .appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document
+              .body
+              .removeChild(textArea);
+            button.textContent = 'Copied URL';
+
+            setTimeout(() => {
+              button.textContent = 'Share this page';
+            }, 2000);
+          }
+        });
+    </script>
+
   </div>
-</div>
-
-<script src="/scripts/countdown.js"></script>
+</section>

@@ -1,0 +1,43 @@
+{#
+  Programmes Preview Component
+  Usage: {% include "components/programmes-preview.njk" %}
+
+  Displays the five Rebuild programmes with titles and descriptions
+#}
+
+<section class="relative w-full py-3xl">
+  <div class="max-w-[1400px] mx-auto px-md">
+
+    {# Header #}
+    <div class="flex flex-col md:flex-row justify-between items-start mb-4xl gap-lg">
+      <h2 class="text-4xl md:text-5xl font-normal text-dark">Programmes</h2>
+      <p class="text-lg md:text-lg text-dark max-w-[50ch]">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+    </div>
+
+    {# Programmes List #}
+    <div class="space-y-lg">
+      {% for programme in programmes.programmes %}
+        <div class="programme-item flex flex-col md:flex-row md:items-center md:gap-0 gap-md opacity-0 translate-x-[-2rem] transition-all duration-700 ease-out" data-index="{{ loop.index0 }}">
+          {# Programme Title with Color #}
+          <div class="flex-shrink-0 px-md py-sm w-fit" style="background-color: {{ programme.color }};">
+            <h3 class="text-xl md:text-2xl font-normal text-dark whitespace-nowrap">{{ programme.title }}</h3>
+          </div>
+
+          {# Connecting Line - extends from title to description #}
+          <div class="hidden md:block flex-grow h-px bg-dark mx-md" style="background-color: {{ programme.color }};"></div>
+
+          {# Description #}
+          <div class="flex-shrink w-96">
+            <p class="text-base md:text-lg text-dark">{{ programme.description }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {# Animation Script #}
+    <script src="/scripts/programmes-animation.js"></script>
+
+  </div>
+</section>

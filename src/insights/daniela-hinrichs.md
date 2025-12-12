@@ -1,12 +1,12 @@
 ---
 title: "An in-depth conversation with Daniela Hinrichs"
-date: 2025-12-07
+date: 2025-12-15
 author: "The Rebuild Team"
 tags:
   - Stories
 excerpt: "Introducing Rebuild: a new initiative for collaborative building and shared learning."
 featured: true
-featured_image: "/assets/images/welcome-to-rebuild-cover.jpg"
+featured_image: "/assets/images/daniela-2.jpeg"
 ---
 
 #### When Daniela Hinrichs talks about the early days of XING, she begins not with servers or funding rounds, but with people. When she met founder Lars Hinrichs in 2003 and he described something called the “Open Business Club”, a digital Rolodex that understood how real relationships worked, it clicked instantly

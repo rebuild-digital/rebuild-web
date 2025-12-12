@@ -1,9 +1,7 @@
-<header class="fixed bg-light z-50 w-full">
+<header class="fixed z-50 w-full top-0 left-0 pt-md">
   <div class="container max-w-[1400px] mx-auto px-md">
-    {# Beta Banner #}
-    {% include "components/banner.njk" %}
 
-    <div class="h-16 flex justify-between items-center gap-lg md:gap-sm border-b-2 border-dar pb-md">
+    <div class="h-16 flex justify-between items-center gap-lg md:gap-sm border-b-2 pb-md">
       <div class="w-auto self-center">
         <a href="/"><img src={{site.logo}} alt="Rebuild logo."/></a>
       </div>
@@ -14,7 +12,7 @@
           {% for item in site.main_navigation %}
             <li>
               <a href="{{ item.url }}"
-                 class="text-dark no-underline px-sm last:pl-0 py-xs transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
+                 class="no-underline hover:underline px-sm last:pl-0 py-xs transition-fast {% if page.url == item.url %} text-blue{% endif %}"
                  {% if page.url == item.url %}aria-current="page"{% endif %}>
                 {{ item.name }}
               </a>

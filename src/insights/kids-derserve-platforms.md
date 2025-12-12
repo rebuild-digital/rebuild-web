@@ -8,6 +8,7 @@ tags:
   - Visions
 excerpt: "From the founder of the most entrusted social platform for activists..."
 featured: false
+featured_image: "/assets/images/missing-image-2.png"
 ---
 
 Story and inter view here...

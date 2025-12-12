@@ -1,0 +1,34 @@
+{
+  "programmes": [
+    {
+      "id": "ambassador",
+      "title": "Ambassador programme",
+      "description": "Working with the leading experts in critical topics within the space",
+      "color": "#6ba1cc"
+    },
+    {
+      "id": "investor",
+      "title": "Investor programme",
+      "description": "Bringing together investors from each country taking an active part in rebuilding social platforms",
+      "color": "#669e67"
+    },
+    {
+      "id": "talent",
+      "title": "Talent programme",
+      "description": "Attracting and directing top talents to social platform start-ups",
+      "color": "#e1aeb0"
+    },
+    {
+      "id": "public-funds",
+      "title": "Public funds programme",
+      "description": "Bringing public funds together to support social platforms",
+      "color": "#bf6e36"
+    },
+    {
+      "id": "board",
+      "title": "Board programme",
+      "description": "Activating pioneers and digital leaders in committed board positions",
+      "color": "#ac1d24"
+    }
+  ]
+}

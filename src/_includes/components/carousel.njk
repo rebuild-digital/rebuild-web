@@ -1,0 +1,56 @@
+{#
+  Carousel component
+  Usage: {% include "components/carousel.njk" %}
+
+  The carousel content is controlled by /src/_data/carousel.json
+  Each slide contains:
+  - headline: Main title
+  - subheader: Descriptive text
+  - image: Image path
+  - ctaText: Call-to-action button text
+  - ctaLink: URL for the CTA button
+  - bgColor: Background color (hex, rgb, or CSS color name)
+#}
+
+<section class="relative w-full overflow-hidden" style="height: 80vh;">
+  <div class="relative w-full h-full">
+    {% for slide in carousel.slides %}
+      <div class="carousel-slide absolute top-0 left-0 w-full h-full opacity-0 invisible pointer-events-none {% if loop.first %}opacity-100! visible! pointer-events-auto!{% endif %}" data-slide-id="{{ slide.id }}" data-bg-color="{{ slide.bgColor }}" style="background-color: {{ slide.bgColor }};">
+        <div class="w-full max-w-[1400px] mx-auto h-full">
+          <div class="grid grid-cols-1 md:grid-cols-2 items-center h-full">
+            <!-- Image Column -->
+            <div class="w-full h-full order-1 md:order-1">
+              <img
+                src="{{ slide.image }}"
+                alt="{{ slide.headline }}"
+                loading="lazy"
+                class="w-full h-full object-cover"
+              >
+            </div>
+
+            <!-- Content Column -->
+            <div class="order-2 md:order-2 flex flex-col justify-center px-3xl">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl font-normal mb-lg text-dark leading-tight">{{ slide.headline }}</h2>
+              <p class="text-lg md:text-xl text-dark mb-xl leading-relaxed max-w-[65ch]">{{ slide.subheader }}</p>
+              <a href="{{ slide.ctaLink }}" class="inline-block px-sm py-xs bg-transparent border-2 border-dark text-dark hover:bg-dark hover:text-light transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue no-underline w-fit">
+                {{ slide.ctaText }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Navigation Dots -->
+
+</section>
+<div class="mt-lg flex justify-center gap-sm z-10">
+  {% for slide in carousel.slides %}
+    <button
+        class="carousel-dot w-3 h-3 bg-muted border-0 cursor-pointer transition-all duration-fast hover:bg-darker {% if loop.first %}bg-dark! w-8!{% endif %}"
+        data-slide-index="{{ loop.index0 }}"
+        aria-label="Go to slide {{ loop.index }}"
+      ></button>
+  {% endfor %}
+</div>

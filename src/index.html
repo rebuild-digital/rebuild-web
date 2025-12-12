@@ -4,4 +4,52 @@ title: Home
 description: Building a better future together
 ---
 
-<section></section>
+<!-- Graphic Splash -->
+<section id="hero-splash" class="hero-splash" style="background-color: #bf6e36;">
+  <video autoplay loop muted playsinline class="hero-video" style="z-index: 1;">
+    <source src="/assets/videos/circles3.mov" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="hero-content" style="z-index: 2;">
+    <h1 class="hero-title">A catalyst for european social platforms.</h1>
+    <a href="#explore" class="hero-explore">Explore ↓</a>
+  </div>
+</section>
+
+<section class="py-6xl">
+  <h2 class="mx-auto text-center text-3xl max-w-[45ch]">Rebuild was founded to connect the European landscape of social platforms. Supporting entrepreneurs and product innovation for twelve months before sunsetting.</h2>
+</section>
+
+<section id="explore" class="pb-6xl">
+  {% include "components/carousel.njk" %}
+</section>
+
+<section class="pb-6xl">
+  {% include "components/directory-preview.njk" %}
+</section>
+
+<section class="pb-6xl">
+  {% include "components/programmes-preview.njk" %}
+</section>
+
+<section class="pb-7xl">
+  {% include "components/insights-preview.njk" %}
+</section>
+
+<section class="">
+  <h2 class="mx-auto text-center text-3xl max-w-[45ch]">Outside of our tools and <a class="underline" href="/frameworks">frameworks</a>, <a class="underline" href="/gatherings">gatherings</a> are at the foundation of the Rebuild initiative. By bringing entrepreneurs from all of Europe together, we believe innovation can flourish.</h2>
+</section>
+
+<section class="pb-6xl">
+  {% include "components/gatherings-preview.njk" %}
+</section>
+
+<section class="pb-6xl">
+  {% include "components/outcomes.njk" %}
+</section>
+
+<section class="pb-6xl">
+  {% include "components/engage.njk" %}
+</section>
+
+{% include "components/half-circle.njk" %}

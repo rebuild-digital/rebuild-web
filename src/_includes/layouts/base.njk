@@ -38,12 +38,17 @@
     {% include "components/header.njk" %}
 
     {# Main content #}
-    <main id="main-content" class="max-w-[800px] lg:max-w-[1400px] mx-auto px-md pt-48">
+    <main id="main-content" class="max-w-[800px] lg:max-w-[1400px] mx-auto px-md {% if page.url != '/' %}pt-48{% endif %}">
       {{ content | safe }}
     </main>
 
     {# Footer #}
     {% include "components/footer.njk" %}
+
+    {# Fixed Banner at Bottom #}
+    <div class="fixed bottom-0 left-0 w-full z-40">
+      {% include "components/banner.njk" %}
+    </div>
 
     {# Form Sidebar/Modal #}
     {% include "components/form-sidebar.njk" %}
@@ -56,6 +61,14 @@
 
     {# Form submission handler #}
     <script src="/scripts/form-handler.js"></script>
+
+    {# Header scroll handler (home page only) #}
+    {% if page.url == "/" %}
+    <script src="/scripts/header-scroll.js"></script>
+    {% endif %}
+
+    {# Carousel script #}
+    <script src="/scripts/carousel.js"></script>
 
     {# Block for additional scripts #}
     {% block scripts %}{% endblock %}
