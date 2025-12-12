@@ -96,12 +96,105 @@ Look for:
 - `Duplicate submission blocked` - Deduplication working
 - Error messages from APIs
 
+## Notion Database Configuration
+
+**IMPORTANT:** Before forms will work, ensure these select field options are configured in your Notion database:
+
+### Category Options (17 required)
+
+- Bundled
+- Community
+- Creator platform
+- Dating
+- Events
+- Forum
+- Groups
+- Location
+- Social marketplace
+- Messaging
+- Microblogging
+- Networking
+- Photo sharing
+- Resource sharing
+- Video sharing
+- Other
+
+### Location Options (51 European countries)
+
+- Albania
+- Andorra
+- Armenia
+- Austria
+- Azerbaijan
+- Belarus
+- Belgium
+- Bosnia and Herzegovina
+- Bulgaria
+- Croatia
+- Cyprus
+- Czech Republic
+- Denmark
+- Estonia
+- Finland
+- France
+- Georgia
+- Germany
+- Greece
+- Hungary
+- Iceland
+- Ireland
+- Italy
+- Kazakhstan
+- Kosovo
+- Latvia
+- Liechtenstein
+- Lithuania
+- Luxembourg
+- Malta
+- Moldova
+- Monaco
+- Montenegro
+- Netherlands
+- North Macedonia
+- Norway
+- Poland
+- Portugal
+- Romania
+- Russia
+- San Marino
+- Serbia
+- Slovakia
+- Slovenia
+- Spain
+- Sweden
+- Switzerland
+- Türkiye
+- Ukraine
+- United Kingdom
+- Vatican City
+
+### Stage Options (4 required)
+
+- Idea
+- Alpha
+- Beta
+- Growth
+
+### Type Options (3 required)
+
+These should already be configured:
+
+- Featured Application
+- Standard Application
+- Promotion
+
 ## Production Checklist
 
 Before going to production:
 
 - [ ] Update origin URL to production domain
 - [ ] Set production environment variables in Bunny
+- [ ] Configure all Notion select field options (see above)
 - [ ] Test all three form types
 - [ ] Verify Notion entries are created correctly
 - [ ] Verify MailerLite subscribers are added
