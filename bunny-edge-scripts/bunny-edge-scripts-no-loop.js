@@ -360,7 +360,7 @@ function buildApplicationProperties(data) {
 
     Website: { url: data.website },
 
-    Category: { select: { name: data.category } },
+    Category: { multi_select: [{ name: data.category }] },
 
     Location: { select: { name: data.location } },
 
