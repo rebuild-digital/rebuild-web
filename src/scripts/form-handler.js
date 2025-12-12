@@ -1,12 +1,15 @@
 // Form submission handler
 function initializeFormHandler(form) {
   const formId = form.id;
-  console.log('Form handler initialized for:', formId);
 
-  // Remove any existing submit listeners to avoid duplicates
-  const newForm = form.cloneNode(true);
-  form.parentNode.replaceChild(newForm, form);
-  form = newForm;
+  // Skip if form already has our handler
+  if (form.dataset.handlerInitialized === 'true') {
+    console.log('Form handler already initialized for:', formId);
+    return;
+  }
+
+  console.log('Form handler initialized for:', formId);
+  form.dataset.handlerInitialized = 'true';
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();

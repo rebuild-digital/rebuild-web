@@ -14,7 +14,7 @@ The form system consists of:
 
 ### 1. Newsletter Handler (`newsletter-handler.js`)
 
-Processes newsletter signup form submissions.
+Processes newsletter signup form submissions and sends them to **MailerLite**.
 
 **Endpoint:** `POST /api/newsletter-signup`
 
@@ -23,13 +23,23 @@ Processes newsletter signup form submissions.
 - `email` (required) - Subscriber email address
 - `first_name` (optional) - Subscriber first name
 - `last_name` (optional) - Subscriber last name
+- `interest` (required) - Subscriber interest/role (entrepreneur, investor, public_fund_manager, media, curious_individual)
 - `consent` (required) - Privacy consent checkbox
 
-**Integration Options:**
+**Integration:** MailerLite API v2
 
-- Mailchimp
-- ConvertKit
-- Any other newsletter service with REST API
+**Environment Variables:**
+
+- `MAILERLITE_API_KEY` (required) - Your MailerLite API key from <https://dashboard.mailerlite.com/integrations/api>
+- `MAILERLITE_GROUP_ID` (optional) - Group ID to add subscribers to a specific group
+
+**Key Features:**
+
+- ✅ Uses Bunny SDK to prevent infinite loops
+- ✅ Explicit origin passthrough for non-API paths
+- ✅ Uses `Deno.env.get()` for environment variables (Bunny Edge Script standard)
+- ✅ Proper error handling and validation
+- ✅ CORS support for cross-origin requests
 
 ### 2. Notion Builder Handler (`notion-builder-handler.js`)
 
@@ -127,10 +137,10 @@ Create a Notion database with the following properties:
 
 - Name: "Newsletter Signup Handler"
 - Upload: `newsletter-handler.js`
+- **IMPORTANT:** Update the origin URL in the script to match your static site
 - Set environment variables:
-  - `MAILCHIMP_API_KEY` (or equivalent for your service)
-  - `MAILCHIMP_LIST_ID`
-  - `MAILCHIMP_DC`
+  - `MAILERLITE_API_KEY` (required) - Get from MailerLite dashboard
+  - `MAILERLITE_GROUP_ID` (optional) - Group ID to assign subscribers to
 
 **For Notion Builder Handler:**
 

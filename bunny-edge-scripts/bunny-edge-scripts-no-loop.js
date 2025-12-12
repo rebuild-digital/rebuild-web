@@ -60,6 +60,10 @@ BunnySDK.net.http
     return await handleFormSubmission(request, url, corsHeaders);
   });
 
+// Simple in-memory cache for deduplication (resets on edge script restart)
+const recentSubmissions = new Map();
+const DEDUP_WINDOW_MS = 5000; // 5 seconds
+
 async function handleFormSubmission(request, url, corsHeaders) {
   try {
     const formData = await request.formData();
@@ -69,6 +73,44 @@ async function handleFormSubmission(request, url, corsHeaders) {
     // Parse and validate
 
     const submission = parseFormData(formData, isPromotion);
+
+    // Deduplicate rapid submissions based on email
+    const email = submission.data?.email;
+    const dedupKey = email?.toLowerCase();
+    if (dedupKey) {
+      const lastSubmission = recentSubmissions.get(dedupKey);
+      const now = Date.now();
+
+      if (lastSubmission && now - lastSubmission < DEDUP_WINDOW_MS) {
+        console.log(
+          `Duplicate submission blocked for: ${email} (within ${DEDUP_WINDOW_MS}ms)`
+        );
+        return new Response(
+          JSON.stringify({
+            success: true,
+            message: isPromotion
+              ? "Builder promotion submitted successfully"
+              : "Builder application submitted successfully",
+          }),
+          {
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          }
+        );
+      }
+
+      recentSubmissions.set(dedupKey, now);
+
+      // Clean up old entries to prevent memory bloat
+      if (recentSubmissions.size > 1000) {
+        const cutoff = now - DEDUP_WINDOW_MS;
+        for (const [key, timestamp] of recentSubmissions.entries()) {
+          if (timestamp < cutoff) {
+            recentSubmissions.delete(key);
+          }
+        }
+      }
+    }
 
     if (!submission.isValid) {
       return new Response(
@@ -87,12 +129,18 @@ async function handleFormSubmission(request, url, corsHeaders) {
 
     // Send to Notion
 
-    const notionResponse = await sendToNotion(submission.data, isPromotion, request);
+    const notionResponse = await sendToNotion(
+      submission.data,
+      isPromotion,
+      request
+    );
 
     if (!notionResponse.ok) {
       const errorBody = await notionResponse.text();
       console.error("Notion API error:", notionResponse.status, errorBody);
-      throw new Error(`Failed to create Notion entry: ${notionResponse.status} - ${errorBody}`);
+      throw new Error(
+        `Failed to create Notion entry: ${notionResponse.status} - ${errorBody}`
+      );
     }
 
     return new Response(

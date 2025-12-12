@@ -52,31 +52,33 @@
         {# Hidden fields don't need wrapping div #}
         <input type="hidden" name="{{ field.name }}" value="{{ field.value }}">
       {% else %}
-      <div class="form-field mb-md {% if field.type == 'checkbox' %}flex items-start gap-sm{% endif %}">
-        {% if field.type == 'checkbox' %}
-          {# Checkbox layout: input first, then label #}
-          <input
+        <div class="form-field mb-md {% if field.type == 'checkbox' %}flex items-start gap-sm{% endif %}">
+          {% if field.type == 'checkbox' %}
+            {# Checkbox layout: input first, then label #}
+            <input
             type="checkbox"
             id="{{ field.id | default(field.name) }}"
             name="{{ field.name }}"
             {% if field.required %}required{% endif %}
             class="mt-1 h-5 w-5 border-2 border-dark focus:ring-2 focus:ring-blue {{ field.class }}"
           >
-          <label for="{{ field.id | default(field.name) }}" class="text-dark">
-            {{ field.label }}
-            {% if field.required %}<span class="text-red">*</span>{% endif %}
-          </label>
-        {% else %}
-          {# Standard layout: label first, then input #}
-          {% if field.label %}
-            <label for="{{ field.id | default(field.name) }}" class="block text-dark font-semibold mb-xs">
+            <label for="{{ field.id | default(field.name) }}" class="text-dark">
               {{ field.label }}
-              {% if field.required %}<span class="text-red">*</span>{% endif %}
+              {% if field.required %}
+                <span class="text-red">*</span>{% endif %}
             </label>
-          {% endif %}
+          {% else %}
+            {# Standard layout: label first, then input #}
+            {% if field.label %}
+              <label for="{{ field.id | default(field.name) }}" class="block text-dark font-semibold mb-xs">
+                {{ field.label }}
+                {% if field.required %}
+                  <span class="text-red">*</span>{% endif %}
+              </label>
+            {% endif %}
 
-          {% if field.type == 'textarea' %}
-            <textarea
+            {% if field.type == 'textarea' %}
+              <textarea
               id="{{ field.id | default(field.name) }}"
               name="{{ field.name }}"
               rows="{{ field.rows | default(4) }}"
@@ -85,51 +87,54 @@
               class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue {{ field.class }}"
               style="width: 100%; max-width: 100%;"
             ></textarea>
-          {% elif field.type == 'select' %}
-            <select
+            {% elif field.type == 'select' %}
+              <select
               id="{{ field.id | default(field.name) }}"
               name="{{ field.name }}"
               {% if field.required %}required{% endif %}
               class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue {{ field.class }}"
               style="width: 100%; max-width: 100%;"
             >
-              <option value="">{% if field.placeholder %}{{ field.placeholder }}{% else %}Select an option{% endif %}</option>
-              {% for option in field.options %}
-                {% if option.value %}
-                  <option value="{{ option.value }}">{{ option.label }}</option>
-                {% else %}
-                  <option value="{{ option }}">{{ option }}</option>
-                {% endif %}
-              {% endfor %}
-            </select>
-          {% elif field.type == 'radio' %}
-            <div class="flex flex-col gap-xs">
-              {% for option in field.options %}
-                <label class="flex items-center gap-xs">
+                <option value="">
+                  {% if field.placeholder %}{{ field.placeholder }}
+                  {% else %}Select an option{% endif %}
+                </option>
+                {% for option in field.options %}
                   {% if option.value %}
-                    <input
+                    <option value="{{ option.value }}">{{ option.label }}</option>
+                  {% else %}
+                    <option value="{{ option }}">{{ option }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            {% elif field.type == 'radio' %}
+              <div class="flex flex-col gap-xs">
+                {% for option in field.options %}
+                  <label class="flex items-center gap-xs">
+                    {% if option.value %}
+                      <input
                       type="radio"
                       name="{{ field.name }}"
                       value="{{ option.value }}"
                       {% if field.required %}required{% endif %}
                       class="h-5 w-5 border-2 border-dark focus:ring-2 focus:ring-blue"
                     >
-                    <span class="text-dark">{{ option.label }}</span>
-                  {% else %}
-                    <input
+                      <span class="text-dark">{{ option.label }}</span>
+                    {% else %}
+                      <input
                       type="radio"
                       name="{{ field.name }}"
                       value="{{ option }}"
                       {% if field.required %}required{% endif %}
                       class="h-5 w-5 border-2 border-dark focus:ring-2 focus:ring-blue"
                     >
-                    <span class="text-dark">{{ option }}</span>
-                  {% endif %}
-                </label>
-              {% endfor %}
-            </div>
-          {% else %}
-            <input
+                      <span class="text-dark">{{ option }}</span>
+                    {% endif %}
+                  </label>
+                {% endfor %}
+              </div>
+            {% else %}
+              <input
               type="{{ field.type | default('text') }}"
               id="{{ field.id | default(field.name) }}"
               name="{{ field.name }}"
@@ -138,13 +143,13 @@
               class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue {{ field.class }}"
               style="width: 100%; max-width: 100%;"
             >
-          {% endif %}
+            {% endif %}
 
-          {% if field.helpText %}
-            <p class="text-sm text-dark mt-xs">{{ field.helpText }}</p>
+            {% if field.helpText %}
+              <p class="text-sm text-dark mt-xs">{{ field.helpText }}</p>
+            {% endif %}
           {% endif %}
-        {% endif %}
-      </div>
+        </div>
       {% endif %}
     {% endfor %}
 
@@ -169,7 +174,7 @@
     </div>
 
     {# Status messages #}
-    <div class="form-status mt-md">
+    <div class="form-status my-md">
       <div id="{{ formId }}-success" class="hidden bg-green border-2 border-dark p-md">
         <p class="text-dark font-semibold">{{ successMessage | default('Thank you! Your submission has been received.') }}</p>
       </div>

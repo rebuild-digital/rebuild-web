@@ -16,26 +16,51 @@
             id="footer-newsletter-form"
             action="/api/newsletter-signup"
             method="POST"
-            class="flex mb-md"
+            class="flex flex-col gap-xs mb-md"
           >
-            <div class="flex flex-col md:flex-row gap-xs md:gap-sm">
-              <input
-                type="text"
-                name="first_name"
-                placeholder="Firstname"
-                required
-                class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-              >
+            {# Hidden consent field - required by API #}
+            <input type="hidden" name="consent" value="on">
+
+            <div class="flex flex-col gap-xs">
               <input
                 type="email"
                 name="email"
                 placeholder="Email"
                 required
-                class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
+                class="w-full px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
               >
+
+              <div class="flex flex-col sm:flex-row gap-xs">
+                <input
+                  type="text"
+                  name="first_name"
+                  placeholder="First name"
+                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
+                >
+                <input
+                  type="text"
+                  name="last_name"
+                  placeholder="Last name"
+                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
+                >
+              </div>
+
+              <select
+                name="interest"
+                required
+                class="w-full px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue bg-light"
+              >
+                <option value="">Keep me up to date as...</option>
+                <option value="entrepreneur">an entrepreneur</option>
+                <option value="investor">an investor</option>
+                <option value="fund">a public fund manager</option>
+                <option value="media">a media representative</option>
+                <option value="curious">a curious individual</option>
+              </select>
+
               <button
                 type="submit"
-                class="text-sm text-left hover:underline"
+                class="text-sm text-left hover:underline self-start"
               >
                 Subscribe
               </button>
@@ -106,6 +131,7 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      e.stopImmediatePropagation(); // Prevent other handlers from firing
       const submitBtn = form.querySelector('button[type="submit"]');
       const successEl = document.getElementById('footer-newsletter-success');
       const errorEl = document.getElementById('footer-newsletter-error');
