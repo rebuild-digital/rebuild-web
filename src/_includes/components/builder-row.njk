@@ -22,19 +22,19 @@
     {# Expand/Collapse Button #}
     {% if isExpandable %}
       <button class="builder-toggle shrink-0 text-3xl leading-none" aria-label="Toggle details">
-        <svg class="builder-icon-plus w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+        <svg class="builder-icon-plus w-12 h-12 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
-        <svg class="builder-icon-minus w-12 h-12 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+        <svg class="builder-icon-minus w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
       </button>
     {% endif %}
   </div>
 
-  {# Expandable Content #}
-  <div class="builder-row-content {% if isExpandable %}hidden{% endif %} mt-lg">
+  {# Expandable Content - Expanded by default #}
+  <div class="builder-row-content mt-lg">
     {# URL #}
     {# {% if builder.link %}
       <div class="mb-md">

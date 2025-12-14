@@ -12,8 +12,8 @@ module.exports = {
   // Navigation
   main_navigation: [
     {
-      name: "Insights",
-      url: "/insights/",
+      name: "Journey",
+      url: "/journey/",
     },
     {
       name: "Directory",
@@ -24,8 +24,8 @@ module.exports = {
       url: "/frameworks/",
     },
     {
-      name: "Journey",
-      url: "/journey/",
+      name: "Insights",
+      url: "/insights/",
     },
     {
       name: "People",
@@ -42,10 +42,12 @@ module.exports = {
     {
       name: "Changelog",
       url: "/changelog/",
+      clickable: false,
     },
     {
       name: "Privacy",
       url: "/privacy/",
+      clickable: true,
     },
   ],
 };

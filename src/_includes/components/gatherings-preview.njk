@@ -4,6 +4,7 @@
 
   Displays the three rebuild gatherings with images and info
 #}
+{% from "components/image-credit.njk" import imageCredit %}
 
 <section class="relative w-full py-3xl bg-light" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw;">
   <div class="max-w-[1400px] mx-auto px-md">
@@ -20,6 +21,9 @@
               class="w-full h-full object-cover"
               loading="lazy"
             >
+            {% if gathering.imageCredit %}
+              {{ imageCredit(gathering.imageCredit) }}
+            {% endif %}
             {# Title Overlay #}
             <div class="absolute -top-md left-1/2 -translate-x-1/2 px-md py-sm z-10" style="background-color: {{ gathering.titleColor }};">
               <h3 class="text-xl font-normal text-dark text-center whitespace-nowrap">{{ gathering.title }}</h3>
@@ -33,16 +37,6 @@
           </div>
         </div>
       {% endfor %}
-    </div>
-
-    {# CTA Button #}
-    <div class="flex justify-center">
-      <a
-        href="/journey#gatherings"
-        class="inline-block px-xl py-md bg-dark text-light text-lg md:text-xl hover:bg-darker transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue no-underline"
-      >
-        Learn more about the gatherings
-      </a>
     </div>
 
   </div>

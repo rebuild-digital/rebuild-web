@@ -1,6 +1,6 @@
 ---
 title: "An in-depth conversation with Daniela Hinrichs"
-date: 2025-12-15
+date: 2025-12-14
 author: "The Rebuild Team"
 tags:
   - Stories

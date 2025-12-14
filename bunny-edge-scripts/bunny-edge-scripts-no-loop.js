@@ -6,11 +6,13 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * Handles all form submissions for the Rebuild site:
  * - /api/builder-application (Notion)
  * - /api/builder-promotion (Notion)
+ * - /api/gathering-invitation (Notion)
  * - /api/newsletter-signup (MailerLite)
  *
  * Required Environment Variables in Bunny:
  * - NOTION_TOKEN (for builder forms)
  * - NOTION_BUILDERS_DB_ID (for builder forms)
+ * - NOTION_GATHERING_DB_ID (for gathering invitations)
  * - MAILERLITE_API_KEY (for newsletter)
  * - MAILERLITE_GROUP_ID (optional, for newsletter)
  */
@@ -47,6 +49,7 @@ BunnySDK.net.http
     const isFormPath =
       url.pathname.includes("/api/builder-application") ||
       url.pathname.includes("/api/builder-promotion") ||
+      url.pathname.includes("/api/gathering-invitation") ||
       url.pathname.includes("/api/newsletter-signup");
 
     // ✅ For NON-form paths, return void to let request pass through to origin
@@ -105,12 +108,17 @@ async function handleFormSubmission(request, url, corsHeaders) {
         console.log(
           `Duplicate submission blocked for: ${email} (within ${DEDUP_WINDOW_MS}ms)`
         );
+        const successMessage =
+          submission.data?.type === "gathering_invitation"
+            ? "Gathering invitation request submitted successfully"
+            : isPromotion
+              ? "Builder promotion submitted successfully"
+              : "Builder application submitted successfully";
+
         return new Response(
           JSON.stringify({
             success: true,
-            message: isPromotion
-              ? "Builder promotion submitted successfully"
-              : "Builder application submitted successfully",
+            message: successMessage,
           }),
           {
             status: 200,
@@ -163,13 +171,17 @@ async function handleFormSubmission(request, url, corsHeaders) {
       );
     }
 
+    const successMessage =
+      submission.data.type === "gathering_invitation"
+        ? "Gathering invitation request submitted successfully"
+        : isPromotion
+          ? "Builder promotion submitted successfully"
+          : "Builder application submitted successfully";
+
     return new Response(
       JSON.stringify({
         success: true,
-
-        message: isPromotion
-          ? "Builder promotion submitted successfully"
-          : "Builder application submitted successfully",
+        message: successMessage,
       }),
 
       {
@@ -198,6 +210,31 @@ async function handleFormSubmission(request, url, corsHeaders) {
 
 function parseFormData(formData, isPromotion) {
   const errors = [];
+
+  // Check if it's a gathering invitation
+  const isGatheringInvitation =
+    formData.get("form_type") === "gathering_invitation";
+
+  if (isGatheringInvitation) {
+    const data = {
+      type: "gathering_invitation",
+      name: formData.get("name"),
+      email: formData.get("email"),
+      platformLink: formData.get("platform_link"),
+      country: formData.get("country"),
+      contribution: formData.get("contribution"),
+      newsletter: formData.get("newsletter") === "on",
+      submittedAt: new Date().toISOString(),
+    };
+
+    if (!data.name) errors.push("Name is required");
+    if (!data.email) errors.push("Email is required");
+    if (!data.platformLink) errors.push("Platform link is required");
+    if (!data.country) errors.push("Country is required");
+    if (!data.contribution) errors.push("Contribution is required");
+
+    return { isValid: errors.length === 0, errors, data };
+  }
 
   if (isPromotion) {
     const data = {
@@ -288,15 +325,22 @@ async function sendToNotion(data, isPromotion, request) {
   // Environment variables in Bunny EdgeScript are accessed via Deno.env
   const NOTION_API_KEY = Deno.env.get("NOTION_TOKEN");
 
-  const NOTION_DATABASE_ID = Deno.env.get("NOTION_BUILDERS_DB_ID");
+  // Determine which database to use based on form type
+  let NOTION_DATABASE_ID;
+  let properties;
 
-  const properties = isPromotion
-    ? buildPromotionProperties(data)
-    : buildApplicationProperties(data);
+  if (data.type === "gathering_invitation") {
+    NOTION_DATABASE_ID = Deno.env.get("NOTION_GATHERING_DB_ID");
+    properties = buildGatheringInvitationProperties(data);
+  } else {
+    NOTION_DATABASE_ID = Deno.env.get("NOTION_BUILDERS_DB_ID");
+    properties = isPromotion
+      ? buildPromotionProperties(data)
+      : buildApplicationProperties(data);
+  }
 
   const notionPayload = {
     parent: { database_id: NOTION_DATABASE_ID },
-
     properties: properties,
   };
 
@@ -390,6 +434,19 @@ function buildApplicationProperties(data) {
   }
 
   return properties;
+}
+
+function buildGatheringInvitationProperties(data) {
+  return {
+    Name: { title: [{ text: { content: data.name } }] },
+    Email: { email: data.email },
+    "Platform Link": { url: data.platformLink },
+    Country: { select: { name: data.country } },
+    Contribution: { rich_text: [{ text: { content: data.contribution } }] },
+    Newsletter: { checkbox: data.newsletter },
+    Status: { status: { name: "New" } },
+    "Submitted At": { date: { start: data.submittedAt } },
+  };
 }
 
 /**

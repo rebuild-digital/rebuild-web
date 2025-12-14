@@ -7,6 +7,7 @@
       "startDate": "Mar 01",
       "endDate": "Mar 03",
       "image": "/assets/images/copenhagen.jpg",
+      "imageCredit": "Eryk Piotr Munk",
       "titleColor": "#669e67"
     },
     {
@@ -16,6 +17,7 @@
       "startDate": "Aug 30",
       "endDate": "Sep 01",
       "image": "/assets/images/helsinki.jpg",
+      "imageCredit": "Kristaps Grundsteins",
       "titleColor": "#6ba1cc"
     },
     {
@@ -25,6 +27,7 @@
       "startDate": "Dec 13",
       "endDate": "Dec 15",
       "image": "/assets/images/paris.jpg",
+      "imageCredit": "HANVIN CHEONG",
       "titleColor": "#e1aeb0"
     }
   ]

@@ -728,6 +728,10 @@
     @apply text-dark;
   }
 
+  header p {
+    @apply text-red;
+  }
+
   header .border-b-2 {
     @apply border-dark;
   }
@@ -742,7 +746,8 @@
 
   header.transparent a,
   header.transparent button,
-  header.transparent span {
+  header.transparent span,
+  header.transparent p {
     @apply text-light;
   }
 
@@ -762,6 +767,7 @@
   header a,
   header button,
   header span,
+  header p,
   header img,
   header .border-b-2,
   header .beta-banner,

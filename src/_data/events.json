@@ -9,6 +9,7 @@
       "location": "Copenhagen, Denmark",
       "bgColor": "#669e67",
       "image": "/assets/images/copenhagen.jpg",
+      "imageCredit": "Eryk Piotr Munk",
       "proofPoints": [
         {
           "headline": "Demos of all social platforms",
@@ -41,6 +42,7 @@
       "location": "Helsinki, Finland",
       "bgColor": "#6ba1cc",
       "image": "/assets/images/helsinki.jpg",
+      "imageCredit": "Kristaps Grundsteins",
       "proofPoints": [
         {
           "headline": "Board & Mentor Programme",
@@ -73,6 +75,7 @@
       "location": "Paris, France",
       "bgColor": "#e1aeb0",
       "image": "/assets/images/paris.jpg",
+      "imageCredit": "HANVIN CHEONG",
       "proofPoints": [
         {
           "headline": "Public Exposure",

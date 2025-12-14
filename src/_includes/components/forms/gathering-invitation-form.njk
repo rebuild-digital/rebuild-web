@@ -1,0 +1,117 @@
+{#
+  Gathering Invitation Request Form
+  Usage: {% include "components/forms/gathering-invitation-form.njk" %}
+
+  This form allows people to request an invitation to join the first gathering
+#}
+
+{% set gatheringInvitationFields = [
+  {
+    type: 'text',
+    name: 'name',
+    label: 'Name',
+    placeholder: 'Your full name',
+    required: true
+  }, {
+    type: 'email',
+    name: 'email',
+    label: 'Email',
+    placeholder: 'your@email.com',
+    required: true
+  }, {
+    type: 'url',
+    name: 'platform_link',
+    label: 'Link to your platform or profile page',
+    placeholder: 'https://example.com',
+    required: true,
+    helpText: 'Share a link to your platform, LinkedIn, or portfolio'
+  }, {
+    type: 'select',
+    name: 'country',
+    label: 'Which country are you building from?',
+    required: true,
+    placeholder: 'Select your country',
+    options: [
+      'Albania',
+      'Andorra',
+      'Armenia',
+      'Austria',
+      'Azerbaijan',
+      'Belarus',
+      'Belgium',
+      'Bosnia and Herzegovina',
+      'Bulgaria',
+      'Croatia',
+      'Cyprus',
+      'Czech Republic',
+      'Denmark',
+      'Estonia',
+      'Finland',
+      'France',
+      'Georgia',
+      'Germany',
+      'Greece',
+      'Hungary',
+      'Iceland',
+      'Ireland',
+      'Italy',
+      'Kazakhstan',
+      'Kosovo',
+      'Latvia',
+      'Liechtenstein',
+      'Lithuania',
+      'Luxembourg',
+      'Malta',
+      'Moldova',
+      'Monaco',
+      'Montenegro',
+      'Netherlands',
+      'North Macedonia',
+      'Norway',
+      'Poland',
+      'Portugal',
+      'Romania',
+      'Russia',
+      'San Marino',
+      'Serbia',
+      'Slovakia',
+      'Slovenia',
+      'Spain',
+      'Sweden',
+      'Switzerland',
+      'Türkiye',
+      'Ukraine',
+      'United Kingdom',
+      'Vatican City'
+    ]
+  }, {
+    type: 'textarea',
+    name: 'contribution',
+    label: 'What would you like to contribute with?',
+    placeholder: 'Share your ideas, expertise, or resources you can bring to the gathering...',
+    required: true,
+    rows: 5,
+    helpText: 'Tell us how you would like to participate and what you can bring to the community'
+  }, {
+    type: 'checkbox',
+    name: 'newsletter',
+    label: 'I would like to receive updates from Rebuild (optional)',
+    required: false
+  }, {
+    type: 'hidden',
+    name: 'form_type',
+    value: 'gathering_invitation'
+  }
+] %}
+
+{% set formId = 'gathering-invitation-form' %}
+{% set action = site.apiUrl + '/api/gathering-invitation' %}
+{% set method = 'POST' %}
+{% set title = 'Request an invitation to the first gathering' %}
+{% set description = 'Join us for the inaugural Rebuild gathering. Share your details and tell us what you would like to contribute to this community of European social platform builders.' %}
+{% set submitText = 'Request Invitation' %}
+{% set submitVariant = 'primary' %}
+{% set fields = gatheringInvitationFields %}
+{% set successMessage = 'Thank you for your interest! We will review your request and get back to you soon.' %}
+{% set errorMessage = 'Sorry, we could not submit your request. Please try again or contact us directly at team@rebuild.net.' %}
+{% include "components/form.njk" %}

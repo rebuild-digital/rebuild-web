@@ -1,0 +1,49 @@
+{#
+  Person Card Component
+
+  Usage:
+  {% from "components/person-card.njk" import personCard %}
+
+  {{ personCard({
+    name: "Person Name",
+    image: "/assets/images/person.jpg",
+    imageCredit: "Photo by Jane Smith",
+    specialty: "Their specialty",
+    bio: "Bio text...",
+    role: "CEO",
+    email: "person@rebuild.net"
+  }) }}
+#}
+
+{% from "components/image-credit.njk" import imageCredit %}
+
+{% macro personCard(person) %}
+<div>
+  <div class="w-full aspect-square bg-muted mb-md relative">
+    <img src="{{ person.image }}" alt="{{ person.name }}" class="w-full h-full object-cover">
+    {% if person.imageCredit %}
+      {{ imageCredit(person.imageCredit) }}
+    {% endif %}
+  </div>
+
+  {# Ambassador style: name with specialty, underlined #}
+  {% if person.specialty %}
+    <h3 class="text-xl md:text-2xl font-normal mb-sm underline">{{ person.name }}, {{ person.specialty }}</h3>
+    {% if person.bio %}
+      <p class="text-base">{{ person.bio }}</p>
+    {% endif %}
+
+  {# Core team style: name, role, email #}
+  {% elif person.role %}
+    <h3 class="text-xl md:text-2xl font-normal mb-xs">{{ person.name }}</h3>
+    <p class="text-base md:text-lg text-dark">{{ person.role }}</p>
+    {% if person.email %}
+      <a href="mailto:{{ person.email }}" class="text-base md:text-lg underline">{{ person.email }}</a>
+    {% endif %}
+
+  {# Simple style: just name #}
+  {% else %}
+    <h3 class="text-xl md:text-2xl font-normal mb-sm">{{ person.name }}</h3>
+  {% endif %}
+</div>
+{% endmacro %}

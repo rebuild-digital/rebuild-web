@@ -12,7 +12,8 @@
   const formUrls = {
     'builder-promo': '/forms/builder-promo.html',
     'builder-application': '/forms/builder-application.html',
-    'newsletter': '/forms/newsletter.html'
+    'newsletter': '/forms/newsletter.html',
+    'gathering-invitation': '/forms/gathering-invitation.html'
   };
 
   // Function to load and open form

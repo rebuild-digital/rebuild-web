@@ -29,6 +29,11 @@
     {# Stylesheets #}
     <link rel="stylesheet" href="/styles/main.css">
 
+    {# Analytics #}
+    <script defer src="https://api.pirsch.io/pa.js"
+    id="pianjs"
+    data-code="7MINshjhivqQWUXqrMyKqKbUBcHP3LAB"></script>
+
     {# Block for additional head content #}
     {% block head %}{% endblock %}
   </head>
@@ -46,9 +51,9 @@
     {% include "components/footer.njk" %}
 
     {# Fixed Banner at Bottom #}
-    <div class="fixed bottom-0 left-0 w-full z-40">
+    {# <div class="fixed bottom-0 left-0 w-full z-40">
       {% include "components/banner.njk" %}
-    </div>
+    </div> #}
 
     {# Form Sidebar/Modal #}
     {% include "components/form-sidebar.njk" %}
@@ -64,7 +69,7 @@
 
     {# Header scroll handler (home page only) #}
     {% if page.url == "/" %}
-    <script src="/scripts/header-scroll.js"></script>
+      <script src="/scripts/header-scroll.js"></script>
     {% endif %}
 
     {# Carousel script #}

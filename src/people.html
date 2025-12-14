@@ -4,12 +4,12 @@ title: People
 description: The people supporting and driving the catalyst
 permalink: /people/index.html
 ---
+{% from "components/person-card.njk" import personCard %}
+
 <section class="pt-xl pb-2xl">
   <header class="mb-xl text-center w-full">
     <h1 class="font-normal text-7xl">{{ title }}</h1>
-    <div class="rich-text max-w-[800px] mx-auto px-md"></div>
   </header>
-</div>
 </section>
 
 {# Rebuild Team Section #}
@@ -41,147 +41,145 @@ permalink: /people/index.html
     </div>
   </div>
 
+  {# Ambassadors Section #}
+  <section class="pb-6xl">
+    <div class="max-w-[1400px] mx-auto px-md">
+      <h2 class="text-4xl md:text-5xl font-normal mb-xl">Ambassadors</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2xl gap-y-4xl">
+
+        {{ personCard({
+      name: "Sebastian Schwemer",
+      image: "/assets/images/people/sebastian.jpg",
+      specialty: "Technology and Law",
+      bio: "Sebastian brings deep expertise in tech policy and regulation, as Professor of Law and Technology at BI Norwegian Business School. He has advised lawmakers on key digital legislation and holds a track record of launching and advising tech ventures."
+    }) }}
+
+        {{ personCard({
+      name: "Mathias Ockenfals",
+      image: "/assets/images/people/mathias.jpg",
+      specialty: "Marketplaces",
+      bio: "Mathias founded The Marketplace Conference, Europe's leading event for marketplace funders and founders, positioning him as a key expert in understanding and navigating the dynamics of building successful marketplace businesses. As a partner at b2venture, he's personally led investments in more than 70 startups and supported founders through over 200 funding rounds."
+    }) }}
+
+        {{ personCard({
+      name: "Henrik Torstensson",
+      image: "/assets/images/missing-image-1.png",
+      specialty: "Business scaling",
+      bio: "Henrik has scaled some of Europe's most successful tech companies. As head of premium sales and member of Spotify's global management team during its growth phase 2010-2013, later as CEO at Lifesum. Now a partner at Alliance VC backing early-stage Nordic startups."
+    }) }}
+
+        {{ personCard({
+      name: "Linda Liukas",
+      image: "/assets/images/people/linda.JPG",
+      specialty: "Children",
+      bio: "As bestselling author of the Hello Ruby series, she's helped countless children and adults understand coding and technology through storytelling. Her work spans from children's books to city-scale learning initiatives and TED talks."
+    }) }}
+
+        {{ personCard({
+      name: "Neil Murray",
+      image: "/assets/images/people/neil.jpg",
+      specialty: "Venture Capital",
+      bio: "Neil is a Solo GP and founder of The Nordic Web Ventures, investing in early-stage Nordic founders and startups. He was among the first investors in Sanity and Lovable. Before running his own fund, he founded Playmaker (YCW21)."
+    }) }}
+
+        {{ personCard({
+      name: "Roxanne Varza",
+      image: "/assets/images/people/roxanne.JPG",
+      specialty: "Start-up ecosystem",
+      bio: "Roxanne is the director of STATION F in Paris, the world's biggest startup campus. She is also an angel investor and on the board of media company NRJ Group. Previously editor of TechCrunch France, startup lead for Microsoft France and scout investor for Sequoia Capital and Atomico, she has cofounded Tech.eu, StartHer and Failcon Paris."
+    }) }}
+
+        {{ personCard({
+      name: "Stig Kirk Ørskov",
+      image: "/assets/images/people/stig.jpg",
+      imageCredit: "A placeholder photographer",
+      specialty: "Media and Publishing",
+      bio: "Stig brings extensive leadership in news media as incoming CEO of the World Association of News Publishers (WAN-IFRA). He led JP/Politiken Media Group, Denmark's leading news publisher, for 12 years, and previously served as editor-in-chief at Politiken. His background spans business journalism and media innovation across European news organisations."
+    }) }}
+
+        {{ personCard({
+      name: "Marko Ahtisaari",
+      image: "/assets/images/missing-image-1.png",
+      specialty: "Societal",
+      bio: "A Finnish technology entrepreneur and design leader. Marko has been CEO and co-founder of two technology companies: Dopplr and the Sync Project. He was also EVP of design at Nokia and a Director's Fellow at the MIT Media Lab. He recently joined ICEYE as CMO and Board Chair at the CMI Peace Foundation."
+    }) }}
+
+        {{ personCard({
+      name: "Madeleine Gummer von Mohl",
+      image: "/assets/images/people/madeleine.jpg",
+      bio: "Madeleine is founder and CEO of betahaus, one of Europe's largest networks of co-working spaces across Berlin, Hamburg, Sofia and Barcelona, she's mastered creating environments where creativity and collaboration thrive. Now Managing Partner at XTR Capital."
+    }) }}
+
+      </div>
+    </div>
+  </section>
+
+  {# Founding Donors Section #}
+  <section class="p-2xl bg-dark text-blonde mb-6xl">
+    <div class="max-w-[1400px] mx-auto px-md">
+      <h2 class="text-4xl md:text-5xl font-normal mb-xl">Founding Donors</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2xl gap-y-2xl">
+
+        <div>
+          <h3 class="text-xl md:text-2xl font-normal mb-sm">Steffen Fagerström Christensen</h3>
+          <p class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl md:text-2xl font-normal mb-sm">Martin von Haller Grønbæk</h3>
+          <p class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl md:text-2xl font-normal mb-sm">Jens Martin Skibsted</h3>
+          <p class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl md:text-2xl font-normal mb-sm">Niels Hartvig</h3>
+          <p class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl md:text-2xl font-normal mb-sm">Thomas Madsen-Mygdal</h3>
+          <p class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   {# Team Members Grid #}
   <h2 class="text-4xl md:text-5xl font-normal mb-xl">Core team</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/people/ditte.jpeg" alt="Ditte Graa Wulff" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-xs">Ditte Graa Wulff</h3>
-      <p class="text-base md:text-lg text-dark">CEO</p>
-      <a href="mailto:ditte@rebuild.net" class="text-base md:text-lg underline">ditte@rebuild.net</a>
-    </div>
 
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/people/morten.jpeg" alt="Morten Bjørn Hallkvist" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-xs">Morten Bjørn Hallkvist</h3>
-      <p class="text-base md:text-lg text-dark">Programme Manager</p>
-      <a href="mailto:morten@rebuild.net" class="text-base md:text-lg underline">morten@rebuild.net</a>
-    </div>
+    {{ personCard({
+      name: "Ditte Graa Wulff",
+      image: "/assets/images/people/ditte.jpeg",
+      role: "CEO",
+      email: "ditte@rebuild.net"
+    }) }}
 
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/people/noppen.jpeg" alt="Thomas Noppen" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-xs">Thomas Noppen</h3>
-      <p class="text-base md:text-lg text-dark">Communications Lead</p>
-      <a href="mailto:thomas.noppen@rebuild.net" class="text-base md:text-lg underline">thomas.noppen@rebuild.net</a>
-    </div>
+    {{ personCard({
+      name: "Morten Bjørn Hallkvist",
+      image: "/assets/images/people/morten.jpeg",
+      role: "Programme Manager",
+      email: "morten@rebuild.net"
+    }) }}
 
-    <div class="mt-xl">
+    {{ personCard({
+      name: "Thomas Noppen",
+      image: "/assets/images/people/noppen.jpeg",
+      role: "Communications Lead",
+      email: "thomas.noppen@rebuild.net"
+    }) }}
+
+    {# <div class="mt-xl">
       <h3 class="text-xl md:text-2xl font-normal mb-sm">Kristoffer Tjalve</h3>
       <p class="text-base md:text-lg text-dark">Domain Specialist</p>
-    </div>
-  </div>
-</div>
-</section>
-
-{# Founding Donors Section #}
-<section class="p-2xl bg-dark text-blonde mb-6xl">
-<div class="max-w-[1400px] mx-auto px-md">
-  <h2 class="text-4xl md:text-5xl font-normal mb-xl">Founding Donors</h2>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md text-lg md:text-xl">
-    <p>Steffen Fagerström Christensen</p>
-    <p>Martin von Haller Grønbæk</p>
-    <p>Jens Martin Skibsted</p>
-    <p>Niels Hartvig</p>
-    <p>Thomas Madsen-Mygdal</p>
-  </div>
-</div>
-</section>
-
-{# Ambassadors Section #}
-<section class="pb-8xl">
-<div class="max-w-[1400px] mx-auto px-md">
-  <h2 class="text-4xl md:text-5xl font-normal mb-xl">Ambassadors</h2>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2xl gap-y-4xl">
-
-    {# Sebastian Schwemer #}
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/people/sebastian.jpg" alt="Sebastian Schwemer" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-sm underline">Sebastian Schwemer, Technology and Law</h3>
-      <p class="text-base">Sebastian brings deep expertise in tech policy and regulation, as Professor of Law and Technology at BI Norwegian Business School. He has advised lawmakers on key digital legislation and holds a track record of launching and advising tech ventures.</p>
-    </div>
-
-    {# Mathias Ockenfals #}
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/missing-image-1.png" alt="Mathias Ockenfals" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-sm underline">Mathias Ockenfals, Marketplaces</h3>
-      <p class="text-base ">Mathias founded The Marketplace Conference, Europe's leading event for marketplace funders and founders, positioning him as a key expert in understanding and navigating the dynamics of building successful marketplace businesses. As a partner at b2venture, he's personally led investments in more than 70 startups and supported founders through over 200 funding rounds.</p>
-    </div>
-
-    {# Henrik Torstensson #}
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/missing-image-1.png" alt="Henrik Torstensson" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-sm underline">Henrik Torstensson, Business scaling</h3>
-      <p class="text-base">Henrik has scaled some of Europe's most successful tech companies. As head of premium sales and member of Spotify's global management team during its growth phase 2010-2013, later as CEO at Lifesum. Now a partner at Alliance VC backing early-stage Nordic startups.</p>
-    </div>
-
-    {# Linda Liukas #}
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/people/linda.JPG" alt="Linda Liukas" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-sm underline">Linda Liukas, Children</h3>
-      <p class="text-base ">As bestselling author of the Hello Ruby series, she's helped countless children and adults understand coding and technology through storytelling. Her work spans from children's books to city-scale learning initiatives and TED talks.</p>
-    </div>
-
-    {# Neil Murray #}
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/missing-image-1.png" alt="Neil Murray" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-sm underline">Neil Murray, Venture Capital</h3>
-      <p class="text-base ">Neil is a Solo GP and founder of The Nordic Web Ventures, investing in early-stage Nordic founders and startups. He was among the first investors in Sanity and Lovable. Before running his own fund, he founded Playmaker (YCW21).</p>
-    </div>
-
-    {# Roxanne Varza #}
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/missing-image-1.png" alt="Roxanne Varza" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-sm underline">Roxanne Varza, Start-up ecosystem</h3>
-      <p class="text-base">Roxanne is the director of STATION F in Paris, the world's biggest startup campus. She is also an angel investor and on the board of media company NRJ Group. Previously editor of TechCrunch France, startup lead for Microsoft France and scout investor for Sequoia Capital and Atomico, she has cofounded Tech.eu, StartHer and Failcon Paris.</p>
-    </div>
-
-    {# Stig Kirk Ørskov #}
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/missing-image-1.png" alt="Stig Kirk Ørskov" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-sm underline">Stig Kirk Ørskov, Media</h3>
-      <p class="text-base "></p>
-    </div>
-
-    {# Marko Ahtisaari #}
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/missing-image-1.png" alt="Marko Ahtisaari" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-sm underline">Marko Ahtisaari, Societal</h3>
-      <p class="text-base ">A Finnish technology entrepreneur and design leader. Marko has been CEO and co-founder of two technology companies: Dopplr and the Sync Project. He was also EVP of design at Nokia and a Director's Fellow at the MIT Media Lab. He recently joined ICEYE as CMO and Board Chair at the CMI Peace Foundation.</p>
-    </div>
-
-    {# Madeleine Gummer von Mohl #}
-    <div>
-      <div class="w-full aspect-square bg-muted mb-md">
-        <img src="/assets/images/people/madeleine.jpg" alt="Madeleine Gummer von Mohl" class="w-full h-full object-cover">
-      </div>
-      <h3 class="text-xl md:text-2xl font-normal mb-sm underline">Madeleine Gummer von Mohl</h3>
-      <p class="text-base ">Madeleine is founder and CEO of betahaus, one of Europe's largest networks of co-working spaces across Berlin, Hamburg, Sofia and Barcelona, she's mastered creating environments where creativity and collaboration thrive. Now Managing Partner at XTR Capital.</p>
-    </div>
-
+    </div> #}
   </div>
 </div>
 </section>

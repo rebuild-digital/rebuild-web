@@ -5,7 +5,7 @@
   Displays recent insights from the insights collection
 #}
 
-{% set recentInsights = collections.insights | reverse | limit(3) %}
+{% set recentInsights = collections.insights | limit(3) %}
 
 <section class="">
   <div class="max-w-[1400px] mx-auto px-md">

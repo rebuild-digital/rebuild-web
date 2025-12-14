@@ -13,8 +13,38 @@ description: Building a better future together
     Your browser does not support the video tag.
   </video>
   <div class="hero-content" style="z-index: 2;">
-    <h1 class="hero-title">Twelve months to catalyse European social platforms</h1>
-    <a href="#explore" class="hero-explore">Explore ↓</a>
+    <h1 class="hero-title">Rebuild European social platforms</h1>
+
+    {# Action Buttons #}
+    <div class="flex flex-wrap gap-sm justify-center mt-3xl mx-auto max-w-9xl">
+      <button
+        data-form="builder-promo"
+        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
+      >
+        Help map the platforms
+      </button>
+
+      <button
+        data-form="builder-application"
+        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
+      >
+        Join as a platform
+      </button>
+
+      <button
+        data-form="newsletter"
+        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
+      >
+        Stay involved
+      </button>
+
+      <button
+        data-form="gathering-invitation"
+        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
+      >
+        Get invited to our first gathering
+      </button>
+    </div>
   </div>
 </section>
 
@@ -42,11 +72,24 @@ description: Building a better future together
   {{ textSection('Outside of our tools and <a class="underline" href="/frameworks">frameworks</a>, <a class="underline" href="/journey#gatherings">gatherings</a> are at the foundation of the Rebuild initiative. By bringing entrepreneurs from all of Europe together, we believe innovation can flourish.') }}
 </section>
 
-<section class="pb-6xl">
+<section class="">
   {% include "components/gatherings-preview.njk" %}
 </section>
 
 <section class="pb-6xl">
+  {{ textSection('Omnis eos rerum accusamus molestiae sit minima omnis nobis. Voluptatum iste dolorem et consectetur repudiandae ea a doloremque magnam cumque quas voluptatum.') }}
+  {# CTA Button #}
+  <div class="flex justify-center mt-xl">
+    <button
+        data-form="gathering-invitation"
+        class="inline-block px-xl py-md bg-dark text-light text-lg md:text-xl hover:bg-darker transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer border-none"
+      >
+        Request an invitation to join the first gathering
+      </button>
+  </div>
+</section>
+
+{# <section class="pb-6xl">
   {{ outcomes(
     "After a year of building, these are the outcomes we hope to see...",
     [
@@ -64,7 +107,7 @@ description: Building a better future together
       }
     ]
   ) }}
-</section>
+</section> #}
 
 <section class="pb-6xl">
   {% include "components/engage.njk" %}

@@ -1,3 +1,4 @@
+{% from "components/image-credit.njk" import imageCredit %}
 {% macro render(gathering) %}
   <section id="{{gathering.id}}" class="relative w-full py-4xl" style="background-color: {{ gathering.bgColor }}; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw;">
     <div class="max-w-[1400px] mx-auto px-md">
@@ -20,7 +21,12 @@
 
         {# Left column: Image #}
         <div class="order-2 md:order-1">
-          <img src="{{ gathering.image }}" alt="{{ gathering.title }} in {{ gathering.location }}" class="w-full h-auto">
+          <div class="relative">
+            <img src="{{ gathering.image }}" alt="{{ gathering.title }} in {{ gathering.location }}" class="w-full h-auto">
+            {% if gathering.imageCredit %}
+              {{ imageCredit(gathering.imageCredit) }}
+            {% endif %}
+          </div>
         </div>
 
         {# Right column: Proof points #}

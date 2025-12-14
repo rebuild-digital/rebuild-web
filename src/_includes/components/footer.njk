@@ -88,7 +88,11 @@
         <ul class="flex flex-col gap-sm md:gap-md list-none md:flex-wrap md:justify-top">
           {% for item in site.second_navigation %}
             <li>
-              <a href="{{ item.url }}" class="hover:underline transition-fast hover:text-blue focus:text-blue">{{ item.name }}</a>
+              {% if item.clickable %}
+                <a href="{{ item.url }}" class="hover:underline transition-fast hover:text-blue focus:text-blue">{{ item.name }}</a>
+              {% else %}
+                <span class="text-muted cursor-not-allowed">{{ item.name }}</span>
+              {% endif %}
             </li>
           {% endfor %}
         </ul>

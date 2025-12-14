@@ -1,0 +1,29 @@
+{#
+  Image Credit Component
+
+  Usage:
+  {% from "components/image-credit.njk" import imageCredit %}
+
+  <div class="relative">
+    <img src="/path/to/image.jpg" alt="Description">
+    {{ imageCredit("Photo by John Doe") }}
+  </div>
+
+  Or with custom positioning:
+  {{ imageCredit("Photo by John Doe", position="bottom-left") }}
+
+  Position options: bottom-right (default), bottom-left, top-right, top-left
+#}
+
+{% macro imageCredit(credit, position="bottom-left") %}
+  {% set positionClasses = {
+    "bottom-right": "bottom-0 right-0",
+    "bottom-left": "bottom-0 left-0",
+    "top-right": "top-0 right-0",
+    "top-left": "top-0 left-0"
+  } %}
+
+  <div class="absolute {{ positionClasses[position] }} bg-black/50 text-white text-xs px-2 py-1 m-2 rounded">
+    Photo by: {{ credit }}
+  </div>
+{% endmacro %}

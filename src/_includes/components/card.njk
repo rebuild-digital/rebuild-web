@@ -8,21 +8,28 @@
   - image: Image URL (optional)
   - link: Link URL (optional)
   - tags: Array of tags (optional)
+  - published: Boolean indicating if content is published (optional, defaults to true)
 #}
 
-<article class="overflow-hidden transition-all duration-base">
+{% set isPublished = published if published != undefined else true %}
+
+<article class="overflow-hidden transition-all duration-base {% if not isPublished %}opacity-60{% endif %}">
   {% if image %}
-    <div>
-      <a href="{{ link }}">
+    <div class="{% if not isPublished %}grayscale{% endif %}">
+      {% if isPublished %}
+        <a href="{{ link }}">
+          <img src="{{ image }}" alt="{{ title }}" loading="lazy" class="w-full object-cover">
+        </a>
+      {% else %}
         <img src="{{ image }}" alt="{{ title }}" loading="lazy" class="w-full object-cover">
-      </a>
+      {% endif %}
     </div>
   {% endif %}
 
   <div class="mt-md">
     {% if title %}
-      <h3 class="text-xl lg:text-3xl mb-sm">
-        {% if link %}
+      <h3 class="text-xl lg:text-3xl mb-sm {% if not isPublished %}text-muted{% endif %}">
+        {% if link and isPublished %}
           <a href="{{ link }}" class="text-dark no-underline hover:underline">{{ title }}</a>
         {% else %}
           {{ title }}
@@ -31,7 +38,11 @@
     {% endif %}
 
     {% if author %}
-      <p class="text-dark">— {{ author }}</p>
+      <p class="{% if not isPublished %}text-muted{% else %}text-dark{% endif %}">— {{ author }}</p>
+    {% endif %}
+
+    {% if not isPublished %}
+      <p class="text-sm text-muted mt-xs italic">Coming soon</p>
     {% endif %}
 
     {# {% if tags and tags.length > 0 %}

@@ -11,52 +11,50 @@ permalink: /journey/index.html
 <section class="pt-xl pb-2xl">
   <header class="mb-xl text-center w-full">
     <h1 class="font-normal text-7xl">{{ title }}</h1>
-    <div class="rich-text max-w-[800px] mx-auto px-md"></div>
   </header>
-</div>
-</section>
-
-<section class="py-6xl">
-{{ textSection("Fly-in to the kill slide: Qui architecto accusantium maxime rerum qui consequatur quo qui rerum consequatur necessitatibus fuga iste. Minima exercitationem non voluptas laborum optio.") }}
-</section>
-
-<section class="pb-8xl">
-<div class="overflow-x-scroll md:overflow-hidden">
-  <img src="/assets/images/kill-slide-graphic.png" alt="the Rebuild approach in one diagram: gatherings, programmes and tools distributed on a one year timeline." class="w-full h-auto">
-</div>
 </section>
 
 <section class="pb-6xl">
-<div class="mb-5xl">
-  <h3 id="gatherings" class="text-8xl font-bold">The beginning.<br>The boost.<br>The shift.</h3>
-  <p class="mt-lg text-2xl">Three connected gatherings across Europe in 2026</p>
-</div>
-<div class="max-w-[1400px] mx-auto">
-  <div class="flex flex-col gap-y-3xl">
-    <div class="flex flex-row justify-between">
-      <div class="w-20 h-20 rounded-full bg-dark"></div>
-      <p class="text-3xl max-w-[800px] leading-tight">Each a 48-hour catalyst for the people building the next generation of social platforms in Europe.</p>
-    </div>
-    <div class="flex flex-row justify-between">
-      <div class="w-20 h-20 rounded-full bg-dark"></div>
-      <p class="text-3xl max-w-[800px] leading-tight">These are the first hands-on assemblies in twenty years dedicated solely to Europe's social platform entrepreneurs.</p>
-    </div>
-    <div class="flex flex-row justify-between">
-      <div class="w-20 h-20 rounded-full bg-dark"></div>
-      <p class="text-3xl max-w-[800px] leading-tight">No tickets. No audience. But hundreds of builders co-designing the space, shaping breakout sessions, creating committed constellations, and advancing shared challenges.</p>
-    </div>
-    <div class="flex flex-row justify-between">
-      <div class="w-20 h-20 rounded-full bg-dark"></div>
-      <p class="text-3xl max-w-[800px] leading-tight">A focused 48-hour format: arrive Sunday evening, build hard through Monday, wrap it all Tuesday with new partners, ideas, and action plans.</p>
+  {{ textSection("Fly-in to the kill slide: Qui architecto accusantium maxime rerum qui consequatur quo qui rerum consequatur necessitatibus fuga iste. Minima exercitationem non voluptas laborum optio.") }}
+</section>
+
+<section class="pb-8xl">
+  <div class="overflow-x-scroll md:overflow-hidden">
+    <img src="/assets/images/kill-slide-graphic.png" alt="the Rebuild approach in one diagram: gatherings, programmes and tools distributed on a one year timeline." class="w-full h-auto">
+  </div>
+</section>
+
+<section class="pb-6xl">
+  <div class="mb-5xl">
+    <h3 id="gatherings" class="text-8xl font-bold">The beginning.<br>The boost.<br>The shift.</h3>
+    <p class="mt-lg text-2xl">Three connected gatherings across Europe in 2026</p>
+  </div>
+  <div class="max-w-[1400px] mx-auto">
+    <div class="flex flex-col gap-y-3xl">
+      <div class="flex flex-row justify-between">
+        <div class="w-20 h-20 rounded-full bg-dark"></div>
+        <p class="text-3xl max-w-[800px] leading-tight">Each a 48-hour catalyst for the people building the next generation of social platforms in Europe.</p>
+      </div>
+      <div class="flex flex-row justify-between">
+        <div class="w-20 h-20 rounded-full bg-dark"></div>
+        <p class="text-3xl max-w-[800px] leading-tight">These are the first hands-on assemblies in twenty years dedicated solely to Europe's social platform entrepreneurs.</p>
+      </div>
+      <div class="flex flex-row justify-between">
+        <div class="w-20 h-20 rounded-full bg-dark"></div>
+        <p class="text-3xl max-w-[800px] leading-tight">No tickets. No audience. But hundreds of builders co-designing the space, shaping breakout sessions, creating committed constellations, and advancing shared challenges.</p>
+      </div>
+      <div class="flex flex-row justify-between">
+        <div class="w-20 h-20 rounded-full bg-dark"></div>
+        <p class="text-3xl max-w-[800px] leading-tight">A focused 48-hour format: arrive Sunday evening, build hard through Monday, wrap it all Tuesday with new partners, ideas, and action plans.</p>
+      </div>
     </div>
   </div>
-</div>
 </div>
 </section>
 
 <section class="pb-6xl">
 {% for gathering in events.events %}
-{{ gatheringSection(gathering) }}
+  {{ gatheringSection(gathering) }}
 {% endfor %}
 </section>
 
