@@ -274,6 +274,7 @@
   body {
     @apply font-custom text-dark min-h-screen;
     line-height: 1.6;
+    letter-spacing: -0.02em;
   }
 
   /* Ensure form inputs don't overflow */
@@ -362,9 +363,9 @@
     @apply text-base;
   }
 
-  p {
+  /* p {
     @apply mb-md;
-  }
+  } */
 
   /* Responsive typography */
   @media (max-width: 768px) {

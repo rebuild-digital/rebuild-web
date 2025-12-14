@@ -1,17 +1,38 @@
 ---
 layout: layouts/default.njk
 title: Get in touch
-description: Help us rebuild the social infrastructure of Europe
+description: Don’t hesitate to get involved and start following. Get in touch if you want to share a social platform project, apply to join a programme or …. 
 permalink: /get-in-touch/index.html
 ---
 
-<section class="gatherings-listing pt-xl pb-2xl">
-  <div class="container">
-    <header class="mb-xl text-center">
-      <h1>{{ title }}</h1>
-      <div class="rich-text max-w-[800px] mx-auto px-md">
-        <p>{{ description }}</p>
+<div class="container">
+  {% include "components/page-header.njk" %}
+</div>
+
+<section class="pt-4xl pb-6xl">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="flex flex-col gap-y-xl">
+      <div class="flex flex-row items-center space-x-2xl">
+        <div class="w-20 h-20 rounded-full bg-dark"></div>
+        <a href="mailto:team@rebuild.net" class="text-8xl hover:underline">Email us</a>
       </div>
-    </header>
+      <div class="flex flex-row items-center space-x-2xl">
+        <div class="w-20 h-20 rounded-full bg-dark"></div>
+        <a href="#" data-form="builder-application" class="text-8xl hover:underline">Apply for directory</a>
+      </div>
+      <div class="flex flex-row items-center space-x-2xl">
+        <div class="w-20 h-20 rounded-full bg-dark"></div>
+        <a href="#" data-form="builder-promo" class="text-8xl hover:underline">Promote a startup</a>
+      </div>
+      <div class="flex flex-row items-center space-x-2xl">
+        <div class="w-20 h-20 rounded-full bg-dark"></div>
+        <a href="https://linked.com/company/rebuild-europe" class="text-8xl hover:underline">Follow us on Linkedin</a>
+      </div>
+      <div class="flex flex-row items-center space-x-2xl">
+        <div class="w-20 h-20 rounded-full bg-dark"></div>
+        <a href="#" data-form="newsletter" class="text-8xl hover:underline">Get the newsletter</a>
+      </div>
+    </div>
   </div>
+</div>
 </section>

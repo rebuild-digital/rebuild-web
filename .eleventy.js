@@ -39,6 +39,11 @@ module.exports = async function(eleventyConfig) {
     return new Date(date).toLocaleDateString('en-US', options);
   });
 
+  eleventyConfig.addFilter("shortDate", (date) => {
+    const options = { month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString('en-US', options);
+  });
+
   eleventyConfig.addFilter("excerpt", (content, length = 150) => {
     if (!content) return "";
     const text = content.replace(/<[^>]*>/g, "");

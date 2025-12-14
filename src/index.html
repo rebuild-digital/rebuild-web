@@ -3,6 +3,8 @@ layout: layouts/default.njk
 title: Home
 description: Building a better future together
 ---
+{% from "components/text-section.njk" import render as textSection %}
+{% from "components/outcomes.njk" import render as outcomes %}
 
 <!-- Graphic Splash -->
 <section id="hero-splash" class="hero-splash" style="background-color: #bf6e36;">
@@ -11,13 +13,13 @@ description: Building a better future together
     Your browser does not support the video tag.
   </video>
   <div class="hero-content" style="z-index: 2;">
-    <h1 class="hero-title">A catalyst for european social platforms.</h1>
+    <h1 class="hero-title">Twelve months to catalyse European social platforms</h1>
     <a href="#explore" class="hero-explore">Explore ↓</a>
   </div>
 </section>
 
 <section class="py-6xl">
-  <h2 class="mx-auto text-center text-3xl max-w-[45ch]">Rebuild was founded to connect the European landscape of social platforms. Supporting entrepreneurs and product innovation for twelve months before sunsetting.</h2>
+  {{ textSection("Rebuild was founded to connect the European landscape of social platforms. Supporting entrepreneurs and product innovation for twelve months before sunsetting.") }}
 </section>
 
 <section id="explore" class="pb-6xl">
@@ -37,7 +39,7 @@ description: Building a better future together
 </section>
 
 <section class="">
-  <h2 class="mx-auto text-center text-3xl max-w-[45ch]">Outside of our tools and <a class="underline" href="/frameworks">frameworks</a>, <a class="underline" href="/gatherings">gatherings</a> are at the foundation of the Rebuild initiative. By bringing entrepreneurs from all of Europe together, we believe innovation can flourish.</h2>
+  {{ textSection('Outside of our tools and <a class="underline" href="/frameworks">frameworks</a>, <a class="underline" href="/journey#gatherings">gatherings</a> are at the foundation of the Rebuild initiative. By bringing entrepreneurs from all of Europe together, we believe innovation can flourish.') }}
 </section>
 
 <section class="pb-6xl">
@@ -45,7 +47,23 @@ description: Building a better future together
 </section>
 
 <section class="pb-6xl">
-  {% include "components/outcomes.njk" %}
+  {{ outcomes(
+    "After a year of building, these are the outcomes we hope to see...",
+    [
+      {
+        "headline": "Industry organisation",
+        "description": "Facilis quis vel et expedita saepe rerum labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
+      },
+      {
+        "headline": "Annual event",
+        "description": "Facilis quis vel et expedita saepe rerum labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
+      },
+      {
+        "headline": "The big shift",
+        "description": "Facilis quis vel et expedita saepe rerum labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
+      }
+    ]
+  ) }}
 </section>
 
 <section class="pb-6xl">

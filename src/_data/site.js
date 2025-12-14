@@ -20,10 +20,6 @@ module.exports = {
       url: "/directory/",
     },
     {
-      name: "Gatherings",
-      url: "/gatherings/",
-    },
-    {
       name: "Frameworks",
       url: "/frameworks/",
     },
