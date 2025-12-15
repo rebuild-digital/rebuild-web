@@ -5,8 +5,8 @@
   Displays the five Rebuild programmes with titles and descriptions
 #}
 
-<section class="relative w-full py-3xl">
-  <div class="max-w-[1400px] mx-auto px-md">
+<section class="relative w-full py-xl md:py-3xl">
+  <div class="max-w-[1400px] mx-auto">
 
     {# Header #}
     <div class="flex flex-col md:flex-row justify-between items-start mb-4xl gap-lg">
@@ -19,9 +19,9 @@
     {# Programmes List #}
     <div class="space-y-lg">
       {% for programme in programmes.programmes %}
-        <div class="programme-item flex flex-col md:flex-row md:items-center md:gap-0 gap-md opacity-0 translate-x-[-2rem] transition-all duration-700 ease-out" data-index="{{ loop.index0 }}">
+        <div class="programme-item flex flex-col md:flex-row md:items-center md:gap-0 gap-md opacity-0 transition-all duration-700 ease-out" data-index="{{ loop.index0 }}">
           {# Programme Title with Color #}
-          <div class="hrink-0 px-md py-sm w-fit" style="background-color: {{ programme.color }};">
+          <div class="shrink-0 px-md py-sm w-fit" style="background-color: {{ programme.color }};">
             <h3 class="text-xl md:text-2xl font-normal text-dark whitespace-nowrap">{{ programme.title }}</h3>
           </div>
 
@@ -29,8 +29,8 @@
           <div class="hidden md:block grow h-px bg-dark mx-md" style="background-color: {{ programme.color }};"></div>
 
           {# Description #}
-          <div class="shrink w-96">
-            <p class="text-base md:text-lg text-dark">{{ programme.description }}</p>
+          <div class="shrink w-80">
+            <p class="text-sm w-5xl md:text-lg text-dark">{{ programme.description }}</p>
           </div>
         </div>
       {% endfor %}

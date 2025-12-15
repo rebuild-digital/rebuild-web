@@ -6,11 +6,11 @@
 #}
 {% from "components/image-credit.njk" import imageCredit %}
 
-<section class="relative w-full py-3xl bg-light" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw;">
+<section class="relative w-full py-xl md:py-3xl bg-light" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw;">
   <div class="max-w-[1400px] mx-auto px-md">
 
     {# Gatherings Grid #}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-2xl">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-2xl md:gap-lg mb-2xl">
       {% for gathering in gatherings.gatherings %}
         <div class="flex flex-col">
           {# Image with Title Overlay #}

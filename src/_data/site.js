@@ -32,6 +32,10 @@ module.exports = {
       url: "/people/",
     },
     {
+      name: "About",
+      url: "/about/",
+    },
+    {
       name: "Get in touch",
       url: "/get-in-touch/",
     },
@@ -40,14 +44,14 @@ module.exports = {
   // Second navigation
   second_navigation: [
     {
-      name: "Changelog",
-      url: "/changelog/",
-      clickable: false,
-    },
-    {
       name: "Privacy",
       url: "/privacy/",
       clickable: true,
+    },
+    {
+      name: "Changelog",
+      url: "/changelog/",
+      clickable: false,
     },
   ],
 };

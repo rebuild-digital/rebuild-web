@@ -24,14 +24,14 @@
                 src="{{ slide.image }}"
                 alt="{{ slide.headline }}"
                 loading="lazy"
-                class="w-full h-full object-cover"
+                class="w-full h-full max-h-[40vh] md:max-h-screen object-cover"
               >
             </div>
 
             <!-- Content Column -->
-            <div class="order-2 md:order-2 flex flex-col justify-center px-3xl">
+            <div class="order-2 md:order-2 flex flex-col justify-center px-sm md:px-3xl">
               <h2 class="text-3xl md:text-4xl lg:text-5xl font-normal mb-lg text-dark leading-tight">{{ slide.headline }}</h2>
-              <p class="text-lg md:text-xl text-dark mb-xl leading-relaxed max-w-[65ch]">{{ slide.subheader }}</p>
+              <p class="text-lg md:text-xl text-dark mb-xl leading-tight max-w-[65ch]">{{ slide.subheader }}</p>
               <a href="{{ slide.ctaLink }}" class="inline-block px-sm py-xs bg-transparent border-2 border-dark text-dark hover:bg-dark hover:text-light transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue no-underline w-fit">
                 {{ slide.ctaText }}
               </a>
@@ -45,7 +45,7 @@
   <!-- Navigation Dots -->
 
 </section>
-<div class="mt-lg flex justify-center gap-sm z-10">
+<div class="mt-sm md:mt-lg flex justify-center gap-sm z-10 mb-xl md:mb-0">
   {% for slide in carousel.slides %}
     <button
         class="carousel-dot w-3 h-3 bg-muted border-0 cursor-pointer transition-all duration-fast hover:bg-darker {% if loop.first %}bg-dark! w-8!{% endif %}"

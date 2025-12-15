@@ -12,41 +12,34 @@
   <div class="max-w-[1400px] mx-auto px-md">
 
     {# Header #}
-    <div class="flex justify-between items-center mb-2xl">
+    <div class="flex justify-between flex-col md:flex-row gap-lg md:gap-md md:items-center mb-2xl">
       <div>
         <h2 class="text-4xl md:text-5xl font-normal text-dark">Social Platform Directory</h2>
         <p class="text-dark text-sm mt-4">
           {{ totalPlatforms }} platforms added this week.</p>
       </div>
-      <a href="/directory/" class="text-xl md:text-2xl text-dark hover:underline transition-fast">View all</a>
+      <a href="/directory/" class="text-lg md:text-2xl text-dark hover:underline transition-fast">View all</a>
     </div>
 
     {# Platform List #}
     {% if randomPlatforms and randomPlatforms | length > 0 %}
       <div class="space-y-0">
         {% for platform in randomPlatforms %}
-          <div class="grid grid-cols-12 gap-sm items-center border-b border-dark py-sm">
-            {# Name - 3 columns #}
-            <div class="col-span-12 md:col-span-3">
-              <h3 class="text-xl md:text-2xl font-normal text-dark">{{ platform.name }}</h3>
-            </div>
-
-            {# URL - 5 columns #}
-            <div class="col-span-12 md:col-span-5">
-              <a href="{{ platform.link }}" target="_blank" rel="noopener noreferrer" class="text-base md:text-lg text-dark hover:underline transition-fast break-all">
-                {{ platform.link }}
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-dark py-sm">
+            {# Name #}
+            <h3 class="text-2xl md:mb-0 md:text-4xl font-normal text-dark">
+              <a href="{{ platform.link }}" target="_blank" rel="noopener noreferrer" class="hover:underline transition-fast break-all">
+                {{ platform.name }}
               </a>
-            </div>
+            </h3>
 
-            {# Categories - 4 columns #}
-            <div class="col-span-12 md:col-span-4">
-              <div class="flex flex-wrap justify-end gap-xs">
-                {% for category in platform.category %}
-                  <span class="text-sm text-dark">{{ category }}
-                    {% if not loop.last %}, {% endif %}
-                  </span>
-                {% endfor %}
-              </div>
+            {# Categories #}
+            <div class="flex flex-wrap md:justify-end gap-xs">
+              {% for category in platform.category %}
+                <span class="text-sm text-dark">{{ category }}
+                  {% if not loop.last %}, {% endif %}
+                </span>
+              {% endfor %}
             </div>
           </div>
         {% endfor %}
@@ -58,18 +51,18 @@
     {% endif %}
 
     {# Footer #}
-    <div class="mt-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-lg">
+    <div class="mt-xl md:mt-3xl flex flex-col md:flex-row justify-end items-start md:items-center gap-lg">
       {# Count #}
       {# <p class="text-base max-w-96 md:text-lg text-dark">
         Among {{ totalPlatforms - 10 }} other social platforms we've listed, so far.
       </p> #}
 
       {# CTAs #}
-      <div class="flex gap-md">
-        <button data-form="builder-application" class="inline-block px-lg py-md bg-dark border-2 border-dark text-light hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
+      <div class="flex gap-sm md:gap-md">
+        <button data-form="builder-application" class="inline-block px-sm md:px-lg py-xs md:py-md bg-dark border-2 border-dark text-light hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
           Apply to join the list
         </button>
-        <button data-form="builder-promo" class="inline-block px-lg py-md bg-transparent border-2 border-dark text-dark hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
+        <button data-form="builder-promo" class="inline-block px-sm md:px-lg py-xs md:py-md bg-transparent border-2 border-dark text-dark hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
           Promote a project
         </button>
       </div>
