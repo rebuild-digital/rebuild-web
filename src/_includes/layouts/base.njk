@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {# Title #}
+    {% if page.url == "/" %}
+    <title>{{ site.title }}</title>
+    {% else %}
     <title>{{ title | default(site.title) }} | {{ site.title }}</title>
+    {% endif %}
 
     {# Meta Description #}
     <meta name="description" content="{{ description | default(excerpt) | default(site.description) }}">
