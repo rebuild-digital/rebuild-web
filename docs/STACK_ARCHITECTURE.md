@@ -470,11 +470,11 @@ module.exports = async function () {
 ```javascript
 // In _data/site.js
 module.exports = {
-  title: "Site Title",
-  description: "Default site description",
-  url: "https://yoursite.com",
-  defaultImage: "/assets/images/default-og-image.jpg",
-  author: "Your Name",
+  title: "Rebuild",
+  description: "12 months to catalyse European social platforms.",
+  url: "https://rebuild.net",
+  defaultImage: "/assets/images/social-3.jpg",
+  author: "Rebuild",
 };
 ```
 

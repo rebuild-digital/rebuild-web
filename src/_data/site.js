@@ -1,12 +1,11 @@
 module.exports = {
   title: "Rebuild",
-  description:
-    "A catalyst to rebuild European social platforms by fostering connections, directing talent and getting back to building.",
-  url: process.env.SITE_URL || "https://www.rebuild.net",
-  apiUrl: process.env.API_URL || "https://rebuild.b-cdn.net",
-  defaultImage: "/assets/images/default-og-image.jpg",
-  logo: "/assets/images/logo.svg",
-  author: "The Rebuild team",
+  description: "12 months to catalyse European social platforms",
+  url: process.env.SITE_URL,
+  apiUrl: process.env.API_URL,
+  defaultImage: "/assets/images/social-3.jpg",
+  logo: "/favicon.ico",
+  author: "Rebuild",
   language: "en",
 
   // Navigation
