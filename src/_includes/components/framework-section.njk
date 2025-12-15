@@ -22,14 +22,14 @@
           {% if version %}
             <p class="text-sm text-muted mb-xs">{{ version }}</p>
           {% endif %}
-          <h2 class="text-4xl mb-md">{{ title }}</h2>
-          <p class="text-lg text-dark mb-lg">{{ description }}</p>
+          <h2 class="text-2xl md:text-4xl mb-md">{{ title }}</h2>
+          <p class="text-base md:text-lg text-dark mb-lg">{{ description }}</p>
           {% if buttonUrl %}
-            <a href="{{ buttonUrl }}" class="inline-block border-2 border-dark px-md py-xs hover:bg-dark hover:text-light transition-fast">
+            <a href="{{ buttonUrl }}" class="inline-block border-2 bg-lighter border-dark px-md py-xs hover:bg-dark hover:text-light transition-fast">
               {{ buttonText }}
             </a>
           {% elif buttonText %}
-            <button class="border-2 border-dark px-md py-xs hover:bg-dark hover:text-light transition-fast">
+            <button class="border-2 border-dark px-md py-xs bg-muted hover:bg-dark hover:text-light transition-fast">
               {{ buttonText }}
             </button>
           {% endif %}
@@ -58,14 +58,14 @@
           {% if version %}
             <p class="text-sm text-muted mb-xs">{{ version }}</p>
           {% endif %}
-          <h2 class="text-4xl mb-md">{{ title }}</h2>
-          <p class="text-lg text-dark mb-lg">{{ description }}</p>
+          <h2 class="text-2xl md:text-4xl mb-md">{{ title }}</h2>
+          <p class="text-base md:text-lg text-dark mb-lg">{{ description }}</p>
           {% if buttonUrl %}
-            <a href="{{ buttonUrl }}" class="inline-block border-2 border-dark px-md py-xs hover:bg-dark hover:text-light transition-fast">
+            <a href="{{ buttonUrl }}" class="inline-block border-2 border-dark bg-lighter px-md py-xs hover:bg-dark hover:text-light transition-fast">
               {{ buttonText }}
             </a>
           {% elif buttonText %}
-            <button class="border-2 border-dark px-md py-xs hover:bg-dark hover:text-light transition-fast">
+            <button class="border-2 border-dark bg-muted px-md py-xs hover:bg-dark hover:text-light transition-fast">
               {{ buttonText }}
             </button>
           {% endif %}
