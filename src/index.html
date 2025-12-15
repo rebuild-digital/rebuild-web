@@ -3,99 +3,118 @@ layout: layouts/default.njk
 title: Home
 description: Building a better future together
 ---
+{% from "components/text-section.njk" import render as textSection %}
+{% from "components/outcomes.njk" import render as outcomes %}
 
-<section class="hero pt-2xl pb-2xl">
-  <div class="container">
-    <h1 class="text-center mb-lg">Welcome to Rebuild</h1>
-    <div class="rich-text text-center container-narrow">
-      <p>We're building a community of makers, creators, and innovators working together to shape a better future.</p>
+<!-- Graphic Splash -->
+<section id="hero-splash" class="hero-splash" style="background-color: #bf6e36;">
+  <video autoplay loop muted playsinline class="hero-video" style="z-index: 1;">
+    <source src="/assets/videos/circles3.mov" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="hero-content" style="z-index: 2;">
+    <h1 class="hero-title">
+      <a class="hover:underline" href="/about">Rebuild</a> European <a class="hover:underline" href="/tools#Social Platform Taxonomy">social</a>
+      <a href="/directory" class="hover:underline">platforms</a>
+    </h1>
+
+    {# Action Buttons #}
+    <div class="flex flex-wrap gap-sm justify-center mt-lg mx-auto max-w-9xl">
+      <button
+        data-form="builder-promo"
+        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
+      >
+        Help map the platforms
+      </button>
+
+      {# <button
+        data-form="builder-application"
+        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
+      >
+        Join as a platform
+      </button> #}
+
+      <button
+        data-form="newsletter"
+        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
+      >
+        Stay involved
+      </button>
+
+      <button
+        data-form="gathering-invitation"
+        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
+      >
+        Request gathering invitation
+      </button>
     </div>
   </div>
 </section>
 
-<section class="approach pb-xl">
-  <div class="container-narrow">
-    <h2>Our Approach</h2>
-    <p>Through collaboration, shared learning, and collective action, we're reimagining how we build together.</p>
+<section class="py-3xl md:py-6xl">
+  {{ textSection("Rebuild is a sprint for European social platforms. Connecting the entrepreneurs, the pioneers, the investors and the digital leaders building the next generation of social platforms.
+<br><br>Through <span class='font-bold'>gatherings, programmes and tools.</span>") }}
+</section>
+
+<section id="explore" class="pb-3xl md:pb-6xl">
+  {% include "components/carousel.njk" %}
+</section>
+
+<section class="pb-3xl md:pb-6xl">
+  {% include "components/directory-preview.njk" %}
+</section>
+
+<section class="pb-3xl md:pb-6xl">
+  {% include "components/programmes-preview.njk" %}
+</section>
+
+<section class="pb-4xl md:pb-7xl">
+  {% include "components/insights-preview.njk" %}
+</section>
+
+<section class="">
+  {{ textSection(' Three 48-hour gatherings Rebuild1, Rebuild2, and Rebuild3. Designed to connect, build, and act. Paris, Helsinki, and Copenhagen.') }}
+</section>
+
+<section class="">
+  {% include "components/gatherings-preview.njk" %}
+</section>
+
+<section class="pb-3xl md:pb-6xl">
+  {{ textSection('Rebuild1 is happening in 75 days.<br>Keynotes, work sessions, and demos of all social platforms.<br><br>Request form is open.<br>Copenhagen March 1st 15.00 - March 3rd 15.00.<br>Opening and grand social dinner starts 16.00.') }}
+  {# CTA Button #}
+  <div class="flex justify-center mt-xl">
+    <button
+        data-form="gathering-invitation"
+        class="inline-block px-xl py-md bg-dark text-light text-lg md:text-xl hover:bg-darker transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer border-none"
+      >
+        Request an invitation to join the first gathering
+      </button>
   </div>
 </section>
 
-<section class="featured-builders pb-xl">
-  <div class="container">
-    <h2 class="mb-lg">Featured Builders</h2>
+{# <section class="pb-6xl">
+  {{ outcomes(
+    "After a year of building, these are the outcomes we hope to see...",
+    [
+      {
+        "headline": "Industry organisation",
+        "description": "Facilis quis vel et expedita saepe rerum labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
+      },
+      {
+        "headline": "Annual event",
+        "description": "Facilis quis vel et expedita saepe rerum labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
+      },
+      {
+        "headline": "The big shift",
+        "description": "Facilis quis vel et expedita saepe rerum labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
+      }
+    ]
+  ) }}
+</section> #}
 
-    {% if builders and builders.length > 0 %}
-      <div class="grid-3">
-        {% for builder in builders | limit(3) %}
-          {% set title = builder.name %}
-          {% set description = builder.description %}
-          {% set image = builder.imageUrl %}
-          {% set link = builder.link %}
-          {% set tags = builder.tags %}
-          {% include "components/card.njk" %}
-        {% endfor %}
-      </div>
-    {% else %}
-      <p>No builders available yet. Add some through the Notion database!</p>
-    {% endif %}
-
-    <div class="text-center mt-lg">
-      {% set text = "View All Builders" %}
-      {% set url = "/builders/" %}
-      {% set variant = "primary" %}
-      {% include "components/buttons.njk" %}
-    </div>
-  </div>
+<section class="pb-3xl md:pb-6xl">
+  {% include "components/engage.njk" %}
 </section>
 
-<section class="featured-journal pb-xl">
-  <div class="container">
-    <h2 class="mb-lg">Recent Journal Entries</h2>
-
-    {% if collections.journal and collections.journal.length > 0 %}
-      <div class="grid-3">
-        {% for post in collections.journal | limit(3) %}
-          {% set title = post.data.title %}
-          {% set description = post.data.excerpt %}
-          {% set link = post.url %}
-          {% set tags = post.data.tags %}
-          {% include "components/card.njk" %}
-        {% endfor %}
-      </div>
-    {% else %}
-      <p>No journal entries yet. Create some in the src/content/journal/ directory!</p>
-    {% endif %}
-
-    <div class="text-center mt-lg">
-      {% set text = "View All Entries" %}
-      {% set url = "/journal/" %}
-      {% set variant = "secondary" %}
-      {% include "components/buttons.njk" %}
-    </div>
-  </div>
-</section>
-
-<section class="next-event pb-2xl">
-  <div class="container-narrow">
-    <h2 class="mb-lg text-center">Next Gathering</h2>
-
-    {% set nextEvent = events.events[0] %}
-    {% if nextEvent %}
-      <div class="text-center mb-md">
-        <h3>{{ nextEvent.title }}</h3>
-        <p>{{ nextEvent.location }} &middot; {{ nextEvent.date | dateFormat }}</p>
-      </div>
-
-      {% set targetDate = nextEvent.date %}
-      {% set title = "Time until " + nextEvent.title %}
-      {% include "components/countdown.njk" %}
-
-      <div class="text-center mt-lg">
-        {% set text = "View Event Details" %}
-        {% set url = "/gatherings/" %}
-        {% set variant = "outline" %}
-        {% include "components/buttons.njk" %}
-      </div>
-    {% endif %}
-  </div>
-</section>
+{% include "components/half-circle.njk" %}

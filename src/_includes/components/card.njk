@@ -8,36 +8,50 @@
   - image: Image URL (optional)
   - link: Link URL (optional)
   - tags: Array of tags (optional)
+  - published: Boolean indicating if content is published (optional, defaults to true)
 #}
 
-<article class="card">
+{% set isPublished = published if published != undefined else 
+  true %}
+
+<article class="overflow-hidden transition-all duration-base {% if not isPublished %}opacity-60{% endif %}">
   {% if image %}
-    <div class="card-image">
-      <img src="{{ image }}" alt="{{ title }}" loading="lazy">
+    <div class="{% if not isPublished %}grayscale{% endif %}">
+      {% if isPublished %}
+        <a href="{{ link }}">
+          <img src="{{ image }}" alt="{{ title }}" loading="lazy" class="w-full object-cover">
+        </a>
+      {% else %}
+        <img src="{{ image }}" alt="{{ title }}" loading="lazy" class="w-full object-cover">
+      {% endif %}
     </div>
   {% endif %}
 
-  <div class="card-content">
+  <div class="mt-md">
     {% if title %}
-      <h3 class="card-title">
-        {% if link %}
-          <a href="{{ link }}">{{ title }}</a>
+      <h3 class="text-xl lg:text-3xl mb-xs md:mb-sm {% if not isPublished %}text-muted{% endif %}">
+        {% if link and isPublished %}
+          <a href="{{ link }}" class="text-dark no-underline hover:underline">{{ title }}</a>
         {% else %}
           {{ title }}
         {% endif %}
       </h3>
     {% endif %}
 
-    {% if description %}
-      <p class="card-description">{{ description }}</p>
+    {% if author %}
+      <p class="{% if not isPublished %}text-muted{% else %}text-dark{% endif %}">— {{ author }}</p>
     {% endif %}
 
-    {% if tags and tags.length > 0 %}
-      <div class="card-tags">
+    {% if not isPublished %}
+      <p class="text-sm text-muted mt-xs italic">Coming soon</p>
+    {% endif %}
+
+    {# {% if tags and tags.length > 0 %}
+      <div class="flex gap-xs flex-wrap">
         {% for tag in tags %}
-          <span class="tag">{{ tag }}</span>
+          <span class="inline-block px-sm py-xs border border-dark text-xs font-semibold">{{ tag }}</span>
         {% endfor %}
       </div>
-    {% endif %}
+    {% endif %} #}
   </div>
 </article>

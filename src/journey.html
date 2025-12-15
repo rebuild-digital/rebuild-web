@@ -1,0 +1,90 @@
+---
+layout: layouts/default.njk
+title: Journey
+description: The core approach to catalysing social platforms in Europe
+permalink: /journey/index.html
+---
+{% from "components/text-section.njk" import render as textSection %}
+{% from "components/gathering-section.njk" import render as gatheringSection %}
+{% from "components/outcomes.njk" import render as outcomes %}
+
+<section class="pt-xl md:pb-2xl">
+  <header class="mb-sm md:mb-xl text-center w-full">
+    <h1 class="font-normal text-4xl md:text-5xl lg:text-7xl">{{ title }}</h1>
+  </header>
+</section>
+
+<section class="pb-3xl md:pb-6xl">
+  {{ textSection("The Rebuild journey is 12 months to support the new generation of social platforms. Through <span class='font-bold'>gatherings, programmes, and tools.</span><br><br>When closing on 15 December 2026, Rebuild will have facilitated hundreds of defining new connections for rebuilding social platforms.") }}
+</section>
+
+<section class="pb-4xl lg:pb-8xl">
+  <div class="overflow-x-scroll md:overflow-hidden">
+    <img src="/assets/images/kill-slide-graphic.png" alt="the Rebuild approach in one diagram: gatherings, programmes and tools distributed on a one year timeline." class="w-full h-auto">
+  </div>
+</section>
+
+<section class="pb-3xl md:pb-6xl">
+  <div class="mb-2xl md:mb-5xl">
+    <h3 id="gatherings" class="text-3xl lg:text-8xl font-bold">The beginning.<br>The boost.<br>The shift.</h3>
+    <p class="mt-lg text-xl">Three connected gatherings across Europe in 2026</p>
+  </div>
+  <div class="max-w-[1400px] mx-auto">
+    <div class="flex flex-col gap-y-xl lg:gap-y-3xl">
+      <div class="flex flex-row justify-start ">
+        <div class="hidden lg:block w-20 h-20 rounded-full bg-dark"></div>
+        <p class="md:text-3xl max-w-[800px] leading-tight ml-xl">Each a 48-hour catalyst for the people building the next generation of social platforms in Europe.</p>
+      </div>
+      <div class="flex flex-row justify-start">
+        <div class="hidden lg:block w-20 h-20 rounded-full bg-dark"></div>
+        <p class="md:text-3xl max-w-[800px] leading-tight ml-xl">The first hands-on assemblies tailored 100% to Europe’s future social platform entrepreneurs. 
+</p>
+      </div>
+      <div class="flex flex-row justify-start">
+        <div class="hidden lg:block w-20 h-20 rounded-full bg-dark"></div>
+        <p class="md:text-3xl max-w-[800px] leading-tight ml-xl">Where the entrepreneurs, investors, pioneers and digital leaders come together to move things forward.</p>
+      </div>
+      <div class="flex flex-row justify-start">
+        <div class="hidden lg:block w-20 h-20 rounded-full bg-dark"></div>
+        <p class="md:text-3xl max-w-[800px] leading-tight ml-xl">A focused 48-hour format: arrive Sunday afternoon, build hard through Monday, wrap it all Tuesday afternoon with new partners, ideas, and action plans.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="pb-3xl md:pb-6xl">
+{% for gathering in events.events %}
+  {{ gatheringSection(gathering) }}
+{% endfor %}
+</section>
+
+<section class="pb-3xl md:pb-6xl">
+{% include "components/programmes-preview.njk" %}
+</section>
+
+<section class="pb-3xl md:pb-6xl">
+{{ outcomes(
+    "In the planning for the next chapter:",
+    [
+      {
+        "headline": "Big Shift Day",
+        "description": "Where Europeans make a collective shift."
+      },
+      {
+        "headline": "Industry organisation",
+        "description": "Dedicated to becoming the future driver of initiatives for the social platforms of Europe."
+      },
+      {
+        "headline": "Annual Gathering",
+        "description": "Carrying forward the initiative to assemble yearly."
+      }
+    ]
+  ) }}
+</section>
+
+<section class="pb-4xl">
+{% include "components/half-circle.njk" %}
+</section>
+
+<script src="/scripts/gathering-countdown.js"></script>

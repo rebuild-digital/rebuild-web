@@ -1,0 +1,173 @@
+{#
+  Newsletter Signup Form
+  Usage: {% include "components/newsletter-form.njk" %}
+
+  Parameters:
+  - title: Form title (optional, default provided)
+  - description: Form description (optional, default provided)
+  - submitText: Submit button text (optional, default: 'Subscribe')
+  - inline: Boolean - if true, displays compact inline layout (default: false)
+#}
+
+{% set formTitle = title | default('Stay Updated') %}
+{% set formDescription = description | default('Get updates about new platforms, insights and gatherings.') %}
+{% set formSubmitText = submitText | default('Subscribe') %}
+{% set isInline = inline | default(false) %}
+
+{% if isInline %}
+  {# Inline compact layout #}
+  <div class="newsletter-form-inline">
+    <form
+      id="newsletter-form-inline"
+      action="{{ site.apiUrl }}/api/newsletter-signup"
+      method="POST"
+      class="flex gap-sm items-end"
+    >
+      <div class="flex-1">
+        <label for="email-inline" class="sr-only">Email</label>
+        <input
+          type="email"
+          id="email-inline"
+          name="email"
+          placeholder="your@email.com"
+          required
+          class="w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue"
+        >
+      </div>
+      <button
+        type="submit"
+        class="inline-block text-center font-bold border-2 border-dark cursor-pointer transition-all duration-fast bg-blue text-light hover:bg-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A] px-md py-sm text-base whitespace-nowrap"
+      >
+        {{ formSubmitText }}
+      </button>
+    </form>
+    <div id="newsletter-form-inline-success" class="hidden mt-sm bg-green border-2 border-dark p-sm">
+      <p class="text-dark text-sm font-semibold">Thanks for subscribing!</p>
+    </div>
+    <div id="newsletter-form-inline-error" class="hidden mt-sm bg-red text-light border-2 border-dark p-sm">
+      <p class="text-sm font-semibold">Something went wrong. Please try again.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.getElementById('newsletter-form-inline');
+      if (!form) 
+        return;
+      
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation(); // Prevent other handlers from firing
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const successEl = document.getElementById('newsletter-form-inline-success');
+        const errorEl = document.getElementById('newsletter-form-inline-error');
+
+        successEl
+          .classList
+          .add('hidden');
+        errorEl
+          .classList
+          .add('hidden');
+
+        submitBtn.disabled = true;
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Subscribing...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            successEl
+              .classList
+              .remove('hidden');
+            form.reset();
+          } else {
+            errorEl
+              .classList
+              .remove('hidden');
+          }
+        } catch (error) {
+          console.error('Newsletter signup error:', error);
+          errorEl
+            .classList
+            .remove('hidden');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
+    })();
+  </script>
+
+{% else %}
+  {# Standard full-width layout #}
+  {% set newsletterFields = [
+    {
+      type: 'email',
+      name: 'email',
+      label: 'Email',
+      placeholder: 'your@email.com',
+      required: true
+    }, {
+      type: 'text',
+      name: 'first_name',
+      label: 'First name',
+      placeholder: 'Jane',
+      required: false
+    }, {
+      type: 'text',
+      name: 'last_name',
+      label: 'Last name',
+      placeholder: 'Doe',
+      required: false
+    }, {
+      type: 'select',
+      name: 'interest',
+      label: 'Keep me up to date as...',
+      placeholder: 'Keep me up to date as...',
+      required: true,
+      options: [
+        {
+          value: 'entrepreneur',
+          label: 'an entrepreneur'
+        }, {
+          value: 'investor',
+          label: 'an investor'
+        }, {
+          value: 'fund',
+          label: 'a public fund manager'
+        }, {
+          value: 'media',
+          label: 'a media representative'
+        }, {
+          value: 'curious',
+          label: 'a curious individual'
+        }
+      ]
+    }, {
+      type: 'checkbox',
+      name: 'consent',
+      label: 'I agree to receive email updates and understand I can unsubscribe at any time.',
+      required: true
+    }
+  ] %}
+
+  {% set formId = 'newsletter-form' %}
+  {% set action = site.apiUrl + '/api/newsletter-signup' %}
+  {% set method = 'POST' %}
+  {% set title = formTitle %}
+  {% set description = formDescription %}
+  {% set submitText = formSubmitText %}
+  {% set submitVariant = 'primary' %}
+  {% set fields = newsletterFields %}
+  {% set successMessage = 'Thank you for subscribing! Check your email to confirm your subscription.' %}
+  {% set errorMessage = 'Oops! There was an error processing your subscription. Please try again.' %}
+  {% include "components/form.njk" %}
+{% endif %}

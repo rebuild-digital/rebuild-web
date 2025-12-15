@@ -1,0 +1,87 @@
+---
+layout: layouts/insights.njk
+title: Insights
+description: Our growing library of insights. Stories from early entrepreneurs, current builders and insights from the Rebuild journey.
+permalink: /insights/index.html
+---
+
+<hr>
+
+{% if collections.insights and collections.insights.length > 0 %}
+  {# Extract all unique tags from insights #}
+  {% set allTags = [] %}
+  {% for post in collections.insights %}
+    {% if post.data.tags %}
+      {% for tag in post.data.tags %}
+        {% if tag not in allTags %}
+          {% set allTags = (allTags.push(tag), allTags) %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+
+  {# Filter and Sort Controls #}
+  <div class="flex justify-between mb-md mt-lg">
+    {# Sort Controls #}
+    <div class="mb-sm">
+      <div class="flex gap-xs flex-wrap">
+        <button
+          data-sort="recency"
+          class="inline-block text-sm"
+          aria-label="Sort by recency">
+          Most recent ↓
+        </button>
+        {# <button
+          data-sort="alphabetical"
+          class="filter-button"
+          aria-label="Sort alphabetically">
+          Alphabetical
+        </button> #}
+      </div>
+    </div>
+  </div>
+
+  {# Cards Grid - Masonry Layout #}
+  <div
+    class="columns-1 md:columns-2 gap-lg md:gap-xl pb-6xl"
+    data-insights-grid>
+    {% for post in collections.insights %}
+      {% set title = post.data.title %}
+      {% set description = post.data.excerpt %}
+      {% set link = post.url %}
+      {% set tags = post.data.tags %}
+      {% set image = post.data.featured_image %}
+      {% set featured = post.data.featured %}
+      {% set date = post.data.date %}
+      {% set author = post.data.author %}
+      {% set published = post.data.published if post.data.published != undefined else 
+        true %}
+
+      {# Wrap card in a div with data attributes #}
+      <div
+        class="break-inside-avoid mb-lg md:mb-xl"
+        data-insight-card
+        data-title="{{ title }}"
+        data-date="{{ date }}"
+        data-author="{{ author }}"
+        data-featured="{{ featured or false }}"
+        data-published="{{ published }}"
+        data-tags="{% if tags %}{{ tags | join(',') }}{% endif %}">
+        {% include "components/card.njk" %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {# Empty State #}
+  <div data-empty-state style="display: none;" class="rich-text">
+    <p>No insights match your current filters. Try selecting different options.</p>
+  </div>
+
+  {# Include the filter script #}
+  <script src="/scripts/insights-filter.js"></script>
+
+{% else %}
+  <div class="rich-text">
+    <p>No insights yet. Create some in the src/insights/ directory!</p>
+  </div>
+{% endif %}

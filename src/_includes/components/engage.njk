@@ -1,0 +1,118 @@
+{#
+  Engage Component
+  Usage: {% include "components/engage.njk" %}
+
+  Displays engagement options with buttons
+#}
+
+<section class="relative w-full text-center py-3xl">
+  <div class="max-w-[1400px] mx-auto px-md">
+
+    {# Section Title #}
+    <h2 class="text-4xl md:text-5xl font-normal text-dark mb-md md:mb-2xl">Engage with us</h2>
+
+    {# Engagement Grid #}
+    <div class="flex flex-wrap justify-center gap-xs md:gap-md">
+      {# Give feedback - opens email #}
+      <a
+        href="mailto:team@rebuild.net?subject=Feedback"
+        id="feedback-button"
+        class="px-md py-sm md:px-xl md:py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 no-underline w-fit"
+      >
+        Share a thought
+      </a>
+
+      {# Subscribe to newsletter #}
+      <button
+        data-form="newsletter"
+        class="px-md py-sm md:px-xl md:py-lg bg-lighter text-dark text-xl md:text-2xl text-center hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Subscribe to our newsletter
+      </button>
+
+      {# Comment on this page #}
+      {# <button
+        data-form="comment"
+        class="px-xl py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Comment on this page
+      </button> #}
+
+      {# Promote a startup #}
+      <button
+        data-form="builder-promo"
+        class="px-md py-sm md:px-xl md:py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Promote a startup
+      </button>
+
+      {# Apply as a builder #}
+      <button
+        data-form="builder-application"
+        class="px-md py-sm md:px-xl md:py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Join the directory
+      </button>
+
+      {# Share this page - copies URL #}
+      <button
+        id="share-button"
+        class="px-md py-sm md:px-xl md:py-lg bg-lighter text-dark text-xl md:text-2xl text-left hover:bg-dark hover:text-light transition-all duration-fast cursor-pointer border-0 w-fit"
+      >
+        Share this page
+      </button>
+    </div>
+
+    {# Engage Scripts #}
+    <script>
+      // Feedback button - opens email with pre-filled subject
+      document
+        .getElementById('feedback-button')
+        .addEventListener('click', function (e) {
+          e.preventDefault();
+          const currentUrl = window.location.href;
+          const subject = encodeURIComponent(`Feedback for ${currentUrl}`);
+          window.location.href = `mailto:team@rebuild.net?subject=${subject}`;
+        });
+
+      // Share button - copies current URL
+      document
+        .getElementById('share-button')
+        .addEventListener('click', async function () {
+          const currentUrl = window.location.href;
+          const button = this;
+
+          try {
+            await navigator
+              .clipboard
+              .writeText(currentUrl);
+            button.textContent = 'Copied URL';
+
+            // Reset text after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Share this page';
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy URL:', err);
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = currentUrl;
+            document
+              .body
+              .appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document
+              .body
+              .removeChild(textArea);
+            button.textContent = 'Copied URL';
+
+            setTimeout(() => {
+              button.textContent = 'Share this page';
+            }, 2000);
+          }
+        });
+    </script>
+
+  </div>
+</section>

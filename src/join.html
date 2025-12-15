@@ -1,0 +1,118 @@
+---
+layout: layouts/default.njk
+title: Join Rebuild
+description: Become part of the community rebuilding social infrastructure in Europe
+permalink: /join/index.html
+---
+
+<section class="hero bg-blue text-light py-2xl">
+  <div class="container text-center">
+    <h1 class="text-5xl mb-md">Join the Movement</h1>
+    <p class="text-xl max-w-[800px] mx-auto">
+      Connect with builders, share your work, and help rebuild social infrastructure across Europe.
+    </p>
+  </div>
+</section>
+
+<section class="py-2xl bg-light">
+  <div class="container">
+    <div class="grid md:grid-cols-3 gap-lg mb-2xl">
+      <div class="bg-white border-2 border-dark p-lg">
+        <h3 class="text-2xl mb-md">Join the Directory</h3>
+        <p class="text-dark mb-md">
+          Showcase your work and connect with other builders working to create positive social change.
+        </p>
+        <a href="#apply" class="text-blue font-bold hover:underline">Apply Now →</a>
+      </div>
+
+      <div class="bg-white border-2 border-dark p-lg">
+        <h3 class="text-2xl mb-md">Nominate a Builder</h3>
+        <p class="text-dark mb-md">
+          Know someone doing amazing work? Help us discover and celebrate builders in the community.
+        </p>
+        <a href="#promote" class="text-blue font-bold hover:underline">Nominate →</a>
+      </div>
+
+      <div class="bg-white border-2 border-dark p-lg">
+        <h3 class="text-2xl mb-md">Stay Updated</h3>
+        <p class="text-dark mb-md">
+          Subscribe to our newsletter for updates about events, new builders, and community news.
+        </p>
+        <a href="#newsletter" class="text-blue font-bold hover:underline">Subscribe →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apply" class="py-2xl">
+  <div class="container max-w-4xl mx-auto px-md">
+    <div class="text-center mb-xl">
+      <h2 class="text-4xl mb-md">Apply to Join the Directory</h2>
+      <p class="text-lg text-dark max-w-[700px] mx-auto">
+        Share your story and become part of our directory of builders. Featured builders
+        are highlighted in our communications and at events.
+      </p>
+    </div>
+
+    <div class="mb-2xl">
+      <h3 class="text-2xl mb-lg text-center">Standard Application</h3>
+      {% include "components/forms/builder-application-form.njk" %}
+    </div>
+
+    <div class="border-t-2 border-dark pt-2xl">
+      <h3 class="text-2xl mb-lg text-center">Apply to be Featured</h3>
+      <p class="text-center text-dark mb-lg max-w-[600px] mx-auto">
+        Featured builders are highlighted in our newsletter, social media, and events.
+        We're looking for builders with unique stories and proven impact.
+      </p>
+      {% set featured = true %}
+      {% include "components/forms/builder-application-form.njk" %}
+    </div>
+  </div>
+</section>
+
+<section id="promote" class="py-2xl bg-blush">
+  <div class="container max-w-4xl mx-auto px-md">
+    <div class="text-center mb-xl">
+      <h2 class="text-4xl mb-md">Nominate a Builder</h2>
+      <p class="text-lg text-dark max-w-[700px] mx-auto">
+        Help us discover amazing builders in your network. Tell us who's doing
+        great work rebuilding social infrastructure.
+      </p>
+    </div>
+
+    {% include "components/forms/builder-promo-form.njk" %}
+  </div>
+</section>
+
+<section id="newsletter" class="py-2xl bg-dark text-light">
+  <div class="container max-w-3xl mx-auto px-md">
+    <div class="text-center mb-xl">
+      <h2 class="text-4xl mb-md">Stay Connected</h2>
+      <p class="text-lg max-w-[600px] mx-auto">
+        Get monthly updates about new builders, upcoming events, and insights
+        from the community.
+      </p>
+    </div>
+
+    <div class="max-w-2xl mx-auto">
+      {% set title = "" %}
+      {% set description = "" %}
+      {% include "components/forms/newsletter-form.njk" %}
+    </div>
+  </div>
+</section>
+
+<section class="py-2xl">
+  <div class="container text-center">
+    <h2 class="text-3xl mb-lg">Questions?</h2>
+    <p class="text-lg text-dark mb-lg max-w-[600px] mx-auto">
+      Not sure which option is right for you? Want to learn more about the community?
+    </p>
+    {% set text = "Get in Touch" %}
+    {% set url = "/get-in-touch" %}
+    {% set variant = "primary" %}
+    {% set size = "large" %}
+    {% include "components/buttons.njk" %}
+  </div>
+</section>

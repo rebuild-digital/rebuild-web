@@ -1,0 +1,186 @@
+{#
+  Form component
+  Usage: {% include "components/form.njk" %}
+
+  Parameters:
+  - formId: Unique form identifier (required)
+  - action: Form action URL (required)
+  - method: Form method (default: 'POST')
+  - title: Form title (optional)
+  - description: Form description (optional)
+  - submitText: Submit button text (default: 'Submit')
+  - submitVariant: Button variant - 'primary', 'secondary', 'outline' (default: 'primary')
+  - fields: Array of field objects (required)
+    Each field object:
+    - type: 'text', 'email', 'tel', 'url', 'textarea', 'select', 'checkbox', 'radio'
+    - name: Field name attribute
+    - id: Field id attribute (defaults to name)
+    - label: Field label text
+    - placeholder: Placeholder text (optional)
+    - required: Boolean (default: false)
+    - helpText: Help text below field (optional)
+    - rows: Number of rows for textarea (default: 4)
+    - options: Array of options for select/radio (array of strings or {value, label} objects)
+    - class: Additional CSS classes (optional)
+  - successMessage: Message to show on success (optional)
+  - errorMessage: Message to show on error (optional)
+#}
+
+{% set formMethod = method | default('POST') %}
+{% set submitBtnText = submitText | default('Submit') %}
+{% set submitBtnVariant = submitVariant | default('primary') %}
+
+<div class="form-wrapper w-full max-w-full" style="width: 100%; max-width: 100%;">
+  {% if title %}
+    <h2 class="text-3xl mb-md">{{ title }}</h2>
+  {% endif %}
+
+  {% if description %}
+    <p class="text-dark mb-lg">{{ description }}</p>
+  {% endif %}
+
+  <form
+    id="{{ formId }}"
+    action="{{ action }}"
+    method="{{ formMethod }}"
+    data-ajax-form
+    class="form bg-light w-full max-w-full"
+    style="width: 100%; max-width: 100%;"
+  >
+    {% for field in fields %}
+      {% if field.type == 'hidden' %}
+        {# Hidden fields don't need wrapping div #}
+        <input type="hidden" name="{{ field.name }}" value="{{ field.value }}">
+      {% else %}
+        <div class="form-field mb-md {% if field.type == 'checkbox' %}flex items-start gap-sm{% endif %}">
+          {% if field.type == 'checkbox' %}
+            {# Checkbox layout: input first, then label #}
+            <input
+            type="checkbox"
+            id="{{ field.id | default(field.name) }}"
+            name="{{ field.name }}"
+            {% if field.required %}required{% endif %}
+            class="mt-1 h-5 w-5 border-2 border-dark focus:ring-2 focus:ring-blue {{ field.class }}"
+          >
+            <label for="{{ field.id | default(field.name) }}" class="text-dark">
+              {{ field.label }}
+              {% if field.required %}
+                <span class="text-red">*</span>{% endif %}
+            </label>
+          {% else %}
+            {# Standard layout: label first, then input #}
+            {% if field.label %}
+              <label for="{{ field.id | default(field.name) }}" class="block text-dark font-semibold mb-xs">
+                {{ field.label }}
+                {% if field.required %}
+                  <span class="text-red">*</span>{% endif %}
+              </label>
+            {% endif %}
+
+            {% if field.type == 'textarea' %}
+              <textarea
+              id="{{ field.id | default(field.name) }}"
+              name="{{ field.name }}"
+              rows="{{ field.rows | default(4) }}"
+              {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
+              {% if field.required %}required{% endif %}
+              class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue {{ field.class }}"
+              style="width: 100%; max-width: 100%;"
+            ></textarea>
+            {% elif field.type == 'select' %}
+              <select
+              id="{{ field.id | default(field.name) }}"
+              name="{{ field.name }}"
+              {% if field.required %}required{% endif %}
+              class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue {{ field.class }}"
+              style="width: 100%; max-width: 100%;"
+            >
+                <option value="">
+                  {% if field.placeholder %}{{ field.placeholder }}
+                  {% else %}Select an option{% endif %}
+                </option>
+                {% for option in field.options %}
+                  {% if option.value %}
+                    <option value="{{ option.value }}">{{ option.label }}</option>
+                  {% else %}
+                    <option value="{{ option }}">{{ option }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            {% elif field.type == 'radio' %}
+              <div class="flex flex-col gap-xs">
+                {% for option in field.options %}
+                  <label class="flex items-center gap-xs">
+                    {% if option.value %}
+                      <input
+                      type="radio"
+                      name="{{ field.name }}"
+                      value="{{ option.value }}"
+                      {% if field.required %}required{% endif %}
+                      class="h-5 w-5 border-2 border-dark focus:ring-2 focus:ring-blue"
+                    >
+                      <span class="text-dark">{{ option.label }}</span>
+                    {% else %}
+                      <input
+                      type="radio"
+                      name="{{ field.name }}"
+                      value="{{ option }}"
+                      {% if field.required %}required{% endif %}
+                      class="h-5 w-5 border-2 border-dark focus:ring-2 focus:ring-blue"
+                    >
+                      <span class="text-dark">{{ option }}</span>
+                    {% endif %}
+                  </label>
+                {% endfor %}
+              </div>
+            {% else %}
+              <input
+              type="{{ field.type | default('text') }}"
+              id="{{ field.id | default(field.name) }}"
+              name="{{ field.name }}"
+              {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
+              {% if field.required %}required{% endif %}
+              class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue {{ field.class }}"
+              style="width: 100%; max-width: 100%;"
+            >
+            {% endif %}
+
+            {% if field.helpText %}
+              <p class="text-sm text-dark mt-xs">{{ field.helpText }}</p>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {# Submit button #}
+    <div class="form-actions mt-lg pb-lg">
+      {% set baseClasses = "inline-block text-center no-underline font-bold border-2 border-dark cursor-pointer transition-all duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue focus-visible:outline-offset-2" %}
+
+      {% if submitBtnVariant == 'primary' %}
+        {% set variantClasses = "bg-blue text-light hover:bg-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A]" %}
+      {% elif submitBtnVariant == 'secondary' %}
+        {% set variantClasses = "bg-red text-light hover:bg-red-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A]" %}
+      {% elif submitBtnVariant == 'outline' %}
+        {% set variantClasses = "bg-transparent text-dark hover:bg-dark hover:text-light" %}
+      {% endif %}
+
+      <button
+        type="submit"
+        class="{{ baseClasses }} {{ variantClasses }} px-md py-sm text-base"
+      >
+        {{ submitBtnText }}
+      </button>
+    </div>
+
+    {# Status messages #}
+    <div class="form-status my-md">
+      <div id="{{ formId }}-success" class="hidden bg-green border-2 border-dark p-md">
+        <p class="text-dark font-semibold">{{ successMessage | default('Thank you! Your submission has been received.') }}</p>
+      </div>
+      <div id="{{ formId }}-error" class="hidden bg-red text-light border-2 border-dark p-md">
+        <p class="font-semibold">{{ errorMessage | default('Sorry, there was an error submitting the form. Please try again.') }}</p>
+      </div>
+    </div>
+  </form>
+</div>

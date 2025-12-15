@@ -1,42 +1,57 @@
 module.exports = {
   title: "Rebuild",
-  description: "Building a better future together",
-  url: process.env.SITE_URL || "https://yoursite.com",
+  description:
+    "A catalyst to rebuild European social platforms by fostering connections, directing talent and getting back to building.",
+  url: process.env.SITE_URL || "https://www.rebuild.net",
+  apiUrl: process.env.API_URL || "https://rebuild.b-cdn.net",
   defaultImage: "/assets/images/default-og-image.jpg",
-  author: "Rebuild Initiative",
+  logo: "/assets/images/logo.svg",
+  author: "The Rebuild team",
   language: "en",
 
   // Navigation
-  navigation: [
+  main_navigation: [
     {
-      name: "Home",
-      url: "/"
+      name: "Journey",
+      url: "/journey/",
     },
     {
-      name: "Journal",
-      url: "/journal/"
+      name: "Directory",
+      url: "/directory/",
     },
     {
-      name: "Builders",
-      url: "/builders/"
+      name: "Tools",
+      url: "/tools/",
     },
     {
-      name: "Gatherings",
-      url: "/gatherings/"
+      name: "Insights",
+      url: "/insights/",
+    },
+    {
+      name: "People",
+      url: "/people/",
     },
     {
       name: "About",
-      url: "/about/"
+      url: "/about/",
     },
     {
-      name: "Contact",
-      url: "/contact/"
-    }
+      name: "Get in touch",
+      url: "/get-in-touch/",
+    },
   ],
 
-  // Social links (optional)
-  social: {
-    // twitter: "https://twitter.com/rebuild",
-    // linkedin: "https://linkedin.com/company/rebuild",
-  }
+  // Second navigation
+  second_navigation: [
+    {
+      name: "Privacy",
+      url: "/privacy/",
+      clickable: true,
+    },
+    {
+      name: "Changelog",
+      url: "/changelog/",
+      clickable: false,
+    },
+  ],
 };

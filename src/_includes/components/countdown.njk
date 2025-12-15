@@ -7,27 +7,27 @@
   - title: Title to display above countdown (optional)
 #}
 
-<div class="countdown" data-target-date="{{ targetDate }}">
+<div class="text-center p-lg bg-light border-2 border-dark" data-target-date="{{ targetDate }}">
   {% if title %}
-    <h3 class="countdown-title">{{ title }}</h3>
+    <h3 class="mb-md text-xl">{{ title }}</h3>
   {% endif %}
 
-  <div class="countdown-display">
-    <div class="countdown-item">
-      <span class="countdown-value" data-days>0</span>
-      <span class="countdown-label">Days</span>
+  <div class="flex justify-center gap-lg flex-wrap">
+    <div class="flex flex-col items-center min-w-20 md:min-w-[60px]">
+      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-days>0</span>
+      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Days</span>
     </div>
-    <div class="countdown-item">
-      <span class="countdown-value" data-hours>0</span>
-      <span class="countdown-label">Hours</span>
+    <div class="flex flex-col items-center min-w-[20 md:min-w-[60px]">
+      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-hours>0</span>
+      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Hours</span>
     </div>
-    <div class="countdown-item">
-      <span class="countdown-value" data-minutes>0</span>
-      <span class="countdown-label">Minutes</span>
+    <div class="flex flex-col items-center min-w-20 md:min-w-[60px]">
+      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-minutes>0</span>
+      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Minutes</span>
     </div>
-    <div class="countdown-item">
-      <span class="countdown-value" data-seconds>0</span>
-      <span class="countdown-label">Seconds</span>
+    <div class="flex flex-col items-center min-w-20 md:min-w-[60px]">
+      <span class="text-4xl md:text-3xl leading-none font-bold text-blue" data-seconds>0</span>
+      <span class="mt-xs text-sm tracking-wide text-muted uppercase">Seconds</span>
     </div>
   </div>
 </div>

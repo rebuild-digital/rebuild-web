@@ -245,7 +245,7 @@ All component styles are defined in `src/styles/main.css` using Tailwind's `@lay
 
 Design tokens are configured in the Tailwind config, extending the default theme with:
 
-- **Colors**: Primary colors (red, blue, yellow) with shades and tints, neutrals (off-white, dark with tints)
+- **Colors**: Primary colors (red, blue, yellow) with shades and tints, neutrals (light, lighter, muted, darker, dark)
 - **Spacing**: Custom scale (xs, sm, md, lg, xl, 2xl)
 - **Border radius**: Custom values (sm, md, lg)
 - **Transitions**: Custom durations (fast, base, slow)
@@ -303,13 +303,12 @@ title: "Post Title"
 date: 2025-11-18
 author: "Author Name"
 tags:
-
   - Stories
   - Resources
 
 excerpt: "Short description for meta description..."
 featured_image: "/assets/images/post-image.jpg"
-featured: false        # Pin to top of journal listing
+featured: false # Pin to top of journal listing
 # Extensible: add new fields as needed
 ---
 ```
@@ -395,10 +394,7 @@ TailwindCSS is configured via `tailwind.config.js` and processed through PostCSS
 ```javascript
 // postcss.config.js
 module.exports = {
-  plugins: [
-    require('tailwindcss'),
-    require('autoprefixer'),
-  ]
+  plugins: [require("tailwindcss"), require("autoprefixer")],
 };
 ```
 
@@ -412,12 +408,12 @@ Component styles use Tailwind's `@apply` directive in `src/styles/main.css` for 
 
 ```javascript
 const { Client } = require("@notionhq/client");
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const CACHE_FILE = path.join(__dirname, '../../.cache/builders.json');
+const CACHE_FILE = path.join(__dirname, "../../.cache/builders.json");
 
-module.exports = async function() {
+module.exports = async function () {
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   try {
@@ -425,17 +421,17 @@ module.exports = async function() {
       database_id: process.env.NOTION_BUILDERS_DB_ID,
       filter: {
         property: "Status",
-        select: { equals: "Published" }
-      }
+        select: { equals: "Published" },
+      },
     });
 
-    const data = response.results.map(page => ({
+    const data = response.results.map((page) => ({
       id: page.id,
       name: page.properties.Name.title[0].plain_text,
       description: page.properties.Description.rich_text[0]?.plain_text || "",
       imageUrl: page.properties.Image?.files[0]?.file?.url || "",
       link: page.properties.Link?.url || "",
-      tags: page.properties.Tags?.multi_select.map(tag => tag.name) || []
+      tags: page.properties.Tags?.multi_select.map((tag) => tag.name) || [],
     }));
 
     // Cache the data for future builds if Notion API fails
@@ -444,14 +440,14 @@ module.exports = async function() {
 
     return data;
   } catch (error) {
-    console.warn('Notion API failed, using cached data:', error.message);
+    console.warn("Notion API failed, using cached data:", error.message);
 
     // Fall back to cached data if API fails
     if (fs.existsSync(CACHE_FILE)) {
-      return JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
+      return JSON.parse(fs.readFileSync(CACHE_FILE, "utf-8"));
     }
 
-    console.error('No cached data available');
+    console.error("No cached data available");
     return [];
   }
 };
@@ -478,7 +474,7 @@ module.exports = {
   description: "Default site description",
   url: "https://yoursite.com",
   defaultImage: "/assets/images/default-og-image.jpg",
-  author: "Your Name"
+  author: "Your Name",
 };
 ```
 
@@ -486,16 +482,19 @@ module.exports = {
 
 ```html
 <!-- In _includes/layouts/default.njk -->
-<meta name="description" content="{{ description or site.description }}">
-<meta property="og:title" content="{{ title or site.title }}">
-<meta property="og:description" content="{{ description or site.description }}">
-<meta property="og:image" content="{{ image or site.defaultImage }}">
-<meta property="og:url" content="{{ site.url }}{{ page.url }}">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="{{ description or site.description }}" />
+<meta property="og:title" content="{{ title or site.title }}" />
+<meta
+  property="og:description"
+  content="{{ description or site.description }}"
+/>
+<meta property="og:image" content="{{ image or site.defaultImage }}" />
+<meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+<meta name="twitter:card" content="summary_large_image" />
 
 <!-- For journal posts, use featured_image -->
 {% if featured_image %}
-  <meta property="og:image" content="{{ featured_image }}">
+<meta property="og:image" content="{{ featured_image }}" />
 {% endif %}
 ```
 
@@ -595,7 +594,6 @@ Sitemap: https://yoursite.com/sitemap.xml
 - Keyboard navigation:
   - Tab order follows visual order
   - Forms fully keyboard accessible
-  - Skip to main content link
 - Color contrast: Minimum WCAG AA (4.5:1 for normal text)
 - Alt text for all images
 - Focus indicators visible on all interactive elements
@@ -611,10 +609,15 @@ Sitemap: https://yoursite.com/sitemap.xml
   poster="/assets/images/video-poster.jpg"
   controls
   preload="metadata"
-  muted  <!-- Required for autoplay -->
-  {% if autoplay %}autoplay{% endif %}
+  muted
+  <!--
+  Required
+  for
+  autoplay
+  --
 >
-  Your browser does not support video playback.
+  {% if autoplay %}autoplay{% endif %} > Your browser does not support video
+  playback.
 </video>
 ```
 
@@ -693,9 +696,9 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 ```javascript
 // In Worker response
-headers.set('Access-Control-Allow-Origin', 'https://yoursite.com');
-headers.set('Access-Control-Allow-Methods', 'POST');
-headers.set('Access-Control-Allow-Headers', 'Content-Type');
+headers.set("Access-Control-Allow-Origin", "https://yoursite.com");
+headers.set("Access-Control-Allow-Methods", "POST");
+headers.set("Access-Control-Allow-Headers", "Content-Type");
 ```
 
 ## Rate Limiting & Performance

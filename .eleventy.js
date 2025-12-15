@@ -2,11 +2,13 @@ const Image = require("@11ty/eleventy-img");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const rss = require("@11ty/eleventy-plugin-rss");
 
-module.exports = function(eleventyConfig) {
+module.exports = async function(eleventyConfig) {
 
   // Plugins
   eleventyConfig.addPlugin(syntaxHighlight); // Code syntax highlighting
   eleventyConfig.addPlugin(rss); // RSS feed generation
+
+  // Note: CSS is processed separately by Tailwind CLI, not copied here
 
   // Collections
   eleventyConfig.addCollection("journal", collection => {
@@ -20,9 +22,25 @@ module.exports = function(eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  eleventyConfig.addCollection("insights", collection => {
+    return collection.getFilteredByGlob("src/insights/**/*.md")
+      .sort((a, b) => b.date - a.date);
+  });
+
+  eleventyConfig.addCollection("featuredInsights", collection => {
+    return collection.getFilteredByGlob("src/insights/**/*.md")
+      .filter(post => post.data.featured === true)
+      .sort((a, b) => b.date - a.date);
+  });
+
   // Filters
   eleventyConfig.addFilter("dateFormat", (date) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(date).toLocaleDateString('en-US', options);
+  });
+
+  eleventyConfig.addFilter("shortDate", (date) => {
+    const options = { month: 'short', day: 'numeric' };
     return new Date(date).toLocaleDateString('en-US', options);
   });
 
@@ -34,6 +52,57 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("limit", (array, limit) => {
     return array.slice(0, limit);
+  });
+
+  // Shuffle filter for random ordering
+  eleventyConfig.addFilter("shuffle", (array) => {
+    if (!Array.isArray(array)) return array;
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  });
+
+  // Category colors filter
+  eleventyConfig.addFilter("categoryColors", (categories) => {
+    const categoryColors = {
+      // Social & Community
+      'Community': { bg: 'bg-blue', text: 'text-dark' },
+      'Community of interest': { bg: 'bg-blue-tint', text: 'text-dark' },
+      'Groups': { bg: 'bg-blue-shade', text: 'text-light' },
+      'Networking': { bg: 'bg-blush', text: 'text-dark' },
+
+      // Content Sharing
+      'Media sharing': { bg: 'bg-green', text: 'text-dark' },
+      'Photo sharing': { bg: 'bg-green-tint', text: 'text-dark' },
+      'Video sharing': { bg: 'bg-green-shade', text: 'text-light' },
+      'Creator Platform': { bg: 'bg-blonde', text: 'text-dark' },
+
+      // Communication
+      'Messaging': { bg: 'bg-orange', text: 'text-light' },
+      'Microblogging': { bg: 'bg-orange-tint', text: 'text-dark' },
+      'Forum': { bg: 'bg-orange-shade', text: 'text-light' },
+
+      // Specialized
+      'Dating': { bg: 'bg-red', text: 'text-light' },
+      'Events': { bg: 'bg-red-tint', text: 'text-dark' },
+      'Location': { bg: 'bg-blush-tint', text: 'text-dark' },
+      'Marketplace': { bg: 'bg-blonde-shade', text: 'text-dark' },
+
+      // Technical
+      'Infrastructure': { bg: 'bg-muted', text: 'text-light' },
+      'Bundled': { bg: 'bg-darker', text: 'text-light' },
+
+      // Fallback
+      'Other': { bg: 'bg-light', text: 'text-dark' }
+    };
+
+    if (!categories || categories.length === 0) {
+      return categoryColors['Other'];
+    }
+    return categoryColors[categories[0]] || categoryColors['Other'];
   });
 
   // Image shortcode using Eleventy Image
@@ -56,7 +125,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // Pass-through copy
-  eleventyConfig.addPassthroughCopy("src/styles");
+  // Note: src/styles is processed by PostCSS plugin, not copied
   eleventyConfig.addPassthroughCopy("src/scripts");
   eleventyConfig.addPassthroughCopy({"src/public": "/"});
 

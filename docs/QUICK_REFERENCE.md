@@ -15,18 +15,18 @@ A hybrid static website with:
 
 ## Tech Stack Summary
 
-| Component | Technology |
-|-----------|-----------|
-| **Build Tool** | Eleventy (11ty) |
-| **Templates** | Nunjucks |
-| **Styling** | TailwindCSS |
-| **Content** | Markdown + YAML frontmatter |
-| **Hosting** | StaticHost.eu |
-| **Functions** | Cloudflare Workers |
-| **Video CDN** | Bunny CDN |
-| **Font CDN** | Bunny CDN (future) |
-| **Data Source** | Notion API (build-time) |
-| **Analytics** | Pirsch |
+| Component       | Technology                  |
+| --------------- | --------------------------- |
+| **Build Tool**  | Eleventy (11ty)             |
+| **Templates**   | Nunjucks                    |
+| **Styling**     | TailwindCSS                 |
+| **Content**     | Markdown + YAML frontmatter |
+| **Hosting**     | StaticHost.eu               |
+| **Functions**   | Cloudflare Workers          |
+| **Video CDN**   | Bunny CDN                   |
+| **Font CDN**    | Bunny CDN (future)          |
+| **Data Source** | Notion API (build-time)     |
+| **Analytics**   | Pirsch                      |
 
 ## Key Files & Locations
 
@@ -56,9 +56,7 @@ A hybrid static website with:
 
 ### Colors
 
-- 3 primaries (red, blue, yellow) + shade + tint each
-- Yellow = persistent site background
-- Off-white + dark with tints
+- Light + dark with tints
 - Defined in `tailwind.config.js` as custom theme colors
 
 ### Typography
@@ -207,7 +205,6 @@ etc.
 - [ ] Alt text on all images
 - [ ] Color contrast WCAG AA minimum
 - [ ] Form labels associated with inputs
-- [ ] Skip to main content link
 
 ---
 
@@ -239,16 +236,15 @@ etc.
 ### Accessing Site Data
 
 ```html
-{{ site.title }}
-{{ site.description }}
+{{ site.title }} {{ site.description }}
 ```
 
 ### Accessing Builders Data
 
 ```html
 {% for builder in builders %}
-  <h3>{{ builder.name }}</h3>
-  <p>{{ builder.description }}</p>
+<h3>{{ builder.name }}</h3>
+<p>{{ builder.description }}</p>
 {% endfor %}
 ```
 
@@ -256,17 +252,18 @@ etc.
 
 ```html
 {% for post in collections.journal | reverse %}
-  <article>
-    <h2>{{ post.data.title }}</h2>
-    <time>{{ post.date | dateFormat }}</time>
-  </article>
+<article>
+  <h2>{{ post.data.title }}</h2>
+  <time>{{ post.date | dateFormat }}</time>
+</article>
 {% endfor %}
 ```
 
 ### Optimized Image
 
 ```html
-{% image "src/assets/images/photo.jpg", "Alt text", "(min-width: 768px) 50vw, 100vw" %}
+{% image "src/assets/images/photo.jpg", "Alt text", "(min-width: 768px) 50vw,
+100vw" %}
 ```
 
 ## Testing Checklist

@@ -1,0 +1,62 @@
+{% from "components/image-credit.njk" import imageCredit %}
+{% macro render(gathering) %}
+  <section id="{{gathering.id}}" class="relative w-full py-2xl lg:py-4xl" style="background-color: {{ gathering.bgColor }}; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw;">
+    <div class="max-w-[1400px] mx-auto px-md">
+
+      {# Header with title and location/dates #}
+      <div class="mb-2xl lg:mb-4xl">
+        <div class="flex flex-col md:flex-row justify-between">
+          <h2 class="text-3xl lg:text-5xl mb-md font-normal">{{ gathering.title }}</h2>
+          <div class="flex flex-col leading-tight lg:leading-none">
+            <p class="text-md m-0 md:text-lg">{{ gathering.location }}</p>
+            <p class="text-md md:text-lg">
+              {{ gathering.startDate | shortDate }} - {{ gathering.endDate | shortDate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {# Main content grid: image on left, proof points on right #}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-xl mb-3xl md:mb-6xl">
+
+        {# Left column: Image #}
+        <div class="">
+          <div class="relative">
+            <img src="{{ gathering.image }}" alt="{{ gathering.title }} in {{ gathering.location }}" class="w-full h-auto">
+            {% if gathering.imageCredit %}
+              {{ imageCredit(gathering.imageCredit) }}
+            {% endif %}
+          </div>
+        </div>
+
+        {# Right column: Proof points #}
+        <div class="space-y-lg lg:space-y-2xl mx-auto content-center">
+          {% for point in gathering.proofPoints %}
+            <div class="max-w-[55ch] mx-auto">
+              <h3 class="text-xl md:text-2xl mb-xs md:mb-sm underline">{{ point.headline }}</h3>
+              <p class="text-base md:text-lg">{{ point.description }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <hr class="pt-lg lg:hidden">
+      {# Footer with happening text and CTA #}
+      <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-lg">
+        <div>
+          <p class="text-base md:text-lg">{{ gathering.shortTitle }} is happening in...</p>
+          <p class="text-base md:text-lg underline" data-countdown="{{ gathering.startDate }}">
+            <span data-countdown-text>calculating...</span>
+          </p>
+        </div>
+        <div class="flex flex-col leading-none">
+          <p class="text-base md:text-lg">Wanna be part of the gathering?</p>
+          <a href="{{ gathering.cta.url }}" {% if gathering.cta.dataForm %}data-form="{{ gathering.cta.dataForm }}"{% endif %} class="inline-block text-base md:text-lg underline hover:no-underline transition-all">
+            {{ gathering.cta.text }}
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+{% endmacro %}

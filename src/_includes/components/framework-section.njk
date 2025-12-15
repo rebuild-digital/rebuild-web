@@ -1,0 +1,76 @@
+{#
+  Framework Section Component
+
+  Parameters:
+  - version: Version number (e.g., "v0.8")
+  - title: Framework title
+  - description: Framework description
+  - buttonText: Text for the download button (default: "Download")
+  - buttonUrl: URL for the download button
+  - image: Image path (optional)
+  - imageAlt: Alt text for the image
+  - reversed: Boolean - if true, content appears on left, image on right
+  - backgroundColor: Background color class (default: none)
+#}
+
+<section id="{{title}}" class="py-4xl {{ backgroundColor }}">
+  <div class="container">
+    <div class="grid md:grid-cols-2 gap-2xl items-center">
+      {% if reversed %}
+        <!-- Content (Left on desktop) -->
+        <div class="order-2 md:order-1">
+          {% if version %}
+            <p class="text-sm text-muted mb-xs">{{ version }}</p>
+          {% endif %}
+          <h2 class="text-2xl md:text-4xl mb-md">{{ title }}</h2>
+          <p class="text-base md:text-lg text-dark mb-lg">{{ description }}</p>
+          {% if buttonUrl %}
+            <a href="{{ buttonUrl }}" class="inline-block border-2 bg-lighter border-dark px-md py-xs hover:bg-dark hover:text-light transition-fast">
+              {{ buttonText }}
+            </a>
+          {% elif buttonText %}
+            <button class="border-2 border-dark px-md py-xs bg-muted hover:bg-dark hover:text-light transition-fast">
+              {{ buttonText }}
+            </button>
+          {% endif %}
+        </div>
+
+        <!-- Image (Right on desktop) -->
+        <div class="order-1 md:order-2 border-2 border-dark">
+          {% if image %}
+            <img src="{{ image }}" alt="{{ imageAlt }}" class="w-full h-auto aspect-video object-cover">
+          {% else %}
+            <div class="bg-lighter aspect-video w-full"></div>
+          {% endif %}
+        </div>
+      {% else %}
+        <!-- Image (Left on desktop) -->
+        <div class="border-2 border-dark">
+          {% if image %}
+            <img src="{{ image }}" alt="{{ imageAlt }}" class="w-full h-auto aspect-video object-cover">
+          {% else %}
+            <div class="bg-lighter aspect-video w-full"></div>
+          {% endif %}
+        </div>
+
+        <!-- Content (Right on desktop) -->
+        <div>
+          {% if version %}
+            <p class="text-sm text-muted mb-xs">{{ version }}</p>
+          {% endif %}
+          <h2 class="text-2xl md:text-4xl mb-md">{{ title }}</h2>
+          <p class="text-base md:text-lg text-dark mb-lg">{{ description }}</p>
+          {% if buttonUrl %}
+            <a href="{{ buttonUrl }}" class="inline-block border-2 border-dark bg-lighter px-md py-xs hover:bg-dark hover:text-light transition-fast">
+              {{ buttonText }}
+            </a>
+          {% elif buttonText %}
+            <button class="border-2 border-dark bg-muted px-md py-xs hover:bg-dark hover:text-light transition-fast">
+              {{ buttonText }}
+            </button>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

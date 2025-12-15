@@ -1,0 +1,34 @@
+{
+  "gatherings": [
+    {
+      "id": "rebuild-1",
+      "title": "Rebuild 1: the beginning",
+      "location": "Copenhagen",
+      "startDate": "Mar 01",
+      "endDate": "Mar 03",
+      "image": "/assets/images/copenhagen.jpg",
+      "imageCredit": "Eryk Piotr Munk",
+      "titleColor": "#669e67"
+    },
+    {
+      "id": "rebuild-2",
+      "title": "Rebuild 2: the boost",
+      "location": "Helsinki",
+      "startDate": "Aug 30",
+      "endDate": "Sep 01",
+      "image": "/assets/images/helsinki.jpg",
+      "imageCredit": "Kristaps Grundsteins",
+      "titleColor": "#6ba1cc"
+    },
+    {
+      "id": "rebuild-3",
+      "title": "Rebuild 3: the shift",
+      "location": "Paris",
+      "startDate": "Dec 13",
+      "endDate": "Dec 15",
+      "image": "/assets/images/paris.jpg",
+      "imageCredit": "HANVIN CHEONG",
+      "titleColor": "#e1aeb0"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{#
+  Outcomes Component
+  Usage:
+  {% from "components/outcomes.njk" import render as outcomes %}
+  {{ outcomes(title, columns) }}
+
+  Displays outcomes with heading and multiple columns
+#}
+
+{% macro render(title, columns) %}
+  <section class="relative w-full lg:py-3xl">
+    <div class="max-w-[1400px] mx-auto px-0 md:px-md">
+
+      {# Section Title #}
+      <h2 class="text-4xl md:text-5xl font-normal text-dark mb-lg lg:mb-3xl decoration-2 underline-offset-8">{{ title }}</h2>
+
+      {# Three Column Grid #}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-xl">
+        {% for column in columns %}
+          <div>
+            <h3 class="text-xl md:text-2xl font-normal underline text-dark mb-md flex items-start">
+              {{ column.headline }}
+            </h3>
+            <p class="text-xl">{{ column.description }}</p>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
+{% endmacro %}

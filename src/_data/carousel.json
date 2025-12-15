@@ -1,0 +1,31 @@
+{
+  "slides": [
+    {
+      "id": "slide-1",
+      "headline": "Margrethe Vestager on Rebuild",
+      "subheader": "Why Europe needs social platforms built for people.",
+      "image": "/assets/images/margrethe.jpg",
+      "ctaText": "Read it here",
+      "ctaLink": "/insights/a-word-from-margrethe",
+      "bgColor": "#dde2de"
+    },
+    {
+      "id": "slide-3",
+      "headline": "Gatherings",
+      "subheader": "Three 48-hour gatherings tailored to entrepreneurs building the next generation of social platforms. Designed to connect, build, and act.",
+      "image": "/assets/images/gatherings-extra.jpg",
+      "ctaText": "Learn more",
+      "ctaLink": "/journey#gatherings",
+      "bgColor": "#dce0e4"
+    },
+    {
+      "id": "slide-4",
+      "headline": "Social Platform Directory",
+      "subheader": "Rebuild is building a directory of social platforms in Europe. Explore it here.",
+      "image": "/assets/images/gatherings-carousel.jpg",
+      "ctaText": "Learn more",
+      "ctaLink": "/directory",
+      "bgColor": "#dce0e4"
+    }
+  ]
+}

@@ -14,7 +14,7 @@ This document captures all key decisions made for the project to serve as a refe
 
 **Neutrals**:
 
-- **Off-white**: For text on dark backgrounds
+- **Light**: For text on dark backgrounds
 - **Dark**: Primary text color + 3 tints for hierarchy
 
 **Implementation**: CSS custom properties in `global.css` (see STACK_ARCHITECTURE.md for structure)
@@ -51,7 +51,7 @@ author: "Author Name"
 tags: [Stories, Resources, etc.]
 excerpt: "Meta description..."
 featured_image: "/assets/images/post-image.jpg"
-featured: false  # Pin to top
+featured: false # Pin to top
 ```
 
 **Features**:
@@ -250,7 +250,6 @@ featured: false  # Pin to top
 - **Keyboard navigation**:
   - Logical tab order
   - Visible focus indicators
-  - Skip to main content link
 - **Color contrast**: WCAG AA minimum (4.5:1)
 - **Alt text**: All images have descriptive alt attributes
 - **Form labels**: Associated with inputs

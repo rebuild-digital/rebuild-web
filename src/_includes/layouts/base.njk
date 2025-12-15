@@ -1,53 +1,81 @@
 <!DOCTYPE html>
 <html lang="{{ site.language }}">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  {# Title #}
-  <title>{{ title | default(site.title) }} | {{ site.title }}</title>
+    {# Title #}
+    <title>{{ title | default(site.title) }} | {{ site.title }}</title>
 
-  {# Meta Description #}
-  <meta name="description" content="{{ description | default(excerpt) | default(site.description) }}">
+    {# Meta Description #}
+    <meta name="description" content="{{ description | default(excerpt) | default(site.description) }}">
 
-  {# Open Graph #}
-  <meta property="og:title" content="{{ title | default(site.title) }}">
-  <meta property="og:description" content="{{ description | default(excerpt) | default(site.description) }}">
-  <meta property="og:image" content="{{ site.url }}{{ featured_image | default(site.defaultImage) }}">
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:type" content="website">
+    {# Open Graph #}
+    <meta property="og:title" content="{{ title | default(site.title) }}">
+    <meta property="og:description" content="{{ description | default(excerpt) | default(site.description) }}">
+    <meta property="og:image" content="{{ site.url }}{{ featured_image | default(site.defaultImage) }}">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:type" content="website">
 
-  {# Twitter Card #}
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ title | default(site.title) }}">
-  <meta name="twitter:description" content="{{ description | default(excerpt) | default(site.description) }}">
-  <meta name="twitter:image" content="{{ site.url }}{{ featured_image | default(site.defaultImage) }}">
+    {# Twitter Card #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title | default(site.title) }}">
+    <meta name="twitter:description" content="{{ description | default(excerpt) | default(site.description) }}">
+    <meta name="twitter:image" content="{{ site.url }}{{ featured_image | default(site.defaultImage) }}">
 
-  {# Favicon #}
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    {# Favicon #}
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-  {# Stylesheets #}
-  <link rel="stylesheet" href="/styles/main.css">
+    {# Stylesheets #}
+    <link rel="stylesheet" href="/styles/main.css">
 
-  {# Block for additional head content #}
-  {% block head %}{% endblock %}
-</head>
-<body>
-  {# Skip to main content link #}
-  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    {# Analytics #}
+    <script defer src="https://api.pirsch.io/pa.js"
+    id="pianjs"
+    data-code="7MINshjhivqQWUXqrMyKqKbUBcHP3LAB"></script>
 
-  {# Header #}
-  {% include "components/header.njk" %}
+    {# Block for additional head content #}
+    {% block head %}{% endblock %}
+  </head>
+  <body class="bg-light">
 
-  {# Main content #}
-  <main id="main-content">
-    {% block content %}{% endblock %}
-  </main>
+    {# Header #}
+    {% include "components/header.njk" %}
 
-  {# Footer #}
-  {% include "components/footer.njk" %}
+    {# Main content #}
+    <main id="main-content" class="max-w-[800px] lg:max-w-[1400px] mx-auto px-md {% if page.url != '/' %}pt-48{% endif %}">
+      {{ content | safe }}
+    </main>
 
-  {# Block for additional scripts #}
-  {% block scripts %}{% endblock %}
-</body>
+    {# Footer #}
+    {% include "components/footer.njk" %}
+
+    {# Fixed Banner at Bottom #}
+    {# <div class="fixed bottom-0 left-0 w-full z-40">
+      {% include "components/banner.njk" %}
+    </div> #}
+
+    {# Form Sidebar/Modal #}
+    {% include "components/form-sidebar.njk" %}
+
+    {# Mobile menu script #}
+    <script src="/scripts/mobile-menu.js"></script>
+
+    {# Form trigger script #}
+    <script src="/scripts/form-triggers.js"></script>
+
+    {# Form submission handler #}
+    <script src="/scripts/form-handler.js"></script>
+
+    {# Header scroll handler (home page only) #}
+    {% if page.url == "/" %}
+      <script src="/scripts/header-scroll.js"></script>
+    {% endif %}
+
+    {# Carousel script #}
+    <script src="/scripts/carousel.js"></script>
+
+    {# Block for additional scripts #}
+    {% block scripts %}{% endblock %}
+  </body>
 </html>

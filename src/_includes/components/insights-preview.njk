@@ -1,0 +1,52 @@
+{#
+  Recent Insights Preview Component
+  Usage: {% include "components/insights-preview.njk" %}
+
+  Displays recent insights from the insights collection
+#}
+
+{% set publishedInsights = [] %}
+{% for insight in collections.insights %}
+  {% if insight.data.published == true %}
+    {% set publishedInsights = (publishedInsights.push(insight), publishedInsights) %}
+  {% endif %}
+{% endfor %}
+{% set recentInsights = publishedInsights | limit(3) %}
+
+<section class="">
+  <div class="max-w-[1400px] mx-auto px-0 md:px-md">
+
+    {# Header #}
+    <div class="flex justify-between items-center mb-2xl">
+      <h2 class="text-4xl md:text-5xl font-normal text-dark">Latest</h2>
+    </div>
+
+    {# Insights Grid #}
+    {% if recentInsights and recentInsights | length > 0 %}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+        {% for insight in recentInsights %}
+          <a href="{{ insight.url }}" class="group block no-underline">
+            {# Image #}
+            {% if insight.data.featured_image %}
+              <img
+              src="{{ insight.data.featured_image }}"
+              alt="{{ insight.data.title }}"
+              class="w-full aspect-4/3 object-cover mb-md"
+/>
+            {% else %}
+              <div class="w-full aspect-4/3 bg-lighter mb-md"></div>
+            {% endif %}
+
+            {# Title #}
+            <h3 class="text-xl md:text-2xl font-normal text-dark group-hover:underline transition-fast">
+              {{ insight.data.title }}
+            </h3>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-lg text-darker">No insights available yet.</p>
+    {% endif %}
+
+  </div>
+</section>

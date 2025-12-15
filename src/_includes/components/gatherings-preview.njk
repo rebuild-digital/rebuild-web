@@ -1,0 +1,43 @@
+{#
+  Gatherings Preview Component
+  Usage: {% include "components/gatherings-preview.njk" %}
+
+  Displays the three rebuild gatherings with images and info
+#}
+{% from "components/image-credit.njk" import imageCredit %}
+
+<section class="relative w-full py-xl md:py-3xl bg-light" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw;">
+  <div class="max-w-[1400px] mx-auto px-md">
+
+    {# Gatherings Grid #}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-2xl md:gap-lg mb-2xl">
+      {% for gathering in gatherings.gatherings %}
+        <div class="flex flex-col">
+          {# Image with Title Overlay #}
+          <div class="relative aspect-3/4 overflow-visible">
+            <img
+              src="{{ gathering.image }}"
+              alt="{{ gathering.title }}"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            >
+            {% if gathering.imageCredit %}
+              {{ imageCredit(gathering.imageCredit) }}
+            {% endif %}
+            {# Title Overlay #}
+            <div class="absolute -top-md left-1/2 -translate-x-1/2 px-md py-sm z-10" style="background-color: {{ gathering.titleColor }};">
+              <h3 class="text-xl font-normal text-dark text-center whitespace-nowrap">{{ gathering.title }}</h3>
+            </div>
+          </div>
+
+          {# Location and Date #}
+          <div class="mt-sm flex justify-between items-center text-sm md:text-md text-dark px-lg">
+            <span>{{ gathering.location }}</span>
+            <span>{{ gathering.startDate }} - {{ gathering.endDate }}</span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
