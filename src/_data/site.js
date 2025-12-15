@@ -4,7 +4,7 @@ module.exports = {
   url: process.env.SITE_URL,
   apiUrl: process.env.API_URL,
   defaultImage: "/assets/images/social-3.jpg",
-  logo: "/favicon.ico",
+  logo: "/assets/images/logo.svg",
   author: "Rebuild",
   language: "en",
 
