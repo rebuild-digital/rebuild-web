@@ -20,8 +20,8 @@ module.exports = {
       url: "/directory/",
     },
     {
-      name: "Frameworks",
-      url: "/frameworks/",
+      name: "Tools",
+      url: "/tools/",
     },
     {
       name: "Insights",

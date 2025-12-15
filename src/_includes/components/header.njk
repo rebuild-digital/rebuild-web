@@ -13,12 +13,12 @@
       </div>
 
       {# Desktop Navigation #}
-      <nav aria-label="Main navigation" class="hidden md:block">
+      <nav aria-label="Main navigation" class="hidden lg:block">
         <ul class="flex gap-md list-none md:flex-wrap md:justify-center md:gap-sm">
           {% for item in site.main_navigation %}
             <li>
               <a href="{{ item.url }}"
-                 class="no-underline hover:underline px-sm last:pl-0 py-xs transition-fast {% if page.url == item.url %} text-blue{% endif %}"
+                 class="no-underline hover:underline px-sm last:pl-0 py-xs transition-fast"
                  {% if page.url == item.url %}aria-current="page"{% endif %}>
                 {{ item.name }}
               </a>
@@ -30,7 +30,7 @@
       {# Mobile Menu Button #}
       <button
         id="mobile-menu-toggle"
-        class="md:hidden text-dark flex items-center gap-xs text-lg font-normal bg-transparent border-none cursor-pointer p-0"
+        class="lg:hidden text-dark flex items-center gap-xs text-lg font-normal bg-transparent border-none cursor-pointer p-0"
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Toggle navigation menu">
@@ -43,7 +43,7 @@
   {# Mobile Menu Overlay #}
   <div
     id="mobile-menu"
-    class="fixed inset-0 bg-muted z-50 hidden md:hidden"
+    class="fixed inset-0 bg-muted z-50 hidden lg:hidden"
     aria-hidden="true">
     <div class="container max-w-[1400px] mx-auto px-md py-lg">
       {# Mobile Menu Header #}
@@ -60,7 +60,7 @@
 
       {# Mobile Navigation #}
       <nav aria-label="Mobile navigation" class="mt-3xl">
-        <ul class="list-none flex flex-col gap-xl">
+        <ul class="list-none flex flex-col gap-md">
           {% for item in site.main_navigation %}
             <li>
               <a href="{{ item.url }}"
