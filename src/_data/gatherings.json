@@ -2,7 +2,7 @@
   "gatherings": [
     {
       "id": "rebuild-1",
-      "title": "rebuild 1: the beginning",
+      "title": "Rebuild 1: the beginning",
       "location": "Copenhagen",
       "startDate": "Mar 01",
       "endDate": "Mar 03",
@@ -12,7 +12,7 @@
     },
     {
       "id": "rebuild-2",
-      "title": "rebuild 2: the boost",
+      "title": "Rebuild 2: the boost",
       "location": "Helsinki",
       "startDate": "Aug 30",
       "endDate": "Sep 01",
@@ -22,7 +22,7 @@
     },
     {
       "id": "rebuild-3",
-      "title": "rebuild 3: the shift",
+      "title": "Rebuild 3: the shift",
       "location": "Paris",
       "startDate": "Dec 13",
       "endDate": "Dec 15",

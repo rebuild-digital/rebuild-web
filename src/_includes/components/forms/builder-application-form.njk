@@ -15,12 +15,12 @@
 {% set isFeatured = featured | default(false) %}
 
 {% if isFeatured %}
-  {% set formTitle = title | default('Apply to be a featured entrepreneur') %}
+  {% set formTitle = title | default('Are you building a social platform in Europe? Join our directory.') %}
   {% set formDescription = description | default('Featured builders are highlighted in our directory and communications. Tell us about your work rebuilding social infrastructure in Europe.') %}
   {% set applicationType = 'featured' %}
 {% else %}
   {% set formTitle = title | default('Join the directory') %}
-  {% set formDescription = description | default('Are you working to rebuild social infrastructure in Europe? Join our directory of builders and connect with a community of like-minded changemakers.') %}
+  {% set formDescription = description | default('Are you building a social platform in Europe? Join our directory.') %}
   {% set applicationType = 'standard' %}
 {% endif %}
 
@@ -30,33 +30,33 @@
     {
       type: 'text',
       name: 'builder_name',
-      label: 'Your Name or Organization',
+      label: 'Your name',
       placeholder: 'Jane Doe / Acme Rebuilders Co.',
       required: true
     }, {
       type: 'email',
       name: 'email',
-      label: 'Email Address',
+      label: 'Email',
       placeholder: 'your@email.com',
       required: true
     }, {
       type: 'tel',
       name: 'phone',
       label: 'Phone Number',
-      placeholder: '+45 12 34 56 78',
+      placeholder: 'Phone number',
       required: false,
       helpText: 'Optional: In case we need to reach you'
     }, {
       type: 'url',
       name: 'website',
       label: 'Website or LinkedIn',
-      placeholder: 'https://example.com',
+      placeholder: 'Link to your platform',
       required: true,
       helpText: 'Where can people learn more about your work?'
     }, {
       type: 'select',
       name: 'category',
-      label: 'Primary Focus Area',
+      label: 'Primary category',
       required: true,
       options: [
         'Bundled',
@@ -139,15 +139,15 @@
       type: 'textarea',
       name: 'description',
       label: 'What are you building?',
-      placeholder: 'Describe your project, initiative, or organization...',
+      placeholder: 'Describe your platform',
       required: true,
       rows: 6,
-      helpText: 'Tell us about your work and how it contributes to rebuilding social infrastructure'
+      helpText: ''
     }, {
       type: 'textarea',
       name: 'impact',
-      label: 'What impact have you made?',
-      placeholder: 'Share metrics, stories, or outcomes...',
+      label: 'How far are you in your journey?',
+      placeholder: 'Share metrics, user numbers, countries you are operating in...',
       required: true,
       rows: 4,
       helpText: 'Help us understand the reach and effectiveness of your work'
@@ -201,33 +201,33 @@
     {
       type: 'text',
       name: 'builder_name',
-      label: 'Your Name or Organization',
+      label: 'Your name',
       placeholder: 'Jane Doe / Acme Rebuilders Co.',
       required: true
     }, {
       type: 'email',
       name: 'email',
-      label: 'Email Address',
+      label: 'Email',
       placeholder: 'your@email.com',
       required: true
     }, {
       type: 'tel',
       name: 'phone',
       label: 'Phone Number',
-      placeholder: '+45 12 34 56 78',
+      placeholder: 'Phone number',
       required: false,
       helpText: 'Optional: In case we need to reach you'
     }, {
       type: 'url',
       name: 'website',
       label: 'Website or LinkedIn',
-      placeholder: 'https://example.com',
+      placeholder: 'Link to your platform',
       required: true,
       helpText: 'Where can people learn more about your work?'
     }, {
       type: 'select',
       name: 'category',
-      label: 'Primary Focus Area',
+      label: 'Primary category',
       required: true,
       options: [
         'Bundled',
@@ -310,15 +310,15 @@
       type: 'textarea',
       name: 'description',
       label: 'What are you building?',
-      placeholder: 'Describe your project, initiative, or organization...',
+      placeholder: 'Describe your platform',
       required: true,
       rows: 6,
-      helpText: 'Tell us about your work and how it contributes to rebuilding social infrastructure'
+      helpText: ''
     }, {
       type: 'textarea',
       name: 'impact',
-      label: 'What impact have you made?',
-      placeholder: 'Share metrics, stories, or outcomes...',
+      label: 'How far are you in your journey?',
+      placeholder: 'Share metrics, user numbers, countries you are operating in...',
       required: true,
       rows: 4,
       helpText: 'Help us understand the reach and effectiveness of your work'
@@ -338,7 +338,7 @@
     }, {
       type: 'checkbox',
       name: 'consent',
-      label: 'I agree to be included in the Rebuild directory and understand that my information will be shared publicly.',
+      label: 'I agree to be included in the Rebuild directory and understand that my information can be shared publicly',
       required: true
     }, {
       type: 'checkbox',
@@ -358,7 +358,7 @@
 {% set method = 'POST' %}
 {% set title = formTitle %}
 {% set description = formDescription %}
-{% set submitText = 'Submit Application' %}
+{% set submitText = 'Submit' %}
 {% set submitVariant = 'primary' %}
 {% set fields = builderApplicationFields %}
 {% set successMessage = 'Thank you for applying! We will review your application and get back to you soon.' %}

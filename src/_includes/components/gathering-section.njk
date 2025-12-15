@@ -51,7 +51,7 @@
         </div>
         <div class="flex flex-col leading-none">
           <p class="text-base md:text-lg">Wanna be part of the gathering?</p>
-          <a href="{{ gathering.cta.url }}" class="inline-block text-base md:text-lg underline hover:no-underline transition-all">
+          <a href="{{ gathering.cta.url }}" {% if gathering.cta.dataForm %}data-form="{{ gathering.cta.dataForm }}"{% endif %} class="inline-block text-base md:text-lg underline hover:no-underline transition-all">
             {{ gathering.cta.text }}
           </a>
         </div>

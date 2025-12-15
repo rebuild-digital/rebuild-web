@@ -1,15 +1,9 @@
 {
   "programmes": [
     {
-      "id": "ambassador",
-      "title": "Ambassador programme",
-      "description": "Working with the leading experts in critical topics within the space",
-      "color": "#6ba1cc"
-    },
-    {
       "id": "investor",
       "title": "Investor programme",
-      "description": "Bringing together investors from each country taking an active part in rebuilding social platforms",
+      "description": "Bringing together investors from across Europe taking an active part in rebuilding social platforms",
       "color": "#669e67"
     },
     {

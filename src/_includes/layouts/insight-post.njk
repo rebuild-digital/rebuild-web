@@ -5,12 +5,12 @@ layout: layouts/base.njk
 {% block content %}
   <article class="pb-2xl">
     {% if featured_image %}
-      <div class="featured-image mb-xl w-full max-h-[900px]">
-        <img src="{{ featured_image }}" alt="{{ title }}" loading="lazy" class=" h-auto">
+      <div class="featured-image mb-xl w-full max-h-[900px] overflow-hidden">
+        <img src="{{ featured_image }}" alt="{{ title }}" loading="lazy" class="w-full h-auto object-cover">
       </div>
     {% endif %}
 
-    <div class="mx-auto max-w-[75ch] relative">
+    <div class="mx-auto max-w-[75ch] px-md">
       <header class="">
         <h1 class="text-3xl md:text-5xl leading-none mb-md">{{ title }}</h1>
 

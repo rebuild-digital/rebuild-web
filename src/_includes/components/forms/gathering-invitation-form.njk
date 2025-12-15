@@ -91,7 +91,12 @@
     placeholder: 'Share your ideas, expertise, or resources you can bring to the gathering...',
     required: true,
     rows: 5,
-    helpText: 'Tell us how you would like to participate and what you can bring to the community'
+    helpText: ''
+  }, {
+    type: 'checkbox',
+    name: 'consent',
+    label: 'I agree to share my information with the Rebuild team for the purpose of considering my invitation request',
+    required: true
   }, {
     type: 'checkbox',
     name: 'newsletter',
@@ -108,7 +113,7 @@
 {% set action = site.apiUrl + '/api/gathering-invitation' %}
 {% set method = 'POST' %}
 {% set title = 'Request an invitation to the first gathering' %}
-{% set description = 'Join us for the inaugural Rebuild gathering. Share your details and tell us what you would like to contribute to this community of European social platform builders.' %}
+{% set description = 'Show interest in joining Rebuild 1. Share your details and tell us what you would like to contribute.' %}
 {% set submitText = 'Request Invitation' %}
 {% set submitVariant = 'primary' %}
 {% set fields = gatheringInvitationFields %}

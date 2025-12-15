@@ -10,32 +10,32 @@
   - description: Form description (optional, default provided)
 #}
 
-{% set formTitle = title | default('Promote a builder') %}
-{% set formDescription = description | default('Do you know of a promising startup or builder who should be in our directory? Let us know about them!') %}
+{% set formTitle = title | default('Promote a platform') %}
+{% set formDescription = description | default('Do you know of a social platform that should be in our directory?') %}
 
 {% set builderPromoFields = [
   {
     "type": "text",
     "name": "builder_name",
     "label": "Name",
-    "placeholder": "Sleeve",
+    "placeholder": "Platform",
     "required": true,
     "helpText": "The name of the person or organization you want to promote"
   }, {
     "type": "url",
     "name": "builder_website",
-    "label": "Website or LinkedIn",
+    "label": "Link to platform",
     "placeholder": "https://example.com",
     "required": true,
-    "helpText": "Where can we learn more about this builder?"
+    "helpText": ""
   }, {
     "type": "textarea",
     "name": "why_promote",
     "label": "Why should they be in the directory?",
-    "placeholder": "Tell us what makes them special and how they are contributing to rebuilding social infrastructure in Europe.",
+    "placeholder": "Tell us more.",
     "required": true,
     "rows": 5,
-    "helpText": "Share what impact they are making and why the rebuild community should know about them."
+    "helpText": ""
   }, {
     "type": "text",
     "name": "your_name",
@@ -56,7 +56,7 @@
     "label": "Your relationship to the promotion",
     "placeholder": "e.g., colleague, friend, community member",
     "required": false,
-    "helpText": "Optional: How do you know this builder or startup? Add if we can contact you later, if we need more information."
+    "helpText": "How do you know this platform?"
   }
 ] %}
 
@@ -66,7 +66,7 @@
 {% set method = 'POST' %}
 {% set title = formTitle %}
 {% set description = formDescription %}
-{% set submitText = 'Submit Promotion' %}
+{% set submitText = 'Submit' %}
 {% set submitVariant = 'primary' %}
 {% set fields = builderPromoFields %}
 {% set successMessage = 'Thank you for the recommendation! We will review this builder for inclusion in our directory.' %}

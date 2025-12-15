@@ -5,14 +5,20 @@
   Displays recent insights from the insights collection
 #}
 
-{% set recentInsights = collections.insights | limit(3) %}
+{% set publishedInsights = [] %}
+{% for insight in collections.insights %}
+  {% if insight.data.published == true %}
+    {% set publishedInsights = (publishedInsights.push(insight), publishedInsights) %}
+  {% endif %}
+{% endfor %}
+{% set recentInsights = publishedInsights | limit(3) %}
 
 <section class="">
   <div class="max-w-[1400px] mx-auto px-0 md:px-md">
 
     {# Header #}
     <div class="flex justify-between items-center mb-2xl">
-      <h2 class="text-4xl md:text-5xl font-normal text-dark">Recent insights</h2>
+      <h2 class="text-4xl md:text-5xl font-normal text-dark">Latest</h2>
     </div>
 
     {# Insights Grid #}

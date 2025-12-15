@@ -1,12 +1,29 @@
 ---
 layout: layouts/base.njk
 title: Social Platform Directory
-description: The directory is growing every day based on input from people all around Europe. This is a collective piece of work. Is there a platform we should know about, or some information that should be adjusted? Let us know. 
+description: We are mapping all the social platforms in Europe. This directory is growing every day based on input from people all around Europe. It is a collective piece of work. The platforms mapped are here because someone told us about their existence or directed us to a list, where they were mentioned. All are mapped as precisely as possible based on publicly available information. Is there a platform we should know about, or some information that should be adjusted? Let us know.
 permalink: /directory/index.html
 ---
 
 <div class="container">
-  {% include "components/page-header.njk" %}
+  <div class="md:pt-xl mb-lg">
+    <div class="mb-lg font-normal flex flex-col lg:flex-row justify-between items-start">
+      <h1 class="font-normal mb-sm lg:mb-0 text-4xl md:text-5xl lg:text-7xl">{{ title }}</h1>
+      <div class="max-w-[460px] text-lg lg:text-xl text-dark mt-lg md:mt-0">
+        We are mapping all the social platforms in Europe. This directory is growing every day based on input from people all around Europe. It is a collective piece of work. The platforms mapped are here because someone told us about their existence or directed us to a list, where they were mentioned. All are mapped as precisely as possible based on publicly available information.
+        <br><br>
+        <p>Is there a platform we should know about, or some information that should be adjusted? Let us know</p>
+      </div>
+    </div>
+    <div class="flex justify-end gap-sm md:gap-md">
+      <button data-form="builder-application" class="inline-block px-sm md:px-lg py-xs md:py-md bg-dark border-2 border-dark text-light hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
+          Join the directory
+        </button>
+      <button data-form="builder-promo" class="inline-block px-sm md:px-lg py-xs md:py-md bg-transparent border-2 border-dark text-dark hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
+          Promote a project
+        </button>
+    </div>
+  </div>
 
   <hr>
   <section class="mt-lg">

@@ -10,7 +10,7 @@
 #}
 
 {% set formTitle = title | default('Stay Updated') %}
-{% set formDescription = description | default('Subscribe to our newsletter to receive updates about rebuilding social infrastructure in Europe.') %}
+{% set formDescription = description | default('Get updates about new platforms, insights and gatherings.') %}
 {% set formSubmitText = submitText | default('Subscribe') %}
 {% set isInline = inline | default(false) %}
 
@@ -24,7 +24,7 @@
       class="flex gap-sm items-end"
     >
       <div class="flex-1">
-        <label for="email-inline" class="sr-only">Email address</label>
+        <label for="email-inline" class="sr-only">Email</label>
         <input
           type="email"
           id="email-inline"
@@ -112,7 +112,7 @@
     {
       type: 'email',
       name: 'email',
-      label: 'Email address',
+      label: 'Email',
       placeholder: 'your@email.com',
       required: true
     }, {
@@ -131,7 +131,7 @@
       type: 'select',
       name: 'interest',
       label: 'Keep me up to date as...',
-      placeholder: 'eep me up to date as...',
+      placeholder: 'Keep me up to date as...',
       required: true,
       options: [
         {
