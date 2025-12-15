@@ -43,7 +43,7 @@ permalink: /insights/index.html
 
   {# Cards Grid - Masonry Layout #}
   <div
-    class="columns-1 md:columns-2 gap-md md:gap-xl pb-6xl"
+    class="columns-1 md:columns-2 gap-lg md:gap-xl pb-6xl"
     data-insights-grid>
     {% for post in collections.insights %}
       {% set title = post.data.title %}
@@ -59,7 +59,7 @@ permalink: /insights/index.html
 
       {# Wrap card in a div with data attributes #}
       <div
-        class="break-inside-avoid mb-md md:mb-xl"
+        class="break-inside-avoid mb-lg md:mb-xl"
         data-insight-card
         data-title="{{ title }}"
         data-date="{{ date }}"

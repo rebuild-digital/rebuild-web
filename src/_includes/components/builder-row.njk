@@ -51,10 +51,10 @@
       </div>
     {% endif %}
 
-    <div class="flex flex-row justify-between mt-xl">
+    <div class="flex flex-row justify-between items-end md:items-start mt-lg md:mt-xl">
       {# Tags #}
       {% if builder.category and builder.category.length > 0 %}
-        <div class="flex gap-xs flex-wrap mb-md">
+        <div class="flex gap-xs flex-wrap mb-0 md:mb-md">
           {% for cat in builder.category %}
             {% set colors = [cat] | categoryColors %}
             <span class="inline-block px-md py-xs {{ colors.bg }} {{ colors.text }} text-sm">{{ cat }}</span>

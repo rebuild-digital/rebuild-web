@@ -430,7 +430,7 @@
   }
 
   .rich-text h4 {
-    @apply text-2xl;
+    @apply text-lg md:text-2xl;
     @apply mb-xl;
   }
 
@@ -516,7 +516,7 @@
   }
 
   .rich-text blockquote p {
-    @apply mb-xs text-3xl;
+    @apply mb-xs text-xl md:text-3xl;
   }
 
   .rich-text blockquote p:last-child {

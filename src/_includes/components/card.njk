@@ -11,7 +11,8 @@
   - published: Boolean indicating if content is published (optional, defaults to true)
 #}
 
-{% set isPublished = published if published != undefined else true %}
+{% set isPublished = published if published != undefined else 
+  true %}
 
 <article class="overflow-hidden transition-all duration-base {% if not isPublished %}opacity-60{% endif %}">
   {% if image %}
@@ -28,7 +29,7 @@
 
   <div class="mt-md">
     {% if title %}
-      <h3 class="text-xl lg:text-3xl mb-sm {% if not isPublished %}text-muted{% endif %}">
+      <h3 class="text-xl lg:text-3xl mb-xs md:mb-sm {% if not isPublished %}text-muted{% endif %}">
         {% if link and isPublished %}
           <a href="{{ link }}" class="text-dark no-underline hover:underline">{{ title }}</a>
         {% else %}

@@ -12,14 +12,14 @@ layout: layouts/base.njk
 
     <div class="mx-auto max-w-[75ch] relative">
       <header class="">
-        <h1 class="text-5xl leading-none mb-md">{{ title }}</h1>
+        <h1 class="text-3xl md:text-5xl leading-none mb-md">{{ title }}</h1>
 
-        <div class="flex gap-md text-sm items-center mb-md text-muted">
+        <div class="flex gap-md text-sm items-center mb-md text-darker">
           {% if date %}
             <time datetime="{{ date | dateFormat }}">{{ date | dateFormat }}</time>
           {% endif %}
           {% if author %}
-            <span class="author">By {{ author }}</span>
+            <span class="text-darker" class="author">By {{ author }}</span>
           {% endif %}
         </div>
 
