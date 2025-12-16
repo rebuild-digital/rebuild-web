@@ -10,46 +10,56 @@
   {% include "components/image-carousel.njk" %}
 #}
 
-{% set images = carouselImages | default([
-  "/assets/images/social-1.jpg",
-  "/assets/images/social-2.jpg",
-  "/assets/images/social-3.jpg"
-]) %}
+{% from "components/image-credit.njk" import imageCredit %}
+
+{% set images = carouselImages | default(["/assets/images/social-1.jpg", "/assets/images/social-2.jpg", "/assets/images/social-3.jpg"]) %}
+
+{% set imageCredits = carouselImageCredits | default(["Egor Myznik", "Mathias Reding", "Sebastien Lavalaye"]) %}
 
 <div class="image-carousel relative w-full overflow-hidden" style="aspect-ratio: 3/4;">
   {% for image in images %}
-  <img
-    src="{{ image }}"
-    alt="Gallery image {{ loop.index }}"
-    class="carousel-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 {{ 'opacity-100' if loop.first else 'opacity-0' }}"
-    data-index="{{ loop.index0 }}"
-  >
+    <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 {{ 'opacity-100' if loop.first else 'opacity-0' }}" data-index="{{ loop.index0 }}">
+      <img
+      src="{{ image }}"
+      alt="Gallery image {{ loop.index }}"
+      class="w-full h-full object-cover"
+    >
+      {{ imageCredit(imageCredits[loop.index0]) }}
+    </div>
   {% endfor %}
 </div>
 
 <script>
-(function() {
-  const carousels = document.querySelectorAll('.image-carousel');
+  (function () {
+    const carousels = document.querySelectorAll('.image-carousel');
 
-  carousels.forEach(carousel => {
-    const images = carousel.querySelectorAll('.carousel-image');
-    let currentIndex = 0;
+    carousels.forEach(carousel => {
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      let currentIndex = 0;
 
-    function showNextImage() {
-      // Fade out current image
-      images[currentIndex].classList.remove('opacity-100');
-      images[currentIndex].classList.add('opacity-0');
+      function showNextImage() {
+        // Fade out current slide
+        slides[currentIndex]
+          .classList
+          .remove('opacity-100');
+        slides[currentIndex]
+          .classList
+          .add('opacity-0');
 
-      // Move to next image
-      currentIndex = (currentIndex + 1) % images.length;
+        // Move to next slide
+        currentIndex = (currentIndex + 1) % slides.length;
 
-      // Fade in next image
-      images[currentIndex].classList.remove('opacity-0');
-      images[currentIndex].classList.add('opacity-100');
-    }
+        // Fade in next slide
+        slides[currentIndex]
+          .classList
+          .remove('opacity-0');
+        slides[currentIndex]
+          .classList
+          .add('opacity-100');
+      }
 
-    // Change image every 4 seconds
-    setInterval(showNextImage, 4000);
-  });
-})();
+      // Change image every 4 seconds
+      setInterval(showNextImage, 4000);
+    });
+  })();
 </script>
