@@ -10,7 +10,7 @@
   - description: Form description (optional, default provided)
 #}
 
-{% set formTitle = title | default('Tip us about a platform') %}
+{% set formTitle = title | default('Suggest a platform') %}
 {% set formDescription = description | default('Do you know of a social platform that should be in our directory?') %}
 
 {% set builderPromoFields = [
@@ -20,7 +20,7 @@
     "label": "Name",
     "placeholder": "Platform",
     "required": true,
-    "helpText": "The name of the person or organization you want to tip us about"
+    "helpText": "The name of the person or organization you want to share with us"
   }, {
     "type": "url",
     "name": "builder_website",
