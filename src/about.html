@@ -12,20 +12,30 @@ permalink: /about/index.html
 </section>
 
 <section class="pb-6xl">
-  <div class="container max-w-[800px] mx-auto">
-    <div class="rich-text">
-      <h4>Social platforms are the critical communication infrastructure in our lives, communities, and democracies.</h4>
-      <p>From how we communicate with our loved ones and connect with our neighbourhoods to exchanging ideas and sharing our thoughts.</p>
-      <p>20 years ago, Europe had a thriving generation of social platforms and the entrepreneurs, designers, and programmers building them. A capability and an industry that have been lost.</p>
-      <p>Rebuild is a catalyst to support and serve the new generation of European social platforms. Gathering the people in Europe who can make it happen. The entrepreneurs, the pioneers, the investors, the digital leaders.</p>
-      <p>As a catalyst, Rebuild is here to get things started and move things forward, and is intentionally designed to close down exactly one year from start. Making space for the entrepreneurs and the social platforms themselves to own the initiatives that should shape the industry for the next decade.</p>
-      <p>On 15 December 2026, Rebuild will host the last gathering in Paris, open-sourcing all frameworks, tools and resources back to the industry.</p>
-      <hr>
-      <p class="mt-xl">Rebuild is an NGO, registered in Denmark, supported and funded by European entrepreneurs.</p>
-      <p>Founded by Thomas Madsen-Mygdal, patroned by Margrethe Vestager.</p>
+  <div class="container mx-auto px-4">
+    <!-- Mobile: carousel above text, Desktop: side by side -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mx-auto">
 
-      <p class="text-sm text-darker">CVR 46007670<br>Linnésgade 25, 1361 Copenhagen.</p>
+      <!-- Image Carousel - appears first on mobile, left side on desktop -->
+      <div class="w-full lg:sticky lg:top-8">
+        {% include "components/image-carousel.njk" %}
+      </div>
 
+      <!-- Text Content - appears second on mobile, right side on desktop -->
+      <div class="rich-text max-w-[600px]">
+        <h4 style="margin-top: 0px" class="mt-0">Social platforms are the critical communication infrastructure in our lives, communities, and democracies.</h4>
+        <p>From how we communicate with our loved ones and connect with our neighbourhoods to exchanging ideas and sharing our thoughts.</p>
+        <p>20 years ago, Europe had a thriving generation of social platforms and the entrepreneurs, designers, and programmers building them. A capability and an industry that have been lost.</p>
+        <p>Rebuild is a catalyst to support and serve the new generation of European social platforms. Gathering the people in Europe who can make it happen. The entrepreneurs, the pioneers, the investors, the digital leaders.</p>
+        <p>As a catalyst, Rebuild is here to get things started and move things forward, and is intentionally designed to close down exactly one year from start. Making space for the entrepreneurs and the social platforms themselves to own the initiatives that should shape the industry for the next decade.</p>
+        <p>On 15 December 2026, Rebuild will host the last gathering in Paris, open-sourcing all frameworks, tools and resources back to the industry.</p>
+        <hr>
+        <p class="mt-xl">Rebuild is an NGO, registered in Denmark, supported and funded by European entrepreneurs.</p>
+        <p>Founded by Thomas Madsen-Mygdal, patroned by Margrethe Vestager.</p>
+
+        <p class="text-sm text-darker">CVR 46007670<br>Linnésgade 25, 1361 Copenhagen.</p>
+
+      </div>
     </div>
   </div>
 </section>
