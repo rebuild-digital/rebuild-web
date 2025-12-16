@@ -6,7 +6,6 @@ tags:
   - Interviews
 excerpt: "Why Europe needs social platforms built for people."
 featured_image: "/assets/images/margrethe.jpg"
-featured: true
 published: true
 ---
 
