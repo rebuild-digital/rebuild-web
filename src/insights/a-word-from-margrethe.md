@@ -1,6 +1,6 @@
 ---
 title: "Margrethe Vestager on Rebuild"
-date: 2025-12-16
+date: 2025-12-14
 author: "Rebuild Team"
 tags:
   - Interviews
