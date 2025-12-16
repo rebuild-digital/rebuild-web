@@ -17,14 +17,14 @@
         },
         {
           "headline": "Keynotes",
-          "description": "Focused perspectives from people shaping the field. Linda Liukas (Hello Ruby), Marko Ahtisaari (Dopplr), Margrethe Vestager, Florian Meissner (Eyeem), Steffen Fagerström Christensen (TwentyThree), Margrethe Vestager, Thomas Madsen-Mygdal. More to come."
+          "description": "Focused perspectives from people shaping the field. Linda Liukas (Hello Ruby), Marko Ahtisaari (Dopplr), Florian Meissner (Eyeem), Steffen Fagerström Christensen (TwentyThree), Margrethe Vestager, Thomas Madsen-Mygdal. More to come."
         },
         {
           "headline": "Overcoming shared challenges",
           "description": "Focused working groups tackling issues no entrepreneurs should navigate alone when taking on big challenges. A space to bring problems and build solutions together. With live support from our group of digital pioneers, early builders, and visionary investors."
         },
         {
-          "headline": "Prototyping new Design principles",
+          "headline": "Prototyping new design principles",
           "description": "Hands-on prototyping of the set of design principles needed to build a new direction for social platforms."
         }
       ],
@@ -46,12 +46,12 @@
       "imageCredit": "Kristaps Grundsteins",
       "proofPoints": [
         {
-          "headline": "Board Programme",
-          "description": "A structured programme to place experienced pioneers, investors and strategic thinkers on the boards of social platform teams."
+          "headline": "Board programme",
+          "description": "A structured programme to place experienced pioneers, investors, and strategic thinkers on the boards of social platform companies."
         },
         {
-          "headline": "Crafting Sessions — How To",
-          "description": "Hands-on sessions that break down practical methods and approaches by those who have done it before. How to scale to 1 million users, how to build a marketplace, how to coin your business model, how to get people to shift, how to get investments, how to build the right organisational model for your platform"
+          "headline": "Crafting sessions — How to",
+          "description": "Hands-on sessions that break down practical methods and approaches by those who have done it before. How to scale to 1 million users, how to build a marketplace, how to coin your business model, how to get people to shift, how to get investments, how to build the right organisational model for your platform."
         },
         {
           "headline": "Product design sessions",
@@ -59,11 +59,11 @@
         },
         {
           "headline": "Designing for the Big Shift Day",
-          "description": "Designing for a dedicated day led by the industry mobilising people across Europe to switch to European built social platforms. An industry-led moment to help users make the shift together."
+          "description": "Designing for a dedicated day led by the industry, mobilising people across Europe to switch to European-built social platforms. An industry-led moment to help users make the shift together."
         }
       ],
       "cta": {
-        "text": "Follow the newsletter to keep up to date",
+        "text": "Sign up to our newsletter for updates",
         "url": "#",
         "dataForm": "newsletter"
       }
@@ -84,20 +84,20 @@
           "description": "A coordinated awareness with all European media to share the platforms and progress emerging from the industry. Designed to build momentum and readiness ahead of the Big Shift Day."
         },
         {
-          "headline": "Top 20 Case Studies",
+          "headline": "Top 20 case studies",
           "description": "A curated look at the biggest breakthroughs and cases to learn from. Making it usable for the wider industry."
         },
         {
-          "headline": "Designing the Next Decade to Come",
+          "headline": "Designing the next decade to come",
           "description": "Defining the actions, priorities, and structures that will guide the industry forward. The starting point for long-term collaboration and commitment."
         },
         {
-          "headline": "Sunsetting Rebuild - Open Sourcing the Resources",
+          "headline": "Sunsetting Rebuild - Open sourcing the resources",
           "description": "A clear and intentional close to the one-year catalyst initiative. Releasing Rebuild, open sourcing all resources, so the industry can continue with its own momentum."
         }
       ],
       "cta": {
-        "text": "Follow the newsletter to keep up to date",
+        "text": "Sign up to our newsletter for updates",
         "url": "#",
         "dataForm": "newsletter"
       }

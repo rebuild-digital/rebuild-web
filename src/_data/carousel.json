@@ -21,11 +21,11 @@
     {
       "id": "slide-4",
       "headline": "Social Platform Directory",
-      "subheader": "Rebuild is building a directory of social platforms in Europe. Explore it here.",
+      "subheader": "Rebuild is building a directory of social platforms in Europe.",
       "image": "/assets/images/gatherings-carousel.jpg",
-      "ctaText": "Learn more",
+      "ctaText": "Explore it here",
       "ctaLink": "/directory",
-      "bgColor": "#dce0e4"
+      "bgColor": "#8fb5d9"
     }
   ]
 }
