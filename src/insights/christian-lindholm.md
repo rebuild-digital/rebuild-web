@@ -5,7 +5,6 @@ author: "The Rebuild Team"
 tags:
   - Stories
 excerpt: "How a Nokia pioneer's four-button innovation transformed human-computer interaction."
-featured: true
 featured_image: "/assets/images/christian-lindholm.jpg"
 published: false
 ---

@@ -5,7 +5,6 @@ author: "The Rebuild Team"
 tags:
   - Stories
 excerpt: "When Daniela Hinrichs talks about the early days of XING, she begins not with servers or funding rounds, but with people."
-featured: true
 featured_image: "/assets/images/daniela-3.jpg"
 published: false
 ---
