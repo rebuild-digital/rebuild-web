@@ -14,7 +14,7 @@
 {% set isPublished = published if published != undefined else 
   true %}
 
-<article class="overflow-hidden transition-all duration-base {% if not isPublished %}opacity-60{% endif %}">
+<article class="overflow-hidden transition-all mb-xl duration-base {% if not isPublished %}opacity-60{% endif %}">
   {% if image %}
     <div class="{% if not isPublished %}grayscale{% endif %}">
       {% if isPublished %}
