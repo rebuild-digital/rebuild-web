@@ -1,6 +1,6 @@
 module.exports = {
   title: "Rebuild",
-  description: "12 months to catalyse European social platforms",
+  description: "Twelve months to rebuild European social platforms.",
   url: process.env.SITE_URL,
   apiUrl: process.env.API_URL,
   defaultImage: "/assets/images/social-3.jpg",

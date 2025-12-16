@@ -6,9 +6,9 @@
 
     {# Title #}
     {% if page.url == "/" %}
-    <title>{{ site.title }}</title>
+      <title>{{ site.title }}</title>
     {% else %}
-    <title>{{ title | default(site.title) }} | {{ site.title }}</title>
+      <title>{{ title | default(site.title) }} | {{ site.title }}</title>
     {% endif %}
 
     {# Meta Description #}
