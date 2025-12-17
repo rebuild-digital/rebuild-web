@@ -6,23 +6,23 @@
   {% endif %}
 
   {% if activeJobs.length > 0 %}
-  <section class="px-lg py-xl md:px-2xl bg-dark text-blonde mb-3xl md:mb-6xl">
-    <div class="max-w-[1400px] mx-auto px-0 md:px-md">
-      <h2 class="text-2xl md:text-3xl lg:text-5xl font-normal mb-xl">{{ title }}</h2>
+    <section class="py-xl text-dark mb-3xl lg:mb-6xl">
+      <div class="max-w-[1400px] mx-auto px-0">
+        <h2 class="text-2xl md:text-3xl lg:text-5xl font-normal mb-xl">{{ title }}</h2>
 
-      <div class="grid grid-cols-1 gap-y-2xl">
-        {% for job in activeJobs %}
-        <div class="border-t border-blonde pt-lg">
-          <h3 class="text-xl md:text-2xl font-bold mb-sm">{{ job.title }}</h3>
-          <p class="text-xs md:text-base mb-md">{{ job.description }}</p>
-          <a href="mailto:jobs@rebuild.net?subject=Application: {{ job.title | urlencode }}"
-             class="inline-block px-md py-sm bg-blonde text-dark font-bold text-sm md:text-base hover:bg-opacity-90 transition-colors">
-            Apply with CV
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-2xl">
+          {% for job in activeJobs %}
+            <div class="pt-lg">
+              <h3 class="text-xl md:text-2xl font-bold mb-sm">{{ job.title }}</h3>
+              <p class="text-xs md:text-base max-w-[75ch] mb-md">{{ job.description }}</p>
+              <a href="mailto:jobs@rebuild.net?subject=Application: {{ job.title | urlencode }}"
+             class="inline-block px-md py-sm bg-darker border-2 border-dark hover:bg-dark text-light font-bold text-sm md:text-base hover:bg-opacity-90 transition-colors">
+            Apply
           </a>
+            </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
-    </div>
-  </section>
+    </section>
   {% endif %}
 {% endmacro %}
