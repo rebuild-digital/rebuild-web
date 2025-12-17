@@ -9,9 +9,7 @@ featured_image: "/assets/images/daniela-3.jpg"
 published: false
 ---
 
-#### When Daniela Hinrichs talks about the early days of XING, she begins not with servers or funding rounds, but with people. When she met founder Lars Hinrichs in 2003 and he described something called the “Open Business Club”, a digital Rolodex that understood how real relationships worked, it clicked instantly
-
-When Daniela Hinrichs talks about the early days of XING, she begins not with servers or funding rounds, but with people. When she teamed up with founder Lars Hinrichs in 2003 and he described something called the “Open Business Club”, a digital representation of the ‘six degrees of separation’ principle which would make the world’s business networks visible for the first time, it clicked instantly.
+#### When Daniela Hinrichs talks about the early days of XING, she begins not with servers or funding rounds, but with people. When she teamed up with founder Lars Hinrichs in 2003 and he described something called the “Open Business Club”, a digital representation of the ‘six degrees of separation’ principle which would make the world’s business networks visible for the first time, it clicked instantly.
 
 Back then, “social networking” was still largely unknown; in Europe, most people were still swapping business cards. Against that backdrop, the pair joined forces in August 2003. Lars brought the product instinct and serial–entrepreneur experience; Daniela, with a background in corporate communications, brought structure, and an instinct for how to build a brand around an idea rather than just launch a site.
 
