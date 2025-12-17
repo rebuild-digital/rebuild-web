@@ -5,6 +5,7 @@ description: The digital platform changelog, where we keep you up to date about 
 permalink: /changelog/index.html
 ---
 
+<div class="mx-auto max-w-[75ch] px-md">
 <section class="pt-xl">
   <header class="container mx-auto mb-xl w-full">
     <h1 class="font-normal text-4xl">{{ title }}</h1>
@@ -41,3 +42,4 @@ permalink: /changelog/index.html
 
 </div>
 </section>
+</div>
