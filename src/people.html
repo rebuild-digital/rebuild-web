@@ -5,6 +5,7 @@ description: The people supporting and driving the catalyst
 permalink: /people/index.html
 ---
 {% from "components/person-card.njk" import personCard %}
+{% from "components/jobs.njk" import jobs %}
 
 <section class="lg:pt-xl pt-0 md:pb-2xl">
   <header class="mb-sm md:mb-xl text-center w-full">
@@ -154,6 +155,9 @@ permalink: /people/index.html
         </p>
       </div>
     </section>
+
+    {# Jobs Section #}
+    {{ jobs("Open Positions", jobs.jobs) }}
 
     {# Team Members Grid #}
     <h2 class="text-4xl md:text-5xl font-normal mb-xl">Core team</h2>

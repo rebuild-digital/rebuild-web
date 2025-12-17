@@ -1,0 +1,10 @@
+{
+  "jobs": [
+    {
+      "id": "example-position",
+      "title": "Example Position Title",
+      "description": "A brief description of the role and what we're looking for in a candidate.",
+      "active": true
+    }
+  ]
+}
