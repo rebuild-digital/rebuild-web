@@ -444,8 +444,8 @@
 
   /* Paragraphs and text formatting */
   .rich-text p {
-    @apply mb-md text-lg;
-    line-height: 1.8;
+    @apply mb-md text-base lg:text-lg;
+    line-height: 1.7;
   }
 
   .rich-text li p {
@@ -491,7 +491,7 @@
 
   /* Links */
   .rich-text a {
-    @apply text-blue underline hover:text-blue-shade transition-fast;
+    @apply text-dark underline hover:text-blue-shade transition-fast;
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
   }
@@ -515,7 +515,7 @@
 
   /* Blockquotes */
   .rich-text blockquote {
-    @apply border-l-4 border-blue pl-md my-2xl bg-light;
+    @apply border-l-4 border-blue pl-md my-lg lg:my-2xl bg-light;
     quotes: "" " " "" "'" "'";
   }
 

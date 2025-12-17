@@ -1,8 +1,8 @@
 {
   "jobs": [
     {
-      "id": "example-position",
-      "title": "Example Position Title",
+      "id": "student-dec25",
+      "title": "Student Assistant",
       "description": "A brief description of the role and what we're looking for in a candidate.",
       "active": true
     }
