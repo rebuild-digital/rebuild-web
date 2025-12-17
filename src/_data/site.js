@@ -50,7 +50,7 @@ module.exports = {
     {
       name: "Changelog",
       url: "/changelog/",
-      clickable: false,
+      clickable: true,
     },
   ],
 };
