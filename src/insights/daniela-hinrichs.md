@@ -41,7 +41,7 @@ We had members blogging about how to behave on, as well as use, the platform, a 
 
 By 2006, the “Open Business Club” label felt too literal and, increasingly, misleading. The word “open” suggested data might be exposed, and the “club” sounded closed and parochial. The company needed a brand that could travel. After weeks of naming work, they landed on XING – a name that hinted at people “crossing paths”. In practical terms, the rebrand was a high-wire act: around 1.5m member profiles and some 42m peer-to-peer connections were migrated to the new identity without losing a single link.
 
-![A screenshot from the 2005 website, when openBC rebranded to XING.](/assets/images/openBC.jpg "When openBC became XING.")
+![A screenshot from the 2005 website, when openBC rebranded to XING.](/assets/images/open-BC-2.jpg "When openBC became XING.")
 
 The timing was deliberate. Just weeks later, on 7 December 2006, the company – by then officially XING – went public in Frankfurt, the first Web 2.0 company to list on a stock market anywhere in the world, and it did so as a profitable, subscription-led business rather than a speculative bet on future advertising. [The issue price of €30 per share implied a valuation of roughly €175 million and raised around €35.7 million, a striking vote of confidence in a category that barely existed a few years before.](https://www.searchenginejournal.com/linkedin-takes-on-xing-or-the-other-way-around/4328/)
 
