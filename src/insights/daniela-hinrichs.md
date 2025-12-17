@@ -9,7 +9,7 @@ featured_image: "/assets/images/daniela-3.jpg"
 published: false
 ---
 
-#### When Daniela Hinrichs talks about the early days of XING, she begins not with servers or funding rounds, but with people. When she teamed up with founder Lars Hinrichs in 2003 and he described something called the “Open Business Club”, a digital representation of the ‘six degrees of separation’ principle which would make the world’s business networks visible for the first time, it clicked instantly.
+#### When Daniela Hinrichs talks about the early days of XING, she begins not with servers or funding rounds, but with people. When she teamed up with founder Lars Hinrichs around 2003 he described the idea of an “Open Business Club”, inspired by Malcolm Gladwell’s The Tipping Point and its insights into social networks and connectors, and it clicked instantly.
 
 Back then, “social networking” was still largely unknown; in Europe, most people were still swapping business cards. Against that backdrop, the pair joined forces in August 2003. Lars brought the product instinct and serial–entrepreneur experience; Daniela, with a background in corporate communications, brought structure, and an instinct for how to build a brand around an idea rather than just launch a site.
 
@@ -19,7 +19,7 @@ Back then, “social networking” was still largely unknown; in Europe, most pe
 
 They had three months to get the first version out. On 1 November 2003, Open Business Club went live, invite-only, built by a tiny team in Hamburg; every morning the team would log in to check how many new members had arrived overnight. They celebrated the first thousand users, then ten thousand, then one hundred thousand, long before “hockey-stick growth” became a cliché. At a time when the dotcom crash had convinced many European investors that internet business models were a dead end, OpenBC’s subscription-based approach was quietly contrarian. Premium features cost roughly the price of a macchiato each month, and enough people were willing to pay that the company was profitable from very early on.
 
-“We had momentum – we made sure that we used this momentum,” Daniela recalls, “Lars believed in the power of technology and the web to both connect people and make money.” Why the focus on business users? Daniela explains it was based on pragmatism: “We knew that the Myspace kids would need a platform when they graduated to business life – and business life is a long life. And people with jobs have money!”
+“We had momentum – we made sure that we used this momentum,” Daniela recalls, “Lars believed in the power of technology and the web to both connect people and make business.” Why the focus on business users? Daniela explains it was based on pragmatism: “We knew that the Myspace kids would need a platform when they graduated to business life – and business life is a long life. And people with jobs have money!”
 
 ![Daniela Waschows - as she was named then - business card from openBC.](/assets/images/openBC_DH.jpg "The openBC business card.")
 
@@ -53,9 +53,9 @@ Daniela’s involvement ended when the founder’s decision to sell his stake in
 
 We wanted people to benefit from connections, to share knowledge, to be proud of their work and their achievements, to give them a space to benefit from social and economic networks, to build a focused, well-moderated platform for people with great intentions.
 
-It was a pioneering job, needing not just the state of the art technical solutions, but a strong user experience from a content and community point of view. We built that, which is why the company was, and still is, successful, and I am proud to have been a pre-seed investor and crucial part of what was a truly game-changing concept and business.”
+It was a pioneering job, needing not just the state of the art technical solutions, but a strong user experience from a content and community point of view. We built that, which is why the company was, and still is, successful, and I am proud to have been a seed investor and crucial part of what was a truly game-changing concept and business.”
 
-## Key Facts: XING (formerly openBC)
+### Key Facts: XING (formerly openBC)
 
 - **Founded**: August 2003 (Hamburg, Germany)
 - **Founders**: Lars Hinrichs (Founder/CEO), with Daniela Hinrichs as early executive and co-builder.

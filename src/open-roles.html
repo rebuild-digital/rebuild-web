@@ -1,10 +1,10 @@
 ---
 layout: layouts/base.njk
-title: Jobs
+title: Open roles
 description: Rebuild is a twelve-month sprint for European social platforms. We're always open for volunteers and people looking to contribute.
-permalink: /jobs/index.html
+permalink: /open-roles/index.html
 ---
-{% from "components/jobs.njk" import jobs %}
+{% from "components/jobs.njk" import jobs as jobsComponent %}
 
 <section class="lg:pt-xl pt-0 md:pb-2xl">
   <header class="mb-sm md:mb-xl text-center w-full">
@@ -12,4 +12,4 @@ permalink: /jobs/index.html
   </header>
 </section>
 
-{{ jobs("Current Opportunities", jobs.jobs) }}
+{{ jobsComponent("Open roles", jobs.jobs) }}

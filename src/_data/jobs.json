@@ -3,7 +3,13 @@
     {
       "id": "student-dec25",
       "title": "Student Assistant",
-      "description": "A brief description of the role and what we're looking for in a candidate.",
+      "description": "Sed eum voluptatum tempore dolores atque reprehenderit et aut voluptatem. Consectetur et at architecto adipisci modi illum maiores sequi quod dolore. Ut molestiae fugiat enim est.",
+      "active": true
+    },
+    {
+      "id": "student-dec25-2",
+      "title": "Student Assistant",
+      "description": "Sed eum voluptatum tempore dolores atque reprehenderit et aut voluptatem. Consectetur et at architecto adipisci modi illum maiores sequi quod dolore. Ut molestiae fugiat enim est.",
       "active": true
     }
   ]
