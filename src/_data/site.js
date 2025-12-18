@@ -43,6 +43,11 @@ module.exports = {
   // Second navigation
   second_navigation: [
     {
+      name: "Open positions",
+      url: "/open-positions/",
+      clickable: true,
+    },
+    {
       name: "Privacy",
       url: "/privacy/",
       clickable: true,
