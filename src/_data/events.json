@@ -3,7 +3,7 @@
     {
       "id": "rebuild-1",
       "title": "Rebuild 1, The beginning",
-      "shortTitle": "Rebuild 1",
+      "shortTitle": "Rebuild1",
       "startDate": "2026-03-01T09:00:00Z",
       "endDate": "2026-03-03T18:00:00Z",
       "location": "Copenhagen, Denmark",
@@ -17,7 +17,7 @@
         },
         {
           "headline": "Keynotes",
-          "description": "Focused perspectives from people shaping the field. Linda Liukas (Hello Ruby), Marko Ahtisaari (Dopplr), Florian Meissner (Eyeem), Steffen Fagerström Christensen (TwentyThree), Margrethe Vestager, Thomas Madsen-Mygdal. More to come."
+          "description": "Focused perspectives from people shaping the field. Linda Liukas (Hello Ruby), Marko Ahtisaari (Dopplr), Florian Meissner (Eyeem), Margrethe Vestager, Thomas Madsen-Mygdal. More to come."
         },
         {
           "headline": "Overcoming shared challenges",
@@ -36,8 +36,8 @@
     },
     {
       "id": "rebuild-2",
-      "title": "Rebuild 2, the boost",
-      "shortTitle": "Rebuild 2",
+      "title": "Rebuild2, the boost",
+      "shortTitle": "Rebuild2",
       "startDate": "2026-08-30T09:00:00Z",
       "endDate": "2026-09-01T18:00:00Z",
       "location": "Helsinki, Finland",
@@ -70,8 +70,8 @@
     },
     {
       "id": "rebuild-3",
-      "title": "Rebuild 3, The shift",
-      "shortTitle": "Rebuild 3",
+      "title": "Rebuild3, The shift",
+      "shortTitle": "Rebuild3",
       "startDate": "2026-12-13T09:00:00Z",
       "endDate": "2026-12-15T18:00:00Z",
       "location": "Paris, France",
