@@ -16,6 +16,23 @@ permalink: /changelog/index.html
 <div class="container mx-auto px-4">
 <div class="rich-text">
 
+#### v1.0.5 - December 18, 2025
+
+- added open positions page, incl. in footer
+- added student positions
+
+#### v1.0.4 - December 17, 2025
+
+- styling upgrades for insights on mobile
+- final edits to daniela story
+
+#### v1.0.3 - December 17, 2025
+
+- Added changelog
+- Removed demo pages
+- Update DN story
+- initial jobs page work
+
 #### v1.0.2 - December 16, 2025
 
 - individual subpages for all forms + improved language
