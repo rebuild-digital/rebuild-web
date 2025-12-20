@@ -9,9 +9,9 @@ featured_image: "/assets/images/margrethe.jpg"
 published: true
 ---
 
-#### For Margrethe Vestager, Rebuild began as a feeling that wouldn’t go away — that Europe needed to come back to social platforms designed with people in mind. “We are over platforms that are built only for the needs of owners or shareholders,” she says.
+#### For Margrethe Vestager, Rebuild began as a feeling that wouldn’t go away — that Europe needed to come back to social platforms designed with people in mind. “We are over platforms that are built only for the needs of owners or shareholders,” she says
 
-And one question — who else sees this? — pushed her into action. She started reaching out, knocking on doors, trying to find others who felt the same urgency and wanted to act upon it. “Then I met Thomas (Madsen-Mygdal red.), then some visionary founding donors came along, and then Ditte (Graa Wulff red.), then a team. And here we are. Rebuild is starting.”
+And one question — who else sees this? — pushed her into action. She started reaching out, knocking on doors, trying to find others who felt the same urgency and wanted to act upon it. “Then I met Thomas (Madsen-Mygdal red.), then Ditte (Graa Wulff red.), then a team and here we are. Rebuild is starting.”
 
 What she discovered early in the process surprised her. Across Europe, there were already many teams building social platforms or sharing ideas for new social platforms — thoughtful, innovative projects — but they were isolated.
 
