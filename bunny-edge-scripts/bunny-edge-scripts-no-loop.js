@@ -20,7 +20,7 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
 BunnySDK.net.http
 
   .servePullZone({
-    origin: "https://rebuild-staging.statichost.page", // ✅ Specify origin explicitly
+    origin: "https://rebuild.net", // ✅ Specify origin explicitly
   })
 
   .onOriginRequest(async (context) => {
@@ -112,8 +112,8 @@ async function handleFormSubmission(request, url, corsHeaders) {
           submission.data?.type === "gathering_invitation"
             ? "Gathering invitation request submitted successfully"
             : isPromotion
-              ? "Builder promotion submitted successfully"
-              : "Builder application submitted successfully";
+            ? "Builder promotion submitted successfully"
+            : "Builder application submitted successfully";
 
         return new Response(
           JSON.stringify({
@@ -175,8 +175,8 @@ async function handleFormSubmission(request, url, corsHeaders) {
       submission.data.type === "gathering_invitation"
         ? "Gathering invitation request submitted successfully"
         : isPromotion
-          ? "Builder promotion submitted successfully"
-          : "Builder application submitted successfully";
+        ? "Builder promotion submitted successfully"
+        : "Builder application submitted successfully";
 
     return new Response(
       JSON.stringify({
@@ -245,6 +245,8 @@ function parseFormData(formData, isPromotion) {
       builderWebsite: formData.get("builder_website"),
 
       whyPromote: formData.get("why_promote"),
+
+      newsletter: formData.get("newsletter_signup") === "on",
 
       yourName: formData.get("your_name") || "Anonymous",
 
@@ -380,6 +382,8 @@ function buildPromotionProperties(data) {
     Relationship: { rich_text: [{ text: { content: data.yourRelationship } }] },
 
     Status: { status: { name: "New" } },
+
+    Newsletter: { checkbox: data.newsletter },
 
     "Submitted At": { date: { start: data.submittedAt } },
   };
