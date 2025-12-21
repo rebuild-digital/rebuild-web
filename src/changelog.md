@@ -18,10 +18,10 @@ permalink: /changelog/index.html
 
 #### v0.9.6 - December 21, 2025
 
-- Loads of form simplifcations, both UX, copy and backend
-- Newsletter checkboxes now sign you up directly to our service (instead of manual imports)
-- Form styling consistency
-- Also
+- Newsletter checkboxes now sign you up directly to our service (instead of manual imports).
+- Loads of form simplifcations, both UX, copy and backend.
+- General form styling consistency.
+- Also, roled back the versions on the changelog to v0.9 ... it's beta, after all.
 
 #### v0.9.5 - December 18, 2025
 
