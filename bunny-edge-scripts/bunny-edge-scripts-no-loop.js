@@ -20,7 +20,7 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
 BunnySDK.net.http
 
   .servePullZone({
-    origin: "https://rebuild-staging.statichost.page", // ✅ Specify origin explicitly
+    origin: "https://rebuild.net", // ✅ Specify origin explicitly
   })
 
   .onOriginRequest(async (context) => {
@@ -112,8 +112,8 @@ async function handleFormSubmission(request, url, corsHeaders) {
           submission.data?.type === "gathering_invitation"
             ? "Gathering invitation request submitted successfully"
             : isPromotion
-              ? "Builder promotion submitted successfully"
-              : "Builder application submitted successfully";
+            ? "Suggestion submitted successfully, thank you!"
+            : "Your application was submitted successfully, thanks!";
 
         return new Response(
           JSON.stringify({
@@ -155,6 +155,32 @@ async function handleFormSubmission(request, url, corsHeaders) {
       );
     }
 
+    // If user opted into newsletter, sign them up to MailerLite FIRST
+    if (submission.data.newsletter) {
+      // Get email - different forms use different field names
+      const emailAddress = submission.data.email || submission.data.yourEmail;
+
+      if (emailAddress && emailAddress !== "Not provided") {
+        console.log(`Newsletter signup requested for: ${emailAddress}`);
+
+        const mailerLiteResult = await sendToMailerLite({
+          email: emailAddress,
+          firstName: submission.data.builderName || submission.data.name || submission.data.yourName || null,
+          lastName: null,
+          interest: null, // No interest field captured on these forms
+        });
+
+        if (mailerLiteResult.success) {
+          console.log(`Successfully added ${emailAddress} to MailerLite`);
+        } else {
+          // Log the error but don't fail the form submission
+          console.error(`Failed to add ${emailAddress} to MailerLite:`, mailerLiteResult.error);
+        }
+      } else {
+        console.log('Newsletter signup requested but no valid email provided');
+      }
+    }
+
     // Send to Notion
 
     const notionResponse = await sendToNotion(
@@ -175,8 +201,8 @@ async function handleFormSubmission(request, url, corsHeaders) {
       submission.data.type === "gathering_invitation"
         ? "Gathering invitation request submitted successfully"
         : isPromotion
-          ? "Builder promotion submitted successfully"
-          : "Builder application submitted successfully";
+        ? "Suggestion submitted successfully, thank you!"
+        : "Your application was submitted successfully, thanks!";
 
     return new Response(
       JSON.stringify({
@@ -246,6 +272,8 @@ function parseFormData(formData, isPromotion) {
 
       whyPromote: formData.get("why_promote"),
 
+      newsletter: formData.get("newsletter_signup") === "on",
+
       yourName: formData.get("your_name") || "Anonymous",
 
       yourEmail: formData.get("your_email") || "Not provided",
@@ -255,18 +283,19 @@ function parseFormData(formData, isPromotion) {
       submittedAt: new Date().toISOString(),
     };
 
-    if (!data.builderName) errors.push("Builder name is required");
+    if (!data.builderName) errors.push("The platform name is required.");
 
-    if (!data.builderWebsite) errors.push("Builder website is required");
+    if (!data.builderWebsite) errors.push("The platform website is required.");
 
-    if (!data.whyPromote) errors.push("Reason for promotion is required");
+    if (!data.whyPromote)
+      errors.push(
+        "Your motivation for suggesting the platform is required, because it is important to us."
+      );
 
     return { isValid: errors.length === 0, errors, data };
   } else {
     const data = {
       type: "application",
-
-      applicationType: formData.get("application_type") || "standard",
 
       builderName: formData.get("builder_name"),
 
@@ -287,10 +316,6 @@ function parseFormData(formData, isPromotion) {
       stage: formData.get("stage"),
 
       teamSize: formData.get("team_size") || "Not specified",
-
-      whyFeatured: formData.get("why_featured") || "",
-
-      socialMedia: formData.get("social_media") || "",
 
       consent: formData.get("consent") === "on",
 
@@ -381,22 +406,17 @@ function buildPromotionProperties(data) {
 
     Status: { status: { name: "New" } },
 
+    Newsletter: { checkbox: data.newsletter },
+
     "Submitted At": { date: { start: data.submittedAt } },
   };
 }
 
 function buildApplicationProperties(data) {
-  const properties = {
+  return {
     Name: { title: [{ text: { content: data.builderName } }] },
 
-    Type: {
-      select: {
-        name:
-          data.applicationType === "featured"
-            ? "Featured Application"
-            : "Standard Application",
-      },
-    },
+    Type: { select: { name: "Application" } },
 
     Email: { email: data.email },
 
@@ -422,18 +442,6 @@ function buildApplicationProperties(data) {
 
     "Submitted At": { date: { start: data.submittedAt } },
   };
-
-  if (data.whyFeatured) {
-    properties["Why Featured"] = {
-      rich_text: [{ text: { content: data.whyFeatured } }],
-    };
-  }
-
-  if (data.socialMedia) {
-    properties["Social Media"] = { url: data.socialMedia };
-  }
-
-  return properties;
 }
 
 function buildGatheringInvitationProperties(data) {

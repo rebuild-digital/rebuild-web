@@ -20,10 +20,16 @@ This guide walks you through deploying and testing the MailerLite newsletter int
 - ✅ 5-second deduplication window to prevent rapid duplicate submissions
 - ✅ Proper error handling and validation
 - ✅ Environment variables configured (`MAILERLITE_API_KEY`, `MAILERLITE_GROUP_ID`)
+- ✅ **Newsletter checkbox on all forms** now signs up users directly to MailerLite
+  - Builder Application Form: Signs up users (no interest field, as it's not captured on this form)
+  - Builder Promotion Form: Signs up users (no interest field, as it's not captured on this form)
+  - Gathering Invitation Form: Signs up users (no interest field, as it's not captured on this form)
+  - Newsletter checkbox still saved to Notion for record-keeping
+  - Only the dedicated newsletter form captures and sets the interest field
 
 ### Files Modified
 - `bunny-edge-scripts/newsletter-handler.js` - Main MailerLite integration
-- `bunny-edge-scripts/bunny-edge-scripts-no-loop.js` - Notion script with deduplication
+- `bunny-edge-scripts/bunny-edge-scripts-no-loop.js` - Combined Notion + MailerLite handler
 - `src/_includes/components/footer.njk` - Footer newsletter form
 - `src/_includes/components/forms/newsletter-form.njk` - Newsletter component
 - `src/scripts/form-handler.js` - Global form handler
@@ -42,7 +48,7 @@ This guide walks you through deploying and testing the MailerLite newsletter int
    - Go to **Subscribers** → **Fields**
    - Click **Create Field**
    - Field name: `interest`
-   - Field type: **Text** (it will receive values like "entrepreneur", "investor", etc.)
+   - Field type: **Text** (it will receive values like "entrepreneur", "investor", "platform_builder", "platform_promoter", "gathering_participant", etc.)
    - Click **Save**
 5. *Optional:* Get a Group ID if you want subscribers in a specific group:
    - Go to **Subscribers** → **Groups**

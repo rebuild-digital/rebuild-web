@@ -62,7 +62,7 @@
             {% if field.required %}required{% endif %}
             class="mt-1 h-5 w-5 border-2 border-dark focus:ring-2 focus:ring-blue {{ field.class }}"
           >
-            <label for="{{ field.id | default(field.name) }}" class="text-dark">
+            <label for="{{ field.id | default(field.name) }}" class="text-dark text-sm">
               {{ field.label }}
               {% if field.required %}
                 <span class="text-red">*</span>{% endif %}
@@ -158,16 +158,16 @@
       {% set baseClasses = "inline-block text-center no-underline font-bold border-2 border-dark cursor-pointer transition-all duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue focus-visible:outline-offset-2" %}
 
       {% if submitBtnVariant == 'primary' %}
-        {% set variantClasses = "bg-blue text-light hover:bg-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A]" %}
+        {% set variantClasses = "bg-darker text-light hover:bg-dark" %}
       {% elif submitBtnVariant == 'secondary' %}
-        {% set variantClasses = "bg-red text-light hover:bg-red-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A]" %}
+        {% set variantClasses = "bg-light text-dark hover:bg-lighter" %}
       {% elif submitBtnVariant == 'outline' %}
         {% set variantClasses = "bg-transparent text-dark hover:bg-dark hover:text-light" %}
       {% endif %}
 
       <button
         type="submit"
-        class="{{ baseClasses }} {{ variantClasses }} px-md py-sm text-base"
+        class="{{ baseClasses }} {{ variantClasses }} px-md py-sm  w-full md:w-auto text-base"
       >
         {{ submitBtnText }}
       </button>
@@ -175,7 +175,7 @@
 
     {# Status messages #}
     <div class="form-status my-md">
-      <div id="{{ formId }}-success" class="hidden bg-green border-2 border-dark p-md">
+      <div id="{{ formId }}-success" class="hidden bg-green -translate-y-md border-2 border-dark p-md">
         <p class="text-dark font-semibold">{{ successMessage | default('Thank you! Your submission has been received.') }}</p>
       </div>
       <div id="{{ formId }}-error" class="hidden bg-red text-light border-2 border-dark p-md">

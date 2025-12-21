@@ -10,27 +10,23 @@
     type: 'text',
     name: 'name',
     label: 'Name',
-    placeholder: 'Your full name',
     required: true
   }, {
     type: 'email',
     name: 'email',
     label: 'Email',
-    placeholder: 'your@email.com',
     required: true
   }, {
     type: 'url',
     name: 'platform_link',
     label: 'Link to your platform or profile page',
-    placeholder: 'https://example.com',
     required: true,
-    helpText: 'Share a link to your platform, LinkedIn, or portfolio'
+    helpText: 'Share a link to your platform, LinkedIn, or portfolio.'
   }, {
     type: 'select',
     name: 'country',
-    label: 'Which country are you building from?',
+    label: 'Which country are you from?',
     required: true,
-    placeholder: 'Select your country',
     options: [
       'Albania',
       'Andorra',
@@ -88,10 +84,9 @@
     type: 'textarea',
     name: 'contribution',
     label: 'What would you like to contribute with?',
-    placeholder: 'Share your ideas, expertise, or resources you can bring to the gathering...',
     required: true,
-    rows: 5,
-    helpText: ''
+    rows: 4,
+    helpText: 'Share your ideas, expertise, or resources you can bring to the gathering...'
   }, {
     type: 'checkbox',
     name: 'consent',
@@ -100,7 +95,7 @@
   }, {
     type: 'checkbox',
     name: 'newsletter',
-    label: 'I would like to receive updates from Rebuild (optional)',
+    label: 'I would like to receive newsletter updates from Rebuild (optional)',
     required: false
   }, {
     type: 'hidden',
@@ -114,7 +109,7 @@
 {% set method = 'POST' %}
 {% set title = 'Request an invitation to the first gathering' %}
 {% set description = 'Show interest in joining Rebuild 1. Share your details and tell us what you would like to contribute.' %}
-{% set submitText = 'Request Invitation' %}
+{% set submitText = 'Submit request' %}
 {% set submitVariant = 'primary' %}
 {% set fields = gatheringInvitationFields %}
 {% set successMessage = 'Thank you for your interest! We will review your request and get back to you soon.' %}
