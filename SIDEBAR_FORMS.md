@@ -57,30 +57,31 @@ window.closeFormSidebar();
 ```code
 src/
 ├── _includes/
-│   ├── components/
-│   │   └── form-sidebar.njk          # Main sidebar component
-│   └── forms/
-│       ├── builder-promo-sidebar.njk        # Form templates
-│       ├── builder-application-sidebar.njk
-│       └── newsletter-sidebar.njk
+│   └── components/
+│       ├── form-sidebar.njk                  # Main sidebar component
+│       └── forms/
+│           ├── builder-promo-form.njk        # Form components
+│           ├── builder-application-form.njk
+│           ├── newsletter-form.njk
+│           └── gathering-invitation-form.njk
 ├── forms/
-│   ├── builder-promo.html            # Rendered HTML endpoints
+│   ├── builder-promo.html                    # Rendered HTML endpoints
 │   ├── builder-application.html
-│   └── newsletter.html
+│   ├── newsletter.html
+│   └── gathering-invitation.html
 └── scripts/
-    └── form-triggers.js              # Click handler setup
+    └── form-triggers.js                      # Click handler setup
 ```
 
 ## Adding New Forms
 
-1. **Create form template** in `src/_includes/forms/your-form-sidebar.njk`:
+1. **Create form component** in `src/_includes/components/forms/your-form.njk`:
 
 ```njk
-<div class="form-sidebar-content">
-  <h2 class="text-3xl mb-md">Your Form Title</h2>
-  <p class="text-dark mb-lg">Description</p>
-  {% include "components/your-actual-form.njk" %}
-</div>
+{# Your actual form HTML #}
+<form action="..." method="POST">
+  <!-- form fields -->
+</form>
 ```
 
 2. **Create HTML endpoint** in `src/forms/your-form.html`:
@@ -90,7 +91,11 @@ src/
 permalink: /forms/your-form.html
 layout: false
 ---
-{% include "forms/your-form-sidebar.njk" %}
+<div class="form-sidebar-content">
+  <h2 class="text-3xl mb-md">Your Form Title</h2>
+  <p class="text-dark mb-lg">Description</p>
+  {% include "components/forms/your-form.njk" %}
+</div>
 ```
 
 3. **Register in form-triggers.js**:
