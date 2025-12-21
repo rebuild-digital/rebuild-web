@@ -2,202 +2,18 @@
   Builder Application Form
   Usage: {% include "components/builder-application-form.njk" %}
 
-  This form allows builders to apply to become part of the Rebuild directory
-  and potentially be featured. Submissions are sent to a Notion database
-  via Bunny Edge Script (same database as promotions).
+  This form allows builders to apply to become part of the Rebuild directory.
+  Submissions are sent to a Notion database via Bunny Edge Script.
 
   Parameters:
   - title: Form title (optional, default provided)
   - description: Form description (optional, default provided)
-  - featured: Boolean - if true, customizes for featured builder applications (default: false)
 #}
 
-{% set isFeatured = featured | default(false) %}
+{% set formTitle = title | default('Join the directory') %}
+{% set formDescription = description | default('Are you building a social platform in Europe? Join our directory.') %}
 
-{% if isFeatured %}
-  {% set formTitle = title | default('Are you building a social platform in Europe? Join our directory.') %}
-  {% set formDescription = description | default('Featured builders are highlighted in our directory and communications. Tell us about your work rebuilding social infrastructure in Europe.') %}
-  {% set applicationType = 'featured' %}
-{% else %}
-  {% set formTitle = title | default('Join the directory') %}
-  {% set formDescription = description | default('Are you building a social platform in Europe? Join our directory.') %}
-  {% set applicationType = 'standard' %}
-{% endif %}
-
-{% if isFeatured %}
-  {# Fields for featured application #}
-  {% set builderApplicationFields = [
-    {
-      type: 'text',
-      name: 'builder_name',
-      label: 'Your name',
-      placeholder: 'Your name',
-      required: true
-    }, {
-      type: 'email',
-      name: 'email',
-      label: 'Email',
-      placeholder: 'your@email.com',
-      required: true
-    }, {
-      type: 'tel',
-      name: 'phone',
-      label: 'Phone Number',
-      placeholder: 'Phone number',
-      required: false,
-      helpText: 'Optional: In case we need to reach you'
-    }, {
-      type: 'url',
-      name: 'website',
-      label: 'Website or LinkedIn',
-      placeholder: 'Link to your platform',
-      required: true,
-      helpText: 'Where can people learn more about your work?'
-    }, {
-      type: 'select',
-      name: 'category',
-      label: 'Primary category',
-      required: true,
-      options: [
-        'Bundled',
-        'Community',
-        'Creator platform',
-        'Dating',
-        'Events',
-        'Forum',
-        'Groups',
-        'Location',
-        'Social marketplace',
-        'Messaging',
-        'Microblogging',
-        'Networking',
-        'Photo sharing',
-        'Resource sharing',
-        'Video sharing',
-        'Other'
-      ]
-    }, {
-      type: 'select',
-      name: 'location',
-      label: 'Primary Location',
-      required: true,
-      placeholder: 'Select your country',
-      options: [
-        'Albania',
-        'Andorra',
-        'Armenia',
-        'Austria',
-        'Azerbaijan',
-        'Belarus',
-        'Belgium',
-        'Bosnia and Herzegovina',
-        'Bulgaria',
-        'Croatia',
-        'Cyprus',
-        'Czech Republic',
-        'Denmark',
-        'Estonia',
-        'Finland',
-        'France',
-        'Georgia',
-        'Germany',
-        'Greece',
-        'Hungary',
-        'Iceland',
-        'Ireland',
-        'Italy',
-        'Kazakhstan',
-        'Kosovo',
-        'Latvia',
-        'Liechtenstein',
-        'Lithuania',
-        'Luxembourg',
-        'Malta',
-        'Moldova',
-        'Monaco',
-        'Montenegro',
-        'Netherlands',
-        'North Macedonia',
-        'Norway',
-        'Poland',
-        'Portugal',
-        'Romania',
-        'Russia',
-        'San Marino',
-        'Serbia',
-        'Slovakia',
-        'Slovenia',
-        'Spain',
-        'Sweden',
-        'Switzerland',
-        'Türkiye',
-        'Ukraine',
-        'United Kingdom',
-        'Vatican City'
-      ]
-    }, {
-      type: 'textarea',
-      name: 'description',
-      label: 'What are you building?',
-      placeholder: 'Describe your platform',
-      required: true,
-      rows: 6,
-      helpText: ''
-    }, {
-      type: 'textarea',
-      name: 'impact',
-      label: 'How far are you in your journey?',
-      placeholder: 'Share metrics, user numbers, countries you are operating in...',
-      required: true,
-      rows: 4,
-      helpText: 'Help us understand the reach and effectiveness of your work'
-    }, {
-      type: 'select',
-      name: 'stage',
-      label: 'Project Stage',
-      required: true,
-      options: ['Idea', 'Alpha', 'Beta', 'Growth']
-    }, {
-      type: 'text',
-      name: 'team_size',
-      label: 'Team Size',
-      placeholder: 'e.g., 5 people, 20 volunteers, just me',
-      required: false,
-      helpText: 'Approximate number of people involved'
-    }, {
-      type: 'textarea',
-      name: 'why_featured',
-      label: 'Why should you be featured?',
-      placeholder: 'What makes your work unique? What would you like to share with the Rebuild community?',
-      required: true,
-      rows: 4,
-      helpText: 'Featured builders are highlighted in our communications and events'
-    }, {
-      type: 'url',
-      name: 'social_media',
-      label: 'Social Media Profile',
-      placeholder: 'https://twitter.com/yourprofile or https://linkedin.com/in/yourprofile',
-      required: false,
-      helpText: 'Optional: Your most active social media presence'
-    }, {
-      type: 'checkbox',
-      name: 'consent',
-      label: 'I agree to be included in the Rebuild directory and understand that my information will be shared publicly.',
-      required: true
-    }, {
-      type: 'checkbox',
-      name: 'newsletter',
-      label: 'I would like to receive updates from Rebuild (optional)',
-      required: false
-    }, {
-      type: 'hidden',
-      name: 'application_type',
-      value: 'featured'
-    }
-  ] %}
-{% else %}
-  {# Fields for standard application #}
-  {% set builderApplicationFields = [
+{% set builderApplicationFields = [
     {
       type: 'text',
       name: 'builder_name',
@@ -345,13 +161,8 @@
       name: 'newsletter',
       label: 'I would like to receive updates from Rebuild (optional)',
       required: false
-    }, {
-      type: 'hidden',
-      name: 'application_type',
-      value: 'standard'
     }
   ] %}
-{% endif %}
 
 {% set formId = 'builder-application-form' %}
 {% set action = site.apiUrl + '/api/builder-application' %}

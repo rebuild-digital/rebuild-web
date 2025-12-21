@@ -268,8 +268,6 @@ function parseFormData(formData, isPromotion) {
     const data = {
       type: "application",
 
-      applicationType: formData.get("application_type") || "standard",
-
       builderName: formData.get("builder_name"),
 
       email: formData.get("email"),
@@ -289,10 +287,6 @@ function parseFormData(formData, isPromotion) {
       stage: formData.get("stage"),
 
       teamSize: formData.get("team_size") || "Not specified",
-
-      whyFeatured: formData.get("why_featured") || "",
-
-      socialMedia: formData.get("social_media") || "",
 
       consent: formData.get("consent") === "on",
 
@@ -390,17 +384,10 @@ function buildPromotionProperties(data) {
 }
 
 function buildApplicationProperties(data) {
-  const properties = {
+  return {
     Name: { title: [{ text: { content: data.builderName } }] },
 
-    Type: {
-      select: {
-        name:
-          data.applicationType === "featured"
-            ? "Featured Application"
-            : "Standard Application",
-      },
-    },
+    Type: { select: { name: "Application" } },
 
     Email: { email: data.email },
 
@@ -426,18 +413,6 @@ function buildApplicationProperties(data) {
 
     "Submitted At": { date: { start: data.submittedAt } },
   };
-
-  if (data.whyFeatured) {
-    properties["Why Featured"] = {
-      rich_text: [{ text: { content: data.whyFeatured } }],
-    };
-  }
-
-  if (data.socialMedia) {
-    properties["Social Media"] = { url: data.socialMedia };
-  }
-
-  return properties;
 }
 
 function buildGatheringInvitationProperties(data) {
