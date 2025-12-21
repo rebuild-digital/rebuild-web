@@ -17,27 +17,23 @@
   {
     type: 'text',
     name: 'builder_name',
-    label: 'Your name',
-    placeholder: 'Jane Doe / Acme Rebuilders Co.',
+    label: 'Platform name',
     required: true
   }, {
     type: 'email',
     name: 'email',
     label: 'Email',
-    placeholder: 'your@email.com',
     required: true
   }, {
     type: 'tel',
     name: 'phone',
-    label: 'Phone Number',
-    placeholder: 'Phone number',
+    label: 'Phone number',
     required: false,
-    helpText: 'Optional: In case we need to reach you'
+    helpText: 'Optional: In case we need to reach you.'
   }, {
     type: 'url',
     name: 'website',
     label: 'Website or LinkedIn',
-    placeholder: 'Link to your platform',
     required: true,
     helpText: 'Where can people learn more about your work?'
   }, {
@@ -62,13 +58,13 @@
       'Resource sharing',
       'Video sharing',
       'Other'
-    ]
+    ],
+    helpText: 'Pick the one you believe fit the most. If in doubt, pick "Other"'
   }, {
     type: 'select',
     name: 'location',
-    label: 'Primary Location',
+    label: 'Primary location',
     required: true,
-    placeholder: 'Select your country',
     options: [
       'Albania',
       'Andorra',
@@ -126,31 +122,31 @@
     type: 'textarea',
     name: 'description',
     label: 'What are you building?',
-    placeholder: 'Describe your platform',
+    placeholder: 'Describe your platform in its essense',
     required: true,
-    rows: 6,
-    helpText: ''
+    rows: 6
   }, {
     type: 'textarea',
     name: 'impact',
     label: 'How far are you in your journey?',
-    placeholder: 'Share metrics, user numbers, countries you are operating in...',
+    placeholder: 'Growth metrics, user numbers, countries you are operating in...',
     required: true,
-    rows: 4,
-    helpText: 'Help us understand the reach and effectiveness of your work'
+    rows: 4
   }, {
     type: 'select',
     name: 'stage',
     label: 'Project Stage',
     required: true,
-    options: ['Idea', 'Alpha', 'Beta', 'Growth']
+    options: [
+      'Idea', 'Alpha', 'Beta', 'Growth'
+    ],
+    helpText: 'Pick the one you believe fit the most.'
   }, {
     type: 'text',
     name: 'team_size',
     label: 'Team Size',
-    placeholder: 'e.g., 5 people, 20 volunteers, just me',
-    required: false,
-    helpText: 'Approximate number of people involved'
+    placeholder: '',
+    required: false
   }, {
     type: 'checkbox',
     name: 'consent',
@@ -159,7 +155,7 @@
   }, {
     type: 'checkbox',
     name: 'newsletter',
-    label: 'I would like to receive updates from Rebuild (optional)',
+    label: 'I would like to receive newsletter updates from Rebuild (optional)',
     required: false
   }
 ] %}
