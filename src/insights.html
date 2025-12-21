@@ -1,7 +1,7 @@
 ---
 layout: layouts/insights.njk
 title: Insights
-description: Our growing library of insights. Stories from early entrepreneurs, current builders and insights from the Rebuild journey.
+description: Our growing library of insights. Stories from early founders, current entrepreneurs, and insights from the Rebuild journey.
 permalink: /insights/index.html
 ---
 
@@ -54,7 +54,7 @@ permalink: /insights/index.html
       {% set featured = post.data.featured %}
       {% set date = post.data.date %}
       {% set author = post.data.author %}
-      {% set published = post.data.published if post.data.published != undefined else
+      {% set published = post.data.published if post.data.published != undefined else 
         true %}
 
       {# Wrap card in a div with data attributes #}

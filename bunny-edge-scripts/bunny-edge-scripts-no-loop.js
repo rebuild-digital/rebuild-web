@@ -112,8 +112,8 @@ async function handleFormSubmission(request, url, corsHeaders) {
           submission.data?.type === "gathering_invitation"
             ? "Gathering invitation request submitted successfully"
             : isPromotion
-            ? "Builder promotion submitted successfully"
-            : "Builder application submitted successfully";
+            ? "Suggestion submitted successfully, thank you!"
+            : "Your application was submitted successfully, thanks!";
 
         return new Response(
           JSON.stringify({
@@ -175,8 +175,8 @@ async function handleFormSubmission(request, url, corsHeaders) {
       submission.data.type === "gathering_invitation"
         ? "Gathering invitation request submitted successfully"
         : isPromotion
-        ? "Builder promotion submitted successfully"
-        : "Builder application submitted successfully";
+        ? "Suggestion submitted successfully, thank you!"
+        : "Your application was submitted successfully, thanks!";
 
     return new Response(
       JSON.stringify({
@@ -257,11 +257,14 @@ function parseFormData(formData, isPromotion) {
       submittedAt: new Date().toISOString(),
     };
 
-    if (!data.builderName) errors.push("Builder name is required");
+    if (!data.builderName) errors.push("The platform name is required.");
 
-    if (!data.builderWebsite) errors.push("Builder website is required");
+    if (!data.builderWebsite) errors.push("The platform website is required.");
 
-    if (!data.whyPromote) errors.push("Reason for promotion is required");
+    if (!data.whyPromote)
+      errors.push(
+        "Your motivation for suggesting the platform is required, because it is important to us."
+      );
 
     return { isValid: errors.length === 0, errors, data };
   } else {
