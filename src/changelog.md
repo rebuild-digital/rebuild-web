@@ -16,24 +16,31 @@ permalink: /changelog/index.html
 <div class="container mx-auto px-4">
 <div class="rich-text">
 
-#### v1.0.5 - December 18, 2025
+#### v0.9.6 - December 21, 2025
+
+- Loads of form simplifcations, both UX, copy and backend
+- Newsletter checkboxes now sign you up directly to our service (instead of manual imports)
+- Form styling consistency
+- Also
+
+#### v0.9.5 - December 18, 2025
 
 - added open positions page, incl. in footer
 - added student positions
 
-#### v1.0.4 - December 17, 2025
+#### v0.9.4 - December 17, 2025
 
 - styling upgrades for insights on mobile
 - final edits to daniela story
 
-#### v1.0.3 - December 17, 2025
+#### v0.9.3 - December 17, 2025
 
 - Added changelog
 - Removed demo pages
 - Update DN story
 - initial jobs page work
 
-#### v1.0.2 - December 16, 2025
+#### v0.9.2 - December 16, 2025
 
 - individual subpages for all forms + improved language
 - remove featured property from posts
@@ -43,14 +50,14 @@ permalink: /changelog/index.html
 - typos on homepage and journey.
 - Also MV was listed twice as a Keynote speaker!
 
-#### v1.0.1 - December 16, 2025
+#### v0.9.1 - December 16, 2025
 
 - Lots of small fixes
 - Updated taxonomy to say "social marketplaces", consistency is king
 - no more authors in the insights feed for now
 - ... but image credits on /about images
 
-#### v1.0.0 - December 15, 2025
+#### v0.9.0 - December 15, 2025
 
 - Initial launch 🎉 What a day.
 

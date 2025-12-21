@@ -155,6 +155,32 @@ async function handleFormSubmission(request, url, corsHeaders) {
       );
     }
 
+    // If user opted into newsletter, sign them up to MailerLite FIRST
+    if (submission.data.newsletter) {
+      // Get email - different forms use different field names
+      const emailAddress = submission.data.email || submission.data.yourEmail;
+
+      if (emailAddress && emailAddress !== "Not provided") {
+        console.log(`Newsletter signup requested for: ${emailAddress}`);
+
+        const mailerLiteResult = await sendToMailerLite({
+          email: emailAddress,
+          firstName: submission.data.builderName || submission.data.name || submission.data.yourName || null,
+          lastName: null,
+          interest: null, // No interest field captured on these forms
+        });
+
+        if (mailerLiteResult.success) {
+          console.log(`Successfully added ${emailAddress} to MailerLite`);
+        } else {
+          // Log the error but don't fail the form submission
+          console.error(`Failed to add ${emailAddress} to MailerLite:`, mailerLiteResult.error);
+        }
+      } else {
+        console.log('Newsletter signup requested but no valid email provided');
+      }
+    }
+
     // Send to Notion
 
     const notionResponse = await sendToNotion(
