@@ -1,6 +1,6 @@
 # rebuild-web
 
-A hybrid static website built with Eleventy featuring custom pages, journal content, Notion-powered builders directory, and dynamic forms with MailerLite integration.
+A production Eleventy static site with Nunjucks components, TailwindCSS styling, Bunny CDN Edge Scripts for forms, MailerLite integration, and Notion API for build-time data.
 
 ## Tech Stack
 
@@ -51,7 +51,7 @@ A hybrid static website built with Eleventy featuring custom pages, journal cont
 │   ├── styles/               # TailwindCSS styles
 │   ├── scripts/              # Client-side JavaScript
 │   └── public/               # Static assets
-├── bunny-edge-scripts/       # Bunny CDN Edge Scripts
+├── src/scripts/              # Client-side JavaScript & edge scripts
 ├── .cache/                   # Build cache (gitignored)
 └── dist/                     # Build output (gitignored)
 ```
@@ -222,15 +222,9 @@ Carousel slides are managed via `src/_data/carousel.json`:
 
 ## Components
 
-### Forms
+### Forms System
 
-The site uses a flexible form system with multiple components:
-
-**Newsletter Form** (inline or standard):
-
-```njk
-{% include "components/forms/newsletter-form.njk" %}
-```
+The site uses a sidebar form system with MailerLite integration:
 
 **Sidebar Forms** (triggered by data attributes):
 
@@ -238,13 +232,74 @@ The site uses a flexible form system with multiple components:
 <button data-form="builder-promo">Nominate a Builder</button>
 <button data-form="builder-application">Apply Now</button>
 <button data-form="newsletter">Subscribe</button>
+<button data-form="gathering-invitation">Request Invitation</button>
 ```
 
-Available forms:
-- `builder-promo` - Nominate a builder
-- `builder-application` - Apply to join directory
-- `newsletter` - Newsletter signup
-- `gathering-invitation` - Request gathering invitation
+**Newsletter Form** (inline or standard):
+
+```njk
+{# Standard layout #}
+{% include "components/forms/newsletter-form.njk" %}
+
+{# Inline layout for footer/sidebar #}
+{% include "components/forms/newsletter-form.njk" with { inline: true } %}
+```
+
+**Custom Forms** using base component:
+
+```njk
+{% set myFormFields = [
+  {
+    type: 'text',
+    name: 'full_name',
+    label: 'Full Name',
+    required: true
+  },
+  {
+    type: 'email',
+    name: 'email',
+    label: 'Email Address',
+    required: true
+  },
+  {
+    type: 'textarea',
+    name: 'message',
+    label: 'Message',
+    rows: 5,
+    required: true
+  }
+] %}
+
+{% include "components/form.njk" with {
+  formId: 'contact-form',
+  action: '/api/contact',
+  title: 'Get in Touch',
+  submitText: 'Send Message',
+  fields: myFormFields
+} %}
+```
+
+**Supported Field Types:**
+
+- `text`, `email`, `tel`, `url` - Input fields
+- `textarea` - Multi-line text
+- `select` - Dropdown
+- `radio` - Radio buttons
+- `checkbox` - Checkboxes
+
+**Sidebar Form Behavior:**
+
+- Desktop (≥768px): Slides in from right as 500-600px sidebar, page content shifts left
+- Mobile (<768px): Full-screen modal with dark overlay
+- Close with X button, ESC key, or overlay click
+- JavaScript API: `window.loadForm('form-name')`, `window.closeFormSidebar()`
+
+**Form Processing Flow:**
+
+1. Client-side validation
+2. Submit to Bunny Edge Script
+3. Edge Script validates and routes to MailerLite (newsletters) or Notion (form submissions)
+4. Return success/error to client
 
 ### Carousel
 
@@ -254,7 +309,30 @@ Include the carousel component:
 {% include "components/carousel.njk" %}
 ```
 
-Customize slides via `src/_data/carousel.json`.
+Customize slides via [src/_data/carousel.json](src/_data/carousel.json):
+
+```json
+{
+  "slides": [
+    {
+      "id": "slide-1",
+      "headline": "Your Headline Here",
+      "subheader": "Your descriptive text here",
+      "image": "/assets/images/your-image.jpg",
+      "ctaText": "Button Text",
+      "ctaLink": "/your-link/",
+      "bgColor": "#e8e8e8"
+    }
+  ]
+}
+```
+
+**Features:**
+
+- Auto-rotation every 5 seconds
+- Navigation dots, prev/next arrows, keyboard arrows, touch/swipe
+- Pause on hover and when page hidden
+- Fully accessible with ARIA labels
 
 ### Image Credits
 
@@ -267,6 +345,14 @@ Add credits to images:
   <img src="/assets/images/photo.jpg" alt="Description">
   {{ imageCredit("Photo by John Doe") }}
 </div>
+```
+
+Position in any corner:
+
+```njk
+{{ imageCredit("Photo by John Doe", position="bottom-left") }}
+{{ imageCredit("Photo by John Doe", position="top-right") }}
+{{ imageCredit("Photo by John Doe", position="top-left") }}
 ```
 
 ## Architecture
@@ -292,33 +378,73 @@ src/_includes/components/
 ### Data Fetching
 
 **Build-time data** (Notion builders):
+
 - Fetched during build via `src/_data/builders.js`
 - Cached locally in `.cache/builders.json`
 - Falls back to cache if Notion API fails
 
 **Static data** (events, carousel):
+
 - Stored in `src/_data/*.json`
 - Directly accessible in templates
 
-### Form Handling
+### Form Handling & Bunny Edge Scripts
 
-Forms submit to Bunny Edge Scripts which:
-1. Validate and sanitize input
-2. Send data to MailerLite (newsletter signups)
-3. Send data to Notion (form submissions)
-4. Return success/error responses
+Forms submit to Bunny Edge Scripts which handle backend processing:
 
-See `bunny-edge-scripts/` directory for Edge Script implementations.
+**Edge Script (Combined Handler):**
+
+- Located: `src/scripts/edge-script.js`
+- Handles all form endpoints:
+  - `/api/newsletter-signup` → MailerLite
+  - `/api/builder-application` → Notion
+  - `/api/builder-promotion` → Notion
+  - `/api/gathering-invitation` → Notion
+- Features:
+  - MailerLite API v2 integration for newsletter signups
+  - Notion API integration for form submissions
+  - 5-second deduplication window for rapid submissions
+  - Maps interest field to MailerLite custom field
+  - Proper error handling and validation
+  - Newsletter checkbox on all forms signs up users directly to MailerLite
+  - Uses Bunny SDK with middleware pattern (prevents infinite loops)
+
+**Required Environment Variables:**
+
+```bash
+MAILERLITE_API_KEY=eyJxxxxxxxxxxxxx
+MAILERLITE_GROUP_ID=12345  # Optional
+NOTION_TOKEN=secret_xxxxxxxxxxxxx
+NOTION_BUILDERS_DB_ID=xxxxxxxx
+```
+
+**Deployment Steps:**
+
+1. Update origin URL in edge script to match your domain
+2. Log into Bunny CDN Dashboard → Pull Zones → Edge Scripts
+3. Create new Edge Script as Middleware
+4. Copy script contents from `src/scripts/edge-script.js`
+5. Add environment variables in Edge Scripts dashboard
+6. Enable script and save changes
+7. Update CORS headers for production domain
+
+**MailerLite Setup:**
+
+1. Get API key from <https://dashboard.mailerlite.com/integrations/api>
+2. Create custom field named `interest` (Text type) in MailerLite
+3. Optionally get Group ID from URL: `dashboard.mailerlite.com/groups/{GROUP_ID}/subscribers`
 
 ### SEO & Meta
 
 Every page includes:
+
 - Unique `<title>` tag
 - Meta description
 - Open Graph tags
 - Twitter Card tags
 
 Site-wide features:
+
 - Sitemap at `/sitemap.xml`
 - RSS feed at `/feed.xml`
 - Custom `robots.txt`
@@ -336,6 +462,7 @@ The project deploys automatically via StaticHost.eu:
 ### Build Configuration
 
 StaticHost.eu settings:
+
 - **Build command**: `npm run build`
 - **Output directory**: `dist`
 - **Node version**: 18.x or 20.x
@@ -343,6 +470,7 @@ StaticHost.eu settings:
 ### Environment Variables
 
 Configure in StaticHost.eu dashboard:
+
 - All `NOTION_*` variables
 - All `BUNNY_*` variables
 - All `MAILERLITE_*` variables
@@ -354,17 +482,18 @@ After deploying to StaticHost, configure Bunny Edge Scripts:
 
 1. Log into Bunny CDN dashboard
 2. Navigate to Pull Zones → Select your zone → Edge Scripts
-3. Deploy scripts from `bunny-edge-scripts/` directory
-4. Set environment variables for each script
-5. Enable scripts
+3. Deploy the edge script from `src/scripts/edge-script.js`
+4. Set environment variables (see list above)
+5. Enable the script
 
-See [NEWSLETTER_IMPLEMENTATION.md](NEWSLETTER_IMPLEMENTATION.md) for detailed Edge Script setup.
+See Edge Scripts configuration details above in "Form Handling & Bunny Edge Scripts".
 
 ## Performance
 
 ### Browser Support
 
 Target browsers (last 2 versions):
+
 - Chrome/Edge (Chromium)
 - Firefox
 - Safari (desktop & iOS)
@@ -373,6 +502,7 @@ Target browsers (last 2 versions):
 ### Performance Targets
 
 Lighthouse scores:
+
 - **Performance**: >90
 - **Accessibility**: >90
 - **Best Practices**: >90
@@ -400,6 +530,7 @@ Lighthouse scores:
 ### Commit Messages
 
 Follow conventional commits format:
+
 - `feat:` - New feature
 - `fix:` - Bug fix
 - `docs:` - Documentation changes
@@ -408,49 +539,194 @@ Follow conventional commits format:
 - `test:` - Adding tests
 - `chore:` - Maintenance tasks
 
+## Adding New Forms
+
+To add a new sidebar form:
+
+1. **Create form component** in `src/_includes/components/forms/your-form.njk`:
+
+   ```njk
+   <form action="/api/your-endpoint" method="POST">
+     <!-- form fields -->
+   </form>
+   ```
+
+2. **Create HTML endpoint** in `src/forms/your-form.html`:
+
+   ```njk
+   ---
+   permalink: /forms/your-form.html
+   layout: false
+   ---
+   <div class="form-sidebar-content">
+     <h2 class="text-3xl mb-md">Your Form Title</h2>
+     <p class="text-dark mb-lg">Description</p>
+     {% include "components/forms/your-form.njk" %}
+   </div>
+   ```
+
+3. **Register in** [src/scripts/form-triggers.js](src/scripts/form-triggers.js):
+
+   ```javascript
+   const formUrls = {
+     'builder-promo': '/forms/builder-promo.html',
+     'builder-application': '/forms/builder-application.html',
+     'newsletter': '/forms/newsletter.html',
+     'your-form': '/forms/your-form.html'  // Add this
+   };
+   ```
+
+4. **Use it in your pages**:
+
+   ```html
+   <button data-form="your-form">Open Your Form</button>
+   ```
+
 ## Reference Documentation
 
-For detailed implementation guides and checklists, see:
+Additional documentation files:
 
-- [NEWSLETTER_IMPLEMENTATION.md](NEWSLETTER_IMPLEMENTATION.md) - MailerLite integration guide
+- [CLAUDE.md](CLAUDE.md) - AI assistant instructions for this project
 - [PRODUCTION_CHECKLIST.md](PRODUCTION_CHECKLIST.md) - Complete deployment checklist
-- [FORMS_GUIDE.md](FORMS_GUIDE.md) - Detailed form component documentation
-- [SIDEBAR_FORMS.md](SIDEBAR_FORMS.md) - Sidebar form system documentation
-- [CAROUSEL.md](CAROUSEL.md) - Carousel component documentation
-- [IMAGE-CREDIT-EXAMPLES.md](IMAGE-CREDIT-EXAMPLES.md) - Image credit usage examples
 
 ## Troubleshooting
 
 ### Build Errors
 
 **Module not found**:
+
 - Run `npm install` to ensure all dependencies are installed
 
 **PostCSS errors**:
+
 - Clear cache: `npm run clean`
 - Rebuild: `npm run build`
+
+**Eleventy build fails**:
+
+- Check for syntax errors in Nunjucks templates
+- Verify data files are valid JSON
+- Check console output for specific error messages
 
 ### Development Server Issues
 
 **Port already in use**:
-- Kill the process using port 8080
-- Or specify a different port in `.eleventy.js`
+
+- Kill the process using port 8080: `lsof -ti:8080 | xargs kill`
+- Or specify a different port in [.eleventy.js](.eleventy.js)
 
 **Hot reload not working**:
+
 - Check browser console for errors
 - Restart development server
+- Clear browser cache
+
+**Images or assets not loading**:
+
+- Verify file paths are correct
+- Check that files exist in `src/public/` or configured asset directory
+- Rebuild: `npm run build`
 
 ### Form Submission Issues
 
 **Forms not submitting**:
-- Check browser console for errors
-- Verify Edge Scripts are enabled in Bunny CDN
-- Check Edge Script logs in Bunny dashboard
 
-**Data not appearing in MailerLite/Notion**:
-- Verify API keys are correct
-- Check Edge Script environment variables
-- Review Edge Script logs for errors
+- Check browser console for JavaScript errors
+- Verify Edge Scripts are enabled in Bunny CDN dashboard
+- Check Edge Script logs in Bunny dashboard
+- Verify CORS headers allow your domain
+- Test with browser network tab to see actual request/response
+
+**Form submitting multiple times**:
+
+- Clear browser cache
+- Check browser console for multiple form handlers initializing
+- Verify deduplication is working in Bunny logs
+- Check for duplicate event listeners in code
+
+**Validation errors**:
+
+- "Email is required": Field empty or form data not parsing correctly
+- "Consent is required": Footer form has hidden consent field; full form requires checkbox
+- "Interest selection required": Newsletter form requires selecting interest dropdown
+
+**Data not appearing in MailerLite**:
+
+- Check Bunny logs for successful 200 responses from MailerLite API
+- Verify API key has correct permissions in MailerLite dashboard
+- Check MailerLite "Unconfirmed" tab if double opt-in is enabled
+- Verify custom field `interest` exists in MailerLite
+- Try a different test email
+
+**Data not appearing in Notion**:
+
+- Verify Notion API token is valid
+- Check database ID is correct
+- Ensure Notion integration has access to the database
+- Review Edge Script logs for API errors
+
+**CORS errors in browser**:
+
+- Verify CORS headers in edge script match your domain
+- Check that OPTIONS preflight returns 200
+- Update `Access-Control-Allow-Origin` header in edge script
+
+**MailerLite API errors**:
+
+- 401 Unauthorized: API key is wrong or expired
+- 400 Bad Request: Invalid email format or missing required fields
+- Check request payload in Bunny logs for details
+
+### Carousel Issues
+
+**Carousel not appearing**:
+
+- Ensure [src/_data/carousel.json](src/_data/carousel.json) has valid data
+- Check that images exist at specified paths
+- Verify carousel script is loaded in [src/_includes/layouts/base.njk](src/_includes/layouts/base.njk)
+
+**Navigation not working**:
+
+- Check browser console for JavaScript errors
+- Ensure [src/scripts/carousel.js](src/scripts/carousel.js) is being served correctly
+- Verify carousel container has correct class names
+
+**Styles not applying**:
+
+- Run `npm run build:css` to rebuild CSS
+- Clear browser cache
+- Check that [src/styles/main.css](src/styles/main.css) includes carousel styles
+
+### Styling Issues
+
+**TailwindCSS classes not working**:
+
+- Rebuild CSS: `npm run build:css`
+- Check for typos in class names
+- Verify PostCSS config is correct
+- Ensure classes are not purged by TailwindCSS
+
+**Custom CSS not applying**:
+
+- Check file is imported in [src/styles/main.css](src/styles/main.css)
+- Clear browser cache
+- Check browser dev tools for CSS conflicts
+
+### Edge Script Debugging
+
+**Infinite loop detection**:
+
+- Verify script only intercepts specific API paths
+- Ensure script returns `void` for non-API paths
+- Check origin URL is correct and doesn't point back to edge script
+- Use Bunny SDK middleware pattern to prevent loops
+
+**Edge script errors**:
+
+- Check Bunny dashboard logs for error messages
+- Verify environment variables are set correctly
+- Test edge script with curl or Postman
+- Check that script is enabled in Bunny dashboard
 
 ## License
 
