@@ -1,301 +1,292 @@
-# CLAUDE.md - AI Assistant Guide for rebuild-web
+# CLAUDE.md - AI Assistant Guide
 
-Last Updated: 2025-11-19
+Last Updated: 2025-12-21
 
-## Repository Overview
+## Project Overview
 
-**Project Name:** rebuild-web
-**Repository Status:** Newly initialized (no source code yet)
-**Purpose:** Web application development project
+**rebuild-web** is a production Eleventy static site with:
+- Nunjucks component architecture
+- TailwindCSS styling
+- Bunny CDN Edge Scripts for forms
+- MailerLite integration for newsletters
+- Notion API for build-time data
 
-This repository is currently in its initial state. This document serves as a living guide that should be updated as the codebase evolves.
+## Tech Stack
 
----
+- **Static Site**: Eleventy (11ty) + Nunjucks
+- **Styling**: TailwindCSS + PostCSS
+- **Forms**: Bunny Edge Scripts + MailerLite API
+- **Content**: Markdown + Notion API
+- **Hosting**: StaticHost.eu (staging) / Bunny CDN (production)
 
-## Current Repository State
+## Development Commands
 
-### Structure
-```
-rebuild-web/
-├── .git/              # Git repository metadata
-├── README.md          # Project readme
-└── CLAUDE.md          # This file - AI assistant guide
-```
-
-### Key Facts
-- **No dependencies yet:** No package.json, requirements.txt, or other dependency files
-- **No source code:** No application code has been added
-- **Clean slate:** Ready for initial project setup
-
----
-
-## AI Assistant Guidelines
-
-### 1. Development Philosophy
-
-When working on this project, AI assistants should:
-
-- **Ask before assuming:** Since the tech stack isn't defined, always confirm technology choices with the user
-- **Be proactive about structure:** Suggest industry-standard project structures for the chosen tech stack
-- **Document decisions:** Update this CLAUDE.md file as architectural decisions are made
-- **Follow conventions:** Once conventions are established, maintain consistency
-
-### 2. Code Quality Standards
-
-Apply these general principles (update with project-specific standards as they emerge):
-
-- **Readability:** Write clear, self-documenting code with meaningful variable names
-- **Modularity:** Keep functions/components small and focused on a single responsibility
-- **Testing:** Write tests for new functionality (update with testing framework once chosen)
-- **Security:** Never commit secrets, API keys, or sensitive data
-- **Performance:** Consider performance implications, especially for web applications
-
-### 3. Git Workflow
-
-**Branch Strategy:**
-- Development branches follow the pattern: `claude/claude-md-<session-id>`
-- Current branch: `claude/claude-md-mi5u3uziicamhr5e-018Jdo9dkmw5dCioVSnZokYA`
-
-**Commit Practices:**
-- Write clear, descriptive commit messages
-- Use conventional commits format when possible (e.g., `feat:`, `fix:`, `docs:`, `refactor:`)
-- Commit related changes together
-- Never force push without explicit permission
-
-**Push Commands:**
 ```bash
-# Always use -u flag for new branches
-git push -u origin <branch-name>
+# Development server
+npm run dev
 
-# Retry on network failures (up to 4 times with exponential backoff)
+# Production build
+npm run build
+
+# Clean cache and dist
+npm run clean
 ```
 
-### 4. File Organization
+## Key Conventions
 
-As the project grows, establish and document:
+### Code Style
 
-- **Source code location:** (e.g., `src/`, `app/`, `lib/`)
-- **Test location:** (e.g., `__tests__/`, `tests/`, `spec/`)
-- **Configuration files:** (e.g., `config/`, root-level configs)
-- **Documentation:** (e.g., `docs/`, inline comments)
-- **Build artifacts:** (e.g., `dist/`, `build/`, `.next/`)
+- Use semantic HTML5 elements
+- Use TailwindCSS utility classes (no custom CSS unless necessary)
+- Keep components small and focused
+- Write accessible markup (ARIA, alt text, semantic structure)
+- Color contrast must meet WCAG AA standards
 
-### 5. Common Tasks
+### File Organization
 
-#### Setting Up a New Web Project
-
-When the user requests project initialization, consider:
-
-1. **Choose a framework/stack:**
-   - React (with Vite, Next.js, Create React App)
-   - Vue.js (with Vite, Nuxt)
-   - Angular
-   - Svelte/SvelteKit
-   - Vanilla HTML/CSS/JS
-   - Server-side: Node.js (Express, Fastify), Python (Flask, Django), etc.
-
-2. **Initialize package manager:**
-   - npm, yarn, pnpm for Node.js projects
-   - pip/poetry for Python projects
-   - cargo for Rust projects
-
-3. **Set up essential tooling:**
-   - Linter (ESLint, Pylint, etc.)
-   - Formatter (Prettier, Black, etc.)
-   - Type checker (TypeScript, mypy, etc.)
-   - Testing framework (Jest, Vitest, pytest, etc.)
-
-4. **Configure Git:**
-   - Create `.gitignore` for the chosen tech stack
-   - Set up pre-commit hooks if needed
-
-5. **Update this document:**
-   - Document the chosen tech stack
-   - Add specific conventions and patterns
-   - Include setup instructions
-
-#### Adding Features
-
-When implementing new features:
-
-1. **Understand the requirement:** Ask clarifying questions if needed
-2. **Plan the approach:** Use TodoWrite to break down complex tasks
-3. **Follow existing patterns:** Maintain consistency with established code
-4. **Write tests:** Add appropriate test coverage
-5. **Update documentation:** Keep README and CLAUDE.md current
-
-#### Debugging
-
-When fixing bugs:
-
-1. **Reproduce the issue:** Understand the problem fully
-2. **Find root cause:** Don't just treat symptoms
-3. **Consider edge cases:** Ensure the fix handles all scenarios
-4. **Add regression tests:** Prevent the bug from returning
-5. **Document if needed:** Note any quirks or important context
-
-### 6. Technology-Specific Guidelines
-
-**This section should be populated once the tech stack is chosen.**
-
-Example structure for when technologies are selected:
-
-```markdown
-#### Frontend Framework: [Framework Name]
-- Component structure: [pattern to follow]
-- State management: [approach/library]
-- Styling approach: [CSS modules/Tailwind/CSS-in-JS/etc.]
-- Routing: [library/approach]
-
-#### Backend Framework: [Framework Name]
-- API structure: [REST/GraphQL/etc.]
-- Database: [type and ORM if applicable]
-- Authentication: [approach/library]
-- Error handling: [pattern to follow]
-
-#### Build & Development
-- Development server: [command]
-- Build command: [command]
-- Test command: [command]
-- Lint command: [command]
+```text
+src/
+├── _includes/components/   # Reusable Nunjucks components
+├── _includes/layouts/      # Page layouts
+├── _data/                  # Data files (JSON, JS)
+├── styles/                 # TailwindCSS source
+├── scripts/                # Client-side JS
+└── public/                 # Static assets
 ```
 
-### 7. Dependencies & Package Management
+### Component Patterns
 
-**This section should be updated when dependencies are added.**
+**Include components**:
+```njk
+{% include "components/carousel.njk" %}
+```
 
-Document:
-- How to install dependencies
-- How to add new dependencies
-- Version pinning strategy
-- License requirements/restrictions
+**Import macros**:
+```njk
+{% from "components/image-credit.njk" import imageCredit %}
+{{ imageCredit("Photo by Name") }}
+```
 
-### 8. Environment & Configuration
+**Pass data to components**:
+```njk
+{% include "components/form.njk" with { formId: "contact", fields: myFields } %}
+```
 
-**This section should be updated when environment configuration is needed.**
+## Git Workflow
 
-Document:
-- Environment variables and their purpose
-- How to set up local development environment
-- Configuration file locations and formats
-- Secrets management approach
+### Branch Strategy
 
-### 9. Testing Strategy
+- `main` - Production branch (auto-deploys)
+- `staging` - Staging branch (auto-deploys to staging)
+- `feature/*` - Feature branches
 
-**This section should be updated when testing is set up.**
+### Commit Messages
 
-Document:
-- Testing framework(s) used
-- Test organization and naming conventions
-- How to run tests (unit, integration, e2e)
-- Coverage requirements
-- Mocking strategies
+Use conventional commits:
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `docs:` - Documentation only
+- `style:` - Code formatting
+- `refactor:` - Code refactoring
+- `chore:` - Build/tooling changes
 
-### 10. Deployment
+### Creating Commits
 
-**This section should be updated when deployment is configured.**
+Follow the git commit protocol in the system instructions:
+1. Run `git status` and `git diff` to see changes
+2. Draft a clear commit message explaining why (not just what)
+3. Add untracked files if needed
+4. Create commit with proper attribution footer
+5. Verify with `git status`
 
-Document:
-- Hosting platform(s)
-- Deployment process
-- CI/CD pipeline
-- Environment-specific configurations
+## Content Management
 
+### Journal Posts
+
+Create in `src/journal/` with frontmatter:
+```yaml
 ---
-
-## Decision Log
-
-Track important architectural and technical decisions here:
-
-### 2025-11-19: Repository Initialized
-- Created initial repository structure
-- Created CLAUDE.md template for future documentation
-
+title: "Post Title"
+date: 2025-12-21
+author: "Author Name"
+tags: [Stories, Resources]
+excerpt: "Brief description"
 ---
+```
 
-## AI Assistant Dos and Don'ts
+### Builders Directory
+
+Managed via Notion database. Fetched at build time via `src/_data/builders.js`.
+
+### Carousel Slides
+
+Edit `src/_data/carousel.json` directly.
+
+### Events
+
+Edit `src/_data/events.json` directly.
+
+## Forms System
+
+### Sidebar Forms
+
+Trigger with data attributes:
+```html
+<button data-form="newsletter">Subscribe</button>
+<button data-form="builder-promo">Nominate</button>
+```
+
+### Available Forms
+
+- `newsletter` - Newsletter signup
+- `builder-promo` - Nominate a builder
+- `builder-application` - Apply to directory
+- `gathering-invitation` - Request invitation
+
+### Form Processing
+
+1. Client-side validation
+2. Submit to Bunny Edge Script
+3. Edge Script validates and routes to:
+   - MailerLite (for newsletter signups)
+   - Notion (for form submissions)
+4. Return success/error to client
+
+## Bunny Edge Scripts
+
+Located in `bunny-edge-scripts/`:
+- `newsletter-handler.js` - MailerLite integration
+- `bunny-edge-scripts-no-loop.js` - Combined handler
+
+Deploy via Bunny CDN dashboard with environment variables.
+
+## Common Tasks
+
+### Adding a New Component
+
+1. Create component in `src/_includes/components/`
+2. Use Nunjucks syntax with TailwindCSS
+3. Document usage in component file comments
+4. Test in development mode
+
+### Adding a New Page
+
+1. Create `.html` or `.njk` file in `src/`
+2. Add frontmatter with layout
+3. Use existing components
+4. Test responsive design
+
+### Updating Styles
+
+1. Edit `src/styles/main.css` (Tailwind directives)
+2. Use `@layer components` for custom components
+3. Run `npm run build:css` to rebuild
+4. Verify in browser
+
+### Deploying Changes
+
+1. Push to `staging` branch
+2. Verify on staging URL
+3. Create PR to `main`
+4. Merge triggers production deploy
+
+## Environment Variables
+
+Required for build:
+- `NOTION_TOKEN` - Notion API key
+- `NOTION_BUILDERS_DB_ID` - Builders database ID
+- `BUNNY_*` - CDN configuration
+- `MAILERLITE_*` - Newsletter integration
+
+See `.env.example` for full list.
+
+## Testing
+
+### Before Committing
+
+- Build succeeds: `npm run build`
+- No console errors
+- Forms work correctly
+- Responsive design verified
+- Accessibility checked
+
+### Before Deploying
+
+- Staging site loads
+- All forms submit successfully
+- Images and videos load
+- No broken links
+- Analytics tracking works
+
+## Troubleshooting
+
+### Build fails
+- Clear cache: `npm run clean`
+- Check for syntax errors in templates
+- Verify data files are valid JSON
+
+### Forms not working
+- Check browser console for errors
+- Verify Edge Scripts are enabled
+- Check Bunny dashboard logs
+- Confirm environment variables are set
+
+### Styling issues
+- Rebuild CSS: `npm run build:css`
+- Check for Tailwind class typos
+- Verify PostCSS config
+
+## Best Practices
 
 ### DO:
-✅ Ask clarifying questions before making assumptions
-✅ Use TodoWrite for complex multi-step tasks
-✅ Read existing files before editing them
-✅ Follow established patterns in the codebase
-✅ Write clear commit messages
-✅ Update documentation when making significant changes
-✅ Consider security implications (XSS, injection attacks, etc.)
-✅ Test changes before committing
-✅ Use meaningful variable and function names
+- Read existing files before editing
+- Follow established patterns
+- Use TodoWrite for complex tasks
+- Test changes locally before committing
+- Write clear commit messages
+- Keep components small and reusable
+- Use semantic HTML
 
 ### DON'T:
-❌ Commit secrets, API keys, or credentials
-❌ Force push without explicit permission
-❌ Skip reading files before editing them
-❌ Create unnecessary files (prefer editing existing ones)
-❌ Use emojis unless explicitly requested
-❌ Make breaking changes without discussion
-❌ Ignore errors or warnings
-❌ Leave TODO comments without tracking them
-❌ Assume the user's tech stack preferences
+- Commit secrets or API keys
+- Create unnecessary files
+- Use emojis unless requested
+- Make breaking changes without discussion
+- Skip testing before committing
+- Add console.logs without removing them
+- Create overly complex abstractions
 
----
+## Documentation
+
+For detailed guides, see:
+- [README.md](README.md) - Project overview and setup
+- [FORMS_GUIDE.md](FORMS_GUIDE.md) - Form system details
+- [SIDEBAR_FORMS.md](SIDEBAR_FORMS.md) - Sidebar form implementation
+- [CAROUSEL.md](CAROUSEL.md) - Carousel component
+- [NEWSLETTER_IMPLEMENTATION.md](NEWSLETTER_IMPLEMENTATION.md) - MailerLite integration
+- [PRODUCTION_CHECKLIST.md](PRODUCTION_CHECKLIST.md) - Deployment checklist
 
 ## Quick Reference
 
-### Essential Commands (to be updated based on tech stack)
+### File Paths
 
-```bash
-# Development
-# [To be added once project is set up]
+Commonly edited files:
+- `src/index.html` - Homepage
+- `src/_includes/components/footer.njk` - Footer
+- `src/_includes/components/header.njk` - Header
+- `src/_data/carousel.json` - Carousel content
+- `src/styles/main.css` - Main stylesheet
 
-# Testing
-# [To be added once testing is configured]
+### URLs
 
-# Building
-# [To be added once build process is established]
+- **Staging**: (Configure in deployment settings)
+- **Production**: www.rebuild.net
+- **API Endpoint**: Bunny CDN pull zone URL
 
-# Linting/Formatting
-# [To be added once tooling is configured]
-```
+## Support
 
-### Useful File Paths
-
-```
-# [To be added as project structure develops]
-```
-
----
-
-## Updating This Document
-
-This CLAUDE.md file should be treated as a living document:
-
-- **When to update:** After major architectural decisions, when new conventions are established, when new tools are added
-- **How to update:** Edit this file directly, commit with message like `docs: update CLAUDE.md with [changes]`
-- **Who updates:** Any AI assistant or developer working on the project should keep this current
-
----
-
-## Resources & References
-
-### General Best Practices
-- [Google Engineering Practices](https://google.github.io/eng-practices/)
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/) - Security considerations
-- [Conventional Commits](https://www.conventionalcommits.org/) - Commit message format
-
-### Technology-Specific Resources
-*To be added as technologies are chosen*
-
----
-
-## Questions or Unclear About Something?
-
-If you're an AI assistant and encounter something unclear:
-
-1. Check if there's relevant context in recent commits
-2. Search the codebase for similar patterns
-3. Ask the user for clarification
-4. Document the answer in this file for future reference
-
----
-
-**Note:** This is a template structure. As the `rebuild-web` project develops, this document should be updated with specific information about the chosen technologies, established patterns, and project-specific conventions.
+For questions:
+1. Check existing documentation files
+2. Review component code for examples
+3. Search recent commits for context
+4. Ask the user for clarification

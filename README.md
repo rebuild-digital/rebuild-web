@@ -1,33 +1,25 @@
 # rebuild-web
 
-A hybrid static website built with Eleventy featuring custom pages, auto-generated journal content, Notion-powered builders directory, and form submissions via Cloudflare Workers.
-
-## Overview
-
-This project combines static site generation with modern web infrastructure to create a fast, maintainable website without heavy JavaScript frameworks. Content is managed through Markdown files and Notion databases, with automatic builds on every deploy.
-
-### Key Features
-
-- **Static Site Generation**: Built with Eleventy (11ty) for optimal performance
-- **Component-Based Architecture**: Reusable Nunjucks components with TailwindCSS
-- **Dynamic Content**: Journal posts from Markdown, builders data from Notion
-- **Serverless Forms**: Contact and newsletter forms via Cloudflare Workers
-- **CDN Delivery**: Videos and fonts hosted on Bunny CDN
-- **Privacy-First Analytics**: Tracking via Pirsch (GDPR-compliant)
+A hybrid static website built with Eleventy featuring custom pages, journal content, Notion-powered builders directory, and dynamic forms with MailerLite integration.
 
 ## Tech Stack
 
-| Component | Technology |
-|-----------|-----------|
-| **Build Tool** | Eleventy (11ty) |
-| **Templates** | Nunjucks |
-| **Styling** | TailwindCSS |
-| **Content** | Markdown + YAML frontmatter |
-| **Hosting** | StaticHost.eu |
-| **Functions** | Cloudflare Workers |
-| **CDN** | Bunny CDN (video & fonts) |
-| **Data Source** | Notion API (build-time) |
-| **Analytics** | Pirsch |
+| Layer | Technology |
+| ----- | ---------- |
+| **Static Site** | Eleventy (11ty) + Nunjucks templates |
+| **Styling** | TailwindCSS + PostCSS |
+| **Content** | Markdown files, Notion API |
+| **CDN & Hosting** | Bunny CDN (Edge Scripts, storage) |
+| **Forms** | MailerLite API via Bunny Edge Scripts |
+| **Analytics** | Pirsch (privacy-first) |
+
+## Key Features
+
+- **Component-based architecture**: Reusable Nunjucks components (forms, carousel, cards)
+- **Dynamic forms**: Sidebar form system with MailerLite integration
+- **Build-time data**: Builders directory from Notion
+- **CDN-optimized**: Videos, fonts, and assets via Bunny CDN
+- **No heavy JavaScript**: Minimal client-side JS for performance
 
 ## Project Structure
 
@@ -46,14 +38,20 @@ This project combines static site generation with modern web infrastructure to c
 │   ├── _data/
 │   │   ├── site.js           # Global site configuration
 │   │   ├── events.json       # Event data
+│   │   ├── carousel.json     # Carousel slides data
 │   │   └── builders.js       # Notion fetch (build-time)
 │   ├── _includes/
 │   │   ├── layouts/          # Page templates
 │   │   └── components/       # Reusable components
+│   │       ├── forms/        # Form components
+│   │       ├── carousel.njk
+│   │       ├── form-sidebar.njk
+│   │       └── ...
+│   ├── forms/                # Form HTML endpoints
 │   ├── styles/               # TailwindCSS styles
 │   ├── scripts/              # Client-side JavaScript
-│   └── public/               # Static assets (favicon, robots.txt)
-├── api/                      # Cloudflare Workers
+│   └── public/               # Static assets
+├── bunny-edge-scripts/       # Bunny CDN Edge Scripts
 ├── .cache/                   # Build cache (gitignored)
 └── dist/                     # Build output (gitignored)
 ```
@@ -62,9 +60,9 @@ This project combines static site generation with modern web infrastructure to c
 
 ### Prerequisites
 
-- **Node.js** v18 or higher
-- **npm** or **pnpm**
-- **Git**
+- Node.js v18 or higher
+- npm or pnpm
+- Git
 
 ### Installation
 
@@ -92,8 +90,6 @@ This project combines static site generation with modern web infrastructure to c
    ```bash
    # Notion
    NOTION_TOKEN=secret_xxxxxxxxxxxxx
-   NOTION_NEWSLETTER_DB_ID=xxxxxxxx
-   NOTION_CONTACT_DB_ID=xxxxxxxx
    NOTION_BUILDERS_DB_ID=xxxxxxxx
 
    # Bunny CDN
@@ -102,14 +98,16 @@ This project combines static site generation with modern web infrastructure to c
    BUNNY_PULL_ZONE_URL=https://videos.b-cdn.net
    BUNNY_FONTS_PULL_ZONE_URL=https://fonts.b-cdn.net
 
+   # MailerLite
+   MAILERLITE_API_KEY=xxxxxxxxxxxxx
+   MAILERLITE_GROUP_ID=12345
+
    # Pirsch (optional)
    PIRSCH_CLIENT_ID=xxxxxxxxxxxxx
    PIRSCH_CLIENT_SECRET=xxxxxxxxxxxxx
    ```
 
-## Running the Project
-
-### Development Server
+### Development
 
 Start the development server with hot reload:
 
@@ -117,11 +115,11 @@ Start the development server with hot reload:
 npm run dev
 ```
 
-The site will be available at `http://localhost:8080` (or the port Eleventy assigns).
+The site will be available at `http://localhost:8080`.
 
 ### Production Build
 
-Build the site for production with minification:
+Build the site for production:
 
 ```bash
 npm run build
@@ -145,107 +143,44 @@ npm run minify:css
 npm run minify:js
 ```
 
-## Testing
-
-### Local Testing Checklist
-
-Before deploying, verify:
-
-- [ ] Site builds without errors: `npm run build`
-- [ ] All pages render correctly in development mode
-- [ ] Journal posts display with proper formatting
-- [ ] Navigation works across all pages
-- [ ] Forms validate properly (client-side)
-- [ ] Images load and are properly optimized
-- [ ] Code syntax highlighting works in journal posts
-
-### Manual Testing
-
-1. **Test responsive design**: Check layouts on mobile, tablet, and desktop
-2. **Validate HTML/CSS**: Use W3C validators
-3. **Check accessibility**: Test keyboard navigation and screen reader compatibility
-4. **Performance audit**: Run Lighthouse for performance metrics
-5. **Cross-browser testing**: Test in Chrome, Firefox, Safari, and Edge
-
-### Testing Forms
-
-To test form submissions locally:
-
-1. Set up Cloudflare Workers locally (see Cloudflare Workers documentation)
-2. Update form action URLs to point to local Worker endpoints
-3. Verify submissions appear in Notion databases
-
-## Deployment
-
-### Automatic Deployment
-
-The project is configured for automatic deployment via StaticHost.eu:
-
-1. **Push to main branch**: Triggers production deployment
-2. **Push to staging branch**: Triggers staging deployment
-3. **Pull requests**: Automatic deploy previews
-
-### Build Configuration
-
-StaticHost.eu build settings:
-
-- **Build command**: `npm run build`
-- **Output directory**: `dist`
-- **Node version**: 18.x or 20.x
-
-### Environment Variables
-
-Add the following environment variables in StaticHost.eu dashboard:
-
-- All `NOTION_*` variables (for build-time data fetching)
-- All `BUNNY_*` variables (if used in build process)
-- All `PIRSCH_*` variables (if using server-side analytics)
-
 ## Content Management
 
 ### Creating Journal Posts
 
-1. Create a new Markdown file in `src/journal/`:
+Create a new Markdown file in `src/journal/`:
 
-   ```bash
-   touch src/journal/my-new-post.md
-   ```
+```markdown
+---
+title: "My New Post Title"
+date: 2025-11-19
+author: "Your Name"
+tags:
+  - Stories
+  - Resources
+excerpt: "A brief description for meta tags and previews"
+featured_image: "/assets/images/post-image.jpg"
+featured: false
+---
 
-2. Add frontmatter and content:
+Your post content here...
+```
 
-   ```markdown
-   ---
-   title: "My New Post Title"
-   date: 2025-11-19
-   author: "Your Name"
-   tags:
-     - Stories
-     - Resources
-   excerpt: "A brief description for meta tags and previews"
-   featured_image: "/assets/images/post-image.jpg"
-   featured: false
-   ---
-
-   Your post content here...
-   ```
-
-3. The post will automatically appear on the journal page after rebuild.
+The post will automatically appear on the journal page after rebuild.
 
 ### Managing Builders
 
-Builders/projects are managed via a Notion database:
+Builders are managed via a Notion database:
 
-1. Log into your Notion workspace
-2. Open the Builders database
-3. Add a new entry with required properties:
+1. Open the Builders database in Notion
+2. Add a new entry with required properties:
    - **Name** (Title)
    - **Description** (Rich Text)
    - **Image** (Files & Media)
    - **Link** (URL)
    - **Status** (Select: Published)
    - **Tags** (Multi-select)
-4. Set Status to "Published" to display on site
-5. Rebuild the site to fetch latest data
+3. Set Status to "Published" to display on site
+4. Rebuild the site to fetch latest data
 
 ### Updating Events
 
@@ -259,112 +194,191 @@ Events are managed via `src/_data/events.json`:
       "title": "Event Name",
       "date": "2025-03-15T09:00:00Z",
       "location": "City, Country",
-      "description": "Event description...",
-      "agenda": [
-        {
-          "time": "09:00",
-          "title": "Registration",
-          "description": "Check-in and welcome"
-        }
-      ]
+      "description": "Event description..."
     }
   ]
 }
 ```
 
-## Architecture Details
+### Updating Carousel
+
+Carousel slides are managed via `src/_data/carousel.json`:
+
+```json
+{
+  "slides": [
+    {
+      "id": "slide-1",
+      "headline": "Your Headline",
+      "subheader": "Description text",
+      "image": "/assets/images/slide.jpg",
+      "ctaText": "Button Text",
+      "ctaLink": "/link/",
+      "bgColor": "#e8e8e8"
+    }
+  ]
+}
+```
+
+## Components
+
+### Forms
+
+The site uses a flexible form system with multiple components:
+
+**Newsletter Form** (inline or standard):
+
+```njk
+{% include "components/forms/newsletter-form.njk" %}
+```
+
+**Sidebar Forms** (triggered by data attributes):
+
+```html
+<button data-form="builder-promo">Nominate a Builder</button>
+<button data-form="builder-application">Apply Now</button>
+<button data-form="newsletter">Subscribe</button>
+```
+
+Available forms:
+- `builder-promo` - Nominate a builder
+- `builder-application` - Apply to join directory
+- `newsletter` - Newsletter signup
+- `gathering-invitation` - Request gathering invitation
+
+### Carousel
+
+Include the carousel component:
+
+```njk
+{% include "components/carousel.njk" %}
+```
+
+Customize slides via `src/_data/carousel.json`.
+
+### Image Credits
+
+Add credits to images:
+
+```njk
+{% from "components/image-credit.njk" import imageCredit %}
+
+<div class="relative">
+  <img src="/assets/images/photo.jpg" alt="Description">
+  {{ imageCredit("Photo by John Doe") }}
+</div>
+```
+
+## Architecture
 
 ### Component System
 
-Components are built with Nunjucks templates and styled using TailwindCSS utility classes:
+Components are built with Nunjucks templates and styled with TailwindCSS:
 
 ```text
 src/_includes/components/
-├── card.njk              # Component template
-├── buttons.njk           # Button component
-├── header.njk            # Header component
-├── footer.njk            # Footer component
-└── ...
-```
-
-Component styles are defined in `src/styles/main.css` using Tailwind's `@layer components` directive.
-
-Use components in pages:
-
-```html
-{% include "components/card.njk" %}
+├── carousel.njk
+├── card.njk
+├── buttons.njk
+├── header.njk
+├── footer.njk
+├── form-sidebar.njk
+└── forms/
+    ├── newsletter-form.njk
+    ├── builder-promo-form.njk
+    └── ...
 ```
 
 ### Data Fetching
 
 **Build-time data** (Notion builders):
-
 - Fetched during build via `src/_data/builders.js`
 - Cached locally in `.cache/builders.json`
 - Falls back to cache if Notion API fails
 
-**Static data** (events):
-
-- Stored in `src/_data/events.json`
+**Static data** (events, carousel):
+- Stored in `src/_data/*.json`
 - Directly accessible in templates
 
-### SEO & Meta Tags
+### Form Handling
+
+Forms submit to Bunny Edge Scripts which:
+1. Validate and sanitize input
+2. Send data to MailerLite (newsletter signups)
+3. Send data to Notion (form submissions)
+4. Return success/error responses
+
+See `bunny-edge-scripts/` directory for Edge Script implementations.
+
+### SEO & Meta
 
 Every page includes:
-
 - Unique `<title>` tag
 - Meta description
-- Open Graph tags (title, description, image, URL)
+- Open Graph tags
 - Twitter Card tags
 
 Site-wide features:
-
 - Sitemap at `/sitemap.xml`
 - RSS feed at `/feed.xml`
-- Custom `robots.txt` (blocks AI crawlers)
+- Custom `robots.txt`
 
-## Browser Support
+## Deployment
 
-**Target browsers** (last 2 versions):
+### Automatic Deployment
 
+The project deploys automatically via StaticHost.eu:
+
+- **Push to main**: Production deployment
+- **Push to staging**: Staging deployment
+- **Pull requests**: Deploy previews
+
+### Build Configuration
+
+StaticHost.eu settings:
+- **Build command**: `npm run build`
+- **Output directory**: `dist`
+- **Node version**: 18.x or 20.x
+
+### Environment Variables
+
+Configure in StaticHost.eu dashboard:
+- All `NOTION_*` variables
+- All `BUNNY_*` variables
+- All `MAILERLITE_*` variables
+- All `PIRSCH_*` variables
+
+### Bunny Edge Scripts
+
+After deploying to StaticHost, configure Bunny Edge Scripts:
+
+1. Log into Bunny CDN dashboard
+2. Navigate to Pull Zones → Select your zone → Edge Scripts
+3. Deploy scripts from `bunny-edge-scripts/` directory
+4. Set environment variables for each script
+5. Enable scripts
+
+See [NEWSLETTER_IMPLEMENTATION.md](NEWSLETTER_IMPLEMENTATION.md) for detailed Edge Script setup.
+
+## Performance
+
+### Browser Support
+
+Target browsers (last 2 versions):
 - Chrome/Edge (Chromium)
 - Firefox
 - Safari (desktop & iOS)
 - Chrome Mobile (Android)
 
-**Not supported**:
-
-- Internet Explorer
-- Legacy Edge (pre-Chromium)
-
-## Performance Targets
+### Performance Targets
 
 Lighthouse scores:
-
 - **Performance**: >90
 - **Accessibility**: >90
 - **Best Practices**: >90
 - **SEO**: 100
 
-## Documentation
-
-For more detailed information, see:
-
-- [STACK_ARCHITECTURE.md](STACK_ARCHITECTURE.md) - Complete technical architecture
-- [DESIGN_DECISIONS.md](DESIGN_DECISIONS.md) - Design system and technical decisions
-- [SETUP_CHECKLIST.md](SETUP_CHECKLIST.md) - Initial setup and account configuration
-- [QUICK_REFERENCE.md](QUICK_REFERENCE.md) - Quick reference for development
-
-## Contributing
-
-### Development Workflow
-
-1. Create a feature branch: `git checkout -b feature/my-feature`
-2. Make your changes
-3. Test locally: `npm run dev`
-4. Build and verify: `npm run build`
-5. Commit your changes: `git commit -m "Description"`
-6. Push and create a pull request
+## Development Guidelines
 
 ### Code Style
 
@@ -373,6 +387,70 @@ For more detailed information, see:
 - Keep components small and focused
 - Write accessible markup (ARIA labels, alt text, semantic structure)
 - Ensure color contrast meets WCAG AA standards
+
+### Git Workflow
+
+1. Create a feature branch: `git checkout -b feature/my-feature`
+2. Make your changes
+3. Test locally: `npm run dev`
+4. Build and verify: `npm run build`
+5. Commit changes: `git commit -m "Description"`
+6. Push and create a pull request
+
+### Commit Messages
+
+Follow conventional commits format:
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `docs:` - Documentation changes
+- `style:` - Code style changes (formatting)
+- `refactor:` - Code refactoring
+- `test:` - Adding tests
+- `chore:` - Maintenance tasks
+
+## Reference Documentation
+
+For detailed implementation guides and checklists, see:
+
+- [NEWSLETTER_IMPLEMENTATION.md](NEWSLETTER_IMPLEMENTATION.md) - MailerLite integration guide
+- [PRODUCTION_CHECKLIST.md](PRODUCTION_CHECKLIST.md) - Complete deployment checklist
+- [FORMS_GUIDE.md](FORMS_GUIDE.md) - Detailed form component documentation
+- [SIDEBAR_FORMS.md](SIDEBAR_FORMS.md) - Sidebar form system documentation
+- [CAROUSEL.md](CAROUSEL.md) - Carousel component documentation
+- [IMAGE-CREDIT-EXAMPLES.md](IMAGE-CREDIT-EXAMPLES.md) - Image credit usage examples
+
+## Troubleshooting
+
+### Build Errors
+
+**Module not found**:
+- Run `npm install` to ensure all dependencies are installed
+
+**PostCSS errors**:
+- Clear cache: `npm run clean`
+- Rebuild: `npm run build`
+
+### Development Server Issues
+
+**Port already in use**:
+- Kill the process using port 8080
+- Or specify a different port in `.eleventy.js`
+
+**Hot reload not working**:
+- Check browser console for errors
+- Restart development server
+
+### Form Submission Issues
+
+**Forms not submitting**:
+- Check browser console for errors
+- Verify Edge Scripts are enabled in Bunny CDN
+- Check Edge Script logs in Bunny dashboard
+
+**Data not appearing in MailerLite/Notion**:
+- Verify API keys are correct
+- Check Edge Script environment variables
+- Review Edge Script logs for errors
 
 ## License
 
