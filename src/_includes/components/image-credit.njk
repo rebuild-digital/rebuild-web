@@ -9,13 +9,14 @@
     {{ imageCredit("Photo by John Doe") }}
   </div>
 
-  Or with custom positioning:
-  {{ imageCredit("Photo by John Doe", position="bottom-left") }}
+  Or with custom positioning and theme:
+  {{ imageCredit("Photo by John Doe", position="bottom-left", theme="dark") }}
 
   Position options: bottom-right (default), bottom-left, top-right, top-left
+  Theme options: light (default, white text on dark background), dark (dark text on light background)
 #}
 
-{% macro imageCredit(credit, position="bottom-left") %}
+{% macro imageCredit(credit, position="bottom-left", theme="light") %}
   {% set positionClasses = {
     "bottom-right": "bottom-0 right-0",
     "bottom-left": "bottom-0 left-0",
@@ -23,7 +24,12 @@
     "top-left": "top-0 left-0"
   } %}
 
-  <div class="absolute {{ positionClasses[position] }} bg-dark/50 text-white text-[10px] px-2 py-1 m-2">
+  {% set themeClasses = {
+    "light": "bg-dark/50 text-white",
+    "dark": "bg-light/80 text-dark"
+  } %}
+
+  <div class="absolute {{ positionClasses[position] }} {{ themeClasses[theme] }} text-[10px] px-2 py-1 m-2">
     Photo by: {{ credit }}
   </div>
 {% endmacro %}
