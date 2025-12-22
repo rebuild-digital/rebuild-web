@@ -1,12 +1,12 @@
 ---
 title: "The future you want for your social network will be true"
-date: 2025-12-17
+date: 2025-12-22
 author: "Matt Muir"
 tags:
   - Stories
 excerpt: "Daniela Hinrichs on building XING from invitation-only startup to the world's first Web 2.0 IPO – why community, not just code, made Europe's business network a success"
 featured_image: "/assets/images/daniela-3.jpg"
-published: false
+published: true
 ---
 
 #### When Daniela Hinrichs talks about the early days of XING, she begins not with servers or funding rounds, but with people. When she teamed up with founder Lars Hinrichs around 2003 he described the idea of an “Open Business Club”, inspired by Malcolm Gladwell’s The Tipping Point and its insights into social networks and connectors, and it clicked instantly.
