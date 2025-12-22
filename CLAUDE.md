@@ -1,10 +1,11 @@
 # CLAUDE.md - AI Assistant Guide
 
-Last Updated: 2025-12-21
+Last Updated: 2025-12-22
 
 ## Project Overview
 
 **rebuild-web** is a production Eleventy static site with:
+
 - Nunjucks component architecture
 - TailwindCSS styling
 - Bunny CDN Edge Scripts for forms
@@ -17,7 +18,7 @@ Last Updated: 2025-12-21
 - **Styling**: TailwindCSS + PostCSS
 - **Forms**: Bunny Edge Scripts + MailerLite API
 - **Content**: Markdown + Notion API
-- **Hosting**: StaticHost.eu (staging) / Bunny CDN (production)
+- **Hosting**: Vercel
 
 ## Development Commands
 
@@ -46,28 +47,37 @@ npm run clean
 
 ```text
 src/
-├── _includes/components/   # Reusable Nunjucks components
-├── _includes/layouts/      # Page layouts
-├── _data/                  # Data files (JSON, JS)
-├── styles/                 # TailwindCSS source
-├── scripts/                # Client-side JS
-└── public/                 # Static assets
+├── _includes/
+│   ├── components/   # Reusable Nunjucks components
+│   │   └── forms/    # Form components (newsletter, applications, etc.)
+│   └── layouts/      # Page layouts
+├── _data/            # Data files (JSON, JS) - Notion, carousel, events
+├── forms/            # Form HTML endpoints for sidebar
+├── insights/         # Markdown insight posts
+├── pages/            # Site pages (about, journey, etc.) - use permalink in frontmatter
+├── scripts/          # Client-side JS and edge scripts
+├── styles/           # TailwindCSS source
+├── public/           # Static assets
+└── index.html        # Homepage (kept in root)
 ```
 
 ### Component Patterns
 
 **Include components**:
+
 ```njk
 {% include "components/carousel.njk" %}
 ```
 
 **Import macros**:
+
 ```njk
 {% from "components/image-credit.njk" import imageCredit %}
 {{ imageCredit("Photo by Name") }}
 ```
 
 **Pass data to components**:
+
 ```njk
 {% include "components/form.njk" with { formId: "contact", fields: myFields } %}
 ```
@@ -83,6 +93,7 @@ src/
 ### Commit Messages
 
 Use conventional commits:
+
 - `feat:` - New feature
 - `fix:` - Bug fix
 - `docs:` - Documentation only
@@ -93,6 +104,7 @@ Use conventional commits:
 ### Creating Commits
 
 Follow the git commit protocol in the system instructions:
+
 1. Run `git status` and `git diff` to see changes
 2. Draft a clear commit message explaining why (not just what)
 3. Add untracked files if needed
@@ -104,15 +116,34 @@ Follow the git commit protocol in the system instructions:
 ### Journal Posts
 
 Create in `src/journal/` with frontmatter:
+
 ```yaml
 ---
 title: "Post Title"
-date: 2025-12-21
+date: 2025-12-22
 author: "Author Name"
 tags: [Stories, Resources]
 excerpt: "Brief description"
+featured: false
 ---
 ```
+
+### Insight Posts
+
+Create in `src/insights/` with frontmatter:
+
+```yaml
+---
+title: "Insight Title"
+date: 2025-12-22
+author: "Author Name"
+tags: [Category, Topic]
+excerpt: "Brief description"
+featured: false
+---
+```
+
+These appear on the insights page and can be featured on homepage.
 
 ### Builders Directory
 
@@ -128,20 +159,18 @@ Edit `src/_data/events.json` directly.
 
 ## Forms System
 
-### Sidebar Forms
+### Available Sidebar Forms
 
-Trigger with data attributes:
+Trigger with data attributes on any element:
+
 ```html
 <button data-form="newsletter">Subscribe</button>
-<button data-form="builder-promo">Nominate</button>
+<button data-form="builder-promo">Nominate a Builder</button>
+<button data-form="builder-application">Apply to Directory</button>
+<button data-form="gathering-invitation">Request Invitation</button>
 ```
 
-### Available Forms
-
-- `newsletter` - Newsletter signup
-- `builder-promo` - Nominate a builder
-- `builder-application` - Apply to directory
-- `gathering-invitation` - Request invitation
+All forms are fetched from `/forms/{form-name}.html` endpoints and displayed in a responsive sidebar overlay.
 
 ### Form Processing
 
@@ -154,9 +183,7 @@ Trigger with data attributes:
 
 ## Bunny Edge Scripts
 
-Located in `bunny-edge-scripts/`:
-- `newsletter-handler.js` - MailerLite integration
-- `bunny-edge-scripts-no-loop.js` - Combined handler
+Located in `src/scripts/edge-script.js` - a unified handler for all form endpoints.
 
 Deploy via Bunny CDN dashboard with environment variables.
 
@@ -168,13 +195,15 @@ Deploy via Bunny CDN dashboard with environment variables.
 2. Use Nunjucks syntax with TailwindCSS
 3. Document usage in component file comments
 4. Test in development mode
+5. **Consider downstream impacts**: If the component submits data or requires backend processing, update `src/scripts/edge-script.js` to handle the endpoint. If it uses new data sources, update relevant files in `src/_data/`.
 
 ### Adding a New Page
 
-1. Create `.html` or `.njk` file in `src/`
-2. Add frontmatter with layout
+1. Create `.html` or `.njk` file in `src/pages/`
+2. Add frontmatter with layout and `permalink` to control URL (e.g., `permalink: /my-page/index.html`)
 3. Use existing components
 4. Test responsive design
+5. **Consider downstream impacts**: If adding forms, create corresponding form endpoint in `src/forms/` and update `src/scripts/form-triggers.js` to register it.
 
 ### Updating Styles
 
@@ -193,6 +222,7 @@ Deploy via Bunny CDN dashboard with environment variables.
 ## Environment Variables
 
 Required for build:
+
 - `NOTION_TOKEN` - Notion API key
 - `NOTION_BUILDERS_DB_ID` - Builders database ID
 - `BUNNY_*` - CDN configuration
@@ -221,17 +251,20 @@ See `.env.example` for full list.
 ## Troubleshooting
 
 ### Build fails
+
 - Clear cache: `npm run clean`
 - Check for syntax errors in templates
 - Verify data files are valid JSON
 
 ### Forms not working
+
 - Check browser console for errors
 - Verify Edge Scripts are enabled
 - Check Bunny dashboard logs
 - Confirm environment variables are set
 
 ### Styling issues
+
 - Rebuild CSS: `npm run build:css`
 - Check for Tailwind class typos
 - Verify PostCSS config
@@ -239,6 +272,7 @@ See `.env.example` for full list.
 ## Best Practices
 
 ### DO:
+
 - Read existing files before editing
 - Follow established patterns
 - Use TodoWrite for complex tasks
@@ -248,6 +282,7 @@ See `.env.example` for full list.
 - Use semantic HTML
 
 ### DON'T:
+
 - Commit secrets or API keys
 - Create unnecessary files
 - Use emojis unless requested
@@ -256,14 +291,45 @@ See `.env.example` for full list.
 - Add console.logs without removing them
 - Create overly complex abstractions
 
+## Components
+
+### Carousel
+
+Include the carousel component:
+
+```njk
+{% include "components/carousel.njk" %}
+```
+
+Customize slides via `src/_data/carousel.json`. Features auto-rotation, navigation, keyboard/swipe controls, and full accessibility.
+
+### Image Credit
+
+Add photo credits to images:
+
+```njk
+{% from "components/image-credit.njk" import imageCredit %}
+
+<div class="relative">
+  <img src="/assets/images/photo.jpg" alt="Description">
+  {{ imageCredit("Photo by Photographer Name") }}
+</div>
+```
+
+Supports positioning (default: `bottom-right`):
+
+- `bottom-left`
+- `bottom-right`
+- `top-left`
+- `top-right`
+
+The component includes both light and dark variants for different backgrounds.
+
 ## Documentation
 
 For detailed guides, see:
+
 - [README.md](README.md) - Project overview and setup
-- [FORMS_GUIDE.md](FORMS_GUIDE.md) - Form system details
-- [SIDEBAR_FORMS.md](SIDEBAR_FORMS.md) - Sidebar form implementation
-- [CAROUSEL.md](CAROUSEL.md) - Carousel component
-- [NEWSLETTER_IMPLEMENTATION.md](NEWSLETTER_IMPLEMENTATION.md) - MailerLite integration
 - [PRODUCTION_CHECKLIST.md](PRODUCTION_CHECKLIST.md) - Deployment checklist
 
 ## Quick Reference
@@ -271,10 +337,16 @@ For detailed guides, see:
 ### File Paths
 
 Commonly edited files:
+
 - `src/index.html` - Homepage
+- `src/pages/` - Site pages (about, journey, etc.)
 - `src/_includes/components/footer.njk` - Footer
 - `src/_includes/components/header.njk` - Header
+- `src/_includes/components/forms/` - Form components
 - `src/_data/carousel.json` - Carousel content
+- `src/insights/` - Insight posts
+- `src/forms/` - Form sidebar endpoints
+- `src/scripts/edge-script.js` - Bunny Edge Script handler
 - `src/styles/main.css` - Main stylesheet
 
 ### URLs
@@ -283,9 +355,35 @@ Commonly edited files:
 - **Production**: www.rebuild.net
 - **API Endpoint**: Bunny CDN pull zone URL
 
+## Collaboration Workflow
+
+### Working with Claude Code
+
+When collaborating on this project with Claude Code:
+
+1. **Exploration first**: For understanding features, Claude will explore the codebase before making changes
+2. **Plan complex tasks**: Multi-step implementations use TodoWrite to track progress
+3. **Read before edit**: Files are always read before modifications to preserve patterns
+4. **Follow conventions**: Existing code patterns (Nunjucks components, TailwindCSS) are maintained
+5. **Recommend next steps**: When changes have downstream impacts (e.g., new component requires edge script updates), Claude will proactively identify and suggest related updates across the codebase
+6. **Ask for clarification**: When multiple approaches exist, Claude will ask for your preference
+7. **Validate changes**: You'll be asked to review significant updates before committing
+
+### When Claude Commits
+
+Claude only commits when explicitly requested and follows this process:
+
+1. Reviews changes with `git status` and `git diff`
+2. Writes conventional commit message (feat:, fix:, docs:, etc.)
+3. Includes attribution footer with "🤖 Generated with Claude Code"
+4. Verifies commit succeeded
+
+**Note**: Claude will NOT proactively commit - you control when commits happen.
+
 ## Support
 
 For questions:
+
 1. Check existing documentation files
 2. Review component code for examples
 3. Search recent commits for context
