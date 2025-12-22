@@ -6,6 +6,8 @@ tags:
   - Stories
 excerpt: "Daniela Hinrichs on building XING from invitation-only startup to the world's first Web 2.0 IPO – why community, not just code, made Europe's business network a success"
 featured_image: "/assets/images/daniela-3.jpg"
+featured_image_credit: "Michael DeBoer"
+featured_image_credit_theme: "dark"
 published: true
 ---
 

@@ -2,11 +2,16 @@
 layout: layouts/base.njk
 ---
 
+{% from "components/image-credit.njk" import imageCredit %}
+
 {% block content %}
   <article class="pb-2xl">
     {% if featured_image %}
-      <div class="featured-image mb-xl w-full max-h-[900px] overflow-hidden">
+      <div class="featured-image mb-xl w-full max-h-[900px] overflow-hidden relative">
         <img src="{{ featured_image }}" alt="{{ title }}" loading="lazy" class="w-full h-auto object-cover">
+        {% if featured_image_credit %}
+          {{ imageCredit(featured_image_credit, "bottom-left", featured_image_credit_theme | default("light")) }}
+        {% endif %}
       </div>
     {% endif %}
 
