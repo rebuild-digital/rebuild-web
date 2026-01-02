@@ -7,6 +7,7 @@ This checklist covers everything needed when moving from staging to production f
 ## Pre-Deployment Preparation
 
 ### Code & Build
+
 - [ ] Merge staging branch to main
 - [ ] Ensure all tests pass (if applicable)
 - [ ] Run production build locally: `npm run build:production`
@@ -16,6 +17,7 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Review and clean up any debug code or console.logs
 
 ### Dependencies & Security
+
 - [ ] Run `npm audit` and fix any vulnerabilities
 - [ ] Update dependencies if needed (especially security patches)
 - [ ] Review `package-lock.json` for unexpected changes
@@ -27,23 +29,28 @@ This checklist covers everything needed when moving from staging to production f
 ## Environment Variables
 
 ### Production Environment Setup
+
 - [ ] **Notion API**
+
   - [ ] `NOTION_TOKEN` - Production API token (different from staging)
   - [ ] `NOTION_NEWSLETTER_DB_ID` - Production database ID
   - [ ] `NOTION_CONTACT_DB_ID` - Production database ID
   - [ ] `NOTION_BUILDERS_DB_ID` - Production database ID
 
 - [ ] **Bunny CDN**
+
   - [ ] `BUNNY_STORAGE_ZONE` - Production storage zone name
   - [ ] `BUNNY_API_KEY` - Production API key
   - [ ] `BUNNY_PULL_ZONE_URL` - Production videos URL (https://videos.b-cdn.net)
   - [ ] `BUNNY_FONTS_PULL_ZONE_URL` - Production fonts URL (https://fonts.b-cdn.net)
 
 - [ ] **MailerLite**
+
   - [ ] `MAILERLITE_API_KEY` - Production API key
   - [ ] `MAILERLITE_GROUP_ID` - Production group ID (if different)
 
 - [ ] **Site Configuration**
+
   - [ ] `SITE_URL` - Set to `https://www.rebuild.net` (production URL)
   - [ ] `API_URL` - Set to production Bunny CDN endpoint (https://rebuild.b-cdn.net)
   - [ ] `NODE_ENV` - Set to `production`
@@ -53,6 +60,7 @@ This checklist covers everything needed when moving from staging to production f
   - [ ] `PIRSCH_CLIENT_SECRET` - Production client secret
 
 ### Environment Variable Checklist
+
 - [ ] All staging values replaced with production values
 - [ ] No hardcoded staging URLs in codebase
 - [ ] Environment variables documented in `.env.example`
@@ -63,6 +71,7 @@ This checklist covers everything needed when moving from staging to production f
 ## Bunny CDN Configuration
 
 ### Storage Zone
+
 - [ ] Create production storage zone (if not exists)
 - [ ] Configure storage zone region (choose closest to target audience)
 - [ ] Set up storage zone replication (if needed for redundancy)
@@ -70,7 +79,9 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Test file upload to production storage zone
 
 ### Pull Zones
+
 - [ ] **Main Site Pull Zone**
+
   - [ ] Create pull zone pointing to production storage zone
   - [ ] Configure custom domain: `www.rebuild.net`
   - [ ] Enable SSL/TLS certificate
@@ -81,6 +92,7 @@ This checklist covers everything needed when moving from staging to production f
   - [ ] Test pull zone URL accessibility
 
 - [ ] **Videos Pull Zone**
+
   - [ ] Verify videos.b-cdn.net is configured
   - [ ] Set appropriate cache headers for video files
   - [ ] Enable video optimization (if available)
@@ -92,6 +104,7 @@ This checklist covers everything needed when moving from staging to production f
   - [ ] Configure CORS headers for font files
 
 ### Edge Scripts
+
 - [ ] Review all Edge Scripts for staging-specific code
 - [ ] Update Edge Script environment variables (if applicable)
 - [ ] **Form Submission Handler**
@@ -106,6 +119,7 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Deploy Edge Scripts to production pull zone
 
 ### CDN Optimization
+
 - [ ] Enable Bunny Optimizer (image optimization)
 - [ ] Configure image quality settings
 - [ ] Set up WebP conversion (if not already enabled)
@@ -114,6 +128,7 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Configure security headers (HSTS, X-Content-Type-Options, etc.)
 
 ### Cache Management
+
 - [ ] Document cache purge procedure
 - [ ] Set up cache purge API endpoint (for deployments)
 - [ ] Configure cache key rules (query string handling)
@@ -125,31 +140,38 @@ This checklist covers everything needed when moving from staging to production f
 ## DNS Configuration
 
 ### Domain Setup
+
 - [ ] Verify domain ownership and registrar access
 - [ ] Backup current DNS records
 
 ### DNS Records to Configure
+
 - [ ] **A Record** (if using apex domain)
+
   - Host: `@` or `rebuild.net`
   - Value: Bunny CDN IP address
   - TTL: 3600 (1 hour) initially, then increase to 86400 (24 hours) after stable
 
 - [ ] **CNAME Record** (for www)
+
   - Host: `www`
   - Value: Bunny CDN hostname (e.g., `rebuild.b-cdn.net`)
   - TTL: 3600 initially, then 86400
 
 - [ ] **CNAME Record** (for videos subdomain, if separate)
+
   - Host: `videos`
   - Value: `videos.b-cdn.net`
   - TTL: 86400
 
 - [ ] **CNAME Record** (for fonts subdomain, if separate)
+
   - Host: `fonts`
   - Value: `fonts.b-cdn.net`
   - TTL: 86400
 
 - [ ] **MX Records** (if using email on this domain)
+
   - Verify email service provider records
   - Set appropriate priorities
 
@@ -160,6 +182,7 @@ This checklist covers everything needed when moving from staging to production f
   - DMARC policy (optional but recommended)
 
 ### DNS Propagation
+
 - [ ] Use low TTL (300-600 seconds) before cutover
 - [ ] Test DNS resolution: `dig www.rebuild.net`
 - [ ] Test from multiple locations (use online DNS checkers)
@@ -184,6 +207,7 @@ This checklist covers everything needed when moving from staging to production f
 ## Build & Deployment Process
 
 ### Initial Production Deploy
+
 - [ ] Clear `/dist` folder: `npm run clean`
 - [ ] Run production build: `npm run build:production`
 - [ ] Verify build completed without errors
@@ -193,6 +217,7 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Check file permissions on CDN storage
 
 ### Deployment Automation (Optional but Recommended)
+
 - [ ] Set up GitHub Actions workflow for auto-deploy
 - [ ] Configure deploy on push to `main` branch
 - [ ] Add Bunny CDN upload step to workflow
@@ -204,6 +229,7 @@ This checklist covers everything needed when moving from staging to production f
 ## Third-Party Services
 
 ### Notion Integration
+
 - [ ] Create production Notion workspace (if separate from staging)
 - [ ] Set up production databases (Newsletter, Contact, Builders)
 - [ ] Configure database schemas to match staging
@@ -212,6 +238,7 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Set up appropriate Notion permissions
 
 ### MailerLite
+
 - [ ] Create production account (if separate from staging)
 - [ ] Set up production mailing list
 - [ ] Import any existing subscribers (if applicable)
@@ -222,6 +249,7 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Configure GDPR compliance settings
 
 ### Analytics (Pirsch)
+
 - [ ] Create production site in Pirsch dashboard
 - [ ] Get production API credentials
 - [ ] Update tracking code with production ID
@@ -235,6 +263,7 @@ This checklist covers everything needed when moving from staging to production f
 ## Performance & Monitoring
 
 ### Performance Testing
+
 - [ ] Run Lighthouse audit (target: 90+ on all metrics)
 - [ ] Test PageSpeed Insights: `https://pagespeed.web.dev/`
 - [ ] Verify Core Web Vitals (LCP, FID, CLS)
@@ -244,6 +273,7 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Check font loading performance (FOUT/FOIT prevention)
 
 ### Monitoring Setup
+
 - [ ] Set up uptime monitoring (UptimeRobot, Pingdom, etc.)
   - Monitor: https://www.rebuild.net
   - Check interval: 5 minutes
@@ -255,6 +285,7 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Configure log aggregation (if applicable)
 
 ### CDN Monitoring
+
 - [ ] Monitor cache hit ratio (target: >90%)
 - [ ] Track CDN bandwidth usage
 - [ ] Monitor edge script execution times
@@ -265,6 +296,7 @@ This checklist covers everything needed when moving from staging to production f
 ## Security Checklist
 
 ### Application Security
+
 - [ ] Verify all forms have CSRF protection
 - [ ] Verify all user inputs are sanitized
 - [ ] Check for exposed API keys in client-side code
@@ -274,7 +306,9 @@ This checklist covers everything needed when moving from staging to production f
 - [ ] Enable rate limiting on form submissions (Edge Scripts)
 
 ### HTTP Security Headers
+
 Configure these on Bunny CDN pull zone:
+
 - [ ] `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`
 - [ ] `X-Content-Type-Options: nosniff`
 - [ ] `X-Frame-Options: SAMEORIGIN` or `DENY`
@@ -284,6 +318,7 @@ Configure these on Bunny CDN pull zone:
 - [ ] Content-Security-Policy (if applicable)
 
 ### Access Control
+
 - [ ] Review Bunny CDN storage zone access permissions
 - [ ] Rotate any API keys that may have been exposed
 - [ ] Set up 2FA on critical accounts (GitHub, Bunny, Notion, MailerLite)
@@ -295,6 +330,7 @@ Configure these on Bunny CDN pull zone:
 ## Testing in Production
 
 ### Smoke Tests (perform immediately after deployment)
+
 - [ ] Homepage loads correctly
 - [ ] Navigation works across all pages
 - [ ] Forms submit successfully (test with real submission)
@@ -314,6 +350,7 @@ Configure these on Bunny CDN pull zone:
   - [ ] Chrome Mobile (Android)
 
 ### Integration Tests
+
 - [ ] Verify Notion database receives submissions
 - [ ] Verify MailerLite receives new subscribers
 - [ ] Verify analytics tracking works
@@ -324,6 +361,7 @@ Configure these on Bunny CDN pull zone:
 - [ ] Test sitemap.xml accessibility
 
 ### Cross-Device Testing
+
 - [ ] Desktop (1920x1080)
 - [ ] Laptop (1366x768)
 - [ ] Tablet landscape (1024x768)
@@ -336,6 +374,7 @@ Configure these on Bunny CDN pull zone:
 ## SEO & Content
 
 ### Meta Tags & SEO
+
 - [ ] Verify all pages have appropriate title tags
 - [ ] Verify all pages have meta descriptions
 - [ ] Check Open Graph tags for social sharing
@@ -349,6 +388,7 @@ Configure these on Bunny CDN pull zone:
 - [ ] Test social sharing preview on Twitter Card Validator
 
 ### Search Console
+
 - [ ] Add property to Google Search Console
 - [ ] Verify domain ownership
 - [ ] Submit sitemap.xml
@@ -357,6 +397,7 @@ Configure these on Bunny CDN pull zone:
 - [ ] Add property to Bing Webmaster Tools
 
 ### Content Review
+
 - [ ] Verify no "staging" or "test" content visible
 - [ ] Check for broken internal links
 - [ ] Check for broken external links
@@ -371,6 +412,7 @@ Configure these on Bunny CDN pull zone:
 ## Compliance & Legal
 
 ### Privacy & GDPR
+
 - [ ] Cookie consent banner implemented (if using cookies)
 - [ ] Privacy policy published and linked
 - [ ] Data processing documented
@@ -380,6 +422,7 @@ Configure these on Bunny CDN pull zone:
 - [ ] Terms of service published (if collecting data)
 
 ### Accessibility
+
 - [ ] Run accessibility audit (WAVE, axe DevTools)
 - [ ] Verify keyboard navigation works
 - [ ] Verify screen reader compatibility
@@ -392,6 +435,7 @@ Configure these on Bunny CDN pull zone:
 ## Rollback Plan
 
 ### Preparation
+
 - [ ] Document current DNS settings
 - [ ] Backup current production files (if replacing existing site)
 - [ ] Keep staging environment active
@@ -399,6 +443,7 @@ Configure these on Bunny CDN pull zone:
 - [ ] Test rollback on staging
 
 ### Rollback Procedure (if needed)
+
 1. Update DNS records to point back to old hosting
 2. Restore previous Bunny CDN configuration
 3. Revert Edge Scripts to previous version
@@ -412,6 +457,7 @@ Configure these on Bunny CDN pull zone:
 ## Post-Launch Tasks
 
 ### Immediate (within 24 hours)
+
 - [ ] Monitor error logs for issues
 - [ ] Check analytics for unusual traffic patterns
 - [ ] Verify form submissions are being received
@@ -420,6 +466,7 @@ Configure these on Bunny CDN pull zone:
 - [ ] Review Edge Script logs for errors
 
 ### Week 1
+
 - [ ] Review performance metrics
 - [ ] Check Core Web Vitals in Search Console
 - [ ] Monitor crawl errors in Search Console
@@ -429,6 +476,7 @@ Configure these on Bunny CDN pull zone:
 - [ ] Increase DNS TTL if stable (to 86400 seconds)
 
 ### Week 2-4
+
 - [ ] Full performance review
 - [ ] SEO performance analysis
 - [ ] User behavior analysis (heatmaps, session recordings if available)
@@ -441,12 +489,14 @@ Configure these on Bunny CDN pull zone:
 ## Team Communication
 
 ### Before Deployment
+
 - [ ] Notify team of deployment schedule
 - [ ] Schedule deployment during low-traffic period
 - [ ] Ensure someone is available for support during/after deployment
 - [ ] Prepare announcement for users (if downtime expected)
 
 ### After Deployment
+
 - [ ] Announce successful deployment to team
 - [ ] Document any issues encountered
 - [ ] Share post-mortem if there were problems
@@ -457,6 +507,7 @@ Configure these on Bunny CDN pull zone:
 ## Documentation
 
 ### Update Documentation
+
 - [ ] Update README.md with production deployment info
 - [ ] Update CLAUDE.md with production-specific details
 - [ ] Document production environment variables (without values)
@@ -466,6 +517,7 @@ Configure these on Bunny CDN pull zone:
 - [ ] Document emergency contacts and escalation procedures
 
 ### Archive
+
 - [ ] Archive this checklist with deployment date
 - [ ] Save configuration snapshots (DNS, CDN settings)
 - [ ] Document lessons learned
@@ -475,6 +527,7 @@ Configure these on Bunny CDN pull zone:
 ## Emergency Contacts & Resources
 
 ### Critical Services
+
 - **Bunny CDN Support**: [https://support.bunny.net](https://support.bunny.net)
 - **Domain Registrar**: [Document your registrar contact info]
 - **GitHub Status**: [https://www.githubstatus.com](https://www.githubstatus.com)
@@ -482,6 +535,7 @@ Configure these on Bunny CDN pull zone:
 - **MailerLite Support**: [https://www.mailerlite.com/support](https://www.mailerlite.com/support)
 
 ### Useful Tools
+
 - DNS Checker: [https://dnschecker.org](https://dnschecker.org)
 - SSL Test: [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/)
 - PageSpeed Insights: [https://pagespeed.web.dev](https://pagespeed.web.dev)
