@@ -4,57 +4,40 @@
 
   Parameters:
   - builder: Builder object with name, link, category, country, description, tags, etc.
-  - expandable: Boolean - whether the row can be expanded (default: true)
 #}
 
-{% set isExpandable = expandable if expandable is defined else 
-  true %}
-
-<div class="builder-row bg-lighter p-lg" data-builder-id="{{ builder.id }}">
-  <div class="builder-row-header flex flex-row items-center justify-between gap-md {% if isExpandable %}cursor-pointer{% endif %}">
+<div class="builder-row bg-lighter p-md lg:p-lg" data-builder-id="{{ builder.id }}">
+  <div class="builder-row-header flex flex-row items-center justify-between gap-md">
     {# Name #}
     <h3 class="text-3xl font-normal">
-      <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="text-dark hover:underline break-all" {% if isExpandable %}onclick="event.stopPropagation()"{% endif %}>
+      <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="text-dark break-all">
         {{ builder.name }}
       </a>
     </h3>
-
-    {# Expand/Collapse Button #}
-    {% if isExpandable %}
-      <button class="builder-toggle shrink-0 text-3xl leading-none" aria-label="Toggle details">
-        <svg class="builder-icon-plus w-12 h-12 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <line x1="5" y1="12" x2="19" y2="12"/>
-        </svg>
-        <svg class="builder-icon-minus w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-          <line x1="5" y1="12" x2="19" y2="12"/>
-        </svg>
-      </button>
-    {% endif %}
   </div>
 
-  {# Expandable Content - Expanded by default #}
-  <div class="builder-row-content mt-lg">
+  {# Content #}
+  <div class="builder-row-content mt-0">
     {# URL #}
-    {# {% if builder.link %}
+    {% if builder.link %}
       <div class="mb-md">
-        <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="text-darker underline hover:text-blue break-all" {% if isExpandable %}onclick="event.stopPropagation()"{% endif %}>
+        <a href="{{ builder.link }}" target="_blank" rel="noopener noreferrer" class="text-darker text-xs underline break-all">
           {{ builder.link }}
         </a>
       </div>
-    {% endif %} #}
+    {% endif %}
 
     {# Description #}
     {% if builder.description %}
-      <div class="mb-md text-base leading-tight">
+      <div class="mb-md text-base max-w-[55ch] leading-tight">
         <p>{{ builder.description }}</p>
       </div>
     {% endif %}
 
-    <div class="flex flex-row justify-between items-end md:items-start mt-lg md:mt-xl">
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-sm lg:gap-0 mt-lg md:mt-xl">
       {# Tags #}
       {% if builder.category and builder.category.length > 0 %}
-        <div class="flex gap-xs flex-wrap mb-0 md:mb-md">
+        <div class="flex gap-xs flex-wrap">
           {% for cat in builder.category %}
             {% set colors = [cat] | categoryColors %}
             <span class="inline-block px-md py-xs {{ colors.bg }} {{ colors.text }} text-sm">{{ cat }}</span>
@@ -64,8 +47,8 @@
 
       {# Country #}
       {% if builder.country and builder.country.length > 0 %}
-        <div class="text-sm">
-          From {{ builder.country | join(", ") }}
+        <div class="text-xs text-darker">
+          Built from {{ builder.country | join(", ") }}
         </div>
       {% endif %}
     </div>
