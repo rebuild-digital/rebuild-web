@@ -1,12 +1,12 @@
 ---
 title: "Christian Lindholm: Without plumbing, there’d be no civilisation"
-date: 2025-12-14
-author: "The Rebuild Team"
+date: 2026-01-05
+author: "Sophia Epstein"
 tags:
   - Stories
 excerpt: "How a Nokia pioneer's four-button innovation transformed human-computer interaction."
 featured_image: "/assets/images/christian-lindholm.jpg"
-published: false
+published: true
 ---
 
 #### How a Nokia pioneer's four-button innovation transformed human-computer interaction
