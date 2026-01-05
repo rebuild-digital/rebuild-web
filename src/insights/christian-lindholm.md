@@ -6,7 +6,7 @@ tags:
   - Stories
 excerpt: "How a Nokia pioneer's four-button innovation transformed human-computer interaction."
 featured_image: "/assets/images/christian-lindholm.jpg"
-published: true
+published: false
 ---
 
 #### How a Nokia pioneer's four-button innovation transformed human-computer interaction
