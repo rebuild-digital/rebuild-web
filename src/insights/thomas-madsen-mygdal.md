@@ -22,7 +22,7 @@ We've reflected in Europe, now it's time to build. To rebuild what we lost. Alon
 
 #### Rebuild is here because...
 
-**Social platforms are critical communications infrastructure**
+**Social platforms are critical communications infrastructure.**
 
 They augment our human relationships at any scale from a couple, a family, a group, a housing block, an association, a city, to our society. They are about identity, what we share, reputation, presence we have, the groups we form, the conversations we have. At some point the saying became "all we got was a photosharing app", when social platforms are at the core some of the essential challenges of our time. Sharing resources, finding connections in our cities, creating connection instead of loneliness, they truly are the social fabric of our lives. It's critical as industry creating strong growth in Europe, it's critical to build on our values and models and today it's even about our basic sovereignty.
 
@@ -48,7 +48,7 @@ Running three gatherings in Paris, Helsinki and Copenhagen. Shipping concrete to
 
 ---
 
-Rebuild is build as a sprint to reignite, to reenchant, to reconnect, to rebuild. It will run for 12-months before sunsetting. We're not here to take space, but to create space. The hope is that Rebuild can facilitate all the social platforms in Europe to organize themselves and create the permanent vertical ecosystem and industry. And start the general mobilising to get European citizens to shift social platforms, what we call the big shift.
+Rebuild is built as a sprint to reignite, to re-enchant, to reconnect, to rebuild. It will run for 12-months before sunsetting. We're not here to take space, but to create space. The hope is that Rebuild can facilitate all the social platforms in Europe to organize themselves and create the permanent vertical ecosystem and industry. And start the general mobilising to get European citizens to shift social platforms, what we call the big shift.
 
 My personal hope is that we can come together. Entrepreneurs, designers, programmers, activists, investors and government leaders. Not focus on our differences. But to support a new generation of entrepreneurs and builders that are doing one of the hardest and most important things in Europe. To rebuild our critical communications infrastructure, our social platforms.
 
