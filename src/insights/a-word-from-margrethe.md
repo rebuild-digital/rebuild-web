@@ -18,7 +18,7 @@ And one question — who else sees this? — pushed her into action. She started
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-lg lg:gap-xl items-start">
       <div class="w-full">
         <div style="width:100%; height:0; position: relative; padding-bottom:177.77777777777777%">
-          <iframe title="Video Player" src="https://rebuild.twentythree.com/v.ihtml/player.html?token=3d72de4dd59b381d3a3ac66107789f2a&source=embed&photo%5fid=121959881&endOn=" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <iframe title="Video Player" src="https://rebuild.twentythree.com/v.ihtml/player.html?token=3d72de4dd59b381d3a3ac66107789f2a&source=embed&photo%5fid=121959881&showLogo=0" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen allow="autoplay; fullscreen"></iframe>
         </div>
       </div>
       <div class="lg:w-4/5 lg:pt-md">
