@@ -7,14 +7,17 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - /api/builder-application (Notion)
  * - /api/builder-promotion (Notion)
  * - /api/gathering-invitation (Notion)
+ * - /api/application-rebuild1 (Notion + MailerLite)
  * - /api/newsletter-signup (MailerLite)
  *
  * Required Environment Variables in Bunny:
  * - NOTION_TOKEN (for builder forms)
  * - NOTION_BUILDERS_DB_ID (for builder forms)
  * - NOTION_GATHERING_DB_ID (for gathering invitations)
- * - MAILERLITE_API_KEY (for newsletter)
- * - MAILERLITE_GROUP_ID (optional, for newsletter)
+ * - NOTION_REBUILD1_DB_ID (for rebuild1 registrations)
+ * - MAILERLITE_API_KEY (for newsletter and rebuild1 confirmations)
+ * - MAILERLITE_GROUP_ID (for general newsletter signups)
+ * - MAILERLITE_REBUILD1_GROUP_ID (for rebuild1 event registrations - triggers confirmation email)
  */
 
 BunnySDK.net.http
@@ -50,6 +53,7 @@ BunnySDK.net.http
       url.pathname.includes("/api/builder-application") ||
       url.pathname.includes("/api/builder-promotion") ||
       url.pathname.includes("/api/gathering-invitation") ||
+      url.pathname.includes("/api/application-rebuild1") ||
       url.pathname.includes("/api/newsletter-signup");
 
     // ✅ For NON-form paths, return void to let request pass through to origin
@@ -109,7 +113,9 @@ async function handleFormSubmission(request, url, corsHeaders) {
           `Duplicate submission blocked for: ${email} (within ${DEDUP_WINDOW_MS}ms)`
         );
         const successMessage =
-          submission.data?.type === "gathering_invitation"
+          submission.data?.type === "application_rebuild1"
+            ? "Registration submitted successfully! We will be in touch soon."
+            : submission.data?.type === "gathering_invitation"
             ? "Gathering invitation request submitted successfully"
             : isPromotion
             ? "Suggestion submitted successfully, thank you!"
@@ -163,12 +169,26 @@ async function handleFormSubmission(request, url, corsHeaders) {
       if (emailAddress && emailAddress !== "Not provided") {
         console.log(`Newsletter signup requested for: ${emailAddress}`);
 
-        const mailerLiteResult = await sendToMailerLite({
+        // Prepare data for MailerLite
+        const mailerliteData = {
           email: emailAddress,
           firstName: submission.data.builderName || submission.data.name || submission.data.yourName || null,
           lastName: null,
           interest: null, // No interest field captured on these forms
-        });
+        };
+
+        // Add custom fields for Rebuild1 registrations
+        if (submission.data.type === "application_rebuild1") {
+          mailerliteData.customFields = {
+            organisation: submission.data.organisation,
+            role: submission.data.role,
+            country: submission.data.country,
+          };
+          // Use Rebuild1-specific group ID for event registrations
+          mailerliteData.groupId = Deno.env.get("MAILERLITE_REBUILD1_GROUP_ID");
+        }
+
+        const mailerLiteResult = await sendToMailerLite(mailerliteData);
 
         if (mailerLiteResult.success) {
           console.log(`Successfully added ${emailAddress} to MailerLite`);
@@ -198,7 +218,9 @@ async function handleFormSubmission(request, url, corsHeaders) {
     }
 
     const successMessage =
-      submission.data.type === "gathering_invitation"
+      submission.data.type === "application_rebuild1"
+        ? "Registration submitted successfully! We will be in touch soon."
+        : submission.data.type === "gathering_invitation"
         ? "Gathering invitation request submitted successfully"
         : isPromotion
         ? "Suggestion submitted successfully, thank you!"
@@ -237,9 +259,30 @@ async function handleFormSubmission(request, url, corsHeaders) {
 function parseFormData(formData, isPromotion) {
   const errors = [];
 
-  // Check if it's a gathering invitation
-  const isGatheringInvitation =
-    formData.get("form_type") === "gathering_invitation";
+  // Check form type
+  const formType = formData.get("form_type");
+  const isGatheringInvitation = formType === "gathering_invitation";
+  const isRebuild1Application = formType === "application_rebuild1";
+
+  if (isRebuild1Application) {
+    const data = {
+      type: "application_rebuild1",
+      name: formData.get("name"),
+      email: formData.get("email"),
+      organisation: formData.get("organisation"),
+      role: formData.get("role") || "Not specified",
+      country: formData.get("country"),
+      newsletter: formData.get("newsletter") === "on",
+      submittedAt: new Date().toISOString(),
+    };
+
+    if (!data.name) errors.push("Name is required");
+    if (!data.email) errors.push("Email is required");
+    if (!data.organisation) errors.push("Organisation is required");
+    if (!data.country) errors.push("Country is required");
+
+    return { isValid: errors.length === 0, errors, data };
+  }
 
   if (isGatheringInvitation) {
     const data = {
@@ -354,7 +397,10 @@ async function sendToNotion(data, isPromotion, request) {
   let NOTION_DATABASE_ID;
   let properties;
 
-  if (data.type === "gathering_invitation") {
+  if (data.type === "application_rebuild1") {
+    NOTION_DATABASE_ID = Deno.env.get("NOTION_REBUILD1_DB_ID");
+    properties = buildRebuild1ApplicationProperties(data);
+  } else if (data.type === "gathering_invitation") {
     NOTION_DATABASE_ID = Deno.env.get("NOTION_GATHERING_DB_ID");
     properties = buildGatheringInvitationProperties(data);
   } else {
@@ -452,6 +498,18 @@ function buildGatheringInvitationProperties(data) {
     Country: { select: { name: data.country } },
     Contribution: { rich_text: [{ text: { content: data.contribution } }] },
     Newsletter: { checkbox: data.newsletter },
+    Status: { status: { name: "New" } },
+    "Submitted At": { date: { start: data.submittedAt } },
+  };
+}
+
+function buildRebuild1ApplicationProperties(data) {
+  return {
+    Name: { title: [{ text: { content: data.name } }] },
+    Email: { email: data.email },
+    Organisation: { rich_text: [{ text: { content: data.organisation } }] },
+    Role: { rich_text: [{ text: { content: data.role } }] },
+    Country: { select: { name: data.country } },
     Status: { status: { name: "New" } },
     "Submitted At": { date: { start: data.submittedAt } },
   };
@@ -608,14 +666,28 @@ async function sendToMailerLite(data) {
       subscriberData.fields.last_name = data.lastName;
     }
 
-    // Add interest field (required)
+    // Add interest field (required for newsletter forms)
     if (data.interest) {
       subscriberData.fields.interest = data.interest;
     }
 
-    // Add to group if specified
-    if (MAILERLITE_GROUP_ID) {
-      subscriberData.groups = [MAILERLITE_GROUP_ID];
+    // Add custom fields if provided (for Rebuild1 registrations)
+    if (data.customFields) {
+      if (data.customFields.organisation) {
+        subscriberData.fields.organisation = data.customFields.organisation;
+      }
+      if (data.customFields.role) {
+        subscriberData.fields.role = data.customFields.role;
+      }
+      if (data.customFields.country) {
+        subscriberData.fields.country = data.customFields.country; // Lowercase to match MailerLite field
+      }
+    }
+
+    // Add to group - use specific group ID if provided, otherwise use default
+    const groupId = data.groupId || MAILERLITE_GROUP_ID;
+    if (groupId) {
+      subscriberData.groups = [groupId];
     }
 
     console.log(

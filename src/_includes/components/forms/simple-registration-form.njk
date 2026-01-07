@@ -1,0 +1,112 @@
+{#
+  Simple Registration Form
+  Usage: {% include "components/forms/simple-registration-form.njk" %}
+
+  A simplified registration form with basic attendee information
+#}
+
+{% set simpleRegistrationFields = [
+  {
+    type: 'text',
+    name: 'name',
+    label: 'Name',
+    required: true
+  }, {
+    type: 'email',
+    name: 'email',
+    label: 'Email',
+    required: true
+  }, {
+    type: 'text',
+    name: 'organisation',
+    label: 'Organisation',
+    required: true,
+    helpText: 'What is your organisation called?'
+  }, {
+    type: 'text',
+    name: 'role',
+    label: 'Role',
+    required: false,
+    helpText: 'What is your role in the organisation?'
+  }, {
+    type: 'select',
+    name: 'country',
+    label: 'Country',
+    required: true,
+    options: [
+      'Albania',
+      'Andorra',
+      'Armenia',
+      'Austria',
+      'Azerbaijan',
+      'Belarus',
+      'Belgium',
+      'Bosnia and Herzegovina',
+      'Bulgaria',
+      'Croatia',
+      'Cyprus',
+      'Czech Republic',
+      'Denmark',
+      'Estonia',
+      'Finland',
+      'France',
+      'Georgia',
+      'Germany',
+      'Greece',
+      'Hungary',
+      'Iceland',
+      'Ireland',
+      'Italy',
+      'Kazakhstan',
+      'Kosovo',
+      'Latvia',
+      'Liechtenstein',
+      'Lithuania',
+      'Luxembourg',
+      'Malta',
+      'Moldova',
+      'Monaco',
+      'Montenegro',
+      'Netherlands',
+      'North Macedonia',
+      'Norway',
+      'Poland',
+      'Portugal',
+      'Romania',
+      'Russia',
+      'San Marino',
+      'Serbia',
+      'Slovakia',
+      'Slovenia',
+      'Spain',
+      'Sweden',
+      'Switzerland',
+      'Türkiye',
+      'Ukraine',
+      'United Kingdom',
+      'Vatican City'
+    ],
+    helpText: 'Where are you from?'
+  }, {
+    type: 'checkbox',
+    name: 'newsletter',
+    label: 'I understand that by registering, I will be signed up to a mailing list hosted on Mailerlite and that I can revoke my consent at any time.',
+    required: true
+  }, {
+    type: 'hidden',
+    name: 'form_type',
+    value: 'application_rebuild1'
+  }
+] %}
+
+{% set formId = 'application-rebuild1' %}
+{% set action = site.apiUrl + '/api/application-rebuild1' %}
+{% set method = 'POST' %}
+{% set title = 'Rebuild1 Registration' %}
+{% set description = 'Thank you for your interest in joining Rebuild1 in Copenhagen. Please fill in your details to register. Your registration is personal, so if you would like a colleague or co-founder to participate with you, they will need to register too.' %}
+{% set submitText = 'Register' %}
+{% set submitVariant = 'primary' %}
+{% set fields = simpleRegistrationFields %}
+{% set successMessage = 'Thank you for registering! We will be in touch soon.' %}
+{% set errorMessage = 'Sorry, we could not submit your registration. Please try again or contact us directly at team@rebuild.net.' %}
+{% include "components/form.njk" %}

@@ -13,7 +13,8 @@
     'builder-promo': '/forms/builder-promo.html',
     'builder-application': '/forms/builder-application.html',
     'newsletter': '/forms/newsletter.html',
-    'gathering-invitation': '/forms/gathering-invitation.html'
+    'gathering-invitation': '/forms/gathering-invitation.html',
+    'application-rebuild1': '/forms/application-rebuild1.html'
   };
 
   // Function to load and open form

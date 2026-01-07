@@ -43,7 +43,7 @@ Nokia lost its next battle, against Apple, for myriad reasons but Lindholm boils
 
 “There are two types of creators, plumbers and pool boys,” says Lindholm. Without plumbing, there’d be no civilisation, but its the pool boys who get the attention. In Europe, we’re plumbers, well-educated, humble-to-a-fault plumbers. The pool boy attitude isn’t part of our culture: in the Nordics, people subscribe to the Law of Jante, which says ‘you’re not to think you’re special, or better than anyone else’; the Dutch say ‘the tallest tree catches the most wind’; and Brits are more likely to tell you how badly they’re doing than even attempt to boast.
 
-“But what if we got good at celebrating the pool boys more?” Lindholm asks. “That’s what I find always amazing with Silicon Valley, it creates this meritocracy of opportunity at all layers in the stack.” Recapturing the confident competitiveness Lindholm felt at Nokia in the 90s would be a great place for new founders to start. As he points out: “We haven’t had the iPhone moment for AI yet…”
+“But what if we got good at celebrating the pool boys more?” Lindholm asks. “That’s what I find always amazing with Silicon Valley, it creates this meritocracy of opportunity at all layers in the stack.” Recapturing the confident competitiveness Lindholm felt at Nokia in the 90s would be a great place for new founders to start.
 
 ### Navi-Key stats
 
