@@ -7,12 +7,14 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - /api/builder-application (Notion)
  * - /api/builder-promotion (Notion)
  * - /api/gathering-invitation (Notion)
+ * - /api/application-rebuild1 (Notion)
  * - /api/newsletter-signup (MailerLite)
  *
  * Required Environment Variables in Bunny:
  * - NOTION_TOKEN (for builder forms)
  * - NOTION_BUILDERS_DB_ID (for builder forms)
  * - NOTION_GATHERING_DB_ID (for gathering invitations)
+ * - NOTION_REBUILD1_DB_ID (for rebuild1 registrations)
  * - MAILERLITE_API_KEY (for newsletter)
  * - MAILERLITE_GROUP_ID (optional, for newsletter)
  */
@@ -50,6 +52,7 @@ BunnySDK.net.http
       url.pathname.includes("/api/builder-application") ||
       url.pathname.includes("/api/builder-promotion") ||
       url.pathname.includes("/api/gathering-invitation") ||
+      url.pathname.includes("/api/application-rebuild1") ||
       url.pathname.includes("/api/newsletter-signup");
 
     // ✅ For NON-form paths, return void to let request pass through to origin
@@ -109,7 +112,9 @@ async function handleFormSubmission(request, url, corsHeaders) {
           `Duplicate submission blocked for: ${email} (within ${DEDUP_WINDOW_MS}ms)`
         );
         const successMessage =
-          submission.data?.type === "gathering_invitation"
+          submission.data?.type === "application_rebuild1"
+            ? "Registration submitted successfully! We will be in touch soon."
+            : submission.data?.type === "gathering_invitation"
             ? "Gathering invitation request submitted successfully"
             : isPromotion
             ? "Suggestion submitted successfully, thank you!"
@@ -198,7 +203,9 @@ async function handleFormSubmission(request, url, corsHeaders) {
     }
 
     const successMessage =
-      submission.data.type === "gathering_invitation"
+      submission.data.type === "application_rebuild1"
+        ? "Registration submitted successfully! We will be in touch soon."
+        : submission.data.type === "gathering_invitation"
         ? "Gathering invitation request submitted successfully"
         : isPromotion
         ? "Suggestion submitted successfully, thank you!"
@@ -237,9 +244,30 @@ async function handleFormSubmission(request, url, corsHeaders) {
 function parseFormData(formData, isPromotion) {
   const errors = [];
 
-  // Check if it's a gathering invitation
-  const isGatheringInvitation =
-    formData.get("form_type") === "gathering_invitation";
+  // Check form type
+  const formType = formData.get("form_type");
+  const isGatheringInvitation = formType === "gathering_invitation";
+  const isRebuild1Application = formType === "application_rebuild1";
+
+  if (isRebuild1Application) {
+    const data = {
+      type: "application_rebuild1",
+      name: formData.get("name"),
+      email: formData.get("email"),
+      organisation: formData.get("organisation"),
+      country: formData.get("country"),
+      attendees: formData.get("attendees"),
+      submittedAt: new Date().toISOString(),
+    };
+
+    if (!data.name) errors.push("Name is required");
+    if (!data.email) errors.push("Email is required");
+    if (!data.organisation) errors.push("Organisation is required");
+    if (!data.country) errors.push("Country is required");
+    if (!data.attendees) errors.push("Number of attendees is required");
+
+    return { isValid: errors.length === 0, errors, data };
+  }
 
   if (isGatheringInvitation) {
     const data = {
@@ -354,7 +382,10 @@ async function sendToNotion(data, isPromotion, request) {
   let NOTION_DATABASE_ID;
   let properties;
 
-  if (data.type === "gathering_invitation") {
+  if (data.type === "application_rebuild1") {
+    NOTION_DATABASE_ID = Deno.env.get("NOTION_REBUILD1_DB_ID");
+    properties = buildRebuild1ApplicationProperties(data);
+  } else if (data.type === "gathering_invitation") {
     NOTION_DATABASE_ID = Deno.env.get("NOTION_GATHERING_DB_ID");
     properties = buildGatheringInvitationProperties(data);
   } else {
@@ -452,6 +483,18 @@ function buildGatheringInvitationProperties(data) {
     Country: { select: { name: data.country } },
     Contribution: { rich_text: [{ text: { content: data.contribution } }] },
     Newsletter: { checkbox: data.newsletter },
+    Status: { status: { name: "New" } },
+    "Submitted At": { date: { start: data.submittedAt } },
+  };
+}
+
+function buildRebuild1ApplicationProperties(data) {
+  return {
+    Name: { title: [{ text: { content: data.name } }] },
+    Email: { email: data.email },
+    Organisation: { rich_text: [{ text: { content: data.organisation } }] },
+    Country: { select: { name: data.country } },
+    Attendees: { number: parseInt(data.attendees, 10) },
     Status: { status: { name: "New" } },
     "Submitted At": { date: { start: data.submittedAt } },
   };
