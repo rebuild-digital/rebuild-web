@@ -21,7 +21,13 @@
     name: 'organisation',
     label: 'Organisation',
     required: true,
-    helpText: 'What is your company/organisation called?'
+    helpText: 'What is your organisation called?'
+  }, {
+    type: 'text',
+    name: 'role',
+    label: 'Role',
+    required: false,
+    helpText: 'What is your role in the organisation?'
   }, {
     type: 'select',
     name: 'country',
@@ -80,14 +86,12 @@
       'United Kingdom',
       'Vatican City'
     ],
-    helpText: 'Where are you or your platform from?'
+    helpText: 'Where are you from?'
   }, {
-    type: 'number',
-    name: 'attendees',
-    label: 'Number of Attendees',
-    required: true,
-    min: 1,
-    helpText: 'How many people will attend from your organisation?'
+    type: 'checkbox',
+    name: 'newsletter',
+    label: 'I understand that by registering, I will be signed up to a mailing list hosted on Mailerlite and that I can revoke my consent at any time.',
+    required: true
   }, {
     type: 'hidden',
     name: 'form_type',
@@ -99,7 +103,7 @@
 {% set action = site.apiUrl + '/api/application-rebuild1' %}
 {% set method = 'POST' %}
 {% set title = 'Rebuild1 Registration' %}
-{% set description = 'Thank you for your interest in joining Rebuild1 in Copenhagen. Please fill in your details to register, then we will be in touch shortly after.' %}
+{% set description = 'Thank you for your interest in joining Rebuild1 in Copenhagen. Please fill in your details to register. Your registration is personal, so if you would like a colleague or co-founder to participate with you, they will need to register too.' %}
 {% set submitText = 'Register' %}
 {% set submitVariant = 'primary' %}
 {% set fields = simpleRegistrationFields %}

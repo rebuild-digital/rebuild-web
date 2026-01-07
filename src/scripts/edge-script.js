@@ -7,7 +7,7 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - /api/builder-application (Notion)
  * - /api/builder-promotion (Notion)
  * - /api/gathering-invitation (Notion)
- * - /api/application-rebuild1 (Notion)
+ * - /api/application-rebuild1 (Notion + MailerLite)
  * - /api/newsletter-signup (MailerLite)
  *
  * Required Environment Variables in Bunny:
@@ -15,8 +15,9 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - NOTION_BUILDERS_DB_ID (for builder forms)
  * - NOTION_GATHERING_DB_ID (for gathering invitations)
  * - NOTION_REBUILD1_DB_ID (for rebuild1 registrations)
- * - MAILERLITE_API_KEY (for newsletter)
- * - MAILERLITE_GROUP_ID (optional, for newsletter)
+ * - MAILERLITE_API_KEY (for newsletter and rebuild1 confirmations)
+ * - MAILERLITE_GROUP_ID (for general newsletter signups)
+ * - MAILERLITE_REBUILD1_GROUP_ID (for rebuild1 event registrations - triggers confirmation email)
  */
 
 BunnySDK.net.http
@@ -168,12 +169,26 @@ async function handleFormSubmission(request, url, corsHeaders) {
       if (emailAddress && emailAddress !== "Not provided") {
         console.log(`Newsletter signup requested for: ${emailAddress}`);
 
-        const mailerLiteResult = await sendToMailerLite({
+        // Prepare data for MailerLite
+        const mailerliteData = {
           email: emailAddress,
           firstName: submission.data.builderName || submission.data.name || submission.data.yourName || null,
           lastName: null,
           interest: null, // No interest field captured on these forms
-        });
+        };
+
+        // Add custom fields for Rebuild1 registrations
+        if (submission.data.type === "application_rebuild1") {
+          mailerliteData.customFields = {
+            organisation: submission.data.organisation,
+            role: submission.data.role,
+            country: submission.data.country,
+          };
+          // Use Rebuild1-specific group ID for event registrations
+          mailerliteData.groupId = Deno.env.get("MAILERLITE_REBUILD1_GROUP_ID");
+        }
+
+        const mailerLiteResult = await sendToMailerLite(mailerliteData);
 
         if (mailerLiteResult.success) {
           console.log(`Successfully added ${emailAddress} to MailerLite`);
@@ -255,8 +270,9 @@ function parseFormData(formData, isPromotion) {
       name: formData.get("name"),
       email: formData.get("email"),
       organisation: formData.get("organisation"),
+      role: formData.get("role") || "Not specified",
       country: formData.get("country"),
-      attendees: formData.get("attendees"),
+      newsletter: formData.get("newsletter") === "on",
       submittedAt: new Date().toISOString(),
     };
 
@@ -264,7 +280,6 @@ function parseFormData(formData, isPromotion) {
     if (!data.email) errors.push("Email is required");
     if (!data.organisation) errors.push("Organisation is required");
     if (!data.country) errors.push("Country is required");
-    if (!data.attendees) errors.push("Number of attendees is required");
 
     return { isValid: errors.length === 0, errors, data };
   }
@@ -493,8 +508,8 @@ function buildRebuild1ApplicationProperties(data) {
     Name: { title: [{ text: { content: data.name } }] },
     Email: { email: data.email },
     Organisation: { rich_text: [{ text: { content: data.organisation } }] },
+    Role: { rich_text: [{ text: { content: data.role } }] },
     Country: { select: { name: data.country } },
-    Attendees: { number: parseInt(data.attendees, 10) },
     Status: { status: { name: "New" } },
     "Submitted At": { date: { start: data.submittedAt } },
   };
@@ -651,14 +666,28 @@ async function sendToMailerLite(data) {
       subscriberData.fields.last_name = data.lastName;
     }
 
-    // Add interest field (required)
+    // Add interest field (required for newsletter forms)
     if (data.interest) {
       subscriberData.fields.interest = data.interest;
     }
 
-    // Add to group if specified
-    if (MAILERLITE_GROUP_ID) {
-      subscriberData.groups = [MAILERLITE_GROUP_ID];
+    // Add custom fields if provided (for Rebuild1 registrations)
+    if (data.customFields) {
+      if (data.customFields.organisation) {
+        subscriberData.fields.organisation = data.customFields.organisation;
+      }
+      if (data.customFields.role) {
+        subscriberData.fields.role = data.customFields.role;
+      }
+      if (data.customFields.country) {
+        subscriberData.fields.country = data.customFields.country; // Lowercase to match MailerLite field
+      }
+    }
+
+    // Add to group - use specific group ID if provided, otherwise use default
+    const groupId = data.groupId || MAILERLITE_GROUP_ID;
+    if (groupId) {
+      subscriberData.groups = [groupId];
     }
 
     console.log(
