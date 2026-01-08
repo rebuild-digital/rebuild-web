@@ -15,7 +15,7 @@ Christian Lindholm’s first mobile phone was a Nokia 2210. “I got it when I s
 
 Lindholm remembers walking around with a different piece of kit, though, an Apple Newton PDA. He held the compact, Kindle-like computer in his hands while strolling through London in the years before joining Nokia, guiding himself not by GPS but with the Time Out A-Z map he’d downloaded onto it. There was no dot to guide him, so he’d often overshoot a turning and have to backtrack. “It was close to science fiction, nobody did it,” he laughs, wishing aloud that he could travel back in time and get some drone shots of the passersby gawking at him.
 
-<img class="w-full object-cover" src="/assets/images/Kuva_66.jpg" alt="Image of a hand holding a phone." />
+<img class="w-full object-cover" src="/assets/images/Nokia_0120.jpg" alt="Nokia 3310, Beetle." />
 
 He was desperate for the future, researching emergent design at London Business School, “totally smitten” by the promise of a mobile phone. “When I saw these ads of Nokia phones on London cabs, I thought ‘What the hell, something is happening in Finland!’ So I applied for a job,” Lindholm says. And he got it. Within weeks he was back in the country where he’d grown up.
 
@@ -43,7 +43,7 @@ Nokia lost its next battle, against Apple, for myriad reasons but Lindholm boils
 
 “There are two types of creators, plumbers and pool boys,” says Lindholm. Without plumbing, there’d be no civilisation, but its the pool boys who get the attention. In Europe, we’re plumbers, well-educated, humble-to-a-fault plumbers. The pool boy attitude isn’t part of our culture: in the Nordics, people subscribe to the Law of Jante, which says ‘you’re not to think you’re special, or better than anyone else’; the Dutch say ‘the tallest tree catches the most wind’; and Brits are more likely to tell you how badly they’re doing than even attempt to boast.
 
-“But what if we got good at celebrating the pool boys more?” Lindholm asks. “That’s what I find always amazing with Silicon Valley, it creates this meritocracy of opportunity at all layers in the stack.” Recapturing the confident competitiveness Lindholm felt at Nokia in the 90s would be a great place for new founders to start.
+“But what if we got good at celebrating the plumbers more?” Lindholm asks. “That’s what I find always amazing with Silicon Valley, it creates this meritocracy of opportunity at all layers in the stack.” Recapturing the confident competitiveness Lindholm felt at Nokia in the 90s would be a great place for new founders to start.
 
 ### Navi-Key stats
 
