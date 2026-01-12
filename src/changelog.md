@@ -16,6 +16,16 @@ permalink: /changelog/index.html
 <div class="container mx-auto px-4">
 <div class="rich-text">
 
+#### v0.9.7 - January 12, 2026
+
+- Update to the directory in order to support the growing number of platforms in it! The directory now has...
+- Category filters, allowing you to view only a single, or multiple categories.
+- Consistent tag coloring
+- Tooltip with explanation
+- Three coloum masonry grid on desktop
+- More compact and scannable design
+- Also, fixed typos across several pages.
+
 #### v0.9.6 - December 21, 2025
 
 - Newsletter checkboxes now sign you up directly to our service (instead of manual imports).
