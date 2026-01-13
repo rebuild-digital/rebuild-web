@@ -5,57 +5,129 @@ description: We are mapping all the social platforms in Europe. This directory i
 permalink: /directory/index.html
 ---
 
-<div class="container">
-  <div class="md:pt-xl mb-lg">
-    <div class="mb-lg font-normal flex flex-col lg:flex-row justify-between items-start">
-      <h1 class="font-normal mb-sm lg:mb-0 text-4xl md:text-5xl lg:text-7xl">{{ title }}</h1>
-      <div class="max-w-[460px] text-lg lg:text-xl text-dark mt-lg md:mt-0">
-        We are mapping all the social platforms in Europe. This directory is growing every day based on input from people all around Europe. It is a collective piece of work. The platforms mapped are here because someone told us about their existence or directed us to a list, where they were mentioned. All are mapped as precisely as possible based on publicly available information.
-        <br><br>
-        <p>Is there a platform we should know about, or some information that should be adjusted? Let us know</p>
+<div class="mb-3xl">
+
+  {# Directory Header #}
+  <section class="md:pt-xl mb-lg lg:mb-4xl">
+    <div class="flex flex-col lg:flex-row gap-md">
+
+      {# Title and Tooltip #}
+      <div class="flex-col lg:w-1/2">
+        <h1 class="font-normal mb-sm lg:mb-0 text-4xl md:text-5xl lg:text-7xl">{{ title }}</h1>
+
+        {# Tooltip #}
+        <div class="relative mt-md">
+
+          {# Tooltip Trigger #}
+          <button id="info-tooltip-trigger" class="inline-flex items-center gap-xs text-lg text-dark hover:underline cursor-pointer" aria-label="Show more information">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke-width="2"/>
+              <path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>What is this?</span>
+          </button>
+
+          {# Tooltip Content #}
+          <div id="info-tooltip" class="hidden absolute top-full left-0 mt-xs z-10 bg-light border-2 border-dark p-md">
+            <div class="flex lg:w-[55ch] flex-col gap-md text-lg leading-tight text-dark">
+              <p>We are mapping all the social platforms in Europe. Our directory is growing  based on input from people all around Europe. It is a collective piece of work. The platforms mapped are here because someone told us about their existence or directed us to a list, where they were mentioned. All are mapped as precisely as possible based on publicly available information.</p>
+              <p>Is there a platform we should know about, or some information that should be adjusted? Let us know</p>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-    <div class="flex justify-end gap-sm md:gap-md">
-      <button data-form="builder-application" class="inline-block px-sm md:px-lg py-xs md:py-md bg-dark border-2 border-dark text-light hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
-          Join the directory
-        </button>
-      <button data-form="builder-promo" class="inline-block px-sm md:px-lg py-xs md:py-md bg-transparent border-2 border-dark text-dark hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
-          Suggest a platform
-        </button>
+
+      {# CTAs #}
+      <div class="flex justify-end gap-sm md:gap-md md:w-1/2 h-16 md:h-20 leading-tight">
+        <button data-form="builder-application" class="inline-block px-sm md:px-lg py-xs bg-dark border-2 border-dark text-light hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
+            Join the directory
+          </button>
+        <button data-form="builder-promo" class="inline-block px-sm md:px-lg py-xs md:py-md bg-transparent border-2 border-dark text-dark hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
+            Suggest a platform
+          </button>
+      </div>
+
     </div>
   </div>
+</section>
 
-  <hr>
-  <section class="mt-lg">
+{# Filters and Options #}
+<section class="mt-xl">
+
+  {# Filters #}
+  <div class="w-full lg:w-2/3">
+    <p class="text-sm text-muted">Filter by category</p>
     {% if builders and builders.length > 0 %}
-      {# Mobile: Single column with all builders #}
-      <div class="builders-masonry flex flex-col gap-xs md:hidden">
-        {% for builder in builders %}
-          {% include "components/builder-row.njk" %}
-        {% endfor %}
-      </div>
-
-      {# Desktop: Two-column masonry layout #}
-      <div class="builders-masonry hidden md:flex md:flex-row gap-xs">
-        <div class="builders-column flex-1 flex flex-col gap-xs">
-          {% for builder in builders %}
-            {% if loop.index0 % 2 == 0 %}
-              {% include "components/builder-row.njk" %}
-            {% endif %}
-          {% endfor %}
+      <div class="mt-lg mb-lg" id="category-filters-wrapper">
+        <div class="flex gap-xs flex-wrap" id="category-filters">
+          {# Filters will be populated by JavaScript #}
         </div>
-        <div class="builders-column flex-1 flex flex-col gap-xs">
-          {% for builder in builders %}
-            {% if loop.index0 % 2 == 1 %}
-              {% include "components/builder-row.njk" %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    {% else %}
-      <div class="rich-text">
-        <p>No platforms available. This is definitely an error.</p>
       </div>
     {% endif %}
   </div>
+
 </section>
+
+<section class="mt-0 mb-xl">
+  {% if builders and builders.length > 0 %}
+    {# Mobile: Single column with all builders #}
+    <div class="builders-masonry flex flex-col gap-xs md:hidden">
+      {% for builder in builders %}
+        {% include "components/builder-row.njk" %}
+      {% endfor %}
+    </div>
+
+    {# Tablet: Two-column masonry layout #}
+    <div class="builders-masonry hidden md:flex lg:hidden md:flex-row gap-xs">
+      <div class="builders-column flex-1 flex flex-col gap-xs">
+        {% for builder in builders %}
+          {% if loop.index0 % 2 == 0 %}
+            {% include "components/builder-row.njk" %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="builders-column flex-1 flex flex-col gap-xs">
+        {% for builder in builders %}
+          {% if loop.index0 % 2 == 1 %}
+            {% include "components/builder-row.njk" %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {# Desktop: Three-column masonry layout #}
+    <div class="builders-masonry hidden lg:flex lg:flex-row gap-xs">
+      <div class="builders-column flex-1 flex flex-col gap-xs">
+        {% for builder in builders %}
+          {% if loop.index0 % 3 == 0 %}
+            {% include "components/builder-row.njk" %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="builders-column flex-1 flex flex-col gap-xs">
+        {% for builder in builders %}
+          {% if loop.index0 % 3 == 1 %}
+            {% include "components/builder-row.njk" %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="builders-column flex-1 flex flex-col gap-xs">
+        {% for builder in builders %}
+          {% if loop.index0 % 3 == 2 %}
+            {% include "components/builder-row.njk" %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <div class="rich-text">
+      <p>No platforms available. This is definitely an error.</p>
+    </div>
+  {% endif %}
+</div>
+</section>
+
+{% block scripts %}
+<script src="/scripts/directory-filter.js"></script>
+{% endblock %}

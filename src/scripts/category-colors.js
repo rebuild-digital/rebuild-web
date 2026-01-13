@@ -6,34 +6,30 @@
 
 const categoryColors = {
   // Social & Community
-  'Community': { bg: 'bg-blue', text: 'text-dark' },
-  'Community of interest': { bg: 'bg-blue-tint', text: 'text-dark' },
-  'Groups': { bg: 'bg-blue-shade', text: 'text-light' },
-  'Networking': { bg: 'bg-blush', text: 'text-dark' },
-
-  // Content Sharing
-  'Media sharing': { bg: 'bg-green', text: 'text-dark' },
-  'Photo sharing': { bg: 'bg-green-tint', text: 'text-dark' },
-  'Video sharing': { bg: 'bg-green-shade', text: 'text-light' },
-  'Creator Platform': { bg: 'bg-blonde', text: 'text-dark' },
+  'Bundled': { bg: 'bg-red-tint', text: 'text-dark' },
+  'Community': { bg: 'bg-blue-tint', text: 'text-dark' },
+  'Groups': { bg: 'bg-green-tint', text: 'text-dark' },
+  'Networking': { bg: 'bg-orange-tint', text: 'text-dark' },
 
   // Communication
-  'Messaging': { bg: 'bg-orange', text: 'text-light' },
-  'Microblogging': { bg: 'bg-orange-tint', text: 'text-dark' },
-  'Forum': { bg: 'bg-orange-shade', text: 'text-light' },
+  'Messaging': { bg: 'bg-blue-tint', text: 'text-dark' },
+  'Microblogging': { bg: 'bg-red-tint', text: 'text-dark' },
+  'Forum': { bg: 'bg-red-tint', text: 'text-dark' },
 
   // Specialized
-  'Dating': { bg: 'bg-red', text: 'text-light' },
-  'Events': { bg: 'bg-red-tint', text: 'text-dark' },
-  'Location': { bg: 'bg-blush-tint', text: 'text-dark' },
-  'Marketplace': { bg: 'bg-blonde-shade', text: 'text-dark' },
+  'Dating': { bg: 'bg-blush-tint', text: 'text-dark' },
+  'Events': { bg: 'bg-orange-tint', text: 'text-dark' },
+  'Location': { bg: 'bg-green-tint', text: 'text-dark' },
 
-  // Technical
-  'Infrastructure': { bg: 'bg-muted', text: 'text-light' },
-  'Bundled': { bg: 'bg-darker', text: 'text-light' },
+  // Content Sharing
+  'Resource sharing': { bg: 'bg-blonde-tint', text: 'text-dark' },
+  'Photo sharing': { bg: 'bg-blush-tint', text: 'text-dark' },
+  'Video sharing': { bg: 'bg-blonde-tint', text: 'text-dark' },
+  'Creator Platform': { bg: 'bg-blue-tint', text: 'text-dark' },
+  'Social marketplace': { bg: 'bg-orange-tint', text: 'text-dark' },
 
   // Fallback
-  'Other': { bg: 'bg-light', text: 'text-dark' }
+  'Other': { bg: 'bg-blonde-tint', text: 'text-dark' }
 };
 
 /**

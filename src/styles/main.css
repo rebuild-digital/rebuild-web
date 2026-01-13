@@ -39,7 +39,7 @@
 
   --color-orange: #bf6e36;
   --color-orange-shade: #9a5e2e;
-  --color-orange-tint: #9a5e2e;
+  --color-orange-tint: #d4a77a;
 
   /* Neutrals */
   --color-light: #e8e8e8;
@@ -422,14 +422,15 @@
 @layer components {
   /* Filter Button Component */
   .filter-button {
-    @apply inline-block px-sm py-xs bg-light border-2 border-dark text-sm transition-all duration-fast;
-    @apply hover:bg-dark hover:text-light;
+    @apply inline-flex items-center gap-xs px-md lg:px-lg py-xs lg:py-sm text-sm rounded-4xl;
+    @apply border-2 border-dark bg-light text-dark;
+    @apply transition-colors duration-200 cursor-pointer;
     @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue;
   }
 
-  .filter-button.active {
-    @apply bg-light text-dark;
-    @apply border-2 border-dark;
+  /* Hidden X icon within filter buttons */
+  .filter-x {
+    @apply text-lg leading-none;
   }
 
   /* Rich Text Component - Keep this as a semantic wrapper for markdown content */
@@ -690,6 +691,31 @@
     .rich-text th,
     .rich-text td {
       @apply px-xs py-xxs;
+    }
+  }
+
+  /* Category Filters Wrapper - clips overflow on mobile */
+  #category-filters-wrapper {
+    @media (max-width: 767px) {
+      overflow-x: auto;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+  }
+
+  /* Hide scrollbar for wrapper on WebKit browsers */
+  #category-filters-wrapper::-webkit-scrollbar {
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  /* Category Filters Component */
+  #category-filters {
+    /* Mobile only: wider container to allow wrapping beyond viewport */
+    @media (max-width: 767px) {
+      width: 200vw; /* Make container twice the screen width */
+      max-height: 180px; /* Approximately 3 rows of filter buttons */
     }
   }
 
