@@ -226,17 +226,19 @@ class DirectoryFilter {
       row.style.order = ""; // Reset order
     });
 
-    // Get desktop columns
+    // Get all column containers
     const desktopColumns = document.querySelectorAll(".builders-column");
 
-    if (desktopColumns.length === 2) {
-      // Desktop: Redistribute visible builders evenly across both columns
+    if (desktopColumns.length >= 2) {
+      // Tablet/Desktop: Redistribute visible builders evenly across columns
+      const numColumns = desktopColumns.length;
+
       visibleBuilders.forEach((row, index) => {
         row.style.display = "block";
 
-        // Determine which column this should go in (alternate)
-        const columnIndex = index % 2;
-        row.style.order = Math.floor(index / 2);
+        // Determine which column this should go in (round-robin)
+        const columnIndex = index % numColumns;
+        row.style.order = Math.floor(index / numColumns);
 
         // Move to appropriate column if not already there
         const targetColumn = desktopColumns[columnIndex];
