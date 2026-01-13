@@ -220,38 +220,25 @@ class DirectoryFilter {
   render() {
     const visibleBuilders = this.filterBuilders();
 
-    // Hide all builders first
+    // Hide all builder wrappers first
     this.builderRows.forEach((row) => {
-      row.style.display = "none";
-      row.style.order = ""; // Reset order
+      const wrapper = row.parentElement;
+      if (wrapper && wrapper.classList.contains('break-inside-avoid')) {
+        wrapper.style.display = "none";
+      } else {
+        row.style.display = "none";
+      }
     });
 
-    // Get all column containers
-    const desktopColumns = document.querySelectorAll(".builders-column");
-
-    if (desktopColumns.length >= 2) {
-      // Tablet/Desktop: Redistribute visible builders evenly across columns
-      const numColumns = desktopColumns.length;
-
-      visibleBuilders.forEach((row, index) => {
+    // Show filtered builders
+    visibleBuilders.forEach((row) => {
+      const wrapper = row.parentElement;
+      if (wrapper && wrapper.classList.contains('break-inside-avoid')) {
+        wrapper.style.display = "block";
+      } else {
         row.style.display = "block";
-
-        // Determine which column this should go in (round-robin)
-        const columnIndex = index % numColumns;
-        row.style.order = Math.floor(index / numColumns);
-
-        // Move to appropriate column if not already there
-        const targetColumn = desktopColumns[columnIndex];
-        if (row.parentElement !== targetColumn) {
-          targetColumn.appendChild(row);
-        }
-      });
-    } else {
-      // Mobile: Just show filtered builders
-      visibleBuilders.forEach((row) => {
-        row.style.display = "block";
-      });
-    }
+      }
+    });
 
     // Update filter button states
     const buttons = this.filterContainer.querySelectorAll(".filter-button");
