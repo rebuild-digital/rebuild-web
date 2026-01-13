@@ -71,54 +71,13 @@ permalink: /directory/index.html
 
 <section class="mt-0 mb-xl">
   {% if builders and builders.length > 0 %}
-    {# Mobile: Single column with all builders #}
-    <div class="builders-masonry flex flex-col gap-xs md:hidden">
+    {# Responsive masonry layout using CSS columns #}
+    <div class="builders-masonry columns-1 md:columns-2 lg:columns-3 gap-xs" style="column-gap: 0.5rem;">
       {% for builder in builders %}
-        {% include "components/builder-row.njk" %}
+        <div class="break-inside-avoid mb-xs">
+          {% include "components/builder-row.njk" %}
+        </div>
       {% endfor %}
-    </div>
-
-    {# Tablet: Two-column masonry layout #}
-    <div class="builders-masonry hidden md:flex lg:hidden md:flex-row gap-xs">
-      <div class="builders-column flex-1 flex flex-col gap-xs">
-        {% for builder in builders %}
-          {% if loop.index0 % 2 == 0 %}
-            {% include "components/builder-row.njk" %}
-          {% endif %}
-        {% endfor %}
-      </div>
-      <div class="builders-column flex-1 flex flex-col gap-xs">
-        {% for builder in builders %}
-          {% if loop.index0 % 2 == 1 %}
-            {% include "components/builder-row.njk" %}
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-
-    {# Desktop: Three-column masonry layout #}
-    <div class="builders-masonry hidden lg:flex lg:flex-row gap-xs">
-      <div class="builders-column flex-1 flex flex-col gap-xs">
-        {% for builder in builders %}
-          {% if loop.index0 % 3 == 0 %}
-            {% include "components/builder-row.njk" %}
-          {% endif %}
-        {% endfor %}
-      </div>
-      <div class="builders-column flex-1 flex flex-col gap-xs">
-        {% for builder in builders %}
-          {% if loop.index0 % 3 == 1 %}
-            {% include "components/builder-row.njk" %}
-          {% endif %}
-        {% endfor %}
-      </div>
-      <div class="builders-column flex-1 flex flex-col gap-xs">
-        {% for builder in builders %}
-          {% if loop.index0 % 3 == 2 %}
-            {% include "components/builder-row.njk" %}
-          {% endif %}
-        {% endfor %}
-      </div>
     </div>
   {% else %}
     <div class="rich-text">
