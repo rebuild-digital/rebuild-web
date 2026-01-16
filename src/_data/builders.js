@@ -94,12 +94,15 @@ module.exports = async function () {
       order: page.properties.Order?.number || 999,
     }));
 
+    // Shuffle the data randomly for each build
+    const shuffledData = data.sort(() => Math.random() - 0.5);
+
     // Cache the data for future builds if Notion API fails
     fs.mkdirSync(path.dirname(CACHE_FILE), { recursive: true });
-    fs.writeFileSync(CACHE_FILE, JSON.stringify(data, null, 2));
+    fs.writeFileSync(CACHE_FILE, JSON.stringify(shuffledData, null, 2));
 
     console.log(`✓ Fetched ${data.length} platforms from the directory.`);
-    return data;
+    return shuffledData;
   } catch (error) {
     console.error("✗ Notion API failed:", error.message);
 
