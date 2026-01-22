@@ -88,12 +88,14 @@
      =========================================== */
 
   /* Font Families */
-  --font-custom: "ABC Social Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
-    Consolas, monospace;
+  --font-custom:
+    "ABC Social Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
   --font-sans: system-ui, -apple-system, sans-serif;
   --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: "ABC Social Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
-    Consolas, monospace;
+  --font-mono:
+    "ABC Social Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
 
   /* Font Sizes */
   --font-size-xs: 0.75rem; /* 12px */
@@ -167,10 +169,10 @@
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-    0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl:
+    0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
   --shadow-none: 0 0 #0000;
@@ -839,9 +841,40 @@
     }
   }
 
+  @keyframes subtle-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
   /* Programmes Animation */
   .programme-item-visible {
     opacity: 1 !important;
     transform: translateX(0) !important;
+  }
+
+  /* Carousel Slide Transitions */
+  .carousel-slide {
+    transition:
+      opacity var(--transition-duration-slow) var(--ease-in-out),
+      visibility 0s linear var(--transition-duration-slow);
+  }
+
+  .carousel-slide.opacity-100\!,
+  .carousel-slide.visible\! {
+    transition:
+      opacity var(--transition-duration-slow) var(--ease-in-out),
+      visibility 0s linear 0s;
+  }
+
+  /* Beta Pulse Animation - Desktop only */
+  @media (min-width: 1024px) {
+    .beta-pulse {
+      animation: subtle-pulse 5s ease-in-out infinite;
+    }
   }
 }

@@ -16,6 +16,12 @@ permalink: /changelog/index.html
 <div class="container mx-auto px-4">
 <div class="rich-text">
 
+#### v0.9.87 - January 22, 2026
+
+- New callout for Rebuild 1 on the landing page
+- Random ordering on the directory entries
+- Subtle pulse animation on our beta tag in the header
+
 #### v0.9.7 - January 12, 2026
 
 - Update to the directory in order to support the growing number of platforms in it! The directory now has...

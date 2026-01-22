@@ -21,15 +21,21 @@
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        textElement.textContent = days + ' days, ' + hours + ' hours, ' + minutes + ' minutes';
+        // Format with leading zeros for hours, minutes, and seconds
+        const formattedHours = String(hours).padStart(2, '0');
+        const formattedMinutes = String(minutes).padStart(2, '0');
+        const formattedSeconds = String(seconds).padStart(2, '0');
+
+        textElement.textContent = days + 'd ' + formattedHours + 'h ' + formattedMinutes + 'm ' + formattedSeconds + 's';
       }
 
       // Update immediately
       update();
 
-      // Then update every minute
-      setInterval(update, 60000);
+      // Then update every second
+      setInterval(update, 1000);
     });
   }
 

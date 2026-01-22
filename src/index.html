@@ -52,7 +52,11 @@ image: /assets/images/social-3.jpg
   </div>
 </section>
 
-<section class="py-3xl md:py-6xl">
+<section class="py-3xl pb-6xl">
+  {% include "components/gathering-callout.njk" %}
+</section>
+
+<section class="pb-3xl md:pb-6xl">
   {{ textSection("Rebuild is a sprint for European social platforms. Connecting the entrepreneurs, the pioneers, the investors and the digital leaders building the next generation of social platforms.
 <br><br>Through <span class='font-bold'>gatherings, programmes, and tools.</span>") }}
 </section>
@@ -119,3 +123,5 @@ image: /assets/images/social-3.jpg
 </section>
 
 {% include "components/half-circle.njk" %}
+
+<script src="/scripts/gathering-countdown.js"></script>
