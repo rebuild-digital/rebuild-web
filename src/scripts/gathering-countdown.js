@@ -23,12 +23,19 @@
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Format with leading zeros for hours, minutes, and seconds
-        const formattedHours = String(hours).padStart(2, '0');
-        const formattedMinutes = String(minutes).padStart(2, '0');
-        const formattedSeconds = String(seconds).padStart(2, '0');
+        // Check if this countdown should show days only
+        const daysOnly = element.hasAttribute('data-countdown-days-only');
 
-        textElement.textContent = days + 'd ' + formattedHours + 'h ' + formattedMinutes + 'm ' + formattedSeconds + 's';
+        if (daysOnly) {
+          textElement.textContent = days + ' days';
+        } else {
+          // Format with leading zeros for hours, minutes, and seconds
+          const formattedHours = String(hours).padStart(2, '0');
+          const formattedMinutes = String(minutes).padStart(2, '0');
+          const formattedSeconds = String(seconds).padStart(2, '0');
+
+          textElement.textContent = days + 'd ' + formattedHours + 'h ' + formattedMinutes + 'm ' + formattedSeconds + 's';
+        }
       }
 
       // Update immediately

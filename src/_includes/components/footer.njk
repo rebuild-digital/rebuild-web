@@ -108,15 +108,23 @@
         </ul>
       </nav>
     </div>
-    <p class="text-dark text-xs mt-xl">&copy; 2025 {{ site.title }} All rights reserved.</p>
+    <p class="text-dark text-xs mt-xl">&copy; <span id="footer-year"></span> {{ site.title }} All rights reserved.</p>
   </div>
 </footer>
 
 <script>
+  // Set current year in footer
+  (function() {
+    const yearElement = document.getElementById('footer-year');
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
+  })();
+
   // Footer newsletter form submission handler
   (function () {
     const form = document.getElementById('footer-newsletter-form');
-    if (!form) 
+    if (!form)
       return;
     
     let fadeTimeout;
