@@ -47,7 +47,7 @@
     {% include "components/header.njk" %}
 
     {# Main content #}
-    <main id="main-content" class="max-w-[800px] lg:max-w-[1400px] mx-auto px-md {% if page.url != '/' %}pt-48{% endif %}">
+    <main id="main-content" class="lg:max-w-[1400px] mx-auto px-md {% if page.url != '/' %}pt-48{% endif %}">
       {{ content | safe }}
     </main>
 

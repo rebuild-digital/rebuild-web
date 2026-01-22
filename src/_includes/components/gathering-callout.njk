@@ -1,0 +1,69 @@
+{#
+  Gathering Callout Component
+  Usage: {% include "components/gathering-callout.njk" %}
+
+  Displays a prominent callout box with countdown timer for the upcoming gathering.
+  Requires: /scripts/gathering-countdown.js to be loaded on the page
+#}
+{% from "components/image-credit.njk" import imageCredit %}
+
+<section class="relative bg-green overflow-hidden max-h-screen">
+  <div class="w-full lg:max-w-[1400px] lg:mx-auto">
+
+    {# Two-column grid: Image left, Content right #}
+    <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch h-full max-h-screen">
+
+      {# Left column: Image - edge to edge #}
+      <div class="hidden lg:block order-2 md:order-1 relative h-full min-h-[40vh] md:min-h-full">
+        <img
+          src="/assets/images/copenhagen.jpg"
+          alt="Copenhagen, Denmark - Rebuild 1 location"
+          class="absolute inset-0 w-full h-full object-cover"
+        >
+        <div class="absolute inset-0">
+          {{ imageCredit("Eryk Piotr Munk") }}
+        </div>
+      </div>
+
+      {# Right column: Content #}
+      <div class="order-1 lg:order-2 space-y-xl lg:space-y-3xl text-center lg:text-left px-2xl py-3xl lg:py-5xl flex flex-col justify-center">
+        <p class="text-dark text-xl md:text-2xl">
+          The first gathering for European social platforms is coming up soon...
+        </p>
+
+        {# Countdown Timer #}
+        <div
+          class=""
+          data-countdown="2026-03-01T15:00:00Z"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <div
+            data-countdown-text
+            class="text-dark text-3xl md:text-4xl xl:text-5xl 2xl:text-6xl"
+          >
+            Loading...
+          </div>
+        </div>
+
+        {# CTA Buttons #}
+        <div class="flex flex-col md:flex-row gap-md justify-center lg:justify-start items-stretch">
+          <button
+            data-form="gathering-invitation"
+            class="px-lg xl:px-xl py-md bg-dark text-light text-lg lg:text-xl hover:bg-green-shade hover:text-light hover:border-2 hover:border-dark transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer border-none"
+          >
+            Request invitation
+          </button>
+
+          <a
+            href="/journey#gatherings"
+            class="px-lg xl:px-xl py-md bg-transparent border-2 border-dark text-dark text-lg lg:text-xl hover:bg-green-tint transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue no-underline inline-block text-center"
+          >
+            Learn more
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
