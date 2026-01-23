@@ -86,7 +86,9 @@ image: /assets/images/social-3.jpg
 </section>
 
 <section class="pb-3xl md:pb-6xl">
-  {{ textSection('Rebuild1 is happening in 75 days.<br>Keynotes, work sessions, and demos of all social platforms.<br><br>Request form is open.<br>Copenhagen March 1st 15.00 - March 3rd 15.00.<br>Opening and grand social dinner starts 16.00.') }}
+  <div data-countdown="2026-03-01T15:00:00+01:00" data-countdown-days-only>
+    {{ textSection('Rebuild1 is happening in <span data-countdown-text>75 days</span>.<br>Keynotes, work sessions, and demos of all social platforms.<br><br>Request form is open.<br>Copenhagen March 1st 15.00 - March 3rd 15.00.<br>Opening and grand social dinner starts 16.00.') }}
+  </div>
   {# CTA Button #}
   <div class="flex justify-center mt-xl">
     <button
