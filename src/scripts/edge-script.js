@@ -289,6 +289,7 @@ function parseFormData(formData, isPromotion) {
       type: "gathering_invitation",
       name: formData.get("name"),
       email: formData.get("email"),
+      phone: formData.get("phone") || "Not provided",
       platformLink: formData.get("platform_link"),
       country: formData.get("country"),
       contribution: formData.get("contribution"),
@@ -298,6 +299,7 @@ function parseFormData(formData, isPromotion) {
 
     if (!data.name) errors.push("Name is required");
     if (!data.email) errors.push("Email is required");
+    if (!data.phone) errors.push("Phone is required");
     if (!data.platformLink) errors.push("Platform link is required");
     if (!data.country) errors.push("Country is required");
     if (!data.contribution) errors.push("Contribution is required");
@@ -494,6 +496,7 @@ function buildGatheringInvitationProperties(data) {
   return {
     Name: { title: [{ text: { content: data.name } }] },
     Email: { email: data.email },
+    Phone: { phone_number: data.phone !== "Not provided" ? data.phone : null },
     "Platform Link": { url: data.platformLink },
     Country: { select: { name: data.country } },
     Contribution: { rich_text: [{ text: { content: data.contribution } }] },
