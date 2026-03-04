@@ -771,6 +771,111 @@
     max-width: 1000px;
   }
 
+  /* Hero Splash Alternative Component */
+  .hero-splash-alt {
+    @apply relative overflow-hidden;
+    height: 100vh;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    z-index: 1;
+  }
+
+  /* Background Images Container */
+  .splash-images {
+    @apply absolute top-0 left-0 w-full h-full;
+    z-index: 1;
+  }
+
+  /* Individual Background Image */
+  .splash-image {
+    @apply absolute top-0 left-0 w-full h-full;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1500ms ease-in-out;
+  }
+
+  .splash-image.active {
+    opacity: 1;
+  }
+
+  /* Gradient Overlay - #22223E saturated at top and bottom, transparent in middle */
+  .splash-gradient {
+    @apply absolute bottom-0 left-0 w-full h-full pointer-events-none;
+    background: linear-gradient(
+      to bottom,
+      rgba(34, 34, 62, 0.9) 0%,
+      rgba(34, 34, 62, 0.7) 15%,
+      rgba(34, 34, 62, 0.3) 30%,
+      rgba(34, 34, 62, 0.1) 50%,
+      rgba(34, 34, 62, 0.3) 70%,
+      rgba(34, 34, 62, 0.7) 85%,
+      rgba(34, 34, 62, 0.95) 100%
+    );
+    z-index: 2;
+  }
+
+  /* Splash Alternative Content - Positioned at bottom left */
+  .hero-splash-alt .hero-content {
+    @apply absolute bottom-0 left-0 w-full;
+    @apply flex flex-col items-start justify-end;
+    @apply max-w-[1400px] mx-auto px-md pb-2xl md:pb-3xl;
+    padding-top: 0;
+    z-index: 3;
+  }
+
+  /* Splash Alternative Title - Left aligned, lowercase */
+  .splash-alt-title {
+    @apply text-light text-4xl md:text-5xl lg:text-7xl font-normal leading-tight mb-lg md:mb-xl;
+    text-align: left;
+    max-width: 800px;
+  }
+
+  /* CTA Wrapper - Desktop: 2x2 grid, Mobile: vertical stack with overflow */
+  .splash-cta-wrapper {
+    @apply w-full;
+    max-width: 800px;
+  }
+
+  .splash-cta-container {
+    @apply grid grid-cols-2 gap-sm;
+  }
+
+  /* Mobile: Vertical stack with horizontal scroll */
+  @media (max-width: 767px) {
+    .splash-cta-wrapper {
+      @apply overflow-x-auto overflow-y-visible;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .splash-cta-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .splash-cta-container {
+      @apply flex flex-col gap-sm;
+      width: max-content;
+      min-width: 100%;
+    }
+
+    .splash-alt-title {
+      @apply text-3xl mb-md;
+    }
+  }
+
+  /* CTA Buttons */
+  .splash-cta-button {
+    @apply border-2 border-light px-md py-sm text-light text-base no-underline;
+    @apply transition-all duration-fast hover:bg-light hover:text-dark;
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue;
+    @apply cursor-pointer bg-transparent whitespace-nowrap;
+    flex-shrink: 0;
+    width: auto;
+    justify-self: start;
+  }
+
   /* Header Transitions */
   header {
     @apply transition-all duration-300 bg-light;
@@ -876,5 +981,10 @@
     .beta-pulse {
       animation: subtle-pulse 5s ease-in-out infinite;
     }
+  }
+
+  /* Splash Button Background - 25% opacity dark */
+  .bg-splash-button {
+    background-color: rgba(34, 34, 62, 0.25);
   }
 }
