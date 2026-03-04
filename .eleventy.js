@@ -54,6 +54,13 @@ module.exports = async function(eleventyConfig) {
     return array.slice(0, limit);
   });
 
+  // Filter to check if a date is in the past
+  eleventyConfig.addFilter("isPast", (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    return date < now;
+  });
+
   // Shuffle filter for random ordering
   eleventyConfig.addFilter("shuffle", (array) => {
     if (!Array.isArray(array)) return array;

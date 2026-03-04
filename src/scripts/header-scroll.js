@@ -1,7 +1,7 @@
 // Header scroll handler for transparent to solid transition
 document.addEventListener('DOMContentLoaded', function() {
   const header = document.querySelector('header');
-  const heroSplash = document.getElementById('hero-splash');
+  const heroSplash = document.getElementById('hero-splash') || document.getElementById('hero-splash-alt');
 
   if (!header || !heroSplash) return;
 

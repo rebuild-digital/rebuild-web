@@ -7,56 +7,11 @@ image: /assets/images/social-3.jpg
 {% from "components/text-section.njk" import render as textSection %}
 {% from "components/outcomes.njk" import render as outcomes %}
 
-<!-- Graphic Splash -->
-<section id="hero-splash" class="hero-splash" style="background-color: #bf6e36;">
-  <video autoplay loop muted playsinline class="hero-video" style="z-index: 1;">
-    <source src="/assets/videos/circles3.mov" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <div class="hero-content" style="z-index: 2;">
-    <h1 class="hero-title">
-      <a class="hover:underline" href="/about">Rebuild</a> European <a class="hover:underline" href="/tools#Social Platform Taxonomy">Social</a>
-      <a href="/directory" class="hover:underline">Platforms</a>
-    </h1>
+<!-- Alternative Splash with Image Rotation -->
+{% include "components/splash-alt.njk" %}
 
-    {# Action Buttons #}
-    <div class="flex flex-wrap gap-sm justify-center mt-lg mx-auto max-w-9xl">
-      <button
-        data-form="builder-promo"
-        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
-      >
-        Help map the platforms
-      </button>
-
-      {# <button
-        data-form="builder-application"
-        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
-      >
-        Join as a platform
-      </button> #}
-
-      <button
-        data-form="newsletter"
-        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
-      >
-        Stay involved
-      </button>
-
-      <button
-        data-form="gathering-invitation"
-        class="border-2 border-light px-sm py-xs text-light no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer bg-transparent"
-      >
-        Request gathering invitation
-      </button>
-    </div>
-  </div>
-</section>
-
-<section class="py-3xl pb-6xl">
-  {% include "components/gathering-callout.njk" %}
-</section>
-
-<section class="pb-3xl md:pb-6xl">
+<main id="main-content" class="lg:max-w-[1400px] mx-auto px-md">
+<section class="py-3xl md:py-6xl">
   {{ textSection("Rebuild is a sprint for European social platforms. Connecting the entrepreneurs, the pioneers, the investors and the digital leaders building the next generation of social platforms.
 <br><br>Through <span class='font-bold'>gatherings, programmes, and tools.</span>") }}
 </section>
@@ -85,21 +40,6 @@ image: /assets/images/social-3.jpg
   {% include "components/gatherings-preview.njk" %}
 </section>
 
-<section class="pb-3xl md:pb-6xl">
-  <div data-countdown="2026-03-01T15:00:00+01:00" data-countdown-days-only>
-    {{ textSection('Rebuild1 is happening in <span data-countdown-text>75 days</span>.<br>Keynotes, work sessions, and demos of all social platforms.<br><br>Request form is open.<br>Copenhagen March 1st 15.00 - March 3rd 15.00.<br>Opening and grand social dinner starts 16.00.') }}
-  </div>
-  {# CTA Button #}
-  <div class="flex justify-center mt-xl">
-    <button
-        data-form="gathering-invitation"
-        class="inline-block px-xl py-md bg-dark text-light text-lg md:text-xl hover:bg-darker transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer border-none"
-      >
-        Request an invitation to join the first gathering
-      </button>
-  </div>
-</section>
-
 {# <section class="pb-6xl">
   {{ outcomes(
     "After a year of building, these are the outcomes we hope to see...",
@@ -125,5 +65,4 @@ image: /assets/images/social-3.jpg
 </section>
 
 {% include "components/half-circle.njk" %}
-
-<script src="/scripts/gathering-countdown.js"></script>
+</main>

@@ -46,10 +46,15 @@
     {# Header #}
     {% include "components/header.njk" %}
 
-    {# Main content #}
-    <main id="main-content" class="lg:max-w-[1400px] mx-auto px-md {% if page.url != '/' %}pt-48{% endif %}">
+    {# Homepage: content outside main wrapper for full-width splash #}
+    {% if page.url == "/" %}
       {{ content | safe }}
-    </main>
+    {% else %}
+      {# Other pages: content inside main wrapper #}
+      <main id="main-content" class="lg:max-w-[1400px] mx-auto px-md pt-48">
+        {{ content | safe }}
+      </main>
+    {% endif %}
 
     {# Footer #}
     {% include "components/footer.njk" %}
@@ -78,6 +83,11 @@
 
     {# Carousel script #}
     <script src="/scripts/carousel.js"></script>
+
+    {# Splash rotation script (home page only if using splash-alt) #}
+    {% if page.url == "/" %}
+      <script src="/scripts/splash-rotation.js"></script>
+    {% endif %}
 
     {# Block for additional scripts #}
     {% block scripts %}{% endblock %}

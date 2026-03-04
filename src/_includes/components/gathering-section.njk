@@ -40,22 +40,25 @@
         </div>
       </div>
 
-      <hr class="pt-lg lg:hidden">
-      {# Footer with happening text and CTA #}
-      <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-lg">
-        <div>
-          <p class="text-base md:text-lg">{{ gathering.shortTitle }} is happening in...</p>
-          <p class="text-base md:text-lg underline" data-countdown="{{ gathering.startDate }}">
-            <span data-countdown-text>calculating...</span>
-          </p>
+      {# Only show countdown and CTA for upcoming gatherings #}
+      {% if not (gathering.endDate | isPast) %}
+        <hr class="pt-lg lg:hidden">
+        {# Footer with happening text and CTA #}
+        <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-lg">
+          <div>
+            <p class="text-base md:text-lg">{{ gathering.shortTitle }} is happening in...</p>
+            <p class="text-base md:text-lg underline" data-countdown="{{ gathering.startDate }}">
+              <span data-countdown-text>calculating...</span>
+            </p>
+          </div>
+          <div class="flex flex-col leading-none">
+            <p class="text-base mb-sm md:text-lg">Want to be part of the gathering?</p>
+            <a href="{{ gathering.cta.url }}" {% if gathering.cta.dataForm %}data-form="{{ gathering.cta.dataForm }}"{% endif %} class="inline-block px-md py-sm text-center border-2 border-dark hover:bg-dark hover:text-light text-base md:text-lg transition-all">
+              {{ gathering.cta.text }}
+            </a>
+          </div>
         </div>
-        <div class="flex flex-col leading-none">
-          <p class="text-base mb-sm md:text-lg">Want to be part of the gathering?</p>
-          <a href="{{ gathering.cta.url }}" {% if gathering.cta.dataForm %}data-form="{{ gathering.cta.dataForm }}"{% endif %} class="inline-block px-md py-sm text-center border-2 border-dark hover:bg-dark hover:text-light text-base md:text-lg transition-all">
-            {{ gathering.cta.text }}
-          </a>
-        </div>
-      </div>
+      {% endif %}
 
     </div>
   </section>
