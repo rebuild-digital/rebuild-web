@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentIndex = 0;
   let rotationTimer = null;
   let isPaused = false;
+  let lastRotationTime = Date.now();
 
   /**
    * Show the image at the specified index
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     images[index].classList.add("active");
 
     currentIndex = index;
+    lastRotationTime = Date.now();
   }
 
   /**
@@ -109,6 +111,16 @@ document.addEventListener("DOMContentLoaded", function () {
   function startRotation() {
     if (isPaused) return;
 
+    // Calculate remaining time if resuming
+    const elapsed = Date.now() - lastRotationTime;
+    const remaining = Math.max(0, interval - elapsed);
+
+    // If enough time has passed, show next image immediately
+    if (remaining === 0) {
+      nextImage();
+    }
+
+    // Set up the interval timer
     rotationTimer = setInterval(() => {
       nextImage();
     }, interval);
@@ -152,7 +164,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       stopRotation();
-    } else if (!isPaused) {
+    } else if (!isPaused && !rotationTimer) {
+      // Only start if not already running
       startRotation();
     }
   });
