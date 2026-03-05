@@ -2,7 +2,7 @@
   Gathering Invitation Request Form
   Usage: {% include "components/forms/gathering-invitation-form.njk" %}
 
-  This form allows people to request an invitation to join the first gathering
+  This form allows people to request an invitation to join Rebuild 2
 #}
 
 {% set gatheringInvitationFields = [
@@ -113,8 +113,8 @@
 {% set formId = 'gathering-invitation-form' %}
 {% set action = site.apiUrl + '/api/gathering-invitation' %}
 {% set method = 'POST' %}
-{% set title = 'Request an invitation to the first gathering' %}
-{% set description = 'Show interest in joining Rebuild 1. Share your details and tell us what you would like to contribute.' %}
+{% set title = 'Request an invitation to Rebuild 2' %}
+{% set description = 'Show interest in joining Rebuild 2. Share your details and tell us what you would like to contribute.' %}
 {% set submitText = 'Submit request' %}
 {% set submitVariant = 'primary' %}
 {% set fields = gatheringInvitationFields %}
