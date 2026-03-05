@@ -55,7 +55,7 @@
         },
         {
           "headline": "Product design sessions",
-          "description": "Hands-on sessions where teams co-design features, flows, and architectures. End design, explorative UI’s, spatial UI, save for later, TimeLocking."
+          "description": "Hands-on sessions where teams co-design features, flows, and architectures. End design, explorative UI's, spatial UI, save for later, TimeLocking."
         },
         {
           "headline": "Designing for the Big Shift Day",
@@ -63,9 +63,9 @@
         }
       ],
       "cta": {
-        "text": "Sign up to our newsletter for updates",
+        "text": "Request an invitation to the gathering",
         "url": "#",
-        "dataForm": "newsletter"
+        "dataForm": "gathering-invitation"
       }
     },
     {
