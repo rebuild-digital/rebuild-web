@@ -11,7 +11,7 @@
 
 module.exports = [
   {
-    src: "/assets/images/splash-1.jpg",
+    src: "/assets/images/splash-0.jpg",
     alt: "Rebuild gathering participants collaborating",
     showOnMobile: true,
   },
