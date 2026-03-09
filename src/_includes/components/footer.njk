@@ -12,12 +12,8 @@
         <div class="text-sm mt-lg">
           <p class="text-sm mb-xs">Get our newsletter or <a class="underline hover:text-blue" href="https://linkedin.com/company/rebuild-europe">follow us on Linkedin</a>
           </p>
-          <form
-            id="footer-newsletter-form"
-            action="{{ site.apiUrl }}/api/newsletter-signup"
-            method="POST"
-            class="flex flex-col gap-xs mb-md"
-          >
+          <form id="footer-newsletter-form" action="https://rebuild-production.b-cdn.net/api/newsletter-signup" method="POST" class="flex flex-col gap-xs mb-md">
+
             <div class="flex flex-col gap-xs">
               <input
                 type="email"
@@ -108,13 +104,14 @@
         </ul>
       </nav>
     </div>
-    <p class="text-dark text-xs mt-xl">&copy; <span id="footer-year"></span> {{ site.title }} All rights reserved.</p>
+    <p class="text-dark text-xs mt-xl">&copy; <span id="footer-year"></span>
+      {{ site.title }} All rights reserved.</p>
   </div>
 </footer>
 
 <script>
   // Set current year in footer
-  (function() {
+  (function () {
     const yearElement = document.getElementById('footer-year');
     if (yearElement) {
       yearElement.textContent = new Date().getFullYear();
@@ -124,7 +121,7 @@
   // Footer newsletter form submission handler
   (function () {
     const form = document.getElementById('footer-newsletter-form');
-    if (!form)
+    if (!form) 
       return;
     
     let fadeTimeout;
