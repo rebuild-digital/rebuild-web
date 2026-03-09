@@ -13,13 +13,9 @@ eleventyExcludeFromCollections: true
 
         {# Newsletter signup form #}
         <div class="text-sm mt-lg">
-          <p class="text-sm mb-xs">Get our newsletter or <a class="underline hover:text-blue" href="https://linkedin.com/company/rebuild-europe">follow us on Linkedin</a></p>
-          <form
-            id="footer-newsletter-form"
-            action="https://rebuild.net/api/newsletter-signup"
-            method="POST"
-            class="flex flex-col gap-xs mb-md"
-          >
+          <p class="text-sm mb-xs">Get our newsletter or <a class="underline hover:text-blue" href="https://linkedin.com/company/rebuild-europe">follow us on Linkedin</a>
+          </p>
+          <form id="footer-newsletter-form" action="https://rebuild-production.b-cdn.net/api/newsletter-signup" method="POST" class="flex flex-col gap-xs mb-md">
             <div class="flex flex-col gap-xs">
               <input
                 type="email"
@@ -132,7 +128,7 @@ eleventyExcludeFromCollections: true
 
 <script>
   // Set current year in footer
-  (function() {
+  (function () {
     const yearElement = document.getElementById('footer-year');
     if (yearElement) {
       yearElement.textContent = new Date().getFullYear();
@@ -142,23 +138,29 @@ eleventyExcludeFromCollections: true
   // Footer newsletter form submission handler
   (function () {
     const form = document.getElementById('footer-newsletter-form');
-    if (!form) return;
-
+    if (!form) 
+      return;
+    
     let fadeTimeout;
 
     function showMessage(element) {
       // Clear any existing timeout
-      if (fadeTimeout) clearTimeout(fadeTimeout);
-
+      if (fadeTimeout) 
+        clearTimeout(fadeTimeout);
+      
       // Show the message
-      element.classList.remove('hidden');
+      element
+        .classList
+        .remove('hidden');
       element.style.opacity = '1';
 
       // Fade out after 3 seconds
       fadeTimeout = setTimeout(() => {
         element.style.opacity = '0';
         setTimeout(() => {
-          element.classList.add('hidden');
+          element
+            .classList
+            .add('hidden');
         }, 300); // Wait for fade transition to complete
       }, 3000);
     }
@@ -171,8 +173,12 @@ eleventyExcludeFromCollections: true
       const errorEl = document.getElementById('footer-newsletter-error');
 
       // Hide both messages
-      successEl.classList.add('hidden');
-      errorEl.classList.add('hidden');
+      successEl
+        .classList
+        .add('hidden');
+      errorEl
+        .classList
+        .add('hidden');
 
       submitBtn.disabled = true;
       const originalText = submitBtn.textContent;
