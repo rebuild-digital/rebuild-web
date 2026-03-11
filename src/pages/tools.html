@@ -1,7 +1,7 @@
 ---
 layout: layouts/default.njk
 title: Tools
-description: We need a more qualified way to grasp social platforms. Therefore, we’re sharing working models and tools for the entire industry to work with, use, challenge and qualify.
+description: We need more qualified ways to grasp social platforms. Therefore, we're sharing working models and tools for the entire industry to work with, use, challenge and qualify.
 permalink: /tools/index.html
 ---
 
@@ -11,67 +11,91 @@ permalink: /tools/index.html
 
 <hr>
 
-<div class="gap-y-4xl">
-  <!-- Framework 1: Social Design Framework -->
-  {% set version = "v0.8" %}
-  {% set title = "Social Design Framework" %}
-  {% set description = "The Social Design Framework for platform entrepreneurs captures the key elements of any platform. Our framework is the continuation of work by others; started by early pioneers such as Jyri Engeström, Matt Webb and Jack Schulze, formalised in academia by Kietzmann, Hermkens, McCarthy & Silvestre, and used by analysts in the honeycomb model. There are likely more people out there giving language to this space – and if you know of any, get in touch." %}
-  {% set image = "/assets/images/frameworks/social-design framework.png" %}
-  {% set imageAlt = "Social Design Framework" %}
-  {% set buttonUrl = "/downloads/frameworks/v0.8 - Social Design Framework.pdf" %}
-  {% set buttonText = "Download" %}
-  {% include "components/framework-section.njk" %}
+{# Tools Grid - 2 columns on desktop, 1 column on mobile/tablet #}
+<section class="py-4xl">
+  <div class="container">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-xl">
 
-  <!-- Framework 2: Social Platform Models -->
-  {% set version = "v0.8" %}
-  {% set title = "Social Platform Models" %}
-  {% set description = "Rebuilding Europe’s social platforms through diversity. 
- This is a first attempt at indexing the numerous different models the future of social platforms rests upon." %}
-  {% set image = "/assets/images/frameworks/social-platform-models.png" %}
-  {% set imageAlt = "Social Platform Models" %}
-  {% set buttonUrl = "/downloads/frameworks/v0.8 - Social Platform Models.pdf" %}
-  {% set buttonText = "Download" %}
-  {% set reversed = true %}
-  {% set backgroundColor = "bg-light" %}
-  {% include "components/framework-section.njk" %}
+      {# Tool 1: Social Design Framework #}
+      {% set version = "v0.8.5" %}
+      {% set title = "Social Design Framework" %}
+      {% set description = "The Social Design Framework for platform entrepreneurs captures the key elements of any platform. Updated in a more actionable version by the initiative working group led by Martin Sønderlev during Rebuild 1.  The framework is a continuation of work by early pioneers such as Jyri Engeström, Matt Webb and Jack Schulze, formalised in academia by Kietzmann, Hermkens, McCarthy & Silvestre." %}
+      {% set thumbnail = "/assets/images/frameworks/SDF-thumbnail.png" %}
+      {% set thumbnailAlt = "Social Design Framework" %}
+      {% set primaryAction = { text: "Download framework", url: "/downloads/frameworks/v0.8.5 - Social Design Framework.pdf" } %}
+      {% set secondaryAction = { text: "Read more", url: "/insights/social-design-framework/" } %}
+      {% set label = "Updated" %}
+      {% include "components/tool-card.njk" %}
 
-  <!-- Framework 3: Social Design Taxonomy -->
-  {% set version = "v0.8" %}
-  {% set title = "Social Platform Taxonomy" %}
-  {% set description = "Social platforms take many shapes. Many more than today’s monopoly situation lets us believe. The Social Platform taxonomy is a step in unbundling and navigating the landscape." %}
-  {% set image = "/assets/images/frameworks/social-platform-taxonomy.png" %}
-  {% set imageAlt = "Social Design Taxonomy" %}
-  {% set buttonUrl = "/downloads/frameworks/v0.8 - Social Platform Taxonomy.pdf" %}
-  {% set buttonText = "v0.8 - Engage with us to qualify the taxonomy." %}
-  {% set reversed = false %}
-  {% set backgroundColor = "" %}
-  {% include "components/framework-section.njk" %}
+      {# Design Principles #}
+      {% set version = "v0.8" %}
+      {% set title = "Design Principles" %}
+      {% set description = "European social platforms of tomorrow should be built on new, shared design principles. This innagural version was formulated by the initiative working group led by Christian Lindholm and Olof Schyberg during Rebuild 1." %}
+      {% set thumbnail = "/assets/images/frameworks/principles-thumbnail.png" %}
+      {% set thumbnailAlt = "Design Principles" %}
+      {% set primaryAction = { text: "Download", url: "/downloads/frameworks/v0.8 - Design Principles.pdf" } %}
+      {% set secondaryAction = null %}
+      {% set label = "New" %}
+      {% include "components/tool-card.njk" %}
 
-  <!-- Framework 4: Social Scale -->
-  {% set version = "v0.8" %}
-  {% set title = "Social Scale" %}
-  {% set description = "Visualising the need to think social platforms all across the scale. From the most intimate relationships in our lives to the infrastructure our continent rests upon." %}
-  {% set image = "/assets/images/frameworks/social-scale.png" %}
-  {% set imageAlt = "Social Scale" %}
-  {% set buttonUrl = "/downloads/frameworks/v0.8 - Social Scale.pdf" %}
-  {% set buttonText = "Download" %}
-  {% set reversed = true %}
-  {% set backgroundColor = "" %}
-  {% include "components/framework-section.njk" %}
+      {# Social Platform Investment Paper Framework #}
+      {% set version = "v0.8" %}
+      {% set title = "Social Platform Investment Paper" %}
+      {% set description = "The initial version of a white paper laying the case for investing in European social platforms in 2026 and beyond. Co-authored by the entire initiative working group led by Neil Murray and Nancy Brito during Rebuild 1." %}
+      {% set thumbnail = "/assets/images/frameworks/paper-thumbnail.png" %}
+      {% set thumbnailAlt = "Social Design Framework" %}
+      {% set primaryAction = { text: "Download", url: "/downloads/frameworks/v0.8 - Social Platforms Investment Paper.pdf" } %}
+      {% set label = "New" %}
+      {% include "components/tool-card.njk" %}
 
-  <!-- Framework 5: Social Design Principles -->
-  {% set version = "WIP" %}
-  {% set title = "Social Design Principles" %}
-  {% set description = "The European social platforms of tomorrow should be built on shared principles. We are here to learn what they might be." %}
-  {% set image = "" %}
-  {% set buttonUrl = "" %}
-  {% set buttonText = "" %}
-  {% set reversed = false %}
-  {% set backgroundColor = "" %}
-  {% include "components/framework-section.njk" %}
-</div>
+      {# Social Needs Map #}
+      {% set version = "v0.8" %}
+      {% set title = "Social Needs Map" %}
+      {% set description = "What social needs, current and emerging, do and should social platforms support? This initial version of the social needs map was co-authored by the entire initiative working group during the first gathering for European social platforms, led by Kirsten van Dam." %}
+      {% set thumbnail = "/assets/images/frameworks/needs-map-thumbnail.png" %}
+      {% set thumbnailAlt = "Social Design Framework" %}
+      {% set primaryAction = { text: "Download", url: "/downloads/frameworks/v0.8 - Social Needs Map.pdf" } %}
+      {% set label = "New" %}
+      {% include "components/tool-card.njk" %}
 
-<div class="mt-3xl pb-6xl">
-  <h2 class="text-4xl">What tool do you wish existed? <a class="underline" href="mailto:frameworks@rebuild.net">Let us know</a>.
+      {# Tool 3: Social Platform Taxonomy #}
+      {% set version = "v0.8" %}
+      {% set title = "Social Platform Taxonomy" %}
+      {% set description = "Social platforms take many shapes. Many more than today's monopoly situation lets us believe. The Social Platform taxonomy is a step in unbundling and navigating the landscape." %}
+      {% set thumbnail = "/assets/images/frameworks/social-platform-taxonomy.png" %}
+      {% set thumbnailAlt = "Social Platform Taxonomy" %}
+      {% set primaryAction = { text: "Download", url: "/downloads/frameworks/v0.8 - Social Platform Taxonomy.pdf" } %}
+      {% set label = "" %}
+      {% include "components/tool-card.njk" %}
+
+      {# Tool 2: Social Platform Models #}
+      {% set version = "v0.8" %}
+      {% set title = "Social Platform Models" %}
+      {% set description = "Rebuilding Europe's social platforms through diversity. This is a first attempt at indexing the numerous different models the future of social platforms rests upon." %}
+      {% set thumbnail = "/assets/images/frameworks/social-platform-models.png" %}
+      {% set thumbnailAlt = "Social Platform Models" %}
+      {% set primaryAction = { text: "Download", url: "/downloads/frameworks/v0.8 - Social Platform Models.pdf" } %}
+      {% set secondaryAction = null %}
+      {% set label = "" %}
+      {% include "components/tool-card.njk" %}
+
+      {# Tool 4: Social Scale #}
+      {% set version = "v0.8" %}
+      {% set title = "Social Scale" %}
+      {% set description = "Visualising the need to think social platforms all across the scale. From the most intimate relationships in our lives to the infrastructure our continent rests upon." %}
+      {% set thumbnail = "/assets/images/frameworks/social-scale.png" %}
+      {% set thumbnailAlt = "Social Scale" %}
+      {% set primaryAction = { text: "Download", url: "/downloads/frameworks/v0.8 - Social Scale.pdf" } %}
+      {% set secondaryAction = null %}
+      {% set label = "" %}
+      {% include "components/tool-card.njk" %}
+
+
+    </div>
+  </div>
+</section>
+
+<div class="container mt-3xl pb-6xl">
+  <h2 class="text-4xl">What tool do you wish existed?<br> <a class="underline" href="mailto:frameworks@rebuild.net">Let us know</a>.
   </h2>
 </div>
