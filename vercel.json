@@ -1,4 +1,6 @@
 {
+  "buildCommand": "vinxi build",
+  "outputDirectory": ".output/public",
   "headers": [
     {
       "source": "/(.*)",
