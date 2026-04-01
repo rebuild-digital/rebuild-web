@@ -371,14 +371,20 @@ When collaborating on this project with Claude Code:
 
 ### When Claude Commits
 
-Claude only commits when explicitly requested and follows this process:
+Claude should proactively create commits for completed work and follows this process:
 
 1. Reviews changes with `git status` and `git diff`
 2. Writes conventional commit message (feat:, fix:, docs:, etc.)
 3. Includes attribution footer with "🤖 Generated with Claude Code"
 4. Verifies commit succeeded
 
-**Note**: Claude will NOT proactively commit - you control when commits happen.
+**Git Workflow Rules**:
+
+- ✅ **DO**: Create commits proactively after completing tasks
+- ✅ **DO**: Perform other helpful Git actions (status, diff, branch management, etc.)
+- ❌ **DON'T**: Push to remote without explicit user approval
+- ❌ **DON'T**: Run destructive Git commands (force push, hard reset) without explicit request
+- 💡 **ASK**: Before pushing to main branch, always ask for user confirmation first
 
 ## Support
 
