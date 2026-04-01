@@ -4,14 +4,14 @@ A production Eleventy static site with Nunjucks components, TailwindCSS styling,
 
 ## Tech Stack
 
-| Layer | Technology |
-| ----- | ---------- |
-| **Static Site** | Eleventy (11ty) + Nunjucks templates |
-| **Styling** | TailwindCSS + PostCSS |
-| **Content** | Markdown files, Notion API |
-| **CDN & Hosting** | Bunny CDN (Edge Scripts, storage) |
-| **Forms** | MailerLite API via Bunny Edge Scripts |
-| **Analytics** | Pirsch (privacy-first) |
+| Layer             | Technology                            |
+| ----------------- | ------------------------------------- |
+| **Static Site**   | Eleventy (11ty) + Nunjucks templates  |
+| **Styling**       | TailwindCSS + PostCSS                 |
+| **Content**       | Markdown files, Notion API            |
+| **CDN & Hosting** | Bunny CDN (Edge Scripts, storage)     |
+| **Forms**         | MailerLite API via Bunny Edge Scripts |
+| **Analytics**     | Pirsch (privacy-first)                |
 
 ## Key Features
 
@@ -309,7 +309,7 @@ Include the carousel component:
 {% include "components/carousel.njk" %}
 ```
 
-Customize slides via [src/_data/carousel.json](src/_data/carousel.json):
+Customize slides via [src/\_data/carousel.json](src/_data/carousel.json):
 
 ```json
 {
@@ -569,10 +569,10 @@ To add a new sidebar form:
 
    ```javascript
    const formUrls = {
-     'builder-promo': '/forms/builder-promo.html',
-     'builder-application': '/forms/builder-application.html',
-     'newsletter': '/forms/newsletter.html',
-     'your-form': '/forms/your-form.html'  // Add this
+     "builder-promo": "/forms/builder-promo.html",
+     "builder-application": "/forms/builder-application.html",
+     newsletter: "/forms/newsletter.html",
+     "your-form": "/forms/your-form.html", // Add this
    };
    ```
 
@@ -681,9 +681,9 @@ Additional documentation files:
 
 **Carousel not appearing**:
 
-- Ensure [src/_data/carousel.json](src/_data/carousel.json) has valid data
+- Ensure [src/\_data/carousel.json](src/_data/carousel.json) has valid data
 - Check that images exist at specified paths
-- Verify carousel script is loaded in [src/_includes/layouts/base.njk](src/_includes/layouts/base.njk)
+- Verify carousel script is loaded in [src/\_includes/layouts/base.njk](src/_includes/layouts/base.njk)
 
 **Navigation not working**:
 

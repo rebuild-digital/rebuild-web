@@ -12,15 +12,15 @@ This document describes how to set up the Notion database to receive submissions
 
 The database must have the following properties with exact names and types:
 
-| Property Name | Type | Configuration |
-|--------------|------|---------------|
-| `Name` | Title | (default title property) |
-| `Email` | Email | - |
-| `Organisation` | Rich Text | - |
-| `Role` | Rich Text | - |
-| `Country` | Select | Must include all European countries from the form |
-| `Status` | Status | Must have "New" as an option |
-| `Submitted At` | Date | - |
+| Property Name  | Type      | Configuration                                     |
+| -------------- | --------- | ------------------------------------------------- |
+| `Name`         | Title     | (default title property)                          |
+| `Email`        | Email     | -                                                 |
+| `Organisation` | Rich Text | -                                                 |
+| `Role`         | Rich Text | -                                                 |
+| `Country`      | Select    | Must include all European countries from the form |
+| `Status`       | Status    | Must have "New" as an option                      |
+| `Submitted At` | Date      | -                                                 |
 
 ## Country Options
 
@@ -96,6 +96,7 @@ After creating the database, add the database ID to your environment variables:
 ### Local Development
 
 Add to `.env`:
+
 ```
 NOTION_REBUILD1_DB_ID=your_database_id_here
 ```
@@ -103,6 +104,7 @@ NOTION_REBUILD1_DB_ID=your_database_id_here
 ### Bunny Edge Scripts
 
 Add the environment variable in the Bunny CDN dashboard:
+
 - Navigate to your Edge Script configuration
 - Add environment variable: `NOTION_REBUILD1_DB_ID`
 - Value: Your Notion database ID
@@ -110,6 +112,7 @@ Add the environment variable in the Bunny CDN dashboard:
 ### Vercel Deployment
 
 Add to Vercel environment variables:
+
 - Go to Project Settings > Environment Variables
 - Add `NOTION_REBUILD1_DB_ID` with your database ID
 - Available for: Production, Preview, Development (select as needed)
@@ -121,9 +124,10 @@ The form is configured to automatically add registrants who opt-in to a MailerLi
 ### Step 1: Create Custom Fields in MailerLite
 
 ✅ **Already completed** - These custom fields exist in your MailerLite account:
-   - `organisation` (Text field)
-   - `role` (Text field)
-   - `country` (Text field) - Note: case-sensitive, must be lowercase
+
+- `organisation` (Text field)
+- `role` (Text field)
+- `country` (Text field) - Note: case-sensitive, must be lowercase
 
 These fields will store additional information about Rebuild1 registrants.
 
@@ -172,19 +176,23 @@ Set these in Bunny CDN:
 ## Troubleshooting
 
 ### Submission fails with 400 error
+
 - Check that all property names match exactly (case-sensitive)
 - Verify the Country value exists in the select options
 - Ensure Status has "New" as an option
 
 ### Submission fails with 401 error
+
 - Verify `NOTION_TOKEN` environment variable is set correctly
 - Check that the integration has access to the database
 
 ### Submission fails with 404 error
+
 - Verify `NOTION_REBUILD1_DB_ID` is set correctly
 - Check that the database ID is valid and accessible
 
 ### Fields are empty in Notion
+
 - Check the edge script console logs for errors
 - Verify form field names match the parsing logic in edge-script.js
 - Ensure the form includes the hidden field: `form_type: application_rebuild1`
@@ -192,6 +200,7 @@ Set these in Bunny CDN:
 ## Database Access
 
 Make sure your Notion integration has access to this database:
+
 1. Open the database in Notion
 2. Click "•••" (more options) in the top right
 3. Select "Add connections"

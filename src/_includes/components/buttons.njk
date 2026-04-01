@@ -1,37 +1,17 @@
-{#
-  Button component
-  Usage: {% include "components/buttons.njk" %}
-
-  Parameters:
-  - text: Button text
-  - url: Link URL
-  - variant: 'primary', 'secondary', or 'outline' (default: 'primary')
-  - size: 'small', 'medium', or 'large' (default: 'medium')
-#}
-
-{% set btnVariant = variant | default('primary') %}
-{% set btnSize = size | default('medium') %}
-
-{# Base button classes #}
-{% set baseClasses = "inline-block text-center no-underline font-bold border-2 border-dark cursor-pointer transition-all duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue focus-visible:outline-offset-2" %}
-
-{# Variant classes #}
-{% if btnVariant == 'primary' %}
-  {% set variantClasses = "bg-blue text-light hover:bg-blue-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A]" %}
-{% elif btnVariant == 'secondary' %}
-  {% set variantClasses = "bg-red text-light hover:bg-red-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A]" %}
-{% elif btnVariant == 'outline' %}
-  {% set variantClasses = "bg-transparent text-dark hover:bg-dark hover:text-light" %}
-{% endif %}
-
-{# Size classes #}
-{% if btnSize == 'small' %}
-  {% set sizeClasses = "px-sm py-xs text-sm" %}
-{% elif btnSize == 'medium' %}
-  {% set sizeClasses = "px-md py-sm text-base" %}
-{% elif btnSize == 'large' %}
-  {% set sizeClasses = "px-lg py-md text-lg" %}
-{% endif %}
+{# Button component Usage: {% include "components/buttons.njk" %} Parameters: - text: Button text -
+url: Link URL - variant: 'primary', 'secondary', or 'outline' (default: 'primary') - size: 'small',
+'medium', or 'large' (default: 'medium') #} {% set btnVariant = variant | default('primary') %} {%
+set btnSize = size | default('medium') %} {# Base button classes #} {% set baseClasses =
+"inline-block text-center no-underline font-bold border-2 border-dark cursor-pointer transition-all
+duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue
+focus-visible:outline-offset-2" %} {# Variant classes #} {% if btnVariant == 'primary' %} {% set
+variantClasses = "bg-blue text-light hover:bg-blue-shade hover:-translate-y-0.5
+hover:shadow-[2px_2px_0_#1A1A1A]" %} {% elif btnVariant == 'secondary' %} {% set variantClasses =
+"bg-red text-light hover:bg-red-shade hover:-translate-y-0.5 hover:shadow-[2px_2px_0_#1A1A1A]" %} {%
+elif btnVariant == 'outline' %} {% set variantClasses = "bg-transparent text-dark hover:bg-dark
+hover:text-light" %} {% endif %} {# Size classes #} {% if btnSize == 'small' %} {% set sizeClasses =
+"px-sm py-xs text-sm" %} {% elif btnSize == 'medium' %} {% set sizeClasses = "px-md py-sm text-base"
+%} {% elif btnSize == 'large' %} {% set sizeClasses = "px-lg py-md text-lg" %} {% endif %}
 
 <a href="{{ url }}" class="{{ baseClasses }} {{ variantClasses }} {{ sizeClasses }}">
   {{ text }}

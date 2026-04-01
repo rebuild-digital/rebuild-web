@@ -484,10 +484,7 @@ module.exports = {
 <!-- In _includes/layouts/default.njk -->
 <meta name="description" content="{{ description or site.description }}" />
 <meta property="og:title" content="{{ title or site.title }}" />
-<meta
-  property="og:description"
-  content="{{ description or site.description }}"
-/>
+<meta property="og:description" content="{{ description or site.description }}" />
 <meta property="og:image" content="{{ image or site.defaultImage }}" />
 <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
 <meta name="twitter:card" content="summary_large_image" />

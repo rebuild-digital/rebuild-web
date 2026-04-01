@@ -7,14 +7,14 @@
  * Example: <button data-form="builder-promo">Nominate a Builder</button>
  */
 
-(function() {
+(function () {
   // Form URL mappings
   const formUrls = {
-    'builder-promo': '/forms/builder-promo.html',
-    'builder-application': '/forms/builder-application.html',
-    'newsletter': '/forms/newsletter.html',
-    'gathering-invitation': '/forms/gathering-invitation.html',
-    'application-rebuild1': '/forms/application-rebuild1.html'
+    "builder-promo": "/forms/builder-promo.html",
+    "builder-application": "/forms/builder-application.html",
+    newsletter: "/forms/newsletter.html",
+    "gathering-invitation": "/forms/gathering-invitation.html",
+    "application-rebuild1": "/forms/application-rebuild1.html",
   };
 
   // Function to load and open form
@@ -34,7 +34,7 @@
       const html = await response.text();
       window.openFormSidebar(html);
     } catch (error) {
-      console.error('Error loading form:', error);
+      console.error("Error loading form:", error);
       // Fallback: show error message in sidebar
       window.openFormSidebar(`
         <div class="p-lg">
@@ -46,11 +46,11 @@
   }
 
   // Set up click handlers for all elements with data-form attribute
-  document.addEventListener('click', (e) => {
-    const trigger = e.target.closest('[data-form]');
+  document.addEventListener("click", (e) => {
+    const trigger = e.target.closest("[data-form]");
     if (trigger) {
       e.preventDefault();
-      const formType = trigger.getAttribute('data-form');
+      const formType = trigger.getAttribute("data-form");
       loadForm(formType);
     }
   });

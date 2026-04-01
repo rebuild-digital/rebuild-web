@@ -2,20 +2,30 @@
 permalink: /includes/footer.html
 eleventyExcludeFromCollections: true
 ---
+
 <footer class="max-w-[800px] lg:max-w-[1400px] mx-auto px-md pb-md">
   <div class="mx-auto pt-md">
     <div class="flex flex-col md:flex-row justify-between">
       <div class="flex flex-col">
         <div class="py-2 h-12">
-          <img src="https://rebuild.net/assets/images/logo.svg" alt="Rebuild logo."/>
+          <img src="https://rebuild.net/assets/images/logo.svg" alt="Rebuild logo." />
         </div>
         <p class="text-sm">Twelve months to rebuild European social platforms.</p>
 
         {# Newsletter signup form #}
         <div class="text-sm mt-lg">
-          <p class="text-sm mb-xs">Get our newsletter or <a class="underline hover:text-blue" href="https://linkedin.com/company/rebuild-europe">follow us on Linkedin</a>
+          <p class="text-sm mb-xs">
+            Get our newsletter or
+            <a class="underline hover:text-blue" href="https://linkedin.com/company/rebuild-europe"
+              >follow us on Linkedin</a
+            >
           </p>
-          <form id="footer-newsletter-form" action="https://rebuild-production.b-cdn.net/api/newsletter-signup" method="POST" class="flex flex-col gap-xs mb-md">
+          <form
+            id="footer-newsletter-form"
+            action="https://rebuild-production.b-cdn.net/api/newsletter-signup"
+            method="POST"
+            class="flex flex-col gap-xs mb-md"
+          >
             <div class="flex flex-col gap-xs">
               <input
                 type="email"
@@ -23,7 +33,7 @@ eleventyExcludeFromCollections: true
                 placeholder="Email"
                 required
                 class="px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-              >
+              />
 
               <div class="flex flex-col sm:flex-row gap-xs">
                 <input
@@ -31,13 +41,13 @@ eleventyExcludeFromCollections: true
                   name="first_name"
                   placeholder="First name"
                   class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-                >
+                />
                 <input
                   type="text"
                   name="last_name"
                   placeholder="Last name"
                   class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-                >
+                />
               </div>
 
               <select
@@ -60,9 +70,10 @@ eleventyExcludeFromCollections: true
                   id="footer-consent"
                   required
                   class="mt-1 w-6 h-6 border-2 border-dark focus:ring-2 focus:ring-blue"
-                >
+                />
                 <label for="footer-consent" class="text-xs text-dark">
-                  I consent to receive newsletters and updates from Rebuild. I can unsubscribe at any time.
+                  I consent to receive newsletters and updates from Rebuild. I can unsubscribe at
+                  any time.
                 </label>
               </div>
 
@@ -73,14 +84,19 @@ eleventyExcludeFromCollections: true
                 Subscribe now
               </button>
             </div>
-            <div id="footer-newsletter-success" class="hidden bg-green border-2 border-dark p-xs transition-opacity duration-300">
+            <div
+              id="footer-newsletter-success"
+              class="hidden bg-green border-2 border-dark p-xs transition-opacity duration-300"
+            >
               <p class="text-dark text-xs font-semibold">Thanks for subscribing!</p>
             </div>
-            <div id="footer-newsletter-error" class="hidden bg-red text-light border-2 border-dark p-xs transition-opacity duration-300">
+            <div
+              id="footer-newsletter-error"
+              class="hidden bg-red text-light border-2 border-dark p-xs transition-opacity duration-300"
+            >
               <p class="text-xs font-semibold">Something went wrong. Please try again.</p>
             </div>
           </form>
-
         </div>
       </div>
 
@@ -88,48 +104,90 @@ eleventyExcludeFromCollections: true
       <nav class="flex text-sm flex-row gap-xl mt-xl md:mt-0" aria-label="Footer Navigation">
         <ul class="flex flex-col gap-sm md:gap-md list-none md:flex-wrap md:justify-top">
           <li>
-            <a href="https://rebuild.net/journey/" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">Journey</a>
+            <a
+              href="https://rebuild.net/journey/"
+              class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue"
+              >Journey</a
+            >
           </li>
           <li>
-            <a href="https://rebuild.net/directory/" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">Directory</a>
+            <a
+              href="https://rebuild.net/directory/"
+              class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue"
+              >Directory</a
+            >
           </li>
           <li>
-            <a href="https://rebuild.net/tools/" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">Tools</a>
+            <a
+              href="https://rebuild.net/tools/"
+              class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue"
+              >Tools</a
+            >
           </li>
           <li>
-            <a href="https://rebuild.net/insights/" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">Insights</a>
+            <a
+              href="https://rebuild.net/insights/"
+              class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue"
+              >Insights</a
+            >
           </li>
           <li>
-            <a href="https://rebuild.net/people/" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">People</a>
+            <a
+              href="https://rebuild.net/people/"
+              class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue"
+              >People</a
+            >
           </li>
           <li>
-            <a href="https://rebuild.net/about/" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">About</a>
+            <a
+              href="https://rebuild.net/about/"
+              class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue"
+              >About</a
+            >
           </li>
           <li>
-            <a href="https://rebuild.net/get-in-touch/" class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue">Get in touch</a>
+            <a
+              href="https://rebuild.net/get-in-touch/"
+              class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue"
+              >Get in touch</a
+            >
           </li>
         </ul>
         <ul class="flex text-xs flex-col gap-sm list-none md:flex-wrap md:justify-top">
           <li>
-            <a href="https://rebuild.net/open-positions/" class="hover:underline transition-fast hover:text-blue focus:text-blue">Open positions</a>
+            <a
+              href="https://rebuild.net/open-positions/"
+              class="hover:underline transition-fast hover:text-blue focus:text-blue"
+              >Open positions</a
+            >
           </li>
           <li>
-            <a href="https://rebuild.net/privacy/" class="hover:underline transition-fast hover:text-blue focus:text-blue">Privacy</a>
+            <a
+              href="https://rebuild.net/privacy/"
+              class="hover:underline transition-fast hover:text-blue focus:text-blue"
+              >Privacy</a
+            >
           </li>
           <li>
-            <a href="https://rebuild.net/changelog/" class="hover:underline transition-fast hover:text-blue focus:text-blue">Changelog</a>
+            <a
+              href="https://rebuild.net/changelog/"
+              class="hover:underline transition-fast hover:text-blue focus:text-blue"
+              >Changelog</a
+            >
           </li>
         </ul>
       </nav>
     </div>
-    <p class="text-dark text-xs mt-xl">&copy; <span id="footer-year"></span> Rebuild All rights reserved.</p>
+    <p class="text-dark text-xs mt-xl">
+      &copy; <span id="footer-year"></span> Rebuild All rights reserved.
+    </p>
   </div>
 </footer>
 
 <script>
   // Set current year in footer
   (function () {
-    const yearElement = document.getElementById('footer-year');
+    const yearElement = document.getElementById("footer-year");
     if (yearElement) {
       yearElement.textContent = new Date().getFullYear();
     }
@@ -137,61 +195,51 @@ eleventyExcludeFromCollections: true
 
   // Footer newsletter form submission handler
   (function () {
-    const form = document.getElementById('footer-newsletter-form');
-    if (!form) 
-      return;
-    
+    const form = document.getElementById("footer-newsletter-form");
+    if (!form) return;
+
     let fadeTimeout;
 
     function showMessage(element) {
       // Clear any existing timeout
-      if (fadeTimeout) 
-        clearTimeout(fadeTimeout);
-      
+      if (fadeTimeout) clearTimeout(fadeTimeout);
+
       // Show the message
-      element
-        .classList
-        .remove('hidden');
-      element.style.opacity = '1';
+      element.classList.remove("hidden");
+      element.style.opacity = "1";
 
       // Fade out after 3 seconds
       fadeTimeout = setTimeout(() => {
-        element.style.opacity = '0';
+        element.style.opacity = "0";
         setTimeout(() => {
-          element
-            .classList
-            .add('hidden');
+          element.classList.add("hidden");
         }, 300); // Wait for fade transition to complete
       }, 3000);
     }
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       e.stopImmediatePropagation(); // Prevent other handlers from firing
       const submitBtn = form.querySelector('button[type="submit"]');
-      const successEl = document.getElementById('footer-newsletter-success');
-      const errorEl = document.getElementById('footer-newsletter-error');
+      const successEl = document.getElementById("footer-newsletter-success");
+      const errorEl = document.getElementById("footer-newsletter-error");
 
       // Hide both messages
-      successEl
-        .classList
-        .add('hidden');
-      errorEl
-        .classList
-        .add('hidden');
+      successEl.classList.add("hidden");
+      errorEl.classList.add("hidden");
 
       submitBtn.disabled = true;
       const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Signing up...';
+      submitBtn.textContent = "Signing up...";
 
       try {
         const formData = new FormData(form);
         const response = await fetch(form.action, {
-          method: 'POST',
+          method: "POST",
           body: formData,
           headers: {
-            'Accept': 'application/json'
-          }
+            Accept: "application/json",
+          },
         });
 
         if (response.ok) {
@@ -201,7 +249,7 @@ eleventyExcludeFromCollections: true
           showMessage(errorEl);
         }
       } catch (error) {
-        console.error('Newsletter signup error:', error);
+        console.error("Newsletter signup error:", error);
         showMessage(errorEl);
       } finally {
         submitBtn.disabled = false;

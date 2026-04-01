@@ -6,30 +6,30 @@
 
 const categoryColors = {
   // Social & Community
-  'Bundled': { bg: 'bg-red-tint', text: 'text-dark' },
-  'Community': { bg: 'bg-blue-tint', text: 'text-dark' },
-  'Groups': { bg: 'bg-green-tint', text: 'text-dark' },
-  'Networking': { bg: 'bg-orange-tint', text: 'text-dark' },
+  Bundled: { bg: "bg-red-tint", text: "text-dark" },
+  Community: { bg: "bg-blue-tint", text: "text-dark" },
+  Groups: { bg: "bg-green-tint", text: "text-dark" },
+  Networking: { bg: "bg-orange-tint", text: "text-dark" },
 
   // Communication
-  'Messaging': { bg: 'bg-blue-tint', text: 'text-dark' },
-  'Microblogging': { bg: 'bg-red-tint', text: 'text-dark' },
-  'Forum': { bg: 'bg-red-tint', text: 'text-dark' },
+  Messaging: { bg: "bg-blue-tint", text: "text-dark" },
+  Microblogging: { bg: "bg-red-tint", text: "text-dark" },
+  Forum: { bg: "bg-red-tint", text: "text-dark" },
 
   // Specialized
-  'Dating': { bg: 'bg-blush-tint', text: 'text-dark' },
-  'Events': { bg: 'bg-orange-tint', text: 'text-dark' },
-  'Location': { bg: 'bg-green-tint', text: 'text-dark' },
+  Dating: { bg: "bg-blush-tint", text: "text-dark" },
+  Events: { bg: "bg-orange-tint", text: "text-dark" },
+  Location: { bg: "bg-green-tint", text: "text-dark" },
 
   // Content Sharing
-  'Resource sharing': { bg: 'bg-blonde-tint', text: 'text-dark' },
-  'Photo sharing': { bg: 'bg-blush-tint', text: 'text-dark' },
-  'Video sharing': { bg: 'bg-blonde-tint', text: 'text-dark' },
-  'Creator Platform': { bg: 'bg-blue-tint', text: 'text-dark' },
-  'Social marketplace': { bg: 'bg-orange-tint', text: 'text-dark' },
+  "Resource sharing": { bg: "bg-blonde-tint", text: "text-dark" },
+  "Photo sharing": { bg: "bg-blush-tint", text: "text-dark" },
+  "Video sharing": { bg: "bg-blonde-tint", text: "text-dark" },
+  "Creator Platform": { bg: "bg-blue-tint", text: "text-dark" },
+  "Social marketplace": { bg: "bg-orange-tint", text: "text-dark" },
 
   // Fallback
-  'Other': { bg: 'bg-blonde-tint', text: 'text-dark' }
+  Other: { bg: "bg-blonde-tint", text: "text-dark" },
 };
 
 /**
@@ -38,7 +38,7 @@ const categoryColors = {
  * @returns {object} Object with bg and text color classes
  */
 function getCategoryColors(category) {
-  return categoryColors[category] || categoryColors['Other'];
+  return categoryColors[category] || categoryColors["Other"];
 }
 
 /**
@@ -48,16 +48,16 @@ function getCategoryColors(category) {
  */
 function getMultipleCategoryColors(categories) {
   if (!categories || categories.length === 0) {
-    return categoryColors['Other'];
+    return categoryColors["Other"];
   }
   return getCategoryColors(categories[0]);
 }
 
 // Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     categoryColors,
     getCategoryColors,
-    getMultipleCategoryColors
+    getMultipleCategoryColors,
   };
 }

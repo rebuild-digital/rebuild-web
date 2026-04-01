@@ -1,15 +1,9 @@
-{#
-  Countdown component
-  Usage: {% include "components/countdown.njk" %}
-
-  Parameters:
-  - targetDate: ISO date string for countdown target
-  - title: Title to display above countdown (optional)
-#}
+{# Countdown component Usage: {% include "components/countdown.njk" %} Parameters: - targetDate: ISO
+date string for countdown target - title: Title to display above countdown (optional) #}
 
 <div class="text-center p-lg bg-light border-2 border-dark" data-target-date="{{ targetDate }}">
   {% if title %}
-    <h3 class="mb-md text-xl">{{ title }}</h3>
+  <h3 class="mb-md text-xl">{{ title }}</h3>
   {% endif %}
 
   <div class="flex justify-center gap-lg flex-wrap">

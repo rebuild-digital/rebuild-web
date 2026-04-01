@@ -1,24 +1,24 @@
 // Countdown timer functionality
-(function() {
-  'use strict';
+(function () {
+  "use strict";
 
   function initCountdown(element) {
     const targetDate = new Date(element.dataset.targetDate).getTime();
 
-    const daysEl = element.querySelector('[data-days]');
-    const hoursEl = element.querySelector('[data-hours]');
-    const minutesEl = element.querySelector('[data-minutes]');
-    const secondsEl = element.querySelector('[data-seconds]');
+    const daysEl = element.querySelector("[data-days]");
+    const hoursEl = element.querySelector("[data-hours]");
+    const minutesEl = element.querySelector("[data-minutes]");
+    const secondsEl = element.querySelector("[data-seconds]");
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
       if (distance < 0) {
-        daysEl.textContent = '0';
-        hoursEl.textContent = '0';
-        minutesEl.textContent = '0';
-        secondsEl.textContent = '0';
+        daysEl.textContent = "0";
+        hoursEl.textContent = "0";
+        minutesEl.textContent = "0";
+        secondsEl.textContent = "0";
         return;
       }
 
@@ -28,9 +28,9 @@
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       daysEl.textContent = days;
-      hoursEl.textContent = hours.toString().padStart(2, '0');
-      minutesEl.textContent = minutes.toString().padStart(2, '0');
-      secondsEl.textContent = seconds.toString().padStart(2, '0');
+      hoursEl.textContent = hours.toString().padStart(2, "0");
+      minutesEl.textContent = minutes.toString().padStart(2, "0");
+      secondsEl.textContent = seconds.toString().padStart(2, "0");
     }
 
     // Update immediately and then every second
@@ -39,8 +39,8 @@
   }
 
   // Initialize all countdown elements on the page
-  document.addEventListener('DOMContentLoaded', function() {
-    const countdownElements = document.querySelectorAll('.countdown');
+  document.addEventListener("DOMContentLoaded", function () {
+    const countdownElements = document.querySelectorAll(".countdown");
     countdownElements.forEach(initCountdown);
   });
 })();

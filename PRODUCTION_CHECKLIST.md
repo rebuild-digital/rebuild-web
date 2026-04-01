@@ -31,26 +31,22 @@ This checklist covers everything needed when moving from staging to production f
 ### Production Environment Setup
 
 - [ ] **Notion API**
-
   - [ ] `NOTION_TOKEN` - Production API token (different from staging)
   - [ ] `NOTION_NEWSLETTER_DB_ID` - Production database ID
   - [ ] `NOTION_CONTACT_DB_ID` - Production database ID
   - [ ] `NOTION_BUILDERS_DB_ID` - Production database ID
 
 - [ ] **Bunny CDN**
-
   - [ ] `BUNNY_STORAGE_ZONE` - Production storage zone name
   - [ ] `BUNNY_API_KEY` - Production API key
   - [ ] `BUNNY_PULL_ZONE_URL` - Production videos URL (https://videos.b-cdn.net)
   - [ ] `BUNNY_FONTS_PULL_ZONE_URL` - Production fonts URL (https://fonts.b-cdn.net)
 
 - [ ] **MailerLite**
-
   - [ ] `MAILERLITE_API_KEY` - Production API key
   - [ ] `MAILERLITE_GROUP_ID` - Production group ID (if different)
 
 - [ ] **Site Configuration**
-
   - [ ] `SITE_URL` - Set to `https://www.rebuild.net` (production URL)
   - [ ] `API_URL` - Set to production Bunny CDN endpoint (https://rebuild.b-cdn.net)
   - [ ] `NODE_ENV` - Set to `production`
@@ -81,7 +77,6 @@ This checklist covers everything needed when moving from staging to production f
 ### Pull Zones
 
 - [ ] **Main Site Pull Zone**
-
   - [ ] Create pull zone pointing to production storage zone
   - [ ] Configure custom domain: `www.rebuild.net`
   - [ ] Enable SSL/TLS certificate
@@ -92,7 +87,6 @@ This checklist covers everything needed when moving from staging to production f
   - [ ] Test pull zone URL accessibility
 
 - [ ] **Videos Pull Zone**
-
   - [ ] Verify videos.b-cdn.net is configured
   - [ ] Set appropriate cache headers for video files
   - [ ] Enable video optimization (if available)
@@ -147,31 +141,26 @@ This checklist covers everything needed when moving from staging to production f
 ### DNS Records to Configure
 
 - [ ] **A Record** (if using apex domain)
-
   - Host: `@` or `rebuild.net`
   - Value: Bunny CDN IP address
   - TTL: 3600 (1 hour) initially, then increase to 86400 (24 hours) after stable
 
 - [ ] **CNAME Record** (for www)
-
   - Host: `www`
   - Value: Bunny CDN hostname (e.g., `rebuild.b-cdn.net`)
   - TTL: 3600 initially, then 86400
 
 - [ ] **CNAME Record** (for videos subdomain, if separate)
-
   - Host: `videos`
   - Value: `videos.b-cdn.net`
   - TTL: 86400
 
 - [ ] **CNAME Record** (for fonts subdomain, if separate)
-
   - Host: `fonts`
   - Value: `fonts.b-cdn.net`
   - TTL: 86400
 
 - [ ] **MX Records** (if using email on this domain)
-
   - Verify email service provider records
   - Set appropriate priorities
 

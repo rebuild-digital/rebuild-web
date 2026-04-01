@@ -1,11 +1,11 @@
-(function() {
+(function () {
   function updateCountdowns() {
-    const countdownElements = document.querySelectorAll('[data-countdown]');
+    const countdownElements = document.querySelectorAll("[data-countdown]");
 
-    countdownElements.forEach(function(element) {
-      const targetDateStr = element.getAttribute('data-countdown');
+    countdownElements.forEach(function (element) {
+      const targetDateStr = element.getAttribute("data-countdown");
       const targetDate = new Date(targetDateStr).getTime();
-      const textElement = element.querySelector('[data-countdown-text]');
+      const textElement = element.querySelector("[data-countdown-text]");
 
       if (!textElement) return;
 
@@ -14,7 +14,7 @@
         const distance = targetDate - now;
 
         if (distance < 0) {
-          textElement.textContent = 'Event has started!';
+          textElement.textContent = "Event has started!";
           return;
         }
 
@@ -24,17 +24,18 @@
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Check if this countdown should show days only
-        const daysOnly = element.hasAttribute('data-countdown-days-only');
+        const daysOnly = element.hasAttribute("data-countdown-days-only");
 
         if (daysOnly) {
-          textElement.textContent = days + ' days';
+          textElement.textContent = days + " days";
         } else {
           // Format with leading zeros for hours, minutes, and seconds
-          const formattedHours = String(hours).padStart(2, '0');
-          const formattedMinutes = String(minutes).padStart(2, '0');
-          const formattedSeconds = String(seconds).padStart(2, '0');
+          const formattedHours = String(hours).padStart(2, "0");
+          const formattedMinutes = String(minutes).padStart(2, "0");
+          const formattedSeconds = String(seconds).padStart(2, "0");
 
-          textElement.textContent = days + 'd ' + formattedHours + 'h ' + formattedMinutes + 'm ' + formattedSeconds + 's';
+          textElement.textContent =
+            days + "d " + formattedHours + "h " + formattedMinutes + "m " + formattedSeconds + "s";
         }
       }
 
@@ -47,8 +48,8 @@
   }
 
   // Run when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateCountdowns);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateCountdowns);
   } else {
     updateCountdowns();
   }

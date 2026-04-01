@@ -151,9 +151,7 @@ class DirectoryFilter {
     button.dataset.textColor = colors.text;
 
     // Add event listener
-    button.addEventListener("click", () =>
-      this.handleFilterClick(category, button)
-    );
+    button.addEventListener("click", () => this.handleFilterClick(category, button));
 
     return button;
   }
@@ -208,9 +206,7 @@ class DirectoryFilter {
         : [];
 
       // Check if builder has ANY of the active filters
-      return Array.from(this.activeFilters).some((filter) =>
-        builderCategories.includes(filter)
-      );
+      return Array.from(this.activeFilters).some((filter) => builderCategories.includes(filter));
     });
   }
 
@@ -223,7 +219,7 @@ class DirectoryFilter {
     // Hide all builder wrappers first
     this.builderRows.forEach((row) => {
       const wrapper = row.parentElement;
-      if (wrapper && wrapper.classList.contains('break-inside-avoid')) {
+      if (wrapper && wrapper.classList.contains("break-inside-avoid")) {
         wrapper.style.display = "none";
       } else {
         row.style.display = "none";
@@ -233,7 +229,7 @@ class DirectoryFilter {
     // Show filtered builders
     visibleBuilders.forEach((row) => {
       const wrapper = row.parentElement;
-      if (wrapper && wrapper.classList.contains('break-inside-avoid')) {
+      if (wrapper && wrapper.classList.contains("break-inside-avoid")) {
         wrapper.style.display = "block";
       } else {
         row.style.display = "block";
