@@ -11,12 +11,14 @@ All environment variables are defined in `.env` (local) and should be documented
 ### Key Variables
 
 #### `SITE_URL`
+
 The base URL where your site is deployed and accessed by users.
 
 - **Staging**: `https://rebuild-staging.statichost.page`
 - **Production**: `https://www.rebuild.net`
 
 #### `API_URL`
+
 The Bunny CDN endpoint where Edge Scripts handle form submissions and API requests.
 
 - **Staging**: `https://rebuild-staging.b-cdn.net`
@@ -40,6 +42,7 @@ The Bunny CDN endpoint where Edge Scripts handle form submissions and API reques
 ```
 
 This will render as:
+
 - **Staging**: `action="https://rebuild-staging.b-cdn.net/api/newsletter-signup"`
 - **Production**: `action="https://rebuild.b-cdn.net/api/newsletter-signup"`
 
@@ -76,12 +79,14 @@ API_URL=https://rebuild.b-cdn.net
 ### The Problem
 
 When using relative URLs like `action="/api/newsletter-signup"`:
+
 - Form on `rebuild-staging.statichost.page` → submits to `rebuild-staging.statichost.page/api/newsletter-signup` ❌ (no API there)
 - Form on `rebuild-staging.b-cdn.net` → submits to `rebuild-staging.b-cdn.net/api/newsletter-signup` ✅ (Edge Script handles it)
 
 ### The Solution
 
 Using absolute URLs with environment variables:
+
 - Form on ANY domain → submits to `rebuild-staging.b-cdn.net/api/newsletter-signup` ✅
 - Environment variable makes it easy to switch between staging and production
 
@@ -93,10 +98,11 @@ Your Bunny Edge Scripts should be configured with the static host as the origin:
 BunnySDK.net.http.servePullZone({
   origin: "https://rebuild-staging.statichost.page", // For staging
   // origin: "https://www.rebuild.net", // For production
-})
+});
 ```
 
 This creates the flow:
+
 1. User visits static host OR CDN
 2. Form submits to CDN (absolute URL)
 3. CDN Edge Script processes API requests

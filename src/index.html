@@ -4,6 +4,7 @@ title: Rebuild
 description: Twelve months to catalyse European social platforms.
 image: /assets/images/social-3.jpg
 ---
+
 {% from "components/text-section.njk" import render as textSection %}
 {% from "components/outcomes.njk" import render as outcomes %}
 
@@ -11,59 +12,44 @@ image: /assets/images/social-3.jpg
 {% include "components/splash-alt.njk" %}
 
 <main id="main-content" class="lg:max-w-[1400px] mx-auto px-md">
-
   <section class="py-3xl md:py-6xl">
-    {{ textSection("Rebuild is a sprint for European social platforms. Connecting the entrepreneurs, the pioneers, the investors and the digital leaders building the next generation of social platforms.
-<br><br>Through gatherings, programmes, and tools <span class='font-bold'>we build</span>.") }}
+    {{
+      textSection("Rebuild is a sprint for European social platforms. Connecting the entrepreneurs, the pioneers, the investors and the digital leaders building the next generation of social platforms.<br /><br />Through gatherings, programmes, and tools <span class=\"font-bold\">we build</span>.")
+    }}
   </section>
 
-  <section id="explore" class="pb-3xl md:pb-6xl">
-    {% include "components/carousel.njk" %}
-  </section>
+  <section id="explore" class="pb-3xl md:pb-6xl">{% include "components/carousel.njk" %}</section>
 
-  <section class="pb-3xl md:pb-6xl">
-    {% include "components/directory-preview.njk" %}
-  </section>
+  <section class="pb-3xl md:pb-6xl">{% include "components/directory-preview.njk" %}</section>
 
-  <section class="pb-3xl md:pb-6xl">
-    {% include "components/programmes-preview.njk" %}
-  </section>
+  <section class="pb-3xl md:pb-6xl">{% include "components/programmes-preview.njk" %}</section>
 
-  <section class="pb-4xl md:pb-7xl">
-    {% include "components/insights-preview.njk" %}
-  </section>
+  <section class="pb-4xl md:pb-7xl">{% include "components/insights-preview.njk" %}</section>
 
   <section class="">
-    {{ textSection(' Three 48-hour gatherings Rebuild 1, Rebuild 2, and Rebuild 3. Designed to connect, build, and act. Paris, Helsinki, and Copenhagen.') }}
+    {{ textSection(' Three 48-hour gatherings Rebuild 1, Rebuild 2, and Rebuild 3. Designed to
+    connect, build, and act. Paris, Helsinki, and Copenhagen.') }}
   </section>
 
-  <section class="">
-    {% include "components/gatherings-preview.njk" %}
-  </section>
+  <section class="">{% include "components/gatherings-preview.njk" %}</section>
 
-  {# <section class="pb-6xl">
-  {{ outcomes(
-    "After a year of building, these are the outcomes we hope to see...",
-    [
-      {
-        "headline": "Industry organisation",
-        "description": "Facilis quis vel et expedita saepe rerum labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
-      },
-      {
-        "headline": "Annual event",
-        "description": "Facilis quis vel et expedita saepe rerum labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
-      },
-      {
-        "headline": "The big shift",
-        "description": "Facilis quis vel et expedita saepe rerum labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
-      }
-    ]
-  ) }}
-</section> #}
-
-  <section class="pb-3xl md:pb-6xl">
-    {% include "components/engage.njk" %}
+  {#
+  <section class="pb-6xl">
+    {{ outcomes( "After a year of building, these are the outcomes we hope to see...", [ {
+    "headline": "Industry organisation", "description": "Facilis quis vel et expedita saepe rerum
+    labore blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos
+    ipsa fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque."
+    }, { "headline": "Annual event", "description": "Facilis quis vel et expedita saepe rerum labore
+    blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa
+    fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque." }, {
+    "headline": "The big shift", "description": "Facilis quis vel et expedita saepe rerum labore
+    blanditiis laborum. Voluptas ducimus ipsa nulla autem tempore autem ut dolor cum quos ipsa
+    fugiat. Ea tempore aliquid dolorem dignissimos voluptas cum autem deleniti earum cumque." } ] )
+    }}
   </section>
+  #}
+
+  <section class="pb-3xl md:pb-6xl">{% include "components/engage.njk" %}</section>
 
   {% include "components/half-circle.njk" %}
 </main>

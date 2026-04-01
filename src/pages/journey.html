@@ -50,21 +50,20 @@ permalink: /journey/index.html
       </div>
     </div>
   </div>
-</div>
 </section>
 
 <section class="pb-3xl md:pb-6xl">
-{% for gathering in events.events %}
-  {{ gatheringSection(gathering) }}
-{% endfor %}
+  {% for gathering in events.events %}
+    {{ gatheringSection(gathering) }}
+  {% endfor %}
 </section>
 
 <section class="pb-3xl md:pb-6xl">
-{% include "components/programmes-preview.njk" %}
+  {% include "components/programmes-preview.njk" %}
 </section>
 
 <section class="pb-3xl md:pb-6xl">
-{{ outcomes(
+  {{ outcomes(
     "In the planning for the next chapter:",
     [
       {
@@ -84,7 +83,7 @@ permalink: /journey/index.html
 </section>
 
 <section class="pb-4xl">
-{% include "components/half-circle.njk" %}
+  {% include "components/half-circle.njk" %}
 </section>
 
 <script src="/scripts/gathering-countdown.js"></script>

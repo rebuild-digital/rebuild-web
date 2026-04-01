@@ -1,173 +1,38 @@
-{#
-  Builder Application Form
-  Usage: {% include "components/builder-application-form.njk" %}
-
-  This form allows builders to apply to become part of the Rebuild directory.
-  Submissions are sent to a Notion database via Bunny Edge Script.
-
-  Parameters:
-  - title: Form title (optional, default provided)
-  - description: Form description (optional, default provided)
-#}
-
-{% set formTitle = title | default('Join the directory') %}
-{% set formDescription = description | default('Are you building a social platform in Europe? Join our directory.') %}
-
-{% set builderApplicationFields = [
-  {
-    type: 'text',
-    name: 'builder_name',
-    label: 'Platform name',
-    required: true
-  }, {
-    type: 'email',
-    name: 'email',
-    label: 'Email',
-    required: true
-  }, {
-    type: 'tel',
-    name: 'phone',
-    label: 'Phone number',
-    required: false,
-    helpText: 'Optional: In case we need to reach you.'
-  }, {
-    type: 'url',
-    name: 'website',
-    label: 'Website or LinkedIn',
-    required: true,
-    helpText: 'Where can people learn more about your work?'
-  }, {
-    type: 'select',
-    name: 'category',
-    label: 'Primary category',
-    required: true,
-    options: [
-      'Bundled',
-      'Community',
-      'Creator platform',
-      'Dating',
-      'Events',
-      'Forum',
-      'Groups',
-      'Location',
-      'Social marketplace',
-      'Messaging',
-      'Microblogging',
-      'Networking',
-      'Photo sharing',
-      'Resource sharing',
-      'Video sharing',
-      'Other'
-    ],
-    helpText: 'Pick the one you believe fit the most. If in doubt, pick "Other"'
-  }, {
-    type: 'select',
-    name: 'location',
-    label: 'Primary location',
-    required: true,
-    options: [
-      'Albania',
-      'Andorra',
-      'Armenia',
-      'Austria',
-      'Azerbaijan',
-      'Belarus',
-      'Belgium',
-      'Bosnia and Herzegovina',
-      'Bulgaria',
-      'Croatia',
-      'Cyprus',
-      'Czech Republic',
-      'Denmark',
-      'Estonia',
-      'Finland',
-      'France',
-      'Georgia',
-      'Germany',
-      'Greece',
-      'Hungary',
-      'Iceland',
-      'Ireland',
-      'Italy',
-      'Kazakhstan',
-      'Kosovo',
-      'Latvia',
-      'Liechtenstein',
-      'Lithuania',
-      'Luxembourg',
-      'Malta',
-      'Moldova',
-      'Monaco',
-      'Montenegro',
-      'Netherlands',
-      'North Macedonia',
-      'Norway',
-      'Poland',
-      'Portugal',
-      'Romania',
-      'Russia',
-      'San Marino',
-      'Serbia',
-      'Slovakia',
-      'Slovenia',
-      'Spain',
-      'Sweden',
-      'Switzerland',
-      'Türkiye',
-      'Ukraine',
-      'United Kingdom',
-      'Vatican City'
-    ]
-  }, {
-    type: 'textarea',
-    name: 'description',
-    label: 'What are you building?',
-    placeholder: 'Describe your platform in its essense',
-    required: true,
-    rows: 6
-  }, {
-    type: 'textarea',
-    name: 'impact',
-    label: 'How far are you in your journey?',
-    placeholder: 'Growth metrics, user numbers, countries you are operating in...',
-    required: true,
-    rows: 4
-  }, {
-    type: 'select',
-    name: 'stage',
-    label: 'Project Stage',
-    required: true,
-    options: [
-      'Idea', 'Alpha', 'Beta', 'Growth'
-    ],
-    helpText: 'Pick the one you believe fit the most.'
-  }, {
-    type: 'text',
-    name: 'team_size',
-    label: 'Team Size',
-    placeholder: '',
-    required: false
-  }, {
-    type: 'checkbox',
-    name: 'consent',
-    label: 'I agree to be included in the Rebuild directory and understand that my information can be shared publicly',
-    required: true
-  }, {
-    type: 'checkbox',
-    name: 'newsletter',
-    label: 'I would like to receive newsletter updates from Rebuild (optional)',
-    required: false
-  }
-] %}
-
-{% set formId = 'builder-application-form' %}
-{% set action = site.apiUrl + '/api/builder-application' %}
-{% set method = 'POST' %}
-{% set title = formTitle %}
-{% set description = formDescription %}
-{% set submitText = 'Submit application' %}
-{% set submitVariant = 'primary' %}
-{% set fields = builderApplicationFields %}
-{% set successMessage = 'Thank you for applying! We will review your application and get back to you soon.' %}
-{% set errorMessage = 'Sorry, we could not submit your application. Please try again or contact us directly.' %}
-{% include "components/form.njk" %}
+{# Builder Application Form Usage: {% include "components/builder-application-form.njk" %} This form
+allows builders to apply to become part of the Rebuild directory. Submissions are sent to a Notion
+database via Bunny Edge Script. Parameters: - title: Form title (optional, default provided) -
+description: Form description (optional, default provided) #} {% set formTitle = title |
+default('Join the directory') %} {% set formDescription = description | default('Are you building a
+social platform in Europe? Join our directory.') %} {% set builderApplicationFields = [ { type:
+'text', name: 'builder_name', label: 'Platform name', required: true }, { type: 'email', name:
+'email', label: 'Email', required: true }, { type: 'tel', name: 'phone', label: 'Phone number',
+required: false, helpText: 'Optional: In case we need to reach you.' }, { type: 'url', name:
+'website', label: 'Website or LinkedIn', required: true, helpText: 'Where can people learn more
+about your work?' }, { type: 'select', name: 'category', label: 'Primary category', required: true,
+options: [ 'Bundled', 'Community', 'Creator platform', 'Dating', 'Events', 'Forum', 'Groups',
+'Location', 'Social marketplace', 'Messaging', 'Microblogging', 'Networking', 'Photo sharing',
+'Resource sharing', 'Video sharing', 'Other' ], helpText: 'Pick the one you believe fit the most. If
+in doubt, pick "Other"' }, { type: 'select', name: 'location', label: 'Primary location', required:
+true, options: [ 'Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus', 'Belgium',
+'Bosnia and Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Estonia',
+'Finland', 'France', 'Georgia', 'Germany', 'Greece', 'Hungary', 'Iceland', 'Ireland', 'Italy',
+'Kazakhstan', 'Kosovo', 'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Malta', 'Moldova',
+'Monaco', 'Montenegro', 'Netherlands', 'North Macedonia', 'Norway', 'Poland', 'Portugal', 'Romania',
+'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland',
+'Türkiye', 'Ukraine', 'United Kingdom', 'Vatican City' ] }, { type: 'textarea', name: 'description',
+label: 'What are you building?', placeholder: 'Describe your platform in its essense', required:
+true, rows: 6 }, { type: 'textarea', name: 'impact', label: 'How far are you in your journey?',
+placeholder: 'Growth metrics, user numbers, countries you are operating in...', required: true,
+rows: 4 }, { type: 'select', name: 'stage', label: 'Project Stage', required: true, options: [
+'Idea', 'Alpha', 'Beta', 'Growth' ], helpText: 'Pick the one you believe fit the most.' }, { type:
+'text', name: 'team_size', label: 'Team Size', placeholder: '', required: false }, { type:
+'checkbox', name: 'consent', label: 'I agree to be included in the Rebuild directory and understand
+that my information can be shared publicly', required: true }, { type: 'checkbox', name:
+'newsletter', label: 'I would like to receive newsletter updates from Rebuild (optional)', required:
+false } ] %} {% set formId = 'builder-application-form' %} {% set action = site.apiUrl +
+'/api/builder-application' %} {% set method = 'POST' %} {% set title = formTitle %} {% set
+description = formDescription %} {% set submitText = 'Submit application' %} {% set submitVariant =
+'primary' %} {% set fields = builderApplicationFields %} {% set successMessage = 'Thank you for
+applying! We will review your application and get back to you soon.' %} {% set errorMessage =
+'Sorry, we could not submit your application. Please try again or contact us directly.' %} {%
+include "components/form.njk" %}

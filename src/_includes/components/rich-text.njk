@@ -1,12 +1,4 @@
-{#
-  Rich Text component
-  Usage: {% include "components/rich-text.njk" %}
+{# Rich Text component Usage: {% include "components/rich-text.njk" %} Parameters: - content: HTML
+content to display - class: Additional CSS classes (optional) #}
 
-  Parameters:
-  - content: HTML content to display
-  - class: Additional CSS classes (optional)
-#}
-
-<div class="rich-text{% if class %} {{ class }}{% endif %}">
-  {{ content | safe }}
-</div>
+<div class="rich-text{% if class %} {{ class }}{% endif %}">{{ content | safe }}</div>

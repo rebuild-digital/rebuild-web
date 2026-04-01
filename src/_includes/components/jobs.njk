@@ -1,30 +1,24 @@
-{% macro jobs(title = "Open positions", jobsData = []) %}
-  {% if jobsData and jobsData.length > 0 %}
-    {% set activeJobs = jobsData | selectattr("active", "equalto", true) | list %}
-  {% else %}
-    {% set activeJobs = [] %}
-  {% endif %}
+{% macro jobs(title = "Open positions", jobsData = []) %} {% if jobsData and jobsData.length > 0 %}
+{% set activeJobs = jobsData | selectattr("active", "equalto", true) | list %} {% else %} {% set
+activeJobs = [] %} {% endif %} {% if activeJobs.length > 0 %}
+<section class="py-xl text-dark mb-3xl lg:mb-6xl">
+  <div class="max-w-[1400px] mx-auto px-0 grid grid-cols-1 lg:grid-cols-2">
+    <h2 class="text-2xl md:text-3xl lg:text-5xl font-normal mb-xl">{{ title }}</h2>
 
-  {% if activeJobs.length > 0 %}
-    <section class="py-xl text-dark mb-3xl lg:mb-6xl">
-      <div class="max-w-[1400px] mx-auto px-0 grid grid-cols-1 lg:grid-cols-2">
-        <h2 class="text-2xl md:text-3xl lg:text-5xl font-normal mb-xl">{{ title }}</h2>
-
-        <div class="space-y-4xl">
-          {% for job in activeJobs %}
-            <div class="max-w-[85ch]">
-              <h3 class="text-xl md:text-2xl lg:text-3xl font-normal mb-lg">{{ job.title }}</h3>
-              <div class="rich-text mb-lg">
-                {{ job.content | safe }}
-              </div>
-              <a href="mailto:positions@rebuild.net?subject=Application: {{ job.title | urlencode }}"
-             class="inline-block px-md py-sm bg-darker border-2 border-dark hover:bg-dark text-light font-bold text-sm md:text-base hover:bg-opacity-90 transition-colors">
-            Apply now
-          </a>
-            </div>
-          {% endfor %}
-        </div>
+    <div class="space-y-4xl">
+      {% for job in activeJobs %}
+      <div class="max-w-[85ch]">
+        <h3 class="text-xl md:text-2xl lg:text-3xl font-normal mb-lg">{{ job.title }}</h3>
+        <div class="rich-text mb-lg">{{ job.content | safe }}</div>
+        <a
+          href="mailto:positions@rebuild.net?subject=Application: {{ job.title | urlencode }}"
+          class="inline-block px-md py-sm bg-darker border-2 border-dark hover:bg-dark text-light font-bold text-sm md:text-base hover:bg-opacity-90 transition-colors"
+        >
+          Apply now
+        </a>
       </div>
-    </section>
-  {% endif %}
-{% endmacro %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %} {% endmacro %}

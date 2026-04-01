@@ -1,71 +1,24 @@
-{#
-  Builder Promotion Form
-  Usage: {% include "components/builder-promo-form.njk" %}
-
-  This form allows users to promote a builder to the Rebuild directory.
-  Submissions are sent to a Notion database via Bunny Edge Script.
-
-  Parameters:
-  - title: Form title (optional, default provided)
-  - description: Form description (optional, default provided)
-#}
-
-{% set formTitle = title | default('Suggest a platform') %}
-{% set formDescription = description | default('Do you know of a social platform that should be in our directory?') %}
-
-{% set builderPromoFields = [
-  {
-    "type": "text",
-    "name": "builder_name",
-    "label": "Name",
-    "required": true,
-    "helpText": "The name of the person or platform you want to share with us."
-  }, {
-    "type": "url",
-    "name": "builder_website",
-    "label": "Link to platform",
-    "required": true
-  }, {
-    "type": "textarea",
-    "name": "why_promote",
-    "label": "Why should they be in the directory?",
-    "required": true,
-    "rows": 4
-  }, {
-    "type": "text",
-    "name": "your_name",
-    "label": "Your name",
-    "required": false,
-    "helpText": "Optional: So that we can contact you later, if we need more information."
-  }, {
-    "type": "email",
-    "name": "your_email",
-    "label": "Your email",
-    "required": false,
-    "helpText": "Optional: So that we can contact you later, if we need more information."
-  }, {
-    "type": "text",
-    "name": "your_relationship",
-    "label": "Your relationship to the suggestion",
-    "required": false,
-    "helpText": "How do you know of this platform?"
-  }, {
-    "type": "checkbox",
-    "name": "newsletter_signup",
-    "label": "Yes, I'd like to receive newsletters and updates from Rebuild. I can unsubscribe at any time.",
-    "required": false
-  }
-] %}
-
-{% set formId = 'builder-promo-form' %}
-{# TODO: Replace with your actual Bunny Edge Script URL from step 2j of deployment #}
-{% set action = site.apiUrl + '/api/builder-promotion' %}
-{% set method = 'POST' %}
-{% set title = formTitle %}
-{% set description = formDescription %}
-{% set submitText = 'Submit suggestion' %}
-{% set submitVariant = 'primary' %}
-{% set fields = builderPromoFields %}
-{% set successMessage = 'Thank you for the recommendation! We will review this builder for inclusion in our directory.' %}
-{% set errorMessage = 'Sorry, we could not submit your promotion. Please try again or contact us directly.' %}
-{% include "components/form.njk" %}
+{# Builder Promotion Form Usage: {% include "components/builder-promo-form.njk" %} This form allows
+users to promote a builder to the Rebuild directory. Submissions are sent to a Notion database via
+Bunny Edge Script. Parameters: - title: Form title (optional, default provided) - description: Form
+description (optional, default provided) #} {% set formTitle = title | default('Suggest a platform')
+%} {% set formDescription = description | default('Do you know of a social platform that should be
+in our directory?') %} {% set builderPromoFields = [ { "type": "text", "name": "builder_name",
+"label": "Name", "required": true, "helpText": "The name of the person or platform you want to share
+with us." }, { "type": "url", "name": "builder_website", "label": "Link to platform", "required":
+true }, { "type": "textarea", "name": "why_promote", "label": "Why should they be in the
+directory?", "required": true, "rows": 4 }, { "type": "text", "name": "your_name", "label": "Your
+name", "required": false, "helpText": "Optional: So that we can contact you later, if we need more
+information." }, { "type": "email", "name": "your_email", "label": "Your email", "required": false,
+"helpText": "Optional: So that we can contact you later, if we need more information." }, { "type":
+"text", "name": "your_relationship", "label": "Your relationship to the suggestion", "required":
+false, "helpText": "How do you know of this platform?" }, { "type": "checkbox", "name":
+"newsletter_signup", "label": "Yes, I'd like to receive newsletters and updates from Rebuild. I can
+unsubscribe at any time.", "required": false } ] %} {% set formId = 'builder-promo-form' %} {# TODO:
+Replace with your actual Bunny Edge Script URL from step 2j of deployment #} {% set action =
+site.apiUrl + '/api/builder-promotion' %} {% set method = 'POST' %} {% set title = formTitle %} {%
+set description = formDescription %} {% set submitText = 'Submit suggestion' %} {% set submitVariant
+= 'primary' %} {% set fields = builderPromoFields %} {% set successMessage = 'Thank you for the
+recommendation! We will review this builder for inclusion in our directory.' %} {% set errorMessage
+= 'Sorry, we could not submit your promotion. Please try again or contact us directly.' %} {%
+include "components/form.njk" %}

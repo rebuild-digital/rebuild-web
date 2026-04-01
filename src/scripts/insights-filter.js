@@ -4,21 +4,21 @@
 
 class InsightsFilter {
   constructor() {
-    this.grid = document.querySelector('[data-insights-grid]');
-    this.cards = Array.from(document.querySelectorAll('[data-insight-card]'));
-    this.sortButtons = document.querySelectorAll('[data-sort]');
-    this.tagButtons = document.querySelectorAll('[data-tag-filter]');
+    this.grid = document.querySelector("[data-insights-grid]");
+    this.cards = Array.from(document.querySelectorAll("[data-insight-card]"));
+    this.sortButtons = document.querySelectorAll("[data-sort]");
+    this.tagButtons = document.querySelectorAll("[data-tag-filter]");
     this.activeTag = null;
-    this.activeSort = 'recency'; // default sort
+    this.activeSort = "recency"; // default sort
 
     // Define tag color palette (using your brand colors)
     this.tagColors = [
-      { bg: 'bg-orange', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-green', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-blue-tint', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-red-tint', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-blush', border: 'border-dark', text: 'text-dark' },
-      { bg: 'bg-light', border: 'border-blue', text: 'text-blue' },
+      { bg: "bg-orange", border: "border-dark", text: "text-dark" },
+      { bg: "bg-green", border: "border-dark", text: "text-dark" },
+      { bg: "bg-blue-tint", border: "border-dark", text: "text-dark" },
+      { bg: "bg-red-tint", border: "border-dark", text: "text-dark" },
+      { bg: "bg-blush", border: "border-dark", text: "text-dark" },
+      { bg: "bg-light", border: "border-blue", text: "text-blue" },
     ];
 
     this.init();
@@ -31,13 +31,13 @@ class InsightsFilter {
     this.applyTagColors();
 
     // Setup sort button listeners
-    this.sortButtons.forEach(button => {
-      button.addEventListener('click', (e) => this.handleSort(e));
+    this.sortButtons.forEach((button) => {
+      button.addEventListener("click", (e) => this.handleSort(e));
     });
 
     // Setup tag filter button listeners
-    this.tagButtons.forEach(button => {
-      button.addEventListener('click', (e) => this.handleTagFilter(e));
+    this.tagButtons.forEach((button) => {
+      button.addEventListener("click", (e) => this.handleTagFilter(e));
     });
 
     // Initial render
@@ -51,7 +51,7 @@ class InsightsFilter {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
+      hash = (hash << 5) - hash + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
     return Math.abs(hash);
@@ -71,9 +71,9 @@ class InsightsFilter {
    */
   applyTagColors() {
     // Color tags in cards - select spans within the tags container
-    this.cards.forEach(card => {
-      const tagSpans = card.querySelectorAll('span');
-      tagSpans.forEach(tagElement => {
+    this.cards.forEach((card) => {
+      const tagSpans = card.querySelectorAll("span");
+      tagSpans.forEach((tagElement) => {
         const tagName = tagElement.textContent.trim();
         const colors = this.getTagColor(tagName);
 
@@ -90,8 +90,8 @@ class InsightsFilter {
     this.activeSort = sortType;
 
     // Update button states
-    this.sortButtons.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.sort === sortType);
+    this.sortButtons.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.sort === sortType);
     });
 
     this.render();
@@ -103,13 +103,13 @@ class InsightsFilter {
     // Toggle tag filter (clicking same tag deactivates it)
     if (this.activeTag === tag) {
       this.activeTag = null;
-      e.currentTarget.classList.remove('active');
+      e.currentTarget.classList.remove("active");
     } else {
       this.activeTag = tag;
 
       // Update button states
-      this.tagButtons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tagFilter === tag);
+      this.tagButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tagFilter === tag);
       });
     }
 
@@ -117,10 +117,10 @@ class InsightsFilter {
   }
 
   filterCards() {
-    return this.cards.filter(card => {
+    return this.cards.filter((card) => {
       // Apply tag filter
       if (this.activeTag) {
-        const cardTags = card.dataset.tags ? card.dataset.tags.split(',') : [];
+        const cardTags = card.dataset.tags ? card.dataset.tags.split(",") : [];
         return cardTags.includes(this.activeTag);
       }
 
@@ -131,7 +131,7 @@ class InsightsFilter {
   sortCards(cards) {
     const sorted = [...cards];
 
-    if (this.activeSort === 'alphabetical') {
+    if (this.activeSort === "alphabetical") {
       sorted.sort((a, b) => {
         const titleA = a.dataset.title.toLowerCase();
         const titleB = b.dataset.title.toLowerCase();
@@ -157,27 +157,27 @@ class InsightsFilter {
     visibleCards = this.sortCards(visibleCards);
 
     // Hide all cards first
-    this.cards.forEach(card => {
-      card.style.display = 'none';
+    this.cards.forEach((card) => {
+      card.style.display = "none";
     });
 
     // Show and reorder visible cards
     visibleCards.forEach((card, index) => {
-      card.style.display = 'block';
+      card.style.display = "block";
       card.style.order = index;
     });
 
     // Show empty state if no cards
-    const emptyState = document.querySelector('[data-empty-state]');
+    const emptyState = document.querySelector("[data-empty-state]");
     if (emptyState) {
-      emptyState.style.display = visibleCards.length === 0 ? 'block' : 'none';
+      emptyState.style.display = visibleCards.length === 0 ? "block" : "none";
     }
   }
 }
 
 // Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
     new InsightsFilter();
   });
 } else {

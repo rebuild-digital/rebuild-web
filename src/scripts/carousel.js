@@ -3,9 +3,9 @@
  * Handles slide navigation and automatic rotation
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  const slides = Array.from(document.querySelectorAll('.carousel-slide'));
-  const dots = Array.from(document.querySelectorAll('.carousel-dot'));
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+  const dots = Array.from(document.querySelectorAll(".carousel-dot"));
 
   if (slides.length === 0 || dots.length === 0) return;
 
@@ -23,24 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index >= slides.length) index = 0;
 
     // Hide current slide
-    slides[currentSlide].classList.remove('opacity-100!', 'visible!', 'pointer-events-auto!');
-    slides[currentSlide].classList.add('opacity-0', 'invisible', 'pointer-events-none');
+    slides[currentSlide].classList.remove("opacity-100!", "visible!", "pointer-events-auto!");
+    slides[currentSlide].classList.add("opacity-0", "invisible", "pointer-events-none");
 
     // Update current slide
     currentSlide = index;
 
     // Show new slide
-    slides[currentSlide].classList.remove('opacity-0', 'invisible', 'pointer-events-none');
-    slides[currentSlide].classList.add('opacity-100!', 'visible!', 'pointer-events-auto!');
+    slides[currentSlide].classList.remove("opacity-0", "invisible", "pointer-events-none");
+    slides[currentSlide].classList.add("opacity-100!", "visible!", "pointer-events-auto!");
 
     // Update dots
     dots.forEach((dot, i) => {
       if (i === currentSlide) {
-        dot.classList.remove('bg-muted');
-        dot.classList.add('bg-dark!', 'w-8!');
+        dot.classList.remove("bg-muted");
+        dot.classList.add("bg-dark!", "w-8!");
       } else {
-        dot.classList.remove('bg-dark!', 'w-8!');
-        dot.classList.add('bg-muted');
+        dot.classList.remove("bg-dark!", "w-8!");
+        dot.classList.add("bg-muted");
       }
     });
 
@@ -89,14 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Navigation: Dots
   dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
+    dot.addEventListener("click", () => {
       goToSlide(index);
       restartAutoplay();
     });
   });
 
   // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener("keydown", (e) => {
     // Only handle keyboard events when carousel is in viewport
     if (slides.length === 0) return;
     const rect = slides[0].parentElement.getBoundingClientRect();
@@ -104,10 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!isInViewport) return;
 
-    if (e.key === 'ArrowLeft') {
+    if (e.key === "ArrowLeft") {
       prevSlide();
       restartAutoplay();
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.key === "ArrowRight") {
       nextSlide();
       restartAutoplay();
     }
@@ -120,14 +120,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const carousel = slides[0]?.parentElement?.parentElement;
 
   if (carousel) {
-    carousel.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
+    carousel.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true }
+    );
 
-    carousel.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, { passive: true });
+    carousel.addEventListener(
+      "touchend",
+      (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      },
+      { passive: true }
+    );
   }
 
   function handleSwipe() {
@@ -147,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Pause autoplay when page is not visible
-  document.addEventListener('visibilitychange', () => {
+  document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       stopAutoplay();
     } else {
@@ -159,11 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
   startAutoplay();
 
   // Accessibility: Announce slide changes to screen readers
-  const announcer = document.createElement('div');
-  announcer.setAttribute('role', 'status');
-  announcer.setAttribute('aria-live', 'polite');
-  announcer.setAttribute('aria-atomic', 'true');
-  announcer.classList.add('sr-only');
+  const announcer = document.createElement("div");
+  announcer.setAttribute("role", "status");
+  announcer.setAttribute("aria-live", "polite");
+  announcer.setAttribute("aria-atomic", "true");
+  announcer.classList.add("sr-only");
   if (carousel) {
     carousel.appendChild(announcer);
   }

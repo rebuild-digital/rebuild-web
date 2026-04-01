@@ -20,25 +20,25 @@ Add placeholder divs where you want the header and footer to appear:
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- Your head content -->
-</head>
-<body>
-  <!-- Header placeholder - place at the top of your body -->
-  <div id="rebuild-header-placeholder"></div>
+  <head>
+    <!-- Your head content -->
+  </head>
+  <body>
+    <!-- Header placeholder - place at the top of your body -->
+    <div id="rebuild-header-placeholder"></div>
 
-  <!-- Your site content -->
-  <main>
-    <!-- ... -->
-  </main>
+    <!-- Your site content -->
+    <main>
+      <!-- ... -->
+    </main>
 
-  <!-- Footer placeholder - place at the bottom of your body -->
-  <div id="rebuild-footer-placeholder"></div>
+    <!-- Footer placeholder - place at the bottom of your body -->
+    <div id="rebuild-footer-placeholder"></div>
 
-  <!-- Load the includes script before your other scripts -->
-  <script src="/js/includes.js"></script>
-  <script src="/js/app.js"></script>
-</body>
+    <!-- Load the includes script before your other scripts -->
+    <script src="/js/includes.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
 </html>
 ```
 
@@ -49,22 +49,22 @@ Replace the hardcoded HTML in your `includes.js` with dynamic fetching:
 ```javascript
 // includes.js - Dynamic rebuild.net header and footer loader
 
-(async function() {
-  const REBUILD_BASE_URL = 'https://rebuild.net';
+(async function () {
+  const REBUILD_BASE_URL = "https://rebuild.net";
 
   // Fetch header
   try {
     const headerResponse = await fetch(`${REBUILD_BASE_URL}/includes/header.html`);
     if (headerResponse.ok) {
       const headerHTML = await headerResponse.text();
-      const headerPlaceholder = document.getElementById('rebuild-header-placeholder');
+      const headerPlaceholder = document.getElementById("rebuild-header-placeholder");
       if (headerPlaceholder) {
         headerPlaceholder.innerHTML = headerHTML;
-        console.log('✓ Rebuild header loaded');
+        console.log("✓ Rebuild header loaded");
       }
     }
   } catch (error) {
-    console.error('Failed to load rebuild.net header:', error);
+    console.error("Failed to load rebuild.net header:", error);
   }
 
   // Fetch footer
@@ -72,14 +72,14 @@ Replace the hardcoded HTML in your `includes.js` with dynamic fetching:
     const footerResponse = await fetch(`${REBUILD_BASE_URL}/includes/footer.html`);
     if (footerResponse.ok) {
       const footerHTML = await footerResponse.text();
-      const footerPlaceholder = document.getElementById('rebuild-footer-placeholder');
+      const footerPlaceholder = document.getElementById("rebuild-footer-placeholder");
       if (footerPlaceholder) {
         footerPlaceholder.innerHTML = footerHTML;
-        console.log('✓ Rebuild footer loaded');
+        console.log("✓ Rebuild footer loaded");
       }
     }
   } catch (error) {
-    console.error('Failed to load rebuild.net footer:', error);
+    console.error("Failed to load rebuild.net footer:", error);
   }
 })();
 ```
@@ -93,7 +93,7 @@ The header and footer use TailwindCSS utility classes from rebuild.net. You have
 Add to your `<head>`:
 
 ```html
-<link rel="stylesheet" href="https://rebuild.net/styles/main.css">
+<link rel="stylesheet" href="https://rebuild.net/styles/main.css" />
 ```
 
 #### Option B: Configure Your Own Tailwind
@@ -106,21 +106,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        dark: '#1a1a1a',
-        muted: '#6b7280',
-        blue: '#3b82f6',
-        green: '#10b981',
-        red: '#ef4444',
+        dark: "#1a1a1a",
+        muted: "#6b7280",
+        blue: "#3b82f6",
+        green: "#10b981",
+        red: "#ef4444",
         // ... other colors from rebuild.net
       },
       spacing: {
-        'xs': '0.25rem',
-        'sm': '0.5rem',
-        'md': '1rem',
-        'lg': '1.5rem',
-        'xl': '2rem',
-        '2xl': '3rem',
-        '3xl': '4rem',
+        xs: "0.25rem",
+        sm: "0.5rem",
+        md: "1rem",
+        lg: "1.5rem",
+        xl: "2rem",
+        "2xl": "3rem",
+        "3xl": "4rem",
       },
     },
   },
@@ -130,6 +130,7 @@ module.exports = {
 ## Features Included
 
 ### Header
+
 - Rebuild logo linking to rebuild.net
 - "Live and in beta" badge
 - Desktop navigation menu with all main pages
@@ -140,6 +141,7 @@ module.exports = {
   - Close button
 
 ### Footer
+
 - Rebuild logo and tagline
 - Newsletter signup form with MailerLite integration
 - LinkedIn follow link
@@ -174,7 +176,7 @@ During local development:
 For local testing in rebuild-letter, update `includes.js` to use localhost URLs temporarily:
 
 ```javascript
-const REBUILD_BASE_URL = 'http://localhost:8080'; // Change back to production URL before deploying
+const REBUILD_BASE_URL = "http://localhost:8080"; // Change back to production URL before deploying
 ```
 
 ## Deployment Checklist
@@ -207,23 +209,27 @@ When you make changes to the header or footer:
 ## Troubleshooting
 
 ### Includes don't load
+
 - Check browser console for CORS errors
 - Verify `vercel.json` is deployed
 - Confirm the rebuild.net URLs are correct
 - Check that placeholders exist in HTML with correct IDs
 
 ### Styling looks broken
+
 - Ensure rebuild.net CSS is loaded
 - Check that Tailwind classes are processed
 - Verify no CSS conflicts with your site styles
 
 ### Mobile menu doesn't work
+
 - The menu requires JavaScript from the header include
 - Ensure the header HTML loads completely
 - Check for JavaScript errors in console
 - Verify no duplicate IDs if you have multiple menus
 
 ### Newsletter form doesn't submit
+
 - The form POSTs to rebuild.net's API endpoint
 - Check network tab for failed requests
 - Verify the API endpoint is accessible
@@ -232,6 +238,7 @@ When you make changes to the header or footer:
 ## Support
 
 For questions or issues:
+
 - Check the [rebuild-web repository](https://github.com/yourorg/rebuild-web)
 - Review the [CLAUDE.md](CLAUDE.md) project documentation
 - Contact the Rebuild development team

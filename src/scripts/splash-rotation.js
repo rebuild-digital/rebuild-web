@@ -16,9 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
   "use strict";
 
   // Check if user prefers reduced motion
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Get the splash component
   const splashElement = document.getElementById("hero-splash-alt");
@@ -35,9 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function getActiveImages() {
     const isMobile = window.innerWidth < 768; // md breakpoint
     if (isMobile) {
-      return Array.from(allImages).filter(
-        (img) => img.getAttribute("data-show-mobile") === "true"
-      );
+      return Array.from(allImages).filter((img) => img.getAttribute("data-show-mobile") === "true");
     }
     return Array.from(allImages);
   }
@@ -50,10 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Get interval from data attribute, default to 5000ms
-  const interval = parseInt(
-    splashElement.getAttribute("data-interval") || "5000",
-    10
-  );
+  const interval = parseInt(splashElement.getAttribute("data-interval") || "5000", 10);
 
   let currentIndex = 0;
   let rotationTimer = null;

@@ -5,42 +5,44 @@ layout: layouts/base.njk
 {% from "components/image-credit.njk" import imageCredit %}
 
 {% block content %}
-  <article class="pb-2xl">
-    {% if featured_image %}
-      <div class="featured-image mb-xl w-full max-h-[900px] overflow-hidden relative">
-        <img src="{{ featured_image }}" alt="{{ title }}" loading="lazy" class="w-full h-auto object-cover">
-        {% if featured_image_credit %}
-          {{ imageCredit(featured_image_credit, "bottom-left", featured_image_credit_theme | default("light")) }}
+<article class="pb-2xl">
+  {% if featured_image %}
+  <div class="featured-image mb-xl w-full max-h-[900px] overflow-hidden relative">
+    <img
+      src="{{ featured_image }}"
+      alt="{{ title }}"
+      loading="lazy"
+      class="w-full h-auto object-cover"
+    />
+    {% if featured_image_credit %} {{ imageCredit(featured_image_credit, "bottom-left",
+    featured_image_credit_theme | default("light")) }} {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="mx-auto max-w-[75ch]">
+    <header class="">
+      <h1 class="text-3xl md:text-5xl leading-none mb-md">{{ title }}</h1>
+
+      <div class="flex gap-md text-sm items-center mb-md text-darker">
+        {% if date %}
+        <time datetime="{{ date | dateFormat }}">{{ date | dateFormat }}</time>
+        {% endif %}
+        <p class="text-dark">|</p>
+        {% if author %}
+        <span class="text-darker" class="author">By {{ author }}</span>
         {% endif %}
       </div>
-    {% endif %}
 
-    <div class="mx-auto max-w-[75ch]">
-      <header class="">
-        <h1 class="text-3xl md:text-5xl leading-none mb-md">{{ title }}</h1>
-
-        <div class="flex gap-md text-sm items-center mb-md text-darker">
-          {% if date %}
-            <time datetime="{{ date | dateFormat }}">{{ date | dateFormat }}</time>
-          {% endif %}
-          <p class="text-dark">|</p>
-          {% if author %}
-            <span class="text-darker" class="author">By {{ author }}</span>
-          {% endif %}
-        </div>
-
-        {% if tags %}
-          <div class="post-tags flex gap-xs flex-wrap mb-2xl">
-            {% for tag in tags %}
-              <span class="p-xs bg-light border border-dark text-xs">{{ tag }}</span>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </header>
-
-      <div class="post-content rich-text">
-        {{ content | safe }}
+      {% if tags %}
+      <div class="post-tags flex gap-xs flex-wrap mb-2xl">
+        {% for tag in tags %}
+        <span class="p-xs bg-light border border-dark text-xs">{{ tag }}</span>
+        {% endfor %}
       </div>
-    </div>
-  </article>
+      {% endif %}
+    </header>
+
+    <div class="post-content rich-text">{{ content | safe }}</div>
+  </div>
+</article>
 {% endblock %}

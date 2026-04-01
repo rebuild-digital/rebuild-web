@@ -19,7 +19,9 @@
     "minify": "npm run minify:js",
     "minify:js": "terser dist/**/*.js --compress --mangle -o dist/bundle.min.js",
     "serve": "eleventy --serve",
-    "clean": "rm -rf dist .cache"
+    "clean": "rm -rf dist .cache",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,8 @@
     "cssnano": "^7.1.2",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
+    "prettier": "^3.8.1",
+    "prettier-plugin-jinja-template": "^2.1.0",
     "tailwindcss": "^4.1.17",
     "terser": "^5.44.1"
   }

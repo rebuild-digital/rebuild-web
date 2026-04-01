@@ -1,35 +1,21 @@
-{#
-  Image Credit Component
+{# Image Credit Component Usage: {% from "components/image-credit.njk" import imageCredit %}
 
-  Usage:
-  {% from "components/image-credit.njk" import imageCredit %}
+<div class="relative">
+  <img src="/path/to/image.jpg" alt="Description" />
+  {{ imageCredit("Photo by John Doe") }}
+</div>
 
-  <div class="relative">
-    <img src="/path/to/image.jpg" alt="Description">
-    {{ imageCredit("Photo by John Doe") }}
-  </div>
+Or with custom positioning and theme: {{ imageCredit("Photo by John Doe", position="bottom-left",
+theme="dark") }} Position options: bottom-right (default), bottom-left, top-right, top-left Theme
+options: light (default, white text on dark background), dark (dark text on light background) #} {%
+macro imageCredit(credit, position="bottom-left", theme="light") %} {% set positionClasses = {
+"bottom-right": "bottom-0 right-0", "bottom-left": "bottom-0 left-0", "top-right": "top-0 right-0",
+"top-left": "top-0 left-0" } %} {% set themeClasses = { "light": "bg-dark/50 text-white", "dark":
+"bg-light/80 text-dark" } %}
 
-  Or with custom positioning and theme:
-  {{ imageCredit("Photo by John Doe", position="bottom-left", theme="dark") }}
-
-  Position options: bottom-right (default), bottom-left, top-right, top-left
-  Theme options: light (default, white text on dark background), dark (dark text on light background)
-#}
-
-{% macro imageCredit(credit, position="bottom-left", theme="light") %}
-  {% set positionClasses = {
-    "bottom-right": "bottom-0 right-0",
-    "bottom-left": "bottom-0 left-0",
-    "top-right": "top-0 right-0",
-    "top-left": "top-0 left-0"
-  } %}
-
-  {% set themeClasses = {
-    "light": "bg-dark/50 text-white",
-    "dark": "bg-light/80 text-dark"
-  } %}
-
-  <div class="absolute {{ positionClasses[position] }} {{ themeClasses[theme] }} text-[10px] px-2 py-1 m-2">
-    Photo by: {{ credit }}
-  </div>
+<div
+  class="absolute {{ positionClasses[position] }} {{ themeClasses[theme] }} text-[10px] px-2 py-1 m-2"
+>
+  Photo by: {{ credit }}
+</div>
 {% endmacro %}

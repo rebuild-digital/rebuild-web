@@ -8,9 +8,7 @@ const CACHE_FILE = path.join(__dirname, "../../.cache/builders.json");
 module.exports = async function () {
   // Check if we have Notion credentials
   if (!process.env.NOTION_TOKEN || !process.env.NOTION_BUILDERS_DB_ID) {
-    console.warn(
-      "Notion credentials not found, using cached platforms data if available."
-    );
+    console.warn("Notion credentials not found, using cached platforms data if available.");
 
     // Try to use cached data
     if (fs.existsSync(CACHE_FILE)) {
@@ -84,11 +82,9 @@ module.exports = async function () {
         "",
       link: page.properties.WEBSITE?.url || "",
       tags: page.properties.TAGS?.multi_select?.map((tag) => tag.name) || [],
-      category:
-        page.properties.CATEGORY?.multi_select?.map((tag) => tag.name) || [],
+      category: page.properties.CATEGORY?.multi_select?.map((tag) => tag.name) || [],
       stage: page.properties.STAGE?.select?.name || "",
-      country:
-        page.properties.COUNTRY?.multi_select?.map((tag) => tag.name) || [],
+      country: page.properties.COUNTRY?.multi_select?.map((tag) => tag.name) || [],
       yearFounded: page.properties["YEAR FOUNDED"]?.number || null,
       published: page.properties["PUBLISHED?"]?.checkbox || false,
       order: page.properties.Order?.number || 999,
@@ -108,12 +104,8 @@ module.exports = async function () {
 
     // Provide helpful error messages
     if (error.message?.includes("Could not find database")) {
-      console.error(
-        "  → Make sure the database is shared with your Notion integration"
-      );
-      console.error(
-        "  → Go to your Notion database → ••• → Connections → Add your integration"
-      );
+      console.error("  → Make sure the database is shared with your Notion integration");
+      console.error("  → Go to your Notion database → ••• → Connections → Add your integration");
     } else if (error.message?.includes("unauthorized")) {
       console.error("  → Check that your NOTION_TOKEN is valid");
     }

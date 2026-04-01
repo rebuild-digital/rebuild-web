@@ -262,8 +262,7 @@ etc.
 ### Optimized Image
 
 ```html
-{% image "src/assets/images/photo.jpg", "Alt text", "(min-width: 768px) 50vw,
-100vw" %}
+{% image "src/assets/images/photo.jpg", "Alt text", "(min-width: 768px) 50vw, 100vw" %}
 ```
 
 ## Testing Checklist
