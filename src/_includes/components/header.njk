@@ -15,14 +15,7 @@
             <a
               href="{{ item.url }}"
               class="no-underline hover:underline px-sm last:pl-0 py-xs transition-fast"
-              {%
-              if
-              page.url=""
-              ="item.url"
-              %}aria-current="page"
-              {%
-              endif
-              %}
+              {% if page.url == item.url %}aria-current="page"{% endif %}
             >
               {{ item.name }}
             </a>
@@ -71,14 +64,7 @@
             <a
               href="{{ item.url }}"
               class="text-dark text-4xl no-underline block transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
-              {%
-              if
-              page.url=""
-              ="item.url"
-              %}aria-current="page"
-              {%
-              endif
-              %}
+              {% if page.url == item.url %}aria-current="page"{% endif %}
             >
               {{ item.name }}
             </a>
@@ -95,14 +81,7 @@
             <a
               href="{{ item.url }}"
               class="text-dark text-xl no-underline transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
-              {%
-              if
-              page.url=""
-              ="item.url"
-              %}aria-current="page"
-              {%
-              endif
-              %}
+              {% if page.url == item.url %}aria-current="page"{% endif %}
             >
               {{ item.name }}
             </a>

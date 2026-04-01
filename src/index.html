@@ -5,18 +5,16 @@ description: Twelve months to catalyse European social platforms.
 image: /assets/images/social-3.jpg
 ---
 
-{% from "components/text-section.njk" import render as textSection %} {% from
-"components/outcomes.njk" import render as outcomes %}
+{% from "components/text-section.njk" import render as textSection %}
+{% from "components/outcomes.njk" import render as outcomes %}
 
 <!-- Alternative Splash with Image Rotation -->
 {% include "components/splash-alt.njk" %}
 
 <main id="main-content" class="lg:max-w-[1400px] mx-auto px-md">
   <section class="py-3xl md:py-6xl">
-    {{ textSection("Rebuild is a sprint for European social platforms. Connecting the entrepreneurs,
-    the pioneers, the investors and the digital leaders building the next generation of social
-    platforms.
-    <br /><br />Through gatherings, programmes, and tools <span class="font-bold">we build</span>.")
+    {{
+      textSection("Rebuild is a sprint for European social platforms. Connecting the entrepreneurs, the pioneers, the investors and the digital leaders building the next generation of social platforms.<br /><br />Through gatherings, programmes, and tools <span class=\"font-bold\">we build</span>.")
     }}
   </section>
 

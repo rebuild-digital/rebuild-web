@@ -8,11 +8,18 @@
   "bracketSpacing": true,
   "htmlWhitespaceSensitivity": "css",
   "endOfLine": "lf",
+  "plugins": ["prettier-plugin-jinja-template"],
   "overrides": [
     {
-      "files": ["*.njk", "*.html"],
+      "files": ["*.njk"],
       "options": {
-        "parser": "html"
+        "parser": "jinja-template"
+      }
+    },
+    {
+      "files": ["*.html"],
+      "options": {
+        "parser": "jinja-template"
       }
     },
     {

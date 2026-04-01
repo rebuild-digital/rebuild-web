@@ -2,7 +2,9 @@
 layout: layouts/base.njk
 ---
 
-{% from "components/image-credit.njk" import imageCredit %} {% block content %}
+{% from "components/image-credit.njk" import imageCredit %}
+
+{% block content %}
 <article class="pb-2xl">
   {% if featured_image %}
   <div class="featured-image mb-xl w-full max-h-[900px] overflow-hidden relative">
