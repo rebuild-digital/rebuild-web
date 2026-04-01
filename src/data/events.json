@@ -1,0 +1,106 @@
+{
+  "events": [
+    {
+      "id": "rebuild-1",
+      "title": "Rebuild 1, The beginning",
+      "shortTitle": "Rebuild1",
+      "startDate": "2026-03-01T09:00:00Z",
+      "endDate": "2026-03-03T18:00:00Z",
+      "location": "Copenhagen, Denmark",
+      "bgColor": "#669e67",
+      "image": "/assets/images/copenhagen.jpg",
+      "imageCredit": "Eryk Piotr Munk",
+      "proofPoints": [
+        {
+          "headline": "Demos of all social platforms",
+          "description": "See what Europe's social entrepreneurs are building right now. Learn from one another's products, business models, and approaches within the different categories, e.g. networking, events, etc."
+        },
+        {
+          "headline": "Focused Keynotes",
+          "description": "Focused perspectives from pioneers of social platforms, Rebuild ambassadors and current day platform entrepreneurs on everything from challenges to product innovation and scaling approaches."
+        },
+        {
+          "headline": "Overcoming shared challenges",
+          "description": "Working groups tackling the problems no entrepreneurs should face alone. Bring your toughest questions. Build solutions together. With live support from digital pioneers, early builders, and visionary investors."
+        },
+        {
+          "headline": "Collaborative Outcomes",
+          "description": "Hands-on prototyping of a set of actionable tools needed to build a new direction for social platforms. Think design principles, investment concept papers, opportunity maps."
+        }
+      ],
+      "cta": {
+        "text": "Request an invitation to join the first gathering",
+        "url": "#",
+        "dataForm": "gathering-invitation"
+      }
+    },
+    {
+      "id": "rebuild-2",
+      "title": "Rebuild2, the boost",
+      "shortTitle": "Rebuild2",
+      "startDate": "2026-08-30T09:00:00Z",
+      "endDate": "2026-09-01T18:00:00Z",
+      "location": "Helsinki, Finland",
+      "bgColor": "#6ba1cc",
+      "image": "/assets/images/helsinki.jpg",
+      "imageCredit": "Kristaps Grundsteins",
+      "proofPoints": [
+        {
+          "headline": "Board programme",
+          "description": "A structured programme to place experienced pioneers, investors, and strategic thinkers on the boards of social platform companies."
+        },
+        {
+          "headline": "Crafting sessions — How to",
+          "description": "Hands-on sessions that break down practical methods and approaches by those who have done it before. How to scale to 1 million users, how to build a marketplace, how to coin your business model, how to get people to shift, how to get investments, how to build the right organisational model for your platform."
+        },
+        {
+          "headline": "Product design sessions",
+          "description": "Hands-on sessions where teams co-design features, flows, and architectures. End design, explorative UI's, spatial UI, save for later, TimeLocking."
+        },
+        {
+          "headline": "Designing for the Big Shift Day",
+          "description": "Designing for a dedicated day led by the industry, mobilising people across Europe to switch to European-built social platforms. An industry-led moment to help users make the shift together."
+        }
+      ],
+      "cta": {
+        "text": "Request an invitation to the gathering",
+        "url": "#",
+        "dataForm": "gathering-invitation"
+      }
+    },
+    {
+      "id": "rebuild-3",
+      "title": "Rebuild3, The shift",
+      "shortTitle": "Rebuild3",
+      "startDate": "2026-12-13T09:00:00Z",
+      "endDate": "2026-12-15T18:00:00Z",
+      "location": "Paris, France",
+      "bgColor": "#e1aeb0",
+      "image": "/assets/images/paris.jpg",
+      "imageCredit": "HANVIN CHEONG",
+      "proofPoints": [
+        {
+          "headline": "Mobilising Europeans to shift",
+          "description": "A coordinated awareness with all European media to share the platforms and progress emerging from the industry. Designed to build momentum and readiness ahead of the Big Shift Day."
+        },
+        {
+          "headline": "Top 20 case studies",
+          "description": "A curated look at the biggest breakthroughs and cases to learn from. Making it usable for the wider industry."
+        },
+        {
+          "headline": "Designing the next decade to come",
+          "description": "Defining the actions, priorities, and structures that will guide the industry forward. The starting point for long-term collaboration and commitment."
+        },
+        {
+          "headline": "Sunsetting Rebuild - Open sourcing the resources",
+          "description": "A clear and intentional close to the one-year catalyst initiative. Releasing Rebuild, open sourcing all resources, so the industry can continue with its own momentum."
+        }
+      ],
+      "cta": {
+        "text": "Sign up to our newsletter for updates",
+        "url": "#",
+        "dataForm": "newsletter"
+      }
+    }
+  ]
+}
