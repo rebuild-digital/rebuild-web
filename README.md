@@ -1,737 +1,376 @@
 # rebuild-web
 
-A production Eleventy static site with Nunjucks components, TailwindCSS styling, Bunny CDN Edge Scripts for forms, MailerLite integration, and Notion API for build-time data.
+Production website for [rebuild.net](https://www.rebuild.net) — a sprint for European social platform.
+
+Built as an Eleventy static site. Content is mostly managed through JSON files in the repo, with one Notion-sourced data set (the Platforms directory). Forms are handled by serverless edge functions on Bunny CDN and captured in Notion. A high-level migration from mostly American to European services 
+
+---
 
 ## Tech Stack
 
-| Layer             | Technology                            |
-| ----------------- | ------------------------------------- |
-| **Static Site**   | Eleventy (11ty) + Nunjucks templates  |
-| **Styling**       | TailwindCSS + PostCSS                 |
-| **Content**       | Markdown files, Notion API            |
-| **CDN & Hosting** | Bunny CDN (Edge Scripts, storage)     |
-| **Forms**         | MailerLite API via Bunny Edge Scripts |
-| **Analytics**     | Pirsch (privacy-first)                |
+| Layer | Technology | Notes |
+| --- | --- | --- |
+| **Static site generator** | [Eleventy (11ty)](https://www.11ty.dev/) | v2.x |
+| **Templates** | Nunjucks | Component-based includes and macros |
+| **Styling** | TailwindCSS + PostCSS | Utility-first, no custom CSS framework |
+| **Hosting** | Vercel | Auto-deploys from git |
+| **CDN** | Bunny CDN | Assets, fonts, videos, and edge script execution |
+| **Form processing** | Bunny Edge Scripts | Serverless JS at the CDN edge |
+| **Newsletter** | MailerLite | API v2, subscriber management |
+| **Builders directory** | Notion API | Fetched at build time |
+| **Analytics** | Pirsch | Privacy-first, EU-based, GDPR-compliant |
 
-## Key Features
+### Rationale
 
-- **Component-based architecture**: Reusable Nunjucks components (forms, carousel, cards)
-- **Dynamic forms**: Sidebar form system with MailerLite integration
-- **Build-time data**: Builders directory from Notion
-- **CDN-optimized**: Videos, fonts, and assets via Bunny CDN
-- **No heavy JavaScript**: Minimal client-side JS for performance
+This stack was chosen for simplicity, performance, and low operational overhead:
+
+- **Eleventy** generates fast, dependency-light HTML. No React, no hydration, no bundle splitting.
+- **Nunjucks** provides enough component composition (includes, macros, template inheritance) without a JavaScript component model.
+- **TailwindCSS** keeps styling co-located with markup and avoids growing a custom CSS codebase.
+- **Bunny CDN + Edge Scripts** offloads form processing without needing a dedicated backend. The same CDN layer serves assets and runs backend logic.
+- **Notion as CMS** for the Platforms directory means non-technical editors can manage entries without touching the repo. Other content (carousel, jobs, events, gatherings) lives in JSON files directly in the repo — simpler to version and edit.
+- **Independance** from US-owned frameworks and services like React and  has been a prioritity  
+
+### Limitations
+
+- **Build-time data**: Notion data is fetched at build time, not on request. Changes in Notion require a site rebuild to appear. A cache fallback exists, but stale data is possible if the Notion API is unavailable.
+- **No incremental builds**: Every content change triggers a full rebuild. Acceptable at current scale but will slow down as content grows.
+- **Edge Script constraints**: Bunny Edge Scripts run a limited JavaScript environment (no Node.js APIs, no npm packages). Complex backend logic requires workarounds.
+- **Form deduplication**: Currently handled by a 5-second in-memory window in the edge script. Not durable across edge node restarts.
+- **MailerLite API v2**: The current integration targets the v2 API. Migration to v3 would require changes to `src/scripts/edge-script.js`.
+
+---
 
 ## Project Structure
 
 ```text
 /
-├── .eleventy.js              # Eleventy configuration
-├── postcss.config.js         # PostCSS & TailwindCSS config
-├── tailwind.config.js        # Tailwind configuration
-├── package.json              # Dependencies & scripts
-├── src/
-│   ├── index.html            # Homepage
-│   ├── journal.html          # Journal listing page
-│   ├── builders.html         # Builders listing page
-│   ├── gatherings.html       # Events/gatherings page
-│   ├── journal/              # Markdown blog posts
-│   ├── _data/
-│   │   ├── site.js           # Global site configuration
-│   │   ├── events.json       # Event data
-│   │   ├── carousel.json     # Carousel slides data
-│   │   └── builders.js       # Notion fetch (build-time)
-│   ├── _includes/
-│   │   ├── layouts/          # Page templates
-│   │   └── components/       # Reusable components
-│   │       ├── forms/        # Form components
-│   │       ├── carousel.njk
-│   │       ├── form-sidebar.njk
-│   │       └── ...
-│   ├── forms/                # Form HTML endpoints
-│   ├── styles/               # TailwindCSS styles
-│   ├── scripts/              # Client-side JavaScript
-│   └── public/               # Static assets
-├── src/scripts/              # Client-side JavaScript & edge scripts
-├── .cache/                   # Build cache (gitignored)
-└── dist/                     # Build output (gitignored)
+├── .eleventy.js              # Eleventy config (input/output, plugins, filters)
+├── postcss.config.js
+├── tailwind.config.js
+├── package.json
+└── src/
+    ├── index.html            # Homepage
+    ├── _data/                # Data files available to all templates
+    │   ├── site.js           # Global site config (name, URL, social links)
+    │   ├── carousel.json     # Homepage carousel slides
+    │   ├── events.json       # Gathering events (dates, locations, proof points)
+    │   ├── gatherings.json   # Gathering summary cards (timeline view)
+    │   ├── jobs.json         # Job listings
+    │   ├── programmes.json   # Programme definitions (investor, talent, etc.)
+    │   ├── splashImages.js   # Rotating splash images (computed)
+    │   └── builders.js       # Notion fetch (Builders directory, build-time)
+    ├── _includes/
+    │   ├── layouts/          # Page-level layout templates
+    │   └── components/       # Reusable Nunjucks components
+    │       └── forms/        # Form components
+    ├── pages/                # Site pages (use permalink in frontmatter)
+    ├── journal/              # Markdown journal posts
+    ├── insights/             # Markdown insight posts
+    ├── forms/                # Form HTML endpoints (fetched by sidebar)
+    ├── scripts/              # Client-side JS + edge script source
+    ├── styles/               # TailwindCSS source (main.css)
+    └── public/               # Static assets (images, fonts, favicons)
 ```
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js v18 or higher
-- npm or pnpm
-- Git
+- Node.js v18+
+- npm
 
 ### Installation
 
-1. Clone the repository:
-
-   ```bash
-   git clone <repository-url>
-   cd rebuild-web
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Create environment variables file:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Add your environment variables to `.env`:
-
-   ```bash
-   # Notion
-   NOTION_TOKEN=secret_xxxxxxxxxxxxx
-   NOTION_BUILDERS_DB_ID=xxxxxxxx
-
-   # Bunny CDN
-   BUNNY_STORAGE_ZONE=your-zone
-   BUNNY_API_KEY=xxxxxxxx
-   BUNNY_PULL_ZONE_URL=https://videos.b-cdn.net
-   BUNNY_FONTS_PULL_ZONE_URL=https://fonts.b-cdn.net
-
-   # MailerLite
-   MAILERLITE_API_KEY=xxxxxxxxxxxxx
-   MAILERLITE_GROUP_ID=12345
-
-   # Pirsch (optional)
-   PIRSCH_CLIENT_ID=xxxxxxxxxxxxx
-   PIRSCH_CLIENT_SECRET=xxxxxxxxxxxxx
-   ```
+```bash
+git clone <repository-url>
+cd rebuild-web
+npm install
+cp .env.example .env
+# fill in .env values — see Environment Variables section
+```
 
 ### Development
 
-Start the development server with hot reload:
-
 ```bash
-npm run dev
+npm run dev        # Start dev server with hot reload → http://localhost:8080
+npm run build      # Production build → dist/
+npm run clean      # Clear .cache/ and dist/
+npm run build:css  # Rebuild CSS only
 ```
 
-The site will be available at `http://localhost:8080`.
-
-### Production Build
-
-Build the site for production:
-
-```bash
-npm run build
-```
-
-Output will be in the `dist/` directory.
-
-### Other Commands
-
-```bash
-# Serve built site locally
-npm run serve
-
-# Clean build output and cache
-npm run clean
-
-# Minify CSS only
-npm run minify:css
-
-# Minify JavaScript only
-npm run minify:js
-```
-
-## Content Management
-
-### Creating Journal Posts
-
-Create a new Markdown file in `src/journal/`:
-
-```markdown
----
-title: "My New Post Title"
-date: 2025-11-19
-author: "Your Name"
-tags:
-  - Stories
-  - Resources
-excerpt: "A brief description for meta tags and previews"
-featured_image: "/assets/images/post-image.jpg"
-featured: false
 ---
 
-Your post content here...
-```
+## Content Reference
 
-The post will automatically appear on the journal page after rebuild.
+All site content is either in Markdown files, JSON files in `src/_data/`, or in Notion. Below is the map.
 
-### Managing Builders
+### Carousel (`src/_data/carousel.json`)
 
-Builders are managed via a Notion database:
-
-1. Open the Builders database in Notion
-2. Add a new entry with required properties:
-   - **Name** (Title)
-   - **Description** (Rich Text)
-   - **Image** (Files & Media)
-   - **Link** (URL)
-   - **Status** (Select: Published)
-   - **Tags** (Multi-select)
-3. Set Status to "Published" to display on site
-4. Rebuild the site to fetch latest data
-
-### Updating Events
-
-Events are managed via `src/_data/events.json`:
+The homepage carousel. Edit the JSON file directly. Each slide:
 
 ```json
 {
-  "events": [
-    {
-      "id": "event-1",
-      "title": "Event Name",
-      "date": "2025-03-15T09:00:00Z",
-      "location": "City, Country",
-      "description": "Event description..."
-    }
-  ]
+  "id": "slide-1",
+  "headline": "Slide headline",
+  "subheader": "Supporting text",
+  "image": "/assets/images/photo.jpg",
+  "ctaText": "Button label",
+  "ctaLink": "/link/",
+  "bgColor": "#dde2de"
 }
 ```
 
-### Updating Carousel
-
-Carousel slides are managed via `src/_data/carousel.json`:
-
-```json
-{
-  "slides": [
-    {
-      "id": "slide-1",
-      "headline": "Your Headline",
-      "subheader": "Description text",
-      "image": "/assets/images/slide.jpg",
-      "ctaText": "Button Text",
-      "ctaLink": "/link/",
-      "bgColor": "#e8e8e8"
-    }
-  ]
-}
-```
-
-## Components
-
-### Forms System
-
-The site uses a sidebar form system with MailerLite integration:
-
-**Sidebar Forms** (triggered by data attributes):
-
-```html
-<button data-form="builder-promo">Nominate a Builder</button>
-<button data-form="builder-application">Apply Now</button>
-<button data-form="newsletter">Subscribe</button>
-<button data-form="gathering-invitation">Request Invitation</button>
-```
-
-**Newsletter Form** (inline or standard):
-
-```njk
-{# Standard layout #}
-{% include "components/forms/newsletter-form.njk" %}
-
-{# Inline layout for footer/sidebar #}
-{% include "components/forms/newsletter-form.njk" with { inline: true } %}
-```
-
-**Custom Forms** using base component:
-
-```njk
-{% set myFormFields = [
-  {
-    type: 'text',
-    name: 'full_name',
-    label: 'Full Name',
-    required: true
-  },
-  {
-    type: 'email',
-    name: 'email',
-    label: 'Email Address',
-    required: true
-  },
-  {
-    type: 'textarea',
-    name: 'message',
-    label: 'Message',
-    rows: 5,
-    required: true
-  }
-] %}
-
-{% include "components/form.njk" with {
-  formId: 'contact-form',
-  action: '/api/contact',
-  title: 'Get in Touch',
-  submitText: 'Send Message',
-  fields: myFormFields
-} %}
-```
-
-**Supported Field Types:**
-
-- `text`, `email`, `tel`, `url` - Input fields
-- `textarea` - Multi-line text
-- `select` - Dropdown
-- `radio` - Radio buttons
-- `checkbox` - Checkboxes
-
-**Sidebar Form Behavior:**
-
-- Desktop (≥768px): Slides in from right as 500-600px sidebar, page content shifts left
-- Mobile (<768px): Full-screen modal with dark overlay
-- Close with X button, ESC key, or overlay click
-- JavaScript API: `window.loadForm('form-name')`, `window.closeFormSidebar()`
-
-**Form Processing Flow:**
-
-1. Client-side validation
-2. Submit to Bunny Edge Script
-3. Edge Script validates and routes to MailerLite (newsletters) or Notion (form submissions)
-4. Return success/error to client
-
-### Carousel
-
-Include the carousel component:
+Include in a template with:
 
 ```njk
 {% include "components/carousel.njk" %}
 ```
 
-Customize slides via [src/\_data/carousel.json](src/_data/carousel.json):
+Features: auto-rotation (5s), pause on hover, keyboard/swipe navigation, ARIA labels.
+
+### Jobs (`src/_data/jobs.json`)
+
+Open positions displayed on the site. HTML content is supported in the `content` field. Toggle visibility with `"active": true/false`.
 
 ```json
 {
-  "slides": [
+  "jobs": [
     {
-      "id": "slide-1",
-      "headline": "Your Headline Here",
-      "subheader": "Your descriptive text here",
-      "image": "/assets/images/your-image.jpg",
-      "ctaText": "Button Text",
-      "ctaLink": "/your-link/",
-      "bgColor": "#e8e8e8"
+      "id": "unique-id",
+      "title": "Role title",
+      "content": "<p>HTML description...</p>",
+      "active": true
     }
   ]
 }
 ```
 
-**Features:**
+### Events (`src/_data/events.json`)
 
-- Auto-rotation every 5 seconds
-- Navigation dots, prev/next arrows, keyboard arrows, touch/swipe
-- Pause on hover and when page hidden
-- Fully accessible with ARIA labels
+The three Rebuild gatherings with full detail: dates, location, proof points, and a CTA. Used on the journey/gatherings page. Each event can link to a sidebar form via `"dataForm": "gathering-invitation"`.
 
-### Image Credits
+### Gatherings (`src/_data/gatherings.json`)
 
-Add credits to images:
+Summary card data for the timeline view of gatherings (title, location, dates, image). Simpler than `events.json` — used for the compact overview component.
 
-```njk
-{% from "components/image-credit.njk" import imageCredit %}
+### Programmes (`src/_data/programmes.json`)
 
-<div class="relative">
-  <img src="/assets/images/photo.jpg" alt="Description">
-  {{ imageCredit("Photo by John Doe") }}
-</div>
+The four programme types (investor, talent, public funds, board). Each has a title, description, and brand colour.
+
+### Builders Directory (`src/_data/builders.js`)
+
+Fetched from a Notion database at build time. Editors manage entries directly in Notion; setting **PUBLISHED? === ✔️** makes an entry appear on site. A local cache at `.cache/builders.json` is used as fallback if the Notion API is unavailable.
+
+Notion properties used: "Name", "DESCRIPTION", "COUNTRY", "CATEGORY", "WEBSITE".(case sensitive always).
+
+### Insights Posts (`src/insights/`)
+
+Markdown files with frontmatter:
+
+```yaml
+---
+title: "The future you want for your social network will be true"
+date: 2025-12-22
+author: "Matt Muir"
+tags:
+  - Stories
+excerpt: "Daniela Hinrichs on building XING from invitation-only startup to the world's first Web 2.0 IPO – why community, not just code, made Europe's business network a success"
+featured_image: "/assets/images/daniela-3.jpg"
+featured_image_credit: "Michael DeBoer"
+featured_image_credit_theme: "dark"
+published: true
+---
 ```
 
-Position in any corner:
+## Forms System
 
-```njk
-{{ imageCredit("Photo by John Doe", position="bottom-left") }}
-{{ imageCredit("Photo by John Doe", position="top-right") }}
-{{ imageCredit("Photo by John Doe", position="top-left") }}
+Forms are displayed in a responsive sidebar overlay. On desktop (≥768px) the form slides in from the right and the page content shifts. On mobile it opens as a full-screen modal.
+
+### Triggering a Form
+
+Any element with a `data-form` attribute opens the sidebar:
+
+```html
+<button data-form="newsletter">Subscribe</button>
+<button data-form="builder-promo">Nominate a Builder</button>
+<button data-form="builder-application">Apply to Directory</button>
+<button data-form="gathering-invitation">Request Invitation</button>
 ```
+
+JavaScript API: `window.loadForm('form-name')`, `window.closeFormSidebar()`
+
+### Adding a New Form
+
+1. Create the form component: `src/_includes/components/forms/your-form.njk`
+2. Create the HTML endpoint: `src/forms/your-form.html` (fetched dynamically)
+3. Register in `src/scripts/form-triggers.js`:
+
+   ```js
+   const formUrls = {
+     "your-form": "/forms/your-form.html",
+     // ...existing entries
+   };
+   ```
+
+4. Add backend handling to `src/scripts/edge-script.js` for the new endpoint
+5. Use the trigger: `<button data-form="your-form">...</button>`
+
+### Form Processing Flow
+
+```text
+Browser → Bunny Edge Script → MailerLite (newsletters)
+                            → Notion (applications, suggestions, invitations)
+```
+
+The edge script (`src/scripts/edge-script.js`) is a single combined handler deployed to Bunny CDN. It:
+
+- Intercepts requests to `/api/*` paths only (non-API paths pass through)
+- Routes by endpoint to MailerLite or Notion
+- Runs a 5-second deduplication window
+- Maps the `interest` form field to a MailerLite custom field
+- Handles CORS preflight
+
+---
 
 ## Architecture
 
 ### Component System
 
-Components are built with Nunjucks templates and styled with TailwindCSS:
+Nunjucks templates in `src/_includes/components/`. Use standard Nunjucks includes and macros:
+
+```njk
+{% include "components/carousel.njk" %}
+
+{% from "components/image-credit.njk" import imageCredit %}
+{{ imageCredit("Photo by Name", position="bottom-right") }}
+```
+
+### Data Flow
 
 ```text
-src/_includes/components/
-├── carousel.njk
-├── card.njk
-├── buttons.njk
-├── header.njk
-├── footer.njk
-├── form-sidebar.njk
-└── forms/
-    ├── newsletter-form.njk
-    ├── builder-promo-form.njk
-    └── ...
+Build time:
+  Notion API → builders.js → builders data → Nunjucks templates → HTML
+
+  JSON files → Nunjucks templates → HTML
+    ↑
+    Direct edits in repo (carousel, events, gatherings, jobs, programmes)
+
+Runtime:
+  Form submit → Bunny Edge Script → MailerLite / Notion
 ```
 
-### Data Fetching
+### SEO
 
-**Build-time data** (Notion builders):
+Every page includes title, meta description, Open Graph, and Twitter Card tags. The site generates `/sitemap.xml`, `/feed.xml`, and `robots.txt`.
 
-- Fetched during build via `src/_data/builders.js`
-- Cached locally in `.cache/builders.json`
-- Falls back to cache if Notion API fails
-
-**Static data** (events, carousel):
-
-- Stored in `src/_data/*.json`
-- Directly accessible in templates
-
-### Form Handling & Bunny Edge Scripts
-
-Forms submit to Bunny Edge Scripts which handle backend processing:
-
-**Edge Script (Combined Handler):**
-
-- Located: `src/scripts/edge-script.js`
-- Handles all form endpoints:
-  - `/api/newsletter-signup` → MailerLite
-  - `/api/builder-application` → Notion
-  - `/api/builder-promotion` → Notion
-  - `/api/gathering-invitation` → Notion
-- Features:
-  - MailerLite API v2 integration for newsletter signups
-  - Notion API integration for form submissions
-  - 5-second deduplication window for rapid submissions
-  - Maps interest field to MailerLite custom field
-  - Proper error handling and validation
-  - Newsletter checkbox on all forms signs up users directly to MailerLite
-  - Uses Bunny SDK with middleware pattern (prevents infinite loops)
-
-**Required Environment Variables:**
-
-```bash
-MAILERLITE_API_KEY=eyJxxxxxxxxxxxxx
-MAILERLITE_GROUP_ID=12345  # Optional
-NOTION_TOKEN=secret_xxxxxxxxxxxxx
-NOTION_BUILDERS_DB_ID=xxxxxxxx
-```
-
-**Deployment Steps:**
-
-1. Update origin URL in edge script to match your domain
-2. Log into Bunny CDN Dashboard → Pull Zones → Edge Scripts
-3. Create new Edge Script as Middleware
-4. Copy script contents from `src/scripts/edge-script.js`
-5. Add environment variables in Edge Scripts dashboard
-6. Enable script and save changes
-7. Update CORS headers for production domain
-
-**MailerLite Setup:**
-
-1. Get API key from <https://dashboard.mailerlite.com/integrations/api>
-2. Create custom field named `interest` (Text type) in MailerLite
-3. Optionally get Group ID from URL: `dashboard.mailerlite.com/groups/{GROUP_ID}/subscribers`
-
-### SEO & Meta
-
-Every page includes:
-
-- Unique `<title>` tag
-- Meta description
-- Open Graph tags
-- Twitter Card tags
-
-Site-wide features:
-
-- Sitemap at `/sitemap.xml`
-- RSS feed at `/feed.xml`
-- Custom `robots.txt`
+---
 
 ## Deployment
 
-### Automatic Deployment
+Deploys automatically via **Vercel**:
 
-The project deploys automatically via StaticHost.eu:
+- Push to `main` → production deploy
+- Push to `staging` → staging deploy
 
-- **Push to main**: Production deployment
-- **Push to staging**: Staging deployment
-- **Pull requests**: Deploy previews
-
-### Build Configuration
-
-StaticHost.eu settings:
-
-- **Build command**: `npm run build`
-- **Output directory**: `dist`
-- **Node version**: 18.x or 20.x
-
-### Environment Variables
-
-Configure in StaticHost.eu dashboard:
-
-- All `NOTION_*` variables
-- All `BUNNY_*` variables
-- All `MAILERLITE_*` variables
-- All `PIRSCH_*` variables
+Build settings: command `npm run build`, output directory `dist`, Node 18.x or 20.x.
 
 ### Bunny Edge Scripts
 
-After deploying to StaticHost, configure Bunny Edge Scripts:
+The form backend is a single script deployed separately to Bunny CDN — it is **not** part of the static build output.
 
-1. Log into Bunny CDN dashboard
-2. Navigate to Pull Zones → Select your zone → Edge Scripts
-3. Deploy the edge script from `src/scripts/edge-script.js`
-4. Set environment variables (see list above)
+1. Log into Bunny CDN Dashboard → Pull Zones → Edge Scripts
+2. Create a new Edge Script as **Middleware**
+3. Paste contents of `src/scripts/edge-script.js`
+4. Set environment variables (see below)
 5. Enable the script
 
-See Edge Scripts configuration details above in "Form Handling & Bunny Edge Scripts".
+---
 
-## Performance
+## Environment Variables
 
-### Browser Support
+| Variable | Used by | Purpose |
+| --- | --- | --- |
+| `NOTION_TOKEN` | Build, Edge Script | Notion API auth |
+| `NOTION_BUILDERS_DB_ID` | Build | Builders Notion database |
+| `MAILERLITE_API_KEY` | Edge Script | Newsletter signup |
+| `MAILERLITE_GROUP_ID` | Edge Script | Default Group ID |
+| `BUNNY_STORAGE_ZONE` | Build | CDN asset references |
+| `BUNNY_API_KEY` | Build | CDN access |
+| `BUNNY_PULL_ZONE_URL` | Build | Video CDN URL |
+| `BUNNY_FONTS_PULL_ZONE_URL` | Build | Font CDN URL |
+| `PIRSCH_CLIENT_ID` | Build | Analytics |
+| `PIRSCH_CLIENT_SECRET` | Build | Analytics |
 
-Target browsers (last 2 versions):
+See `.env.example` for the full list. Build-time variables go in the Vercel dashboard; edge script variables go in Bunny CDN dashboard.
 
-- Chrome/Edge (Chromium)
-- Firefox
-- Safari (desktop & iOS)
-- Chrome Mobile (Android)
+---
 
-### Performance Targets
+## US → EU Migration
 
-Lighthouse scores:
+> This section tracks the migration of third-party services from US-based providers to EU-based alternatives, primarily for GDPR compliance, data sovereignty, and alignment with Rebuild's mission.
 
-- **Performance**: >90
-- **Accessibility**: >90
-- **Best Practices**: >90
-- **SEO**: 100
+### Current Service Map
 
-## Development Guidelines
+| Service | Current provider | Status |
+| --- | --- | --- |
+| Static hosting | Vercel (US) | Exploring hosting on Hetzner with Coolify |
+| CDN + Edge Scripts | Bunny CDN (EU-founded, global PoPs) | Acceptable |
+| Analytics | Pirsch (Germany) | Already EU |
+| Newsletter | MailerLite (Lithuania) | Already EU |
+| Notion (Builders CMS) | Notion (US) | To migrate |
+| DNS / domain | Cloudflare handling, domain purchased on GoDaddy | Exploring Bunny CDN |
 
-### Code Style
+### Migration Notes
 
-- Use semantic HTML5 elements
-- Use TailwindCSS utility classes for styling
-- Keep components small and focused
-- Write accessible markup (ARIA labels, alt text, semantic structure)
-- Ensure color contrast meets WCAG AA standards
+_To be filled in as decisions are made._
 
-### Git Workflow
+- **Notion → EU alternative**: The Platforms directory is the only Notion-sourced dataset. Candidates for replacement: a self-hosted CMS, a EU-hosted headless CMS (e.g. Directus on a EU VPS), or a simple JSON/Markdown workflow. The migration surface is small — only `src/_data/builders.js` needs updating.
 
-1. Create a feature branch: `git checkout -b feature/my-feature`
-2. Make your changes
-3. Test locally: `npm run dev`
-4. Build and verify: `npm run build`
-5. Commit changes: `git commit -m "Description"`
-6. Push and create a pull request
-
-### Commit Messages
-
-Follow conventional commits format:
-
-- `feat:` - New feature
-- `fix:` - Bug fix
-- `docs:` - Documentation changes
-- `style:` - Code style changes (formatting)
-- `refactor:` - Code refactoring
-- `test:` - Adding tests
-- `chore:` - Maintenance tasks
-
-## Adding New Forms
-
-To add a new sidebar form:
-
-1. **Create form component** in `src/_includes/components/forms/your-form.njk`:
-
-   ```njk
-   <form action="/api/your-endpoint" method="POST">
-     <!-- form fields -->
-   </form>
-   ```
-
-2. **Create HTML endpoint** in `src/forms/your-form.html`:
-
-   ```njk
-   ---
-   permalink: /forms/your-form.html
-   layout: false
-   ---
-   <div class="form-sidebar-content">
-     <h2 class="text-3xl mb-md">Your Form Title</h2>
-     <p class="text-dark mb-lg">Description</p>
-     {% include "components/forms/your-form.njk" %}
-   </div>
-   ```
-
-3. **Register in** [src/scripts/form-triggers.js](src/scripts/form-triggers.js):
-
-   ```javascript
-   const formUrls = {
-     "builder-promo": "/forms/builder-promo.html",
-     "builder-application": "/forms/builder-application.html",
-     newsletter: "/forms/newsletter.html",
-     "your-form": "/forms/your-form.html", // Add this
-   };
-   ```
-
-4. **Use it in your pages**:
-
-   ```html
-   <button data-form="your-form">Open Your Form</button>
-   ```
-
-## Reference Documentation
-
-Additional documentation files:
-
-- [CLAUDE.md](CLAUDE.md) - AI assistant instructions for this project
-- [PRODUCTION_CHECKLIST.md](PRODUCTION_CHECKLIST.md) - Complete deployment checklist
+---
 
 ## Troubleshooting
 
-### Build Errors
+### Build fails
 
-**Module not found**:
+- Clear cache and retry: `npm run clean && npm run build`
+- Check for Nunjucks syntax errors or invalid JSON in `src/_data/`
+- Verify Notion API token and database ID are set
 
-- Run `npm install` to ensure all dependencies are installed
+### Forms not working
 
-**PostCSS errors**:
+- Open browser DevTools → Network tab and check the request/response to the edge script endpoint
+- Check Bunny CDN dashboard → Edge Script logs
+- Verify CORS headers in the edge script allow your domain
+- Confirm environment variables are set in the Bunny dashboard
 
-- Clear cache: `npm run clean`
-- Rebuild: `npm run build`
+### Carousel not appearing
 
-**Eleventy build fails**:
+- Verify `src/_data/carousel.json` is valid JSON with at least one slide
+- Check image paths exist under `src/public/assets/images/`
 
-- Check for syntax errors in Nunjucks templates
-- Verify data files are valid JSON
-- Check console output for specific error messages
+### Builders not showing
 
-### Development Server Issues
+- Check the `.cache/builders.json` file for cached data
+- Verify `NOTION_TOKEN` and `NOTION_BUILDERS_DB_ID` are correct
+- Ensure the Notion integration has access to the database
+- Entries must have **PUBLISHED? === ✔️**
 
-**Port already in use**:
-
-- Kill the process using port 8080: `lsof -ti:8080 | xargs kill`
-- Or specify a different port in [.eleventy.js](.eleventy.js)
-
-**Hot reload not working**:
-
-- Check browser console for errors
-- Restart development server
-- Clear browser cache
-
-**Images or assets not loading**:
-
-- Verify file paths are correct
-- Check that files exist in `src/public/` or configured asset directory
-- Rebuild: `npm run build`
-
-### Form Submission Issues
-
-**Forms not submitting**:
-
-- Check browser console for JavaScript errors
-- Verify Edge Scripts are enabled in Bunny CDN dashboard
-- Check Edge Script logs in Bunny dashboard
-- Verify CORS headers allow your domain
-- Test with browser network tab to see actual request/response
-
-**Form submitting multiple times**:
-
-- Clear browser cache
-- Check browser console for multiple form handlers initializing
-- Verify deduplication is working in Bunny logs
-- Check for duplicate event listeners in code
-
-**Validation errors**:
-
-- "Email is required": Field empty or form data not parsing correctly
-- "Consent is required": Footer form has hidden consent field; full form requires checkbox
-- "Interest selection required": Newsletter form requires selecting interest dropdown
-
-**Data not appearing in MailerLite**:
-
-- Check Bunny logs for successful 200 responses from MailerLite API
-- Verify API key has correct permissions in MailerLite dashboard
-- Check MailerLite "Unconfirmed" tab if double opt-in is enabled
-- Verify custom field `interest` exists in MailerLite
-- Try a different test email
-
-**Data not appearing in Notion**:
-
-- Verify Notion API token is valid
-- Check database ID is correct
-- Ensure Notion integration has access to the database
-- Review Edge Script logs for API errors
-
-**CORS errors in browser**:
-
-- Verify CORS headers in edge script match your domain
-- Check that OPTIONS preflight returns 200
-- Update `Access-Control-Allow-Origin` header in edge script
-
-**MailerLite API errors**:
-
-- 401 Unauthorized: API key is wrong or expired
-- 400 Bad Request: Invalid email format or missing required fields
-- Check request payload in Bunny logs for details
-
-### Carousel Issues
-
-**Carousel not appearing**:
-
-- Ensure [src/\_data/carousel.json](src/_data/carousel.json) has valid data
-- Check that images exist at specified paths
-- Verify carousel script is loaded in [src/\_includes/layouts/base.njk](src/_includes/layouts/base.njk)
-
-**Navigation not working**:
-
-- Check browser console for JavaScript errors
-- Ensure [src/scripts/carousel.js](src/scripts/carousel.js) is being served correctly
-- Verify carousel container has correct class names
-
-**Styles not applying**:
-
-- Run `npm run build:css` to rebuild CSS
-- Clear browser cache
-- Check that [src/styles/main.css](src/styles/main.css) includes carousel styles
-
-### Styling Issues
-
-**TailwindCSS classes not working**:
+### TailwindCSS classes not applying
 
 - Rebuild CSS: `npm run build:css`
-- Check for typos in class names
-- Verify PostCSS config is correct
-- Ensure classes are not purged by TailwindCSS
-
-**Custom CSS not applying**:
-
-- Check file is imported in [src/styles/main.css](src/styles/main.css)
+- Check `tailwind.config.js` content paths include your template files
 - Clear browser cache
-- Check browser dev tools for CSS conflicts
 
-### Edge Script Debugging
+---
 
-**Infinite loop detection**:
+## Reference
 
-- Verify script only intercepts specific API paths
-- Ensure script returns `void` for non-API paths
-- Check origin URL is correct and doesn't point back to edge script
-- Use Bunny SDK middleware pattern to prevent loops
-
-**Edge script errors**:
-
-- Check Bunny dashboard logs for error messages
-- Verify environment variables are set correctly
-- Test edge script with curl or Postman
-- Check that script is enabled in Bunny dashboard
+- [CLAUDE.md](CLAUDE.md) — AI assistant instructions for this project
+- [PRODUCTION_CHECKLIST.md](PRODUCTION_CHECKLIST.md) — Pre-deploy checklist
 
 ## License
 
 ISC
-
-## Support
-
-For issues or questions, please open an issue in the repository.
