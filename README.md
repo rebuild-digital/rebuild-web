@@ -2,7 +2,7 @@
 
 Production website for [rebuild.net](https://www.rebuild.net) — a sprint for European social platform.
 
-Built as an Eleventy static site. Content is mostly managed through JSON files in the repo, with one Notion-sourced data set (the Platforms directory). Forms are handled by serverless edge functions on Bunny CDN and captured in Notion. A high-level migration from mostly American to European services 
+Built as an Eleventy static site. Content is mostly managed through JSON files in the repo, with one Notion-sourced data set (the Platforms directory). Forms are handled by serverless edge functions on Bunny CDN and captured in Notion. A high-level migration from mostly American to European services
 
 ---
 
@@ -160,7 +160,7 @@ Summary card data for the timeline view of gatherings (title, location, dates, i
 
 The four programme types (investor, talent, public funds, board). Each has a title, description, and brand colour.
 
-### Builders Directory (`src/_data/builders.js`)
+### Platform Directory (`src/_data/builders.js`)
 
 Fetched from a Notion database at build time. Editors manage entries directly in Notion; setting **PUBLISHED? === ✔️** makes an entry appear on site. A local cache at `.cache/builders.json` is used as fallback if the Notion API is unavailable.
 

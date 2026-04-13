@@ -25,12 +25,14 @@ This is a **full replacement** migration, not incremental. We'll build the Solid
 ### Actions
 
 1. **Initialize SolidStart with TailwindCSS:**
+
    ```bash
    npm create solid@latest rebuild-web-solidstart -- --template=with-tailwindcss
    cd rebuild-web-solidstart
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install @solidjs/router @solidjs/start @solidjs/meta
    npm install @notionhq/client dotenv rss
@@ -38,6 +40,7 @@ This is a **full replacement** migration, not incremental. We'll build the Solid
    ```
 
 3. **Configure static export** in `app.config.ts`:
+
    ```typescript
    export default defineConfig({
      ssr: true,
