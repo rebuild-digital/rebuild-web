@@ -11,14 +11,35 @@
       <nav aria-label="Main navigation" class="hidden lg:block">
         <ul class="flex gap-md list-none md:flex-wrap md:justify-center md:gap-sm">
           {% for item in site.main_navigation %}
-          <li>
+          <li class="relative {% if item.subItems %}group{% endif %}">
             <a
               href="{{ item.url }}"
               class="no-underline hover:underline px-sm last:pl-0 py-xs transition-fast"
               {% if page.url == item.url %}aria-current="page"{% endif %}
+              {% if item.subItems %}aria-haspopup="true"{% endif %}
             >
               {{ item.name }}
             </a>
+
+            {% if item.subItems %}
+            <ul role="menu"
+                class="absolute top-full left-1/2 -translate-x-1/2 mt-xs bg-light border border-dark/20 shadow-sm py-sm px-md min-w-[160px] list-none hidden group-hover:block focus-within:block z-50">
+              {% for sub in item.subItems %}
+              <li role="none" class="py-xs">
+                {% if sub.url %}
+                  <a href="{{ sub.url }}" role="menuitem"
+                     class="no-underline block whitespace-nowrap{% if sub.status == 'current' %} before:content-['•'] before:mr-xs{% endif %}{% if sub.status == 'future' %} text-dark/40{% endif %}">
+                    {{ sub.name }}
+                  </a>
+                {% else %}
+                  <span class="block whitespace-nowrap cursor-default{% if sub.status == 'past' %} line-through text-dark/50{% endif %}{% if sub.status == 'future' %} text-dark/40{% endif %}">
+                    {{ sub.name }}
+                  </span>
+                {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
           </li>
           {% endfor %}
         </ul>
@@ -61,13 +82,41 @@
         <ul class="list-none flex flex-col gap-md">
           {% for item in site.main_navigation %}
           <li>
-            <a
-              href="{{ item.url }}"
-              class="text-dark text-4xl no-underline block transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
-              {% if page.url == item.url %}aria-current="page"{% endif %}
-            >
-              {{ item.name }}
-            </a>
+            {% if item.subItems %}
+              {# Parent label links to the section page #}
+              <a
+                href="{{ item.url }}"
+                class="text-dark text-4xl no-underline block transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %}text-blue{% endif %}"
+                {% if page.url == item.url %}aria-current="page"{% endif %}
+              >
+                {{ item.name }}
+              </a>
+              {# Sub-items indented #}
+              <ul class="list-none flex flex-col gap-xs mt-sm pl-md">
+                {% for sub in item.subItems %}
+                <li>
+                  {% if sub.url %}
+                    <a href="{{ sub.url }}"
+                       class="text-dark text-xl no-underline block transition-fast hover:text-blue focus:text-blue{% if sub.status == 'current' %} before:content-['•'] before:mr-xs{% endif %}{% if sub.status == 'future' %} text-dark/40{% endif %}">
+                      {{ sub.name }}
+                    </a>
+                  {% else %}
+                    <span class="text-xl block cursor-default{% if sub.status == 'past' %} line-through text-dark/50{% endif %}{% if sub.status == 'future' %} text-dark/40{% endif %}">
+                      {{ sub.name }}
+                    </span>
+                  {% endif %}
+                </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <a
+                href="{{ item.url }}"
+                class="text-dark text-4xl no-underline block transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
+                {% if page.url == item.url %}aria-current="page"{% endif %}
+              >
+                {{ item.name }}
+              </a>
+            {% endif %}
           </li>
           {% endfor %}
         </ul>
