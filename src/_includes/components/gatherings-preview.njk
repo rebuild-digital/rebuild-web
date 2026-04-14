@@ -18,15 +18,16 @@ imageCredit %}
             alt="{{ gathering.title }}"
             class="w-full h-full object-cover"
             loading="lazy"
+            {% if gathering.status == "past" %}style="filter: grayscale(100%)"{% endif %}
           />
-          {% if gathering.imageCredit %} {{ imageCredit(gathering.imageCredit) }} {% endif %} {#
-          Title Overlay #}
+          {% if gathering.imageCredit %} {{ imageCredit(gathering.imageCredit) }} {% endif %}
+          {# Title Overlay #}
           <div
             class="absolute -top-md left-1/2 -translate-x-1/2 px-md py-sm z-10"
             style="background-color: {{ gathering.titleColor }};"
           >
-            <h3 class="text-xl font-normal text-dark text-center whitespace-nowrap">
-              {{ gathering.title }}
+            <h3 class="text-xl font-normal text-dark text-center whitespace-nowrap{% if gathering.status == 'past' %} line-through{% endif %}">
+              {{ gathering.overlayText }}
             </h3>
           </div>
         </div>
@@ -36,6 +37,25 @@ imageCredit %}
           <span>{{ gathering.location }}</span>
           <span>{{ gathering.startDate }} - {{ gathering.endDate }}</span>
         </div>
+
+        {# Per-card CTAs #}
+        {% if gathering.ctaPrimary or gathering.ctaSecondary %}
+        <div class="mt-sm flex flex-col sm:flex-row gap-xs">
+          {% if gathering.ctaPrimary %}
+            <a href="{{ gathering.ctaPrimary.url }}"
+               class="flex-1 px-md py-sm text-center bg-dark text-light border-2 border-dark hover:bg-transparent hover:text-dark transition-all text-sm no-underline">
+              {{ gathering.ctaPrimary.text }}
+            </a>
+          {% endif %}
+          {% if gathering.ctaSecondary %}
+            <button
+              {% if gathering.ctaSecondary.dataForm %}data-form="{{ gathering.ctaSecondary.dataForm }}"{% endif %}
+              class="flex-1 px-md py-sm text-center bg-transparent text-dark border-2 border-dark hover:bg-dark hover:text-light transition-all text-sm cursor-pointer">
+              {{ gathering.ctaSecondary.text }}
+            </button>
+          {% endif %}
+        </div>
+        {% endif %}
       </div>
       {% endfor %}
     </div>

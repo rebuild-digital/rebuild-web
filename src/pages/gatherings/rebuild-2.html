@@ -1,0 +1,98 @@
+---
+layout: layouts/default.njk
+title: Rebuild 2
+description: The first gathering in two decades of the people building Europe's future social platforms. Helsinki, Finland — Aug 30 to Sep 01, 2026.
+permalink: /gatherings/rebuild-2/index.html
+---
+
+{% from "components/image-credit.njk" import imageCredit %}
+{% set event = events.events | selectattr("id", "equalto", "rebuild-2") | first %}
+
+{# Section 1 — Hero header #}
+<section class="pt-xl pb-lg">
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-md">
+    <div>
+      <h1 class="font-normal text-4xl md:text-5xl lg:text-7xl mb-xs">Rebuild 2</h1>
+      <p class="text-lg text-dark/70">Helsinki, Finland &nbsp; Aug 30 – Sep 01</p>
+    </div>
+    <button data-form="gathering-invitation"
+            class="w-full sm:w-auto sm:self-start px-lg py-sm bg-dark text-light border-2 border-dark hover:bg-transparent hover:text-dark transition-all whitespace-nowrap cursor-pointer">
+      Secure your spot
+    </button>
+  </div>
+</section>
+
+{# Section 2 — Hero image + tagline/countdown #}
+<section class="pb-2xl">
+  {# Full-width hero image #}
+  <div class="relative w-full" style="aspect-ratio: 16/9">
+    <img
+      src="/assets/images/helsinki.jpg"
+      alt="Helsinki, Finland"
+      class="w-full h-full object-cover"
+    />
+    {{ imageCredit("Kristaps Grundsteins") }}
+  </div>
+
+  {# Tagline + countdown row #}
+  <div class="mt-xl grid grid-cols-1 md:grid-cols-2 gap-xl md:gap-2xl items-start">
+    {# Left: tagline #}
+    <h2 class="text-2xl md:text-3xl max-w-[40ch] leading-tight font-normal">
+      The first gathering in two decades of the people building Europe's future social platforms
+    </h2>
+
+    {# Right: countdown #}
+    <div>
+      <p class="text-xs tracking-widest uppercase mb-sm">Opening in</p>
+      <p data-countdown="2026-08-30T09:00:00Z" class="text-3xl md:text-4xl font-normal">
+        <span data-countdown-text>calculating...</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<script src="/scripts/gathering-countdown.js"></script>
+
+{# Section 3 — Programme highlights #}
+<section class="py-2xl">
+  <p class="text-xs tracking-widest uppercase mb-2xl">Programme highlights</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+    {# Left: proof points #}
+    <div class="space-y-2xl">
+      {% if event and event.proofPoints %}
+        {% for point in event.proofPoints %}
+        <div>
+          <h3 class="text-xl underline mb-xs">{{ point.headline }}</h3>
+          <p class="text-lg">{{ point.description }}</p>
+        </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {# Right: stacked images #}
+    <div class="flex flex-col gap-xs">
+      <img src="/assets/images/rebuild1-pic.jpg" alt="Rebuild gathering"
+           class="w-full object-cover" style="aspect-ratio: 16/9" />
+      <img src="/assets/images/helsinki.jpg" alt="Helsinki"
+           class="w-full object-cover" style="aspect-ratio: 16/9" />
+      <img src="/assets/images/paris.jpg" alt="Paris"
+           class="w-full object-cover" style="aspect-ratio: 16/9" />
+    </div>
+  </div>
+</section>
+
+{# Section 4 — Full-bleed CTA #}
+<section class="relative py-3xl text-center"
+  style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw; background-color: #6ba1cc;">
+  <div class="max-w-[1400px] mx-auto px-md">
+    <h2 class="text-3xl md:text-4xl font-normal mb-xl">Secure your spot</h2>
+    <button data-form="gathering-invitation"
+            class="px-xl py-md bg-dark text-light border-2 border-dark hover:bg-transparent hover:text-dark transition-all text-xl cursor-pointer">
+      Request an invitation
+    </button>
+  </div>
+</section>
+
+{# Section 5 — Engage #}
+{% include "components/engage.njk" %}
