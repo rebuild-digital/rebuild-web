@@ -41,6 +41,9 @@
       content="{{ site.url }}{{ featured_image | default(site.defaultImage) }}"
 />
 
+    {# Font preload — eliminates FOUT on page transitions #}
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/ABCSocialMono-Book.woff2"/>
+
     {# Favicon #}
     <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 
