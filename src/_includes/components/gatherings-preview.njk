@@ -1,62 +1,70 @@
 {# Gatherings Preview Component Usage: {% include "components/gatherings-preview.njk" %} Displays
-the three rebuild gatherings with images and info #} {% from "components/image-credit.njk" import
+the three rebuild gatherings with images and info #}
+{% from "components/image-credit.njk" import
 imageCredit %}
 
 <section
-  class="relative w-full py-xl md:py-3xl bg-light"
+  class="relative w-full py-xl md:py-3xl"
   style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw"
 >
   <div class="max-w-[1400px] mx-auto px-md">
     {# Gatherings Grid #}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-2xl md:gap-lg mb-2xl">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3xl lg:gap-lg mb-2xl">
       {% for gathering in gatherings.gatherings %}
-      <div class="flex flex-col">
-        {# Image with Title Overlay #}
-        <div class="relative aspect-3/4 overflow-visible">
-          <img
-            src="{{ gathering.image }}"
-            alt="{{ gathering.title }}"
-            class="w-full h-full object-cover"
-            loading="lazy"
-            {% if gathering.status == "past" %}style="filter: grayscale(100%)"{% endif %}
-          />
-          {% if gathering.imageCredit %} {{ imageCredit(gathering.imageCredit) }} {% endif %}
-          {# Title Overlay #}
-          <div
-            class="absolute -top-md left-1/2 -translate-x-1/2 px-md py-sm z-10"
-            style="background-color: {{ gathering.titleColor }};"
-          >
-            <h3 class="text-xl font-normal text-dark text-center whitespace-nowrap{% if gathering.status == 'past' %} line-through{% endif %}">
-              {{ gathering.overlayText }}
-            </h3>
+        <div class="flex flex-col">
+          {# Image with Title Overlay #}
+          <div class="relative">
+            <div class="relative h-[500px] overflow-hidden">
+              <img
+                src="{{ gathering.image }}"
+                alt="{{ gathering.title }}"
+                class="w-full h-full object-cover"
+                loading="lazy"
+                {% if gathering.status == "past" %}style="filter: grayscale(100%)"{% endif %}
+/>
+              {% if gathering.status == "past" %}
+                <div class="absolute inset-0 mix-blend-multiply" style="background-color: {{ gathering.titleColor }}; opacity: 0.4;"></div>
+              {% endif %}
+              {% if gathering.imageCredit %}
+                {{ imageCredit(gathering.imageCredit) }}
+              {% endif %}
+            </div>
+            {# Title Overlay #}
+            <div
+              class="absolute -top-md left-1/2 -translate-x-1/2 px-md py-sm z-10"
+              style="background-color: {{ gathering.titleColor }};"
+            >
+              <h3 class="text-xl font-normal text-dark text-center whitespace-nowrap{% if gathering.status == 'past' %} line-through{% endif %}">
+                {{ gathering.overlayText }}
+              </h3>
+            </div>
           </div>
-        </div>
 
-        {# Location and Date #}
-        <div class="mt-sm flex justify-between items-center text-sm md:text-md text-dark px-lg">
-          <span>{{ gathering.location }}</span>
-          <span>{{ gathering.startDate }} - {{ gathering.endDate }}</span>
-        </div>
+          {# Location and Date #}
+          <div class="mt-sm flex justify-between items-center text-sm md:text-md text-dark">
+            <span>{{ gathering.location }}</span>
+            <span>{{ gathering.startDate }} - {{ gathering.endDate }}</span>
+          </div>
 
-        {# Per-card CTAs #}
-        {% if gathering.ctaPrimary or gathering.ctaSecondary %}
-        <div class="mt-sm flex flex-col sm:flex-row gap-xs">
-          {% if gathering.ctaPrimary %}
-            <a href="{{ gathering.ctaPrimary.url }}"
+          {# Per-card CTAs #}
+          {% if gathering.ctaPrimary or gathering.ctaSecondary %}
+            <div class="mt-md flex flex-col sm:flex-row gap-xs">
+              {% if gathering.ctaPrimary %}
+                <a href="{{ gathering.ctaPrimary.url }}"
                class="flex-1 px-md py-sm text-center bg-dark text-light border-2 border-dark hover:bg-transparent hover:text-dark transition-all text-sm no-underline">
-              {{ gathering.ctaPrimary.text }}
-            </a>
-          {% endif %}
-          {% if gathering.ctaSecondary %}
-            <button
+                  {{ gathering.ctaPrimary.text }}
+                </a>
+              {% endif %}
+              {% if gathering.ctaSecondary %}
+                <button
               {% if gathering.ctaSecondary.dataForm %}data-form="{{ gathering.ctaSecondary.dataForm }}"{% endif %}
               class="flex-1 px-md py-sm text-center bg-transparent text-dark border-2 border-dark hover:bg-dark hover:text-light transition-all text-sm cursor-pointer">
-              {{ gathering.ctaSecondary.text }}
-            </button>
+                  {{ gathering.ctaSecondary.text }}
+                </button>
+              {% endif %}
+            </div>
           {% endif %}
         </div>
-        {% endif %}
-      </div>
       {% endfor %}
     </div>
   </div>

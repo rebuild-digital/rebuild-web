@@ -1,7 +1,7 @@
 ---
 layout: layouts/default.njk
 title: Gatherings
-description: Gatherings are at the foundation of the Rebuild initiative. By bringing builders from all parts of Europe together, novel ideas and innovation will emerge from every meeting.
+description: Gatherings are at the foundation of the Rebuild initiative. By bringing platform entrepreneurs, talent, pioneers, media and investors from all parts of the continent together, we have a shot at rebuilding European social platforms.
 permalink: /gatherings/index.html
 ---
 
@@ -12,7 +12,7 @@ permalink: /gatherings/index.html
       <h1 class="font-normal text-4xl md:text-5xl lg:text-7xl">Gatherings</h1>
     </div>
     <div class="lg:w-1/2">
-      <p class="text-lg">Gatherings are at the foundation of the Rebuild initiative. By bringing builders from all parts of Europe together, novel ideas and innovation will emerge from every meeting.</p>
+      <p class="text-lg">Gatherings are at the foundation of the Rebuild initiative. By bringing platform entrepreneurs, talent, pioneers, media and investors from all parts of the continent together, we have a shot at rebuilding European social platforms.</p>
     </div>
   </div>
 </section>
@@ -21,37 +21,44 @@ permalink: /gatherings/index.html
 {% include "components/gatherings-preview.njk" %}
 
 {# Section 3 — "What are Rebuild gatherings?" explainer #}
-<section class="py-2xl">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+<section class="py-3xl">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 2xl:gap-24 items-start 2xl:items-center">
     {# Left: sticky image carousel #}
     <div class="w-full lg:sticky lg:top-8">
-      {% set carouselImages = [
-        "/assets/images/rebuild1-pic.jpg",
-        "/assets/images/helsinki.jpg",
-        "/assets/images/paris.jpg"
+      {% set carouselImages = ["/assets/images/gatherings-main/gatherings-main-1.jpg", "/assets/images/gatherings-main/gatherings-main-2.jpg", "/assets/images/gatherings-main/gatherings-main-3.jpg", "/assets/images/gatherings-main/gatherings-main-4.jpg", "/assets/images/gatherings-main/gatherings-main-5.jpg", "/assets/images/gatherings-main/gatherings-main-6.jpg"] %}
+      {% set carouselImageCredits = [
+        "Fernanda Cebrián",
+        "Fernanda Cebrián",
+        "Fernanda Cebrián",
+        "Fernanda Cebrián",
+        "Fernanda Cebrián",
+        "Fernanda Cebrián"
       ] %}
-      {% set carouselImageCredits = ["Fernanda Cebrián", "Kristaps Grundsteins", "HANVIN CHEONG"] %}
       {% include "components/image-carousel.njk" %}
     </div>
 
     {# Right: rich text #}
-    <div class="rich-text">
-      <h2>What are Rebuild gatherings?</h2>
-      <p>
-        Rebuild gatherings are intensive three-day convening of Europe's social platform builders, pioneers, investors, and thinkers. Held three times across 2026, each gathering is designed as a catalyst — bringing the right people into the same room to accelerate what cannot happen at a distance.
-      </p>
-      <p>
-        Unlike traditional conferences, Rebuild gatherings are built around work. Participants come to build, not to watch. Sessions are hands-on: designing products, solving shared challenges, prototyping outcomes, and planning collective action. Every gathering produces tangible results that carry the industry forward.
-      </p>
-      <p>
-        The three gatherings form a deliberate arc. Copenhagen is the beginning — a first meeting, a shared diagnosis, and the start of collaboration. Helsinki is the boost — putting programmes in place, deepening craft, and preparing for the Big Shift Day. Paris is the shift — mobilising Europe, celebrating breakthroughs, and open-sourcing everything back to the industry.
-      </p>
-      <p>
-        Participation is by invitation. If you are building a social platform in Europe, supporting those who are, or pioneering what comes next, you belong in the room.
-      </p>
+    <div class="pr-3 space-y-8">
+      <h2 class="mt-8 lg:mt-0">What are Rebuild gatherings?</h2>
+      <div class="space-y-4 lg:space-y-6">
+        <p>
+          Rebuild gatherings are intensive 48-hour convenings of Europe's social platform entrepreneurs, pioneers, investors, and thinkers. Held three times across 2026, each gathering is designed as a catalyst — bringing the right people into the same room to accelerate what cannot happen at a distance.
+        </p>
+        <p>
+          Unlike traditional conferences, Rebuild gatherings are built around work. Participants come to build, not to watch. Sessions are hands-on: designing products, solving shared challenges, prototyping outcomes, and planning collective action. Every gathering produces tangible results that carry the industry forward.
+        </p>
+        <p>
+          The three gatherings form a deliberate arc. Copenhagen is the beginning — a first meeting, a shared diagnosis, and the start of pan-European collaboration in the space. Helsinki is acceleration — putting programmes in place, deepening craft, and preparing for the Big Shift Day. Paris is the showcase — mobilising Europe, celebrating breakthroughs, and open-sourcing everything back to the industry.
+        </p>
+        <p>
+          Participation is by invitation. If you are building a social platform in Europe, supporting those who are, or pioneering what comes next, you belong in the room.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
 {# Section 4 — Engage #}
-{% include "components/engage.njk" %}
+<section class="pb-3xl">
+  {% include "components/engage.njk" %}
+</section>

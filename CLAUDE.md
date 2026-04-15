@@ -165,9 +165,15 @@ Trigger with data attributes on any element:
 
 ```html
 <button data-form="newsletter">Subscribe</button>
-<button data-form="builder-promo">Nominate a Builder</button>
-<button data-form="builder-application">Apply to Directory</button>
-<button data-form="gathering-invitation">Request Invitation</button>
+<button data-form="builder-promo">
+	Nominate a Builder
+</button>
+<button data-form="builder-application">
+	Apply to Directory
+</button>
+<button data-form="gathering-invitation">
+	Request Invitation
+</button>
 ```
 
 All forms are fetched from `/forms/{form-name}.html` endpoints and displayed in a responsive sidebar overlay.

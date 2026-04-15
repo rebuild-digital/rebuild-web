@@ -3,7 +3,7 @@
     <div class="h-16 flex justify-between items-center gap-lg md:gap-sm border-b-2 pb-md">
       <div class="flex gap-sm">
         <div class="w-auto self-center">
-          <a href="/"><img src="{{site.logo}}" alt="Rebuild logo." /></a>
+          <a href="/"><img class="h-6" src="{{site.logo}}" alt="Rebuild logo."/></a>
         </div>
       </div>
 
@@ -11,36 +11,36 @@
       <nav aria-label="Main navigation" class="hidden lg:block">
         <ul class="flex gap-md list-none md:flex-wrap md:justify-center md:gap-sm">
           {% for item in site.main_navigation %}
-          <li class="relative {% if item.subItems %}group{% endif %}">
-            <a
+            <li class="relative {% if item.subItems %}group{% endif %}">
+              <a
               href="{{ item.url }}"
               class="no-underline hover:underline px-sm last:pl-0 py-xs transition-fast"
               {% if page.url == item.url %}aria-current="page"{% endif %}
               {% if item.subItems %}aria-haspopup="true"{% endif %}
             >
-              {{ item.name }}
-            </a>
+                {{ item.name }}
+              </a>
 
-            {% if item.subItems %}
-            <ul role="menu"
-                class="absolute top-full left-1/2 -translate-x-1/2 mt-xs bg-light border border-dark/20 shadow-sm py-sm px-md min-w-[160px] list-none hidden group-hover:block focus-within:block z-50">
-              {% for sub in item.subItems %}
-              <li role="none" class="py-xs">
-                {% if sub.url %}
-                  <a href="{{ sub.url }}" role="menuitem"
-                     class="no-underline block whitespace-nowrap{% if sub.status == 'current' %} before:content-['•'] before:mr-xs{% endif %}{% if sub.status == 'future' %} text-dark/40{% endif %}">
-                    {{ sub.name }}
-                  </a>
-                {% else %}
-                  <span class="block whitespace-nowrap cursor-default{% if sub.status == 'past' %} line-through text-dark/50{% endif %}{% if sub.status == 'future' %} text-dark/40{% endif %}">
-                    {{ sub.name }}
-                  </span>
-                {% endif %}
-              </li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </li>
+              {% if item.subItems %}
+                <ul role="menu"
+                class="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 bg-white border-2 border-dark py-sm px-md mx-auto min-w-40 list-none hidden group-hover:block focus-within:block z-50">
+                  {% for sub in item.subItems %}
+                    <li role="none" class="py-xs text-center">
+                      {% if sub.url %}
+                        <a href="{{ sub.url }}" role="menuitem"
+                     class="no-underline hover:underline block whitespace-nowrap">
+                          {{ sub.name }}
+                        </a>
+                      {% else %}
+                        <span class="block whitespace-nowrap cursor-default{% if sub.status == 'past' %} line-through text-dark/50{% endif %}{% if sub.status == 'future' %} text-muted{% endif %}">
+                          {{ sub.name }}
+                        </span>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
           {% endfor %}
         </ul>
       </nav>
@@ -62,11 +62,11 @@
   </div>
 
   {# Mobile Menu Overlay #}
-  <div id="mobile-menu" class="fixed inset-0 bg-muted z-50 hidden lg:hidden" aria-hidden="true">
+  <div id="mobile-menu" class="fixed inset-0 bg-white z-50 hidden lg:hidden" aria-hidden="true">
     <div class="container max-w-[1400px] mx-auto px-md py-lg">
       {# Mobile Menu Header #}
-      <div class="flex justify-between items-center border-b-2 border-dark pb-md mb-lg">
-        <a href="/" class="text-xl text-dark no-underline">{{ site.title }}</a>
+      <div class="flex h-16 justify-between items-center border-b-2 border-dark pb-md mb-lg translate-y-[-8px]">
+        <a href="/"><img class="h-6 w-auto" src="{{site.logo}}" alt="Rebuild logo."/></a>
         <button
           id="mobile-menu-close"
           class="text-dark flex items-center gap-xs text-lg font-normal bg-transparent border-none cursor-pointer p-0"
@@ -81,43 +81,25 @@
       <nav aria-label="Mobile navigation" class="mt-3xl">
         <ul class="list-none flex flex-col gap-md">
           {% for item in site.main_navigation %}
-          <li>
-            {% if item.subItems %}
-              {# Parent label links to the section page #}
-              <a
+            <li>
+              {% if item.subItems %}
+                <a
                 href="{{ item.url }}"
                 class="text-dark text-4xl no-underline block transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %}text-blue{% endif %}"
                 {% if page.url == item.url %}aria-current="page"{% endif %}
               >
-                {{ item.name }}
-              </a>
-              {# Sub-items indented #}
-              <ul class="list-none flex flex-col gap-xs mt-sm pl-md">
-                {% for sub in item.subItems %}
-                <li>
-                  {% if sub.url %}
-                    <a href="{{ sub.url }}"
-                       class="text-dark text-xl no-underline block transition-fast hover:text-blue focus:text-blue{% if sub.status == 'current' %} before:content-['•'] before:mr-xs{% endif %}{% if sub.status == 'future' %} text-dark/40{% endif %}">
-                      {{ sub.name }}
-                    </a>
-                  {% else %}
-                    <span class="text-xl block cursor-default{% if sub.status == 'past' %} line-through text-dark/50{% endif %}{% if sub.status == 'future' %} text-dark/40{% endif %}">
-                      {{ sub.name }}
-                    </span>
-                  {% endif %}
-                </li>
-                {% endfor %}
-              </ul>
-            {% else %}
-              <a
+                  {{ item.name }}
+                </a>
+              {% else %}
+                <a
                 href="{{ item.url }}"
                 class="text-dark text-4xl no-underline block transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
                 {% if page.url == item.url %}aria-current="page"{% endif %}
               >
-                {{ item.name }}
-              </a>
-            {% endif %}
-          </li>
+                  {{ item.name }}
+                </a>
+              {% endif %}
+            </li>
           {% endfor %}
         </ul>
       </nav>
@@ -126,15 +108,15 @@
       <nav aria-label="Secondary navigation" class="mt-2xl pt-lg border-b-2 border-dark pb-lg">
         <ul class="list-none flex gap-lg flex-wrap">
           {% for item in site.second_navigation %}
-          <li>
-            <a
+            <li>
+              <a
               href="{{ item.url }}"
               class="text-dark text-xl no-underline transition-fast hover:text-blue focus:text-blue {% if page.url == item.url %} text-blue{% endif %}"
               {% if page.url == item.url %}aria-current="page"{% endif %}
             >
-              {{ item.name }}
-            </a>
-          </li>
+                {{ item.name }}
+              </a>
+            </li>
           {% endfor %}
         </ul>
       </nav>

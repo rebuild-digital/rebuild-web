@@ -4,7 +4,7 @@
       "id": "rebuild-1",
       "slug": "rebuild-1",
       "title": "Rebuild 1",
-      "overlayText": "Done",
+      "overlayText": "Rebuild 1",
       "status": "past",
       "location": "Copenhagen, Denmark",
       "startDate": "Mar 01",
@@ -26,8 +26,7 @@
       "imageCredit": "Kristaps Grundsteins",
       "titleColor": "#6ba1cc",
       "pageUrl": "/gatherings/rebuild-2/",
-      "ctaPrimary": { "text": "Learn more", "url": "/gatherings/rebuild-2/" },
-      "ctaSecondary": { "text": "Secure your spot", "dataForm": "gathering-invitation" }
+      "ctaPrimary": { "text": "Learn more", "url": "/gatherings/rebuild-2/" }
     },
     {
       "id": "rebuild-3",
@@ -35,7 +34,7 @@
       "title": "Rebuild 3",
       "overlayText": "Rebuild 3",
       "status": "future",
-      "location": "Paris",
+      "location": "Paris, France",
       "startDate": "Dec 13",
       "endDate": "Dec 15",
       "image": "/assets/images/paris.jpg",

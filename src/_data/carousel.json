@@ -1,31 +1,40 @@
 {
-  "slides": [
-    {
-      "id": "slide-1",
-      "headline": "Margrethe Vestager on Rebuild",
-      "subheader": "Why Europe needs social platforms built for people.",
-      "image": "/assets/images/margrethe.jpg",
-      "ctaText": "Read it here",
-      "ctaLink": "/insights/a-word-from-margrethe",
-      "bgColor": "#dde2de"
-    },
-    {
-      "id": "slide-3",
-      "headline": "Gatherings",
-      "subheader": "Three 48-hour gatherings tailored to entrepreneurs building the next generation of social platforms. Designed to connect, build, and act.",
-      "image": "/assets/images/gatherings-extra.jpg",
-      "ctaText": "Learn more",
-      "ctaLink": "/journey#gatherings",
-      "bgColor": "#dce0e4"
-    },
-    {
-      "id": "slide-4",
-      "headline": "Social Platform Directory",
-      "subheader": "Rebuild is building a directory of social platforms in Europe.",
-      "image": "/assets/images/gatherings-carousel.jpg",
-      "ctaText": "Explore it here",
-      "ctaLink": "/directory",
-      "bgColor": "#8fb5d9"
-    }
-  ]
+	"slides": [
+		{
+			"id": "slide-1",
+			"headline": "Rebuild 2 is up next",
+			"subheader": "48 hours in Helsinki, the summer camp where we teach each other how to build, design, and scale social platforms.",
+			"image": "/assets/images/helsinki.jpg",
+			"ctaText": "Secure your spot",
+			"ctaLink": "/gatherings/rebuild-2",
+			"bgColor": "#E7ECF0"
+		},
+		{
+			"id": "slide-2",
+			"headline": "Gatherings",
+			"subheader": "Three 48-hour gatherings across 2026, tailored to the entrepreneurs building the next generation of social platforms. Designed to connect, build, and act.",
+			"image": "/assets/images/gatherings-extra.jpg",
+			"ctaText": "Learn more",
+			"ctaLink": "/gatherings",
+			"bgColor": "#dce0e4"
+		},
+		{
+			"id": "slide-3",
+			"headline": "Directory",
+			"subheader": "Rebuild is building a directory of every social platform in Europe. More than 300 platforms identified so far. Who are we missing?",
+			"image": "/assets/images/gatherings-carousel.jpg",
+			"ctaText": "Explore it here",
+			"ctaLink": "/directory",
+			"bgColor": "#8fb5d9"
+		},
+		{
+			"id": "slide-4",
+			"headline": "Margrethe Vestager on the Rebuild purpose",
+			"subheader": "Why Europe needs social platforms built for people, in the words of our patron",
+			"image": "/assets/images/margrethe.jpg",
+			"ctaText": "Read more",
+			"ctaLink": "/insights/a-word-from-margrethe",
+			"bgColor": "#dde2de"
+		}
+	]
 }
