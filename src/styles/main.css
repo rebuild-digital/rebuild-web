@@ -930,11 +930,15 @@ body.is-leaving {
     @apply border-light;
   }
 
-  header.transparent a:not(#mobile-menu a),
+  header.transparent a:not(#mobile-menu a):not([role="menu"] a),
   header.transparent button:not(#mobile-menu button),
   header.transparent span:not(#mobile-menu span),
   header.transparent p:not(#mobile-menu p) {
     @apply text-light;
+  }
+
+  header.transparent ul[role="menu"] a {
+    @apply text-dark;
   }
 
   header.transparent img:not(#mobile-menu img) {
