@@ -9,34 +9,7 @@ class DirectoryFilter {
     this.filterContainer = document.getElementById("category-filters");
     this.activeFilters = new Set();
 
-    // Category color mapping
-    this.categoryColors = {
-      Bundled: { bg: "bg-red-tint", text: "text-dark" },
-      Community: { bg: "bg-blue-tint", text: "text-dark" },
-      Groups: { bg: "bg-green-tint", text: "text-dark" },
-      Networking: { bg: "bg-orange-tint", text: "text-dark" },
-      Messaging: { bg: "bg-blue-tint", text: "text-dark" },
-      Microblogging: { bg: "bg-red-tint", text: "text-dark" },
-      Forum: { bg: "bg-red-tint", text: "text-dark" },
-      Dating: { bg: "bg-blush-tint", text: "text-dark" },
-      Events: { bg: "bg-orange-tint", text: "text-dark" },
-      Location: { bg: "bg-green-tint", text: "text-dark" },
-      "Resource sharing": { bg: "bg-blonde-tint", text: "text-dark" },
-      "Photo sharing": { bg: "bg-blush-tint", text: "text-dark" },
-      "Video sharing": { bg: "bg-blonde-tint", text: "text-dark" },
-      "Creator platform": { bg: "bg-blue-tint", text: "text-dark" },
-      "Social marketplace": { bg: "bg-orange-tint", text: "text-dark" },
-      Other: { bg: "bg-blonde-tint", text: "text-dark" },
-    };
-
     this.init();
-  }
-
-  /**
-   * Get color classes for a category
-   */
-  getCategoryColors(category) {
-    return this.categoryColors[category] || this.categoryColors["Other"];
   }
 
   init() {
@@ -129,7 +102,7 @@ class DirectoryFilter {
    */
   createFilterButton(category) {
     const button = document.createElement("button");
-    const colors = this.getCategoryColors(category);
+    const colors = getCategoryColors(category);
 
     // Base classes
     button.className = "filter-button";

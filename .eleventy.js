@@ -1,6 +1,7 @@
 const Image = require("@11ty/eleventy-img");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const rss = require("@11ty/eleventy-plugin-rss");
+const { getMultipleCategoryColors } = require("./src/scripts/category-colors.js");
 
 module.exports = async function (eleventyConfig) {
 	// Plugins
@@ -10,22 +11,6 @@ module.exports = async function (eleventyConfig) {
 	// Note: CSS is processed separately by Tailwind CLI, not copied here
 
 	// Collections
-	eleventyConfig.addCollection("journal", (collection) => {
-		return collection
-			.getFilteredByGlob("src/journal/**/*.md")
-			.sort((a, b) => b.date - a.date);
-	});
-
-	eleventyConfig.addCollection(
-		"featuredJournal",
-		(collection) => {
-			return collection
-				.getFilteredByGlob("src/journal/**/*.md")
-				.filter((post) => post.data.featured === true)
-				.sort((a, b) => b.date - a.date);
-		}
-	);
-
 	eleventyConfig.addCollection("insights", (collection) => {
 		return collection
 			.getFilteredByGlob("src/insights/**/*.md")
@@ -100,69 +85,7 @@ module.exports = async function (eleventyConfig) {
 	});
 
 	// Category colors filter
-	eleventyConfig.addFilter(
-		"categoryColors",
-		(categories) => {
-			const categoryColors = {
-				Bundled: { bg: "bg-red-tint", text: "text-dark" },
-				Community: {
-					bg: "bg-blue-tint",
-					text: "text-dark",
-				},
-				Groups: { bg: "bg-green-tint", text: "text-dark" },
-				Networking: {
-					bg: "bg-orange-tint",
-					text: "text-dark",
-				},
-				Messaging: {
-					bg: "bg-blue-tint",
-					text: "text-dark",
-				},
-				Microblogging: {
-					bg: "bg-red-tint",
-					text: "text-dark",
-				},
-				Forum: { bg: "bg-red-tint", text: "text-dark" },
-				Dating: { bg: "bg-blush-tint", text: "text-dark" },
-				Events: { bg: "bg-orange-tint", text: "text-dark" },
-				Location: {
-					bg: "bg-green-tint",
-					text: "text-dark",
-				},
-				"Resource sharing": {
-					bg: "bg-blonde-tint",
-					text: "text-dark",
-				},
-				"Photo sharing": {
-					bg: "bg-blush-tint",
-					text: "text-dark",
-				},
-				"Video sharing": {
-					bg: "bg-blonde-tint",
-					text: "text-dark",
-				},
-				"Creator Platform": {
-					bg: "bg-blue-tint",
-					text: "text-dark",
-				},
-				"Social marketplace": {
-					bg: "bg-orange-tint",
-					text: "text-dark",
-				},
-
-				// Fallback
-				Other: { bg: "bg-blonde-tint", text: "text-dark" },
-			};
-
-			if (!categories || categories.length === 0) {
-				return categoryColors["Other"];
-			}
-			return (
-				categoryColors[categories[0]] ||
-				categoryColors["Other"]
-			);
-		}
-	);
+	eleventyConfig.addFilter("categoryColors", getMultipleCategoryColors);
 
 	// Image shortcode using Eleventy Image
 	eleventyConfig.addShortcode(

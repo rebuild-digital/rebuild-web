@@ -29,14 +29,6 @@ to true) #} {% set isPublished = published if published != undefined else true %
     <p class="{% if not isPublished %}text-muted{% else %}text-dark{% endif %}">— {{ author }}</p>
     {% endif %} #} {% if not isPublished %}
     <p class="text-sm text-muted mt-xs italic">Coming soon</p>
-    {% endif %} {# {% if tags and tags.length > 0 %}
-    <div class="flex gap-xs flex-wrap">
-      {% for tag in tags %}
-      <span class="inline-block px-sm py-xs border border-dark text-xs font-semibold"
-        >{{ tag }}</span
-      >
-      {% endfor %}
-    </div>
-    {% endif %} #}
+    {% endif %}
   </div>
 </article>

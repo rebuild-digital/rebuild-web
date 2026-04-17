@@ -1,6 +1,6 @@
-<footer class="max-w-[800px] lg:max-w-[1400px] mx-auto px-md pb-md">
+<footer class="max-w-[800px] md:max-w-full lg:max-w-[1400px] mx-auto px-md pb-md">
   <div class="mx-auto pt-md">
-    <div class="flex flex-col md:flex-row justify-between">
+    <div class="flex flex-col lg:flex-row justify-between">
       <div class="flex flex-col">
         <div class="py-2 h-12">
           <img class="h-6 w-auto" src="{{site.logo}}" alt="Rebuild logo."/>
@@ -8,7 +8,7 @@
         <p class="text-sm">{{site.description }}</p>
 
         {# Newsletter signup form #}
-        <div class="text-sm mt-lg">
+        {# <div class="text-sm mt-lg">
           <p class="text-sm mb-xs">
             Get our newsletter or
             <a class="underline hover:text-blue" href="https://linkedin.com/company/rebuild-europe"
@@ -27,22 +27,19 @@
                 name="email"
                 placeholder="Email"
                 required
-                class="px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-/>
+                class="px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"/>
 
               <div class="flex flex-col sm:flex-row gap-xs">
                 <input
                   type="text"
                   name="first_name"
                   placeholder="First name"
-                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-/>
+                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"/>
                 <input
                   type="text"
                   name="last_name"
                   placeholder="Last name"
-                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-/>
+                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"/>
               </div>
 
               <select
@@ -65,14 +62,12 @@
                   name="consent"
                   id="footer-consent"
                   required
-                  class="mt-1 w-6 h-6 border-2 border-dark focus:ring-2 focus:ring-blue"
-/>
+                  class="mt-1 w-6 h-6 border-2 border-dark focus:ring-2 focus:ring-blue"/>
                 <label for="footer-consent" class="text-xs text-dark">
                   I consent to receive newsletters and updates from Rebuild. I can unsubscribe at
                   any time.
                 </label>
               </div>
-
               <button
                 type="submit"
                 class="text-sm px-sm py-xs border-2 border-dark bg-dark text-light hover:bg-darker text-left self-start"
@@ -93,7 +88,7 @@
               <p class="text-xs font-semibold">Something went wrong. Please try again.</p>
             </div>
           </form>
-        </div>
+        </div> #}
       </div>
 
       {# NAVIGATION #}

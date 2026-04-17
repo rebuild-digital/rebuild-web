@@ -7,19 +7,7 @@ class InsightsFilter {
     this.grid = document.querySelector("[data-insights-grid]");
     this.cards = Array.from(document.querySelectorAll("[data-insight-card]"));
     this.sortButtons = document.querySelectorAll("[data-sort]");
-    this.tagButtons = document.querySelectorAll("[data-tag-filter]");
-    this.activeTag = null;
     this.activeSort = "recency"; // default sort
-
-    // Define tag color palette (using your brand colors)
-    this.tagColors = [
-      { bg: "bg-orange", border: "border-dark", text: "text-dark" },
-      { bg: "bg-green", border: "border-dark", text: "text-dark" },
-      { bg: "bg-blue-tint", border: "border-dark", text: "text-dark" },
-      { bg: "bg-red-tint", border: "border-dark", text: "text-dark" },
-      { bg: "bg-blush", border: "border-dark", text: "text-dark" },
-      { bg: "bg-light", border: "border-blue", text: "text-blue" },
-    ];
 
     this.init();
   }
@@ -27,60 +15,13 @@ class InsightsFilter {
   init() {
     if (!this.grid || this.cards.length === 0) return;
 
-    // Apply colors to all tags
-    this.applyTagColors();
-
     // Setup sort button listeners
     this.sortButtons.forEach((button) => {
       button.addEventListener("click", (e) => this.handleSort(e));
     });
 
-    // Setup tag filter button listeners
-    this.tagButtons.forEach((button) => {
-      button.addEventListener("click", (e) => this.handleTagFilter(e));
-    });
-
     // Initial render
     this.render();
-  }
-
-  /**
-   * Simple string hash function for consistent color assignment
-   */
-  hashString(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      const char = str.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
-      hash = hash & hash; // Convert to 32-bit integer
-    }
-    return Math.abs(hash);
-  }
-
-  /**
-   * Get consistent color for a tag based on its name
-   */
-  getTagColor(tagName) {
-    const hash = this.hashString(tagName.toLowerCase());
-    const colorIndex = hash % this.tagColors.length;
-    return this.tagColors[colorIndex];
-  }
-
-  /**
-   * Apply colors to all tag elements (only in cards, not filter buttons)
-   */
-  applyTagColors() {
-    // Color tags in cards - select spans within the tags container
-    this.cards.forEach((card) => {
-      const tagSpans = card.querySelectorAll("span");
-      tagSpans.forEach((tagElement) => {
-        const tagName = tagElement.textContent.trim();
-        const colors = this.getTagColor(tagName);
-
-        // Apply color classes to existing styled tag
-        tagElement.className = `inline-block px-sm py-xs border ${colors.bg} ${colors.border} ${colors.text} text-xs font-semibold`;
-      });
-    });
   }
 
   handleSort(e) {
@@ -95,37 +36,6 @@ class InsightsFilter {
     });
 
     this.render();
-  }
-
-  handleTagFilter(e) {
-    const tag = e.currentTarget.dataset.tagFilter;
-
-    // Toggle tag filter (clicking same tag deactivates it)
-    if (this.activeTag === tag) {
-      this.activeTag = null;
-      e.currentTarget.classList.remove("active");
-    } else {
-      this.activeTag = tag;
-
-      // Update button states
-      this.tagButtons.forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.tagFilter === tag);
-      });
-    }
-
-    this.render();
-  }
-
-  filterCards() {
-    return this.cards.filter((card) => {
-      // Apply tag filter
-      if (this.activeTag) {
-        const cardTags = card.dataset.tags ? card.dataset.tags.split(",") : [];
-        return cardTags.includes(this.activeTag);
-      }
-
-      return true;
-    });
   }
 
   sortCards(cards) {
@@ -150,11 +60,7 @@ class InsightsFilter {
   }
 
   render() {
-    // Filter cards
-    let visibleCards = this.filterCards();
-
-    // Sort cards - featured posts are now treated like regular posts
-    visibleCards = this.sortCards(visibleCards);
+    const visibleCards = this.sortCards(this.cards);
 
     // Hide all cards first
     this.cards.forEach((card) => {
