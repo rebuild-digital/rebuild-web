@@ -1,0 +1,46 @@
+{#
+  FAQ Accordion Component
+  Usage:
+    {% set faqItems = event.faq %}
+    {% set contactEmail = "team@rebuild.net" %}
+    {% include "components/faq-accordion.njk" %}
+  Props:
+    faqItems      — array of { question, answer }
+    contactEmail  — optional email for the "send us an email" link
+#}
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-xl lg:gap-3xl items-start">
+
+  {# Left: heading + intro #}
+  <div class="lg:max-w-80">
+    <h2 class="text-3xl md:text-4xl font-normal mb-xl">Frequently<br>asked questions</h2>
+    <p class="text-base text-dark mb-xs">Not sure how it works in practice?</p>
+    <p class="text-base text-dark">
+      We'll try to answer the most common questions. If you're still in doubt,
+      {% if contactEmail %}
+        <a href="mailto:{{ contactEmail }}" class="underline">send us an email</a>.
+      {% else %}
+        <a href="mailto:team@rebuild.net" class="underline">send us an email</a>.
+      {% endif %}
+    </p>
+  </div>
+
+  {# Right: accordion #}
+  <div class="divide-y-2 divide-dark border-2 border-dark">
+    {% if faqItems %}
+      {% for item in faqItems %}
+        <details class="group">
+          <summary class="flex items-center gap-sm sm:gap-lg px-lg py-md cursor-pointer list-none">
+            <span class="text-3xl w-6 shrink-0 transition-transform duration-200 group-open:hidden">+</span>
+            <span class="text-3xl w-6 shrink-0 hidden group-open:inline">−</span>
+            <span class="text-lg sm:text-xl leading-tight">{{ item.question }}</span>
+          </summary>
+          <div class="px-lg pb-md">
+            <p class="text-sm sm:text-base text-dark">{{ item.answer }}</p>
+          </div>
+        </details>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+</div>

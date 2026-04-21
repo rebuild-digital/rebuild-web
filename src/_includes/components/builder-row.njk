@@ -2,7 +2,7 @@
 Builder object with name, link, category, country, description, tags, etc. #}
 
 <div
-  class="builder-row bg-lighter space-y-sm p-sm lg:p-5"
+  class="builder-row bg-light space-y-sm p-sm lg:p-5"
   data-builder-id="{{ builder.id }}"
   data-categories="{% if builder.category %}{{ builder.category | join(',') }}{% endif %}"
   data-builder-name="{{ builder.name }}"
@@ -19,37 +19,43 @@ Builder object with name, link, category, country, description, tags, etc. #}
         {{ builder.name }}
       </a>
     </h3>
-    {# URL #} {% if builder.link %}
-    <div class="">
-      <a
+    {# URL #}
+    {% if builder.link %}
+      <div class="">
+        <a
         href="{{ builder.link }}"
         target="_blank"
         rel="noopener noreferrer"
         class="text-darker text-xs underline break-all"
       >
-        {{ builder.link }}
-      </a>
-    </div>
+          {{ builder.link }}
+        </a>
+      </div>
     {% endif %}
   </div>
 
-  {# Description #} {% if builder.description %}
-  <div class="text-sm max-w-[55ch] leading-tight">
-    <p>{{ builder.description }}</p>
-  </div>
+  {# Description #}
+  {% if builder.description %}
+    <div class="text-sm max-w-[55ch] leading-tight">
+      <p>{{ builder.description }}</p>
+    </div>
   {% endif %}
 
   <div
     class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-xs lg:gap-0"
   >
-    {# Tags #} {% if builder.category and builder.category.length > 0 %}
-    <div class="flex gap-xs flex-wrap">
-      {% for cat in builder.category %} {% set colors = [cat] | categoryColors %}
-      <span class="inline-block p-xs {{ colors.bg }} {{ colors.text }} text-xs">{{ cat }}</span>
-      {% endfor %}
-    </div>
-    {% endif %} {# Country #} {% if builder.country and builder.country.length > 0 %}
-    <div class="text-xs text-darker">{{ builder.country | join(", ") }}</div>
+    {# Tags #}
+    {% if builder.category and builder.category.length > 0 %}
+      <div class="flex gap-xs flex-wrap">
+        {% for cat in builder.category %}
+          {% set colors = [cat] | categoryColors %}
+          <span class="inline-block p-xs {{ colors.bg }} {{ colors.text }} text-xs">{{ cat }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {# Country #}
+    {% if builder.country and builder.country.length > 0 %}
+      <div class="text-xs text-darker">{{ builder.country | join(", ") }}</div>
     {% endif %}
   </div>
 </div>

@@ -56,7 +56,7 @@ permalink: /directory/index.html
 
     {# Filters #}
     <div class="w-full lg:w-2/3">
-      <p class="text-sm text-muted">Filter by category</p>
+      <p class="text-sm text-darker">Filter by category</p>
       {% if builders and builders.length > 0 %}
         <div class="mt-lg mb-lg" id="category-filters-wrapper">
           <div class="flex gap-xs flex-wrap" id="category-filters">
@@ -87,5 +87,6 @@ permalink: /directory/index.html
 </section>
 
 {% block scripts %}
+  <script src="/scripts/category-colors.js"></script>
   <script src="/scripts/directory-filter.js"></script>
 {% endblock %}

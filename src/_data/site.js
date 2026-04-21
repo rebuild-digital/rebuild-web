@@ -1,6 +1,6 @@
 module.exports = {
   title: "Rebuild",
-  description: "Twelve months to rebuild European social platforms.",
+  description: "A sprint for European social platforms",
   url: process.env.SITE_URL,
   apiUrl: process.env.API_URL,
   defaultImage: "/assets/images/social-3.jpg",
@@ -11,8 +11,13 @@ module.exports = {
   // Navigation
   main_navigation: [
     {
-      name: "Journey",
-      url: "/journey/",
+      name: "Gatherings",
+      url: "/gatherings/",
+      subItems: [
+        { name: "Rebuild 1", url: null, status: "past" },
+        { name: "Rebuild 2", url: "/gatherings/rebuild-2/", status: "current" },
+        { name: "Rebuild 3", url: null, status: "future" },
+      ],
     },
     {
       name: "Directory",

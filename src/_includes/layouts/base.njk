@@ -1,49 +1,54 @@
 <!DOCTYPE html>
 <html lang="{{ site.language }}">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    {# Title #} {% if page.url == "/" %}
-    <title>{{ site.title }}</title>
+    {# Title #}
+    {% if page.url == "/" %}
+      <title>{{ site.title }}</title>
     {% else %}
-    <title>{{ title | default(site.title) }} | {{ site.title }}</title>
-    {% endif %} {# Meta Description #}
+      <title>{{ title | default(site.title) }} | {{ site.title }}</title>
+    {% endif %}
+    {# Meta Description #}
     <meta
       name="description"
       content="{{ description | default(excerpt) | default(site.description) }}"
-    />
+/>
 
     {# Open Graph #}
-    <meta property="og:title" content="{{ title | default(site.title) }}" />
+    <meta property="og:title" content="{{ title | default(site.title) }}"/>
     <meta
       property="og:description"
       content="{{ description | default(excerpt) | default(site.description) }}"
-    />
+/>
     <meta
       property="og:image"
       content="{{ site.url }}{{ featured_image | default(site.defaultImage) }}"
-    />
-    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
-    <meta property="og:type" content="website" />
+/>
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}"/>
+    <meta property="og:type" content="website"/>
 
     {# Twitter Card #}
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{{ title | default(site.title) }}" />
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="{{ title | default(site.title) }}"/>
     <meta
       name="twitter:description"
       content="{{ description | default(excerpt) | default(site.description) }}"
-    />
+/>
     <meta
       name="twitter:image"
       content="{{ site.url }}{{ featured_image | default(site.defaultImage) }}"
-    />
+/>
+
+    {# Font preload — eliminates FOUT on page transitions #}
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/ABCSocialMono-Book.woff2"/>
 
     {# Favicon #}
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 
     {# Stylesheets #}
-    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/main.css"/>
 
     {# Analytics #}
     <script
@@ -53,18 +58,32 @@
       data-code="7MINshjhivqQWUXqrMyKqKbUBcHP3LAB"
     ></script>
 
-    {# Block for additional head content #} {% block head %}{% endblock %}
+    {# Block for additional head content #}
+    {% block head %}{% endblock %}
   </head>
-  <body class="bg-light">
-    {# Header #} {% include "components/header.njk" %} {# Homepage: content outside main wrapper for
-    full-width splash #} {% if page.url == "/" %} {{ content | safe }} {% else %} {# Other pages:
-    content inside main wrapper #}
-    <main id="main-content" class="lg:max-w-[1400px] mx-auto px-md pt-48">
+  <body class="bg-white">
+    {# Header #}
+    {% include "components/header.njk" %}
+    {# Homepage: content outside main wrapper for
+    full-width splash #}
+    {% if page.url == "/" %}
       {{ content | safe }}
-    </main>
-    {% endif %} {# Footer #} {% include "components/footer.njk" %} {# Fixed Banner at Bottom #} {#
+    {% else %}
+      {# Other pages:
+    content inside main wrapper #}
+      <main id="main-content" class="lg:max-w-[1400px] mx-auto px-md pt-48">
+        {{ content | safe }}
+      </main>
+    {% endif %}
+    {# Footer #}
+    {% include "components/footer.njk" %}
+    {# Fixed Banner at Bottom #}
+    {#
     <div class="fixed bottom-0 left-0 w-full z-40">{% include "components/banner.njk" %}</div>
-    #} {# Form Sidebar/Modal #} {% include "components/form-sidebar.njk" %} {# Mobile menu script #}
+    #}
+    {# Form Sidebar/Modal #}
+    {% include "components/form-sidebar.njk" %}
+    {# Mobile menu script #}
     <script src="/scripts/mobile-menu.js"></script>
 
     {# Form trigger script #}
@@ -73,13 +92,18 @@
     {# Form submission handler #}
     <script src="/scripts/form-handler.js"></script>
 
-    {# Header scroll handler (home page only) #} {% if page.url == "/" %}
-    <script src="/scripts/header-scroll.js"></script>
-    {% endif %} {# Carousel script #}
+    {# Header scroll handler (home page only) #}
+    {% if page.url == "/" %}
+      <script src="/scripts/header-scroll.js"></script>
+    {% endif %}
+    {# Carousel script #}
     <script src="/scripts/carousel.js"></script>
 
-    {# Splash rotation script (home page only if using splash-alt) #} {% if page.url == "/" %}
-    <script src="/scripts/splash-rotation.js"></script>
-    {% endif %} {# Block for additional scripts #} {% block scripts %}{% endblock %}
+    {# Splash rotation script (home page only if using splash-alt) #}
+    {% if page.url == "/" %}
+      <script src="/scripts/splash-rotation.js"></script>
+    {% endif %}
+    {# Block for additional scripts #}
+    {% block scripts %}{% endblock %}
   </body>
 </html>

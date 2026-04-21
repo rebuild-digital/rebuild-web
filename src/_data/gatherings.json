@@ -2,8 +2,11 @@
   "gatherings": [
     {
       "id": "rebuild-1",
-      "title": "Done",
-      "location": "Copenhagen",
+      "slug": "rebuild-1",
+      "title": "Rebuild 1",
+      "overlayText": "Rebuild 1",
+      "status": "past",
+      "location": "Copenhagen, Denmark",
       "startDate": "Mar 01",
       "endDate": "Mar 03",
       "image": "/assets/images/rebuild1-pic.jpg",
@@ -12,23 +15,32 @@
     },
     {
       "id": "rebuild-2",
+      "slug": "rebuild-2",
       "title": "Rebuild 2",
-      "location": "Helsinki",
+      "overlayText": "Rebuild 2",
+      "status": "current",
+      "location": "Helsinki, Finland",
       "startDate": "Aug 30",
       "endDate": "Sep 01",
       "image": "/assets/images/helsinki.jpg",
       "imageCredit": "Kristaps Grundsteins",
-      "titleColor": "#6ba1cc"
+      "titleColor": "#6ba1cc",
+      "pageUrl": "/gatherings/rebuild-2/",
+      "ctaPrimary": { "text": "Learn more", "url": "/gatherings/rebuild-2/" }
     },
     {
       "id": "rebuild-3",
+      "slug": "rebuild-3",
       "title": "Rebuild 3",
-      "location": "Paris",
+      "overlayText": "Rebuild 3",
+      "status": "future",
+      "location": "Paris, France",
       "startDate": "Dec 13",
       "endDate": "Dec 15",
       "image": "/assets/images/paris.jpg",
       "imageCredit": "HANVIN CHEONG",
-      "titleColor": "#e1aeb0"
+      "titleColor": "#e1aeb0",
+      "ctaSecondary": { "text": "Get notified", "dataForm": "newsletter" }
     }
   ]
 }

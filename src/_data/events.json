@@ -2,8 +2,8 @@
   "events": [
     {
       "id": "rebuild-1",
-      "title": "Rebuild 1, The beginning",
-      "shortTitle": "Rebuild1",
+      "title": "Rebuild 1",
+      "shortTitle": "Rebuild 1",
       "startDate": "2026-03-01T09:00:00Z",
       "endDate": "2026-03-03T18:00:00Z",
       "location": "Copenhagen, Denmark",
@@ -36,8 +36,8 @@
     },
     {
       "id": "rebuild-2",
-      "title": "Rebuild2, the boost",
-      "shortTitle": "Rebuild2",
+      "title": "Rebuild 2",
+      "shortTitle": "Rebuild 2",
       "startDate": "2026-08-30T09:00:00Z",
       "endDate": "2026-09-01T18:00:00Z",
       "location": "Helsinki, Finland",
@@ -46,20 +46,42 @@
       "imageCredit": "Kristaps Grundsteins",
       "proofPoints": [
         {
-          "headline": "Board programme",
-          "description": "A structured programme to place experienced pioneers, investors, and strategic thinkers on the boards of social platform companies."
+          "headline": "Keynotes by pioneers",
+          "description": "Hear from Margrethe Vestager, Thomas Madsen-Mygdal and local capacities Christian Lindholm and Marko Ahtisaari, and more. Focused perspectives on what it takes to build platforms that last and how we win."
         },
         {
-          "headline": "Crafting sessions — How to",
-          "description": "Hands-on sessions that break down practical methods and approaches by those who have done it before. How to scale to 1 million users, how to build a marketplace, how to coin your business model, how to get people to shift, how to get investments, how to build the right organisational model for your platform."
+          "headline": "Forty lessons by practitioners",
+          "description": "Structured teaching from practitioners in the field. Founders, designers, technologists and investors sharing what they know about building, scaling, and designing social platforms — the decisions that worked, and the ones that didn't."
         },
         {
-          "headline": "Product design sessions",
-          "description": "Hands-on sessions where teams co-design features, flows, and architectures. End design, explorative UI's, spatial UI, save for later, TimeLocking."
+          "headline": "Kids building platforms",
+          "description": "A parallel track for the next generation. Kids learn to think about how social platforms are built, what they do, and what they could become. Then, they get to direct the building of some."
         },
         {
-          "headline": "Designing for the Big Shift Day",
-          "description": "Designing for a dedicated day led by the industry, mobilising people across Europe to switch to European-built social platforms. An industry-led moment to help users make the shift together."
+          "headline": "Social dinner and evening sessions",
+          "description": "The work doesn't stop when the sessions end. Two evenings of shared dinners and open conversation — the connections that matter most often happen here. And in Helsinki, that means sauna too."
+        }
+      ],
+      "faq": [
+        {
+          "question": "How much does it cost to attend?",
+          "answer": "Rebuild 2 is an invitation-only gathering. Attendance is free for accepted participants. Travel and accommodation are the responsibility of each attendee."
+        },
+        {
+          "question": "Am I guaranteed a spot when I register?",
+          "answer": "No. Requesting an invitation does not guarantee a spot. We review all applications and reach out to those selected. We aim to curate a group of people who collectively make the gathering as valuable as possible."
+        },
+        {
+          "question": "Who are the other attendees?",
+          "answer": "Founders, designers, engineers, investors, and researchers building or backing Europe's next generation of social platforms. We keep the group small and intentional."
+        },
+        {
+          "question": "Where exactly is the venue?",
+          "answer": "Helsinki, Finland. Venue details are shared with confirmed attendees closer to the event."
+        },
+        {
+          "question": "What should I prepare?",
+          "answer": "Come ready to share what you're building. There will be structured sessions, but the most valuable moments tend to come from open conversation. Bring questions you can't answer alone."
         }
       ],
       "cta": {

@@ -7,10 +7,7 @@ permalink: /insights/index.html
 
 <hr />
 
-{% if collections.insights and collections.insights.length > 0 %} {# Extract all unique tags from
-insights #} {% set allTags = [] %} {% for post in collections.insights %} {% if post.data.tags %} {%
-for tag in post.data.tags %} {% if tag not in allTags %} {% set allTags = (allTags.push(tag),
-allTags) %} {% endif %} {% endfor %} {% endif %} {% endfor %} {# Filter and Sort Controls #}
+{% if collections.insights and collections.insights.length > 0 %}
 <div class="flex justify-between mb-md mt-lg">
   {# Sort Controls #}
   <div class="mb-sm">
@@ -41,7 +38,6 @@ allTags) %} {% endif %} {% endfor %} {% endif %} {% endfor %} {# Filter and Sort
     data-author="{{ author }}"
     data-featured="{{ featured or false }}"
     data-published="{{ published }}"
-    data-tags="{% if tags %}{{ tags | join(',') }}{% endif %}"
   >
     {% include "components/card.njk" %}
   </div>

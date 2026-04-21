@@ -1,28 +1,122 @@
 {# Gathering Invitation Request Form Usage: {% include
 "components/forms/gathering-invitation-form.njk" %} This form allows people to request an invitation
-to join Rebuild 2 #} {% set gatheringInvitationFields = [ { type: 'text', name: 'name', label:
-'Name', required: true }, { type: 'email', name: 'email', label: 'Email', required: true }, { type:
-'tel', name: 'phone', label: 'Phone', required: true, helpText: 'Helps us reach you more easily' },
-{ type: 'url', name: 'platform_link', label: 'Link to your platform or profile page', required:
-true, helpText: 'Share a link to your platform, LinkedIn, or portfolio.' }, { type: 'select', name:
-'country', label: 'Which country are you from?', required: true, options: [ 'Albania', 'Andorra',
-'Armenia', 'Austria', 'Azerbaijan', 'Belarus', 'Belgium', 'Bosnia and Herzegovina', 'Bulgaria',
-'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Georgia',
-'Germany', 'Greece', 'Hungary', 'Iceland', 'Ireland', 'Italy', 'Kazakhstan', 'Kosovo', 'Latvia',
-'Liechtenstein', 'Lithuania', 'Luxembourg', 'Malta', 'Moldova', 'Monaco', 'Montenegro',
-'Netherlands', 'North Macedonia', 'Norway', 'Poland', 'Portugal', 'Romania', 'Russia', 'San Marino',
-'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland', 'Türkiye', 'Ukraine', 'United
-Kingdom', 'Vatican City' ] }, { type: 'textarea', name: 'contribution', label: 'What would you like
-to contribute with?', required: true, rows: 4, helpText: 'Share your ideas, expertise, or resources
-you can bring to the gathering...' }, { type: 'checkbox', name: 'consent', label: 'I agree to share
-my information with the Rebuild team for the purpose of considering my invitation request',
-required: true }, { type: 'checkbox', name: 'newsletter', label: 'I would like to receive newsletter
-updates from Rebuild (optional)', required: false }, { type: 'hidden', name: 'form_type', value:
-'gathering_invitation' } ] %} {% set formId = 'gathering-invitation-form' %} {% set action =
-site.apiUrl + '/api/gathering-invitation' %} {% set method = 'POST' %} {% set title = 'Request an
-invitation to Rebuild 2' %} {% set description = 'Show interest in joining Rebuild 2. Share your
-details and tell us what you would like to contribute.' %} {% set submitText = 'Submit request' %}
-{% set submitVariant = 'primary' %} {% set fields = gatheringInvitationFields %} {% set
+to join Rebuild 2 #}
+{% set gatheringInvitationFields = [
+  {
+    type: 'text',
+    name: 'name',
+    label: 'What is your name?',
+    required: true
+  }, {
+    type: 'email',
+    name: 'email',
+    label: 'What is your email address?',
+    required: true
+  }, {
+    type: 'tel',
+    name: 'phone',
+    label: 'And your phone number?',
+    required: true,
+    helpText: 'It will help us reach you more easily during the gathering.'
+  }, {
+    type: 'url',
+    name: 'platform_link',
+    label: 'Platform or profile page?',
+    required: true,
+    helpText: 'Share a link to your platform, LinkedIn, or portfolio.'
+  }, {
+    type: 'select',
+    name: 'country',
+    label: 'Which country are you from?',
+    required: true,
+    options: [
+      'Albania',
+      'Andorra',
+      'Armenia',
+      'Austria',
+      'Azerbaijan',
+      'Belarus',
+      'Belgium',
+      'Bosnia and Herzegovina',
+      'Bulgaria',
+      'Croatia',
+      'Cyprus',
+      'Czech Republic',
+      'Denmark',
+      'Estonia',
+      'Finland',
+      'France',
+      'Georgia',
+      'Germany',
+      'Greece',
+      'Hungary',
+      'Iceland',
+      'Ireland',
+      'Italy',
+      'Kazakhstan',
+      'Kosovo',
+      'Latvia',
+      'Liechtenstein',
+      'Lithuania',
+      'Luxembourg',
+      'Malta',
+      'Moldova',
+      'Monaco',
+      'Montenegro',
+      'Netherlands',
+      'North Macedonia',
+      'Norway',
+      'Poland',
+      'Portugal',
+      'Romania',
+      'Russia',
+      'San Marino',
+      'Serbia',
+      'Slovakia',
+      'Slovenia',
+      'Spain',
+      'Sweden',
+      'Switzerland',
+      'Türkiye',
+      'Ukraine',
+      'United Kingdom',
+      'Vatican City'
+    ]
+  }, {
+    type: 'textarea',
+    name: 'contribution',
+    label: 'What would you like to contribute with?',
+    required: true,
+    rows: 4,
+    helpText: 'Share your ideas, expertise, or resources you can bring to the gathering that would serve and support European social platforms.'
+  }, {
+    type: 'checkbox',
+    name: 'consent',
+    label: 'I agree to share my information with the Rebuild team for the purpose of considering my invitation request',
+    required: true
+  }, {
+    type: 'checkbox',
+    name: 'newsletter',
+    label: 'I would like to receive newsletter updates from Rebuild (optional)',
+    required: false
+  }, {
+    type: 'hidden',
+    name: 'form_type',
+    value: 'gathering_invitation'
+  }
+] %}
+{% set formId = 'gathering-invitation-form' %}
+{% set action =
+site.apiUrl + '/api/gathering-invitation' %}
+{% set method = 'POST' %}
+{% set title = 'Request your invitation to join Rebuild 2 in Helsinki' %}
+{% set description = "Share your details with us and let us know what you would like to contribute with. The more specific you are the better we can tailor the programme and composition around what helps European social platforms." %}
+{% set submitText = 'Submit request' %}
+{% set submitVariant = 'primary' %}
+{% set fields = gatheringInvitationFields %}
+{% set
 successMessage = 'Thank you for your interest! We will review your request and get back to you
-soon.' %} {% set errorMessage = 'Sorry, we could not submit your request. Please try again or
-contact us directly at team@rebuild.net.' %} {% include "components/form.njk" %}
+ soon.' %}
+{% set errorMessage = 'Sorry, we could not submit your request. Please try again or
+ contact us directly at team@rebuild.net.' %}
+{% include "components/form.njk" %}
