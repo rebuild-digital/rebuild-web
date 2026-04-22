@@ -1,6 +1,6 @@
 # rebuild-web
 
-A production Eleventy static site with Nunjucks components, TailwindCSS styling, Bunny CDN Edge Scripts for forms, MailerLite integration, and Notion API for build-time data.
+A production Eleventy static site with Nunjucks components, TailwindCSS styling, Bunny CDN Edge Scripts for forms, MailerLite integration, and Notion API for build-time data. Start here.
 
 ## Tech Stack
 
@@ -188,15 +188,15 @@ Events are managed via `src/_data/events.json`:
 
 ```json
 {
-  "events": [
-    {
-      "id": "event-1",
-      "title": "Event Name",
-      "date": "2025-03-15T09:00:00Z",
-      "location": "City, Country",
-      "description": "Event description..."
-    }
-  ]
+	"events": [
+		{
+			"id": "event-1",
+			"title": "Event Name",
+			"date": "2025-03-15T09:00:00Z",
+			"location": "City, Country",
+			"description": "Event description..."
+		}
+	]
 }
 ```
 
@@ -206,17 +206,17 @@ Carousel slides are managed via `src/_data/carousel.json`:
 
 ```json
 {
-  "slides": [
-    {
-      "id": "slide-1",
-      "headline": "Your Headline",
-      "subheader": "Description text",
-      "image": "/assets/images/slide.jpg",
-      "ctaText": "Button Text",
-      "ctaLink": "/link/",
-      "bgColor": "#e8e8e8"
-    }
-  ]
+	"slides": [
+		{
+			"id": "slide-1",
+			"headline": "Your Headline",
+			"subheader": "Description text",
+			"image": "/assets/images/slide.jpg",
+			"ctaText": "Button Text",
+			"ctaLink": "/link/",
+			"bgColor": "#e8e8e8"
+		}
+	]
 }
 ```
 
@@ -229,10 +229,14 @@ The site uses a sidebar form system with MailerLite integration:
 **Sidebar Forms** (triggered by data attributes):
 
 ```html
-<button data-form="builder-promo">Nominate a Builder</button>
+<button data-form="builder-promo">
+	Nominate a Builder
+</button>
 <button data-form="builder-application">Apply Now</button>
 <button data-form="newsletter">Subscribe</button>
-<button data-form="gathering-invitation">Request Invitation</button>
+<button data-form="gathering-invitation">
+	Request Invitation
+</button>
 ```
 
 **Newsletter Form** (inline or standard):
@@ -313,17 +317,17 @@ Customize slides via [src/\_data/carousel.json](src/_data/carousel.json):
 
 ```json
 {
-  "slides": [
-    {
-      "id": "slide-1",
-      "headline": "Your Headline Here",
-      "subheader": "Your descriptive text here",
-      "image": "/assets/images/your-image.jpg",
-      "ctaText": "Button Text",
-      "ctaLink": "/your-link/",
-      "bgColor": "#e8e8e8"
-    }
-  ]
+	"slides": [
+		{
+			"id": "slide-1",
+			"headline": "Your Headline Here",
+			"subheader": "Your descriptive text here",
+			"image": "/assets/images/your-image.jpg",
+			"ctaText": "Button Text",
+			"ctaLink": "/your-link/",
+			"bgColor": "#e8e8e8"
+		}
+	]
 }
 ```
 
@@ -569,10 +573,11 @@ To add a new sidebar form:
 
    ```javascript
    const formUrls = {
-     "builder-promo": "/forms/builder-promo.html",
-     "builder-application": "/forms/builder-application.html",
-     newsletter: "/forms/newsletter.html",
-     "your-form": "/forms/your-form.html", // Add this
+   	"builder-promo": "/forms/builder-promo.html",
+   	"builder-application":
+   		"/forms/builder-application.html",
+   	newsletter: "/forms/newsletter.html",
+   	"your-form": "/forms/your-form.html", // Add this
    };
    ```
 
