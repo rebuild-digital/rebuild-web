@@ -1,128 +1,128 @@
 {
-  "events": [
-    {
-      "id": "rebuild-1",
-      "title": "Rebuild 1",
-      "shortTitle": "Rebuild 1",
-      "startDate": "2026-03-01T09:00:00Z",
-      "endDate": "2026-03-03T18:00:00Z",
-      "location": "Copenhagen, Denmark",
-      "bgColor": "#669e67",
-      "image": "/assets/images/copenhagen.jpg",
-      "imageCredit": "Eryk Piotr Munk",
-      "proofPoints": [
-        {
-          "headline": "Demos of all social platforms",
-          "description": "See what Europe's social entrepreneurs are building right now. Learn from one another's products, business models, and approaches within the different categories, e.g. networking, events, etc."
-        },
-        {
-          "headline": "Focused Keynotes",
-          "description": "Focused perspectives from pioneers of social platforms, Rebuild ambassadors and current day platform entrepreneurs on everything from challenges to product innovation and scaling approaches."
-        },
-        {
-          "headline": "Overcoming shared challenges",
-          "description": "Working groups tackling the problems no entrepreneurs should face alone. Bring your toughest questions. Build solutions together. With live support from digital pioneers, early builders, and visionary investors."
-        },
-        {
-          "headline": "Collaborative Outcomes",
-          "description": "Hands-on prototyping of a set of actionable tools needed to build a new direction for social platforms. Think design principles, investment concept papers, opportunity maps."
-        }
-      ],
-      "cta": {
-        "text": "Request an invitation to join the first gathering",
-        "url": "#",
-        "dataForm": "gathering-invitation"
-      }
-    },
-    {
-      "id": "rebuild-2",
-      "title": "Rebuild 2",
-      "shortTitle": "Rebuild 2",
-      "startDate": "2026-08-30T09:00:00Z",
-      "endDate": "2026-09-01T18:00:00Z",
-      "location": "Helsinki, Finland",
-      "bgColor": "#6ba1cc",
-      "image": "/assets/images/helsinki.jpg",
-      "imageCredit": "Kristaps Grundsteins",
-      "proofPoints": [
-        {
-          "headline": "Keynotes by pioneers",
-          "description": "Hear from Margrethe Vestager, Thomas Madsen-Mygdal and local capacities Christian Lindholm and Marko Ahtisaari, and more. Focused perspectives on what it takes to build platforms that last and how we win."
-        },
-        {
-          "headline": "Forty lessons by practitioners",
-          "description": "Structured teaching from practitioners in the field. Founders, designers, technologists and investors sharing what they know about building, scaling, and designing social platforms — the decisions that worked, and the ones that didn't."
-        },
-        {
-          "headline": "Kids building platforms",
-          "description": "A parallel track for the next generation. Kids learn to think about how social platforms are built, what they do, and what they could become. Then, they get to direct the building of some."
-        },
-        {
-          "headline": "Social dinner and evening sessions",
-          "description": "The work doesn't stop when the sessions end. Two evenings of shared dinners and open conversation — the connections that matter most often happen here. And in Helsinki, that means sauna too."
-        }
-      ],
-      "faq": [
-        {
-          "question": "How much does it cost to attend?",
-          "answer": "Rebuild 2 is an invitation-only gathering. Attendance is free for accepted participants. Travel and accommodation are the responsibility of each attendee."
-        },
-        {
-          "question": "Am I guaranteed a spot when I register?",
-          "answer": "No. Requesting an invitation does not guarantee a spot. We review all applications and reach out to those selected. We aim to curate a group of people who collectively make the gathering as valuable as possible."
-        },
-        {
-          "question": "Who are the other attendees?",
-          "answer": "Founders, designers, engineers, investors, and researchers building or backing Europe's next generation of social platforms. We keep the group small and intentional."
-        },
-        {
-          "question": "Where exactly is the venue?",
-          "answer": "Helsinki, Finland. Venue details are shared with confirmed attendees closer to the event."
-        },
-        {
-          "question": "What should I prepare?",
-          "answer": "Come ready to share what you're building. There will be structured sessions, but the most valuable moments tend to come from open conversation. Bring questions you can't answer alone."
-        }
-      ],
-      "cta": {
-        "text": "Request an invitation to the gathering",
-        "url": "#",
-        "dataForm": "gathering-invitation"
-      }
-    },
-    {
-      "id": "rebuild-3",
-      "title": "Rebuild3, The shift",
-      "shortTitle": "Rebuild3",
-      "startDate": "2026-12-13T09:00:00Z",
-      "endDate": "2026-12-15T18:00:00Z",
-      "location": "Paris, France",
-      "bgColor": "#e1aeb0",
-      "image": "/assets/images/paris.jpg",
-      "imageCredit": "HANVIN CHEONG",
-      "proofPoints": [
-        {
-          "headline": "Mobilising Europeans to shift",
-          "description": "A coordinated awareness with all European media to share the platforms and progress emerging from the industry. Designed to build momentum and readiness ahead of the Big Shift Day."
-        },
-        {
-          "headline": "Top 20 case studies",
-          "description": "A curated look at the biggest breakthroughs and cases to learn from. Making it usable for the wider industry."
-        },
-        {
-          "headline": "Designing the next decade to come",
-          "description": "Defining the actions, priorities, and structures that will guide the industry forward. The starting point for long-term collaboration and commitment."
-        },
-        {
-          "headline": "Sunsetting Rebuild - Open sourcing the resources",
-          "description": "A clear and intentional close to the one-year catalyst initiative. Releasing Rebuild, open sourcing all resources, so the industry can continue with its own momentum."
-        }
-      ],
-      "cta": {
-        "text": "Sign up to our newsletter for updates",
-        "url": "#",
-        "dataForm": "newsletter"
-      }
-    }
-  ]
+	"events": [
+		{
+			"id": "rebuild-1",
+			"title": "Rebuild 1",
+			"shortTitle": "Rebuild 1",
+			"startDate": "2026-03-01T09:00:00Z",
+			"endDate": "2026-03-03T18:00:00Z",
+			"location": "Copenhagen, Denmark",
+			"bgColor": "#669e67",
+			"image": "/assets/images/copenhagen.jpg",
+			"imageCredit": "Eryk Piotr Munk",
+			"proofPoints": [
+				{
+					"headline": "Demos of all social platforms",
+					"description": "See what Europe's social entrepreneurs are building right now. Learn from one another's products, business models, and approaches within the different categories, e.g. networking, events, etc."
+				},
+				{
+					"headline": "Focused Keynotes",
+					"description": "Focused perspectives from pioneers of social platforms, Rebuild ambassadors and current day platform entrepreneurs on everything from challenges to product innovation and scaling approaches."
+				},
+				{
+					"headline": "Overcoming shared challenges",
+					"description": "Working groups tackling the problems no entrepreneurs should face alone. Bring your toughest questions. Build solutions together. With live support from digital pioneers, early builders, and visionary investors."
+				},
+				{
+					"headline": "Collaborative Outcomes",
+					"description": "Hands-on prototyping of a set of actionable tools needed to build a new direction for social platforms. Think design principles, investment concept papers, opportunity maps."
+				}
+			],
+			"cta": {
+				"text": "Request an invitation to join the first gathering",
+				"url": "#",
+				"dataForm": "gathering-invitation"
+			}
+		},
+		{
+			"id": "rebuild-2",
+			"title": "Rebuild 2",
+			"shortTitle": "Rebuild 2",
+			"startDate": "2026-08-30T09:00:00Z",
+			"endDate": "2026-09-01T18:00:00Z",
+			"location": "Helsinki, Finland",
+			"bgColor": "#6ba1cc",
+			"image": "/assets/images/helsinki.jpg",
+			"imageCredit": "Kristaps Grundsteins",
+			"proofPoints": [
+				{
+					"headline": "Keynotes with direction",
+					"description": "Talks by Rebuild patron Margrethe Vestager, local design icons Christian Lindholm and Marko Ahtisaari,  more. Focused perspectives on what it takes to build platforms that last and how we win."
+				},
+				{
+					"headline": "Forty masterclasses by practitioners",
+					"description": "Structured peer-to-peer learning from practitioners in the field. Founders, designers, technologists and investors sharing what they know about building, scaling, and designing social platforms — the decisions that worked, and the ones that didn't."
+				},
+				{
+					"headline": "Kids building platforms",
+					"description": "An ongoing track for the next generation. Kids learn to think about how social platforms are built, what they do, and what they could become. Then, they get to direct the building of some."
+				},
+				{
+					"headline": "Social dinner and evening sessions",
+					"description": "The movement doesn't stop when the sessions end. Two evenings of shared dinners, vivid conversation and community activities. In Helsinki, that probably means sauna too."
+				}
+			],
+			"faq": [
+				{
+					"question": "How much does it cost to attend?",
+					"answer": "Rebuild 2 is an invitation-only gathering. Attendance is free but travel and accommodation are the responsibility of each attendee."
+				},
+				{
+					"question": "Am I guaranteed a spot when I register?",
+					"answer": "We review all applications and aim to curate a group of people who collectively make the gathering as valuable as possible. The more information you provide about how you will serve European social platforms the better."
+				},
+				{
+					"question": "Who are the other attendees?",
+					"answer": "Founders, designers, engineers, investors, and talent building or backing Europe's next generation of social platforms. We keep the group small and intentional. Final names of speakers will be revealed shortly before the gathering."
+				},
+				{
+					"question": "Where exactly is the venue?",
+					"answer": "We will share the venue details with confirmed attendees closer to the event."
+				},
+				{
+					"question": "What should I prepare?",
+					"answer": "Come ready to share what you're building or how you will support and serve European social platforms. The most valuable moments tend to emerge from open conversation and involvement. Bring curiosity, a hard working attitude and questions you can't answer alone."
+				}
+			],
+			"cta": {
+				"text": "Request an invitation to the gathering",
+				"url": "#",
+				"dataForm": "gathering-invitation"
+			}
+		},
+		{
+			"id": "rebuild-3",
+			"title": "Rebuild3, The shift",
+			"shortTitle": "Rebuild3",
+			"startDate": "2026-12-13T09:00:00Z",
+			"endDate": "2026-12-15T18:00:00Z",
+			"location": "Paris, France",
+			"bgColor": "#e1aeb0",
+			"image": "/assets/images/paris.jpg",
+			"imageCredit": "HANVIN CHEONG",
+			"proofPoints": [
+				{
+					"headline": "Mobilising Europeans to shift",
+					"description": "A coordinated awareness with all European media to share the platforms and progress emerging from the industry. Designed to build momentum and readiness ahead of the Big Shift Day."
+				},
+				{
+					"headline": "Top 20 case studies",
+					"description": "A curated look at the biggest breakthroughs and cases to learn from. Making it usable for the wider industry."
+				},
+				{
+					"headline": "Designing the next decade to come",
+					"description": "Defining the actions, priorities, and structures that will guide the industry forward. The starting point for long-term collaboration and commitment."
+				},
+				{
+					"headline": "Sunsetting Rebuild - Open sourcing the resources",
+					"description": "A clear and intentional close to the one-year catalyst initiative. Releasing Rebuild, open sourcing all resources, so the industry can continue with its own momentum."
+				}
+			],
+			"cta": {
+				"text": "Sign up to our newsletter for updates",
+				"url": "#",
+				"dataForm": "newsletter"
+			}
+		}
+	]
 }

@@ -389,6 +389,7 @@ function parseFormData(formData, isPromotion) {
       phone: formData.get("phone") || "Not provided",
       platformLink: formData.get("platform_link"),
       country: formData.get("country"),
+      group: formData.get("group"),
       contribution: formData.get("contribution"),
       newsletter: formData.get("newsletter") === "on",
       submittedAt: new Date().toISOString(),
@@ -399,7 +400,10 @@ function parseFormData(formData, isPromotion) {
     if (!data.phone) errors.push("Phone is required");
     if (!data.platformLink) errors.push("Platform link is required");
     if (!data.country) errors.push("Country is required");
+    if (!data.group) errors.push("Group is required");
     if (!data.contribution) errors.push("Contribution is required");
+    if (data.contribution && data.contribution.length > 400)
+      errors.push("Contribution must be 400 characters or less");
 
     return { isValid: errors.length === 0, errors, data };
   }
@@ -596,6 +600,7 @@ function buildGatheringInvitationProperties(data) {
     Phone: { phone_number: data.phone !== "Not provided" ? data.phone : null },
     "Platform Link": { url: data.platformLink },
     Country: { select: { name: data.country } },
+    Group: { select: { name: data.group } },
     Contribution: { rich_text: [{ text: { content: data.contribution } }] },
     Newsletter: { checkbox: data.newsletter },
     Status: { status: { name: "New" } },

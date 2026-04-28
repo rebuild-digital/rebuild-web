@@ -21,9 +21,9 @@ to join Rebuild 2 #}
   }, {
     type: 'url',
     name: 'platform_link',
-    label: 'Platform or profile page?',
+    label: 'Share your Linkedin profile or a link to your portfolio.',
     required: true,
-    helpText: 'Share a link to your platform, LinkedIn, or portfolio.'
+    helpText: 'Helps us get to know you better and understand your background and expertise.'
   }, {
     type: 'select',
     name: 'country',
@@ -83,12 +83,26 @@ to join Rebuild 2 #}
       'Vatican City'
     ]
   }, {
+    type: 'select',
+    name: 'group',
+    label: 'What do you most identify with?',
+    required: true,
+    helpText: 'This information helps us curate the programme and increase attendee diversity.',
+    options: [
+      { value: 'Platform', label: 'I am building a platform' },
+      { value: 'Pioneer', label: "I've built products before, now I want to support" },
+      { value: 'Investor', label: 'I am looking to invest in social platforms' },
+      { value: 'Supporter', label: 'I am eager to help out' },
+      { value: 'Other', label: 'None of the above, I am an enigma' }
+    ]
+  }, {
     type: 'textarea',
     name: 'contribution',
     label: 'What would you like to contribute with?',
     required: true,
     rows: 4,
-    helpText: 'Share your ideas, expertise, or resources you can bring to the gathering that would serve and support European social platforms.'
+    maxlength: 400,
+    helpText: 'Share your expertise, initiatives or resources you can bring to the gathering that would serve and support European social platforms.'
   }, {
     type: 'checkbox',
     name: 'consent',
