@@ -2,14 +2,14 @@
 Builder object with name, link, category, country, description, tags, etc. #}
 
 <div
-  class="builder-row bg-light space-y-sm p-sm lg:p-5"
+  class="builder-row bg-white space-y-md p-5 lg:p-md rounded border-2"
   data-builder-id="{{ builder.id }}"
   data-categories="{% if builder.category %}{{ builder.category | join(',') }}{% endif %}"
   data-builder-name="{{ builder.name }}"
 >
   <div class="builder-row-header">
     {# Name #}
-    <h3 class="text-2xl font-bold">
+    <h3 class="text-2xl lg:text-3xl">
       <a
         href="{{ builder.link }}"
         target="_blank"
@@ -26,7 +26,7 @@ Builder object with name, link, category, country, description, tags, etc. #}
         href="{{ builder.link }}"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-darker text-xs underline break-all"
+        class="text-dark text-xs hover:underline break-all"
       >
           {{ builder.link }}
         </a>
@@ -36,7 +36,7 @@ Builder object with name, link, category, country, description, tags, etc. #}
 
   {# Description #}
   {% if builder.description %}
-    <div class="text-sm max-w-[55ch] leading-tight">
+    <div class="text-base max-w-[55ch] leading-relaxed">
       <p>{{ builder.description }}</p>
     </div>
   {% endif %}
@@ -49,13 +49,13 @@ Builder object with name, link, category, country, description, tags, etc. #}
       <div class="flex gap-xs flex-wrap">
         {% for cat in builder.category %}
           {% set colors = [cat] | categoryColors %}
-          <span class="inline-block p-xs {{ colors.bg }} {{ colors.text }} text-xs">{{ cat }}</span>
+          <span class="inline-block rounded-lg px-3 py-2 {{ colors.bg }} {{ colors.text }} text-sm">{{ cat }}</span>
         {% endfor %}
       </div>
     {% endif %}
     {# Country #}
     {% if builder.country and builder.country.length > 0 %}
-      <div class="text-xs text-darker">{{ builder.country | join(", ") }}</div>
+      <div class="text-sm bg-light px-3 py-2 rounded-lg text-dark">{{ builder.country | join(", ") }}</div>
     {% endif %}
   </div>
 </div>
