@@ -167,7 +167,8 @@ formMethod = method | default('POST') %}
               </div>
             {% else %}
               <input
-        type="{{ field.type | default('text') }}"
+        type="{{ 'text' if field.type == 'url' else field.type | default('text') }}"
+        {% if field.type == 'url' %}data-url-field{% endif %}
         id="{{ field.id | default(field.name) }}"
         name="{{ field.name }}"
         {%

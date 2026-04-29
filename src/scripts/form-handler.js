@@ -37,7 +37,7 @@ function initializeFormHandler(form) {
     console.log("Form submitting via JavaScript");
 
     // Normalize URL fields - add https:// if missing protocol
-    const urlInputs = form.querySelectorAll('input[type="url"]');
+    const urlInputs = form.querySelectorAll('input[data-url-field]');
     urlInputs.forEach((input) => {
       const value = input.value.trim();
       if (value && !value.match(/^https?:\/\//i)) {
