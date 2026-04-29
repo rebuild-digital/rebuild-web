@@ -1,6 +1,5 @@
-{# Gathering Invitation Request Form Usage: {% include
-"components/forms/gathering-invitation-form.njk" %} This form allows people to request an invitation
-to join Rebuild 2 #}
+{# Gathering Invitation Request Form — Rebuild 3
+   Usage: {% include "components/forms/gathering-invitation-rebuild3-form.njk" %} #}
 {% set gatheringInvitationFields = [
   {
     type: 'text',
@@ -89,11 +88,25 @@ to join Rebuild 2 #}
     required: true,
     helpText: 'This information helps us curate the programme and increase attendee diversity.',
     options: [
-      { value: 'Platform', label: 'I am building a platform' },
-      { value: 'Pioneer', label: "I've built products before, now I want to support" },
-      { value: 'Investor', label: 'I am looking to invest in social platforms' },
-      { value: 'Supporter', label: 'I am eager to help out' },
-      { value: 'Other', label: 'None of the above, I am an enigma' }
+      {
+        value: 'Platform',
+        label: 'I am building a platform'
+      }, {
+        value: 'Pioneer',
+        label: "I've built products before, now I want to support"
+      }, {
+        value: 'Investor',
+        label: 'I am looking to invest in social platforms'
+      }, {
+        value: 'Media',
+        label: 'I am reporting on European social platforms'
+      }, {
+        value: 'Supporter',
+        label: 'I am eager to help out'
+      }, {
+        value: 'Other',
+        label: 'None of the above, I am an enigma'
+      }
     ]
   }, {
     type: 'textarea',
@@ -120,21 +133,17 @@ to join Rebuild 2 #}
   }, {
     type: 'hidden',
     name: 'gathering',
-    value: 'Rebuild 2'
+    value: 'Rebuild 3'
   }
 ] %}
-{% set formId = 'gathering-invitation-form' %}
-{% set action =
-site.apiUrl + '/api/gathering-invitation' %}
+{% set formId = 'gathering-invitation-rebuild3-form' %}
+{% set action = site.apiUrl + '/api/gathering-invitation' %}
 {% set method = 'POST' %}
-{% set title = 'Request your invitation to join Rebuild 2 in Helsinki' %}
+{% set title = 'Request your invitation to join Rebuild 3' %}
 {% set description = "Share your details with us and let us know what you would like to contribute with. The more specific you are the better we can tailor the programme and composition around what helps European social platforms." %}
 {% set submitText = 'Submit request' %}
 {% set submitVariant = 'primary' %}
 {% set fields = gatheringInvitationFields %}
-{% set
-successMessage = 'Thank you for your interest! We will review your request and get back to you
- soon.' %}
-{% set errorMessage = 'Sorry, we could not submit your request. Please try again or
- contact us directly at team@rebuild.net.' %}
+{% set successMessage = 'Thank you for your interest! We will review your request and get back to you soon.' %}
+{% set errorMessage = 'Sorry, we could not submit your request. Please try again or contact us directly at team@rebuild.net.' %}
 {% include "components/form.njk" %}

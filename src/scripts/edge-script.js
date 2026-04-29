@@ -391,6 +391,7 @@ function parseFormData(formData, isPromotion) {
       country: formData.get("country"),
       group: formData.get("group"),
       contribution: formData.get("contribution"),
+      gathering: formData.get("gathering") || "Rebuild 2",
       newsletter: formData.get("newsletter") === "on",
       submittedAt: new Date().toISOString(),
     };
@@ -601,6 +602,7 @@ function buildGatheringInvitationProperties(data) {
     "Platform Link": { url: data.platformLink },
     Country: { select: { name: data.country } },
     Group: { select: { name: data.group } },
+    Gathering: { select: { name: data.gathering } },
     Contribution: { rich_text: [{ text: { content: data.contribution } }] },
     Newsletter: { checkbox: data.newsletter },
     Status: { status: { name: "New" } },

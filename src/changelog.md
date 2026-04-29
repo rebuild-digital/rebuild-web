@@ -16,6 +16,14 @@ permalink: /changelog/index.html
 <div class="container mx-auto px-4">
 <div class="rich-text">
 
+#### v1.0.1 - April 29, 2026
+
+- New /gathering page and subpages
+- Improved form handling and differentiation
+- Quote carousel component
+- Simplified footer
+- Exit "beta" state
+
 #### v0.9.87 - January 22, 2026
 
 - New callout for Rebuild 1 on the landing page

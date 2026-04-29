@@ -16,7 +16,7 @@ module.exports = {
       subItems: [
         { name: "Rebuild 1", url: null, status: "past" },
         { name: "Rebuild 2", url: "/gatherings/rebuild-2/", status: "current" },
-        { name: "Rebuild 3", url: null, status: "future" },
+        { name: "Rebuild 3", url: "/gatherings/rebuild-3/", status: "future" },
       ],
     },
     {
