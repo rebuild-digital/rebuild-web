@@ -1,7 +1,7 @@
 import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
 
 /**
- * Bunny Edge Script: Combined Form Handler
+ * Bunny Edge Script: Combined Form Handler + Notion→MailerLite Sync
  *
  * Handles all form submissions for the Rebuild site:
  * - /api/builder-application (Notion)
@@ -9,6 +9,9 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - /api/gathering-invitation (Notion)
  * - /api/application-rebuild1 (Notion + MailerLite)
  * - /api/newsletter-signup (MailerLite)
+ *
+ * Also handles Notion database automation webhooks:
+ * - /api/notion-mailerlite-sync (Notion → MailerLite subscriber sync)
  *
  * Required Environment Variables in Bunny:
  * - NOTION_TOKEN (for builder forms)
@@ -18,7 +21,13 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - MAILERLITE_API_KEY (for newsletter and rebuild1 confirmations)
  * - MAILERLITE_GROUP_ID (for general newsletter signups)
  * - MAILERLITE_REBUILD1_GROUP_ID (for rebuild1 event registrations - triggers confirmation email)
+ * - NOTION_WEBHOOK_SECRET (optional, for validating Notion automation webhooks)
+ * - MAILERLITE_NOTION_SYNC_GROUP_ID (for Notion→MailerLite synced subscribers)
  */
+
+// Notion property names for the MailerLite sync webhook (case-sensitive)
+const CHECKBOX_PROPERTY_NAME = "PUBLISHED?";
+const EMAIL_PROPERTY_NAME = "CONTACT INFO";
 
 BunnySDK.net.http
 
@@ -30,6 +39,11 @@ BunnySDK.net.http
     const request = context.request;
 
     const url = new URL(request.url);
+
+    // Notion→MailerLite sync webhook (server-to-server, no CORS needed)
+    if (url.pathname.includes("/api/notion-mailerlite-sync")) {
+      return await handleNotionMailerliteSync(request);
+    }
 
     // CORS headers
 
@@ -80,6 +94,89 @@ BunnySDK.net.http
 
     return await handleFormSubmission(request, url, corsHeaders);
   });
+
+async function handleNotionMailerliteSync(request) {
+  const jsonHeaders = { "Content-Type": "application/json" };
+
+  if (request.method !== "POST") {
+    return new Response(
+      JSON.stringify({ error: "Method not allowed" }),
+      { status: 405, headers: jsonHeaders }
+    );
+  }
+
+  // Optional shared secret verification
+  const secret = Deno.env.get("NOTION_WEBHOOK_SECRET");
+  if (secret) {
+    const incoming = request.headers.get("X-Webhook-Secret");
+    if (incoming !== secret) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: jsonHeaders }
+      );
+    }
+  }
+
+  let payload;
+  try {
+    payload = await request.json();
+  } catch {
+    return new Response(
+      JSON.stringify({ error: "Invalid JSON body" }),
+      { status: 400, headers: jsonHeaders }
+    );
+  }
+
+  console.log("Notion webhook received:", JSON.stringify(payload));
+
+  const props = payload?.data?.properties ?? payload?.properties ?? {};
+
+  const isChecked = props?.[CHECKBOX_PROPERTY_NAME]?.checkbox === true;
+  if (!isChecked) {
+    console.log(`Checkbox "${CHECKBOX_PROPERTY_NAME}" is not checked — skipping`);
+    return new Response(
+      JSON.stringify({ skipped: true, reason: "Checkbox not checked" }),
+      { status: 200, headers: jsonHeaders }
+    );
+  }
+
+  const emailProp = props?.[EMAIL_PROPERTY_NAME];
+  const email =
+    emailProp?.email ??
+    emailProp?.rich_text?.[0]?.plain_text ??
+    null;
+
+  if (!email) {
+    console.error("No email found in payload properties:", JSON.stringify(props));
+    return new Response(
+      JSON.stringify({ error: `No email found in property "${EMAIL_PROPERTY_NAME}"` }),
+      { status: 422, headers: jsonHeaders }
+    );
+  }
+
+  // "Name" (title property) → maps to "organisation" in MailerLite
+  const organisation = props?.["Name"]?.title?.[0]?.plain_text ?? null;
+
+  // "CONTACT NAME" (text property) → maps to first/last name in MailerLite
+  const contactName = props?.["CONTACT NAME"]?.rich_text?.[0]?.plain_text ?? null;
+
+  const groupId = Deno.env.get("MAILERLITE_NOTION_SYNC_GROUP_ID");
+  const result = await sendToMailerLite({ email, organisation, contactName, groupId });
+
+  if (!result.success) {
+    console.error("MailerLite error for", email, result.error);
+    return new Response(
+      JSON.stringify({ error: result.error, details: result.details }),
+      { status: result.status || 500, headers: jsonHeaders }
+    );
+  }
+
+  console.log(`Successfully subscribed ${email} to MailerLite`);
+  return new Response(
+    JSON.stringify({ success: true, subscriber: email }),
+    { status: 200, headers: jsonHeaders }
+  );
+}
 
 // Simple in-memory cache for deduplication (resets on edge script restart)
 const recentSubmissions = new Map();
@@ -292,7 +389,9 @@ function parseFormData(formData, isPromotion) {
       phone: formData.get("phone") || "Not provided",
       platformLink: formData.get("platform_link"),
       country: formData.get("country"),
+      group: formData.get("group"),
       contribution: formData.get("contribution"),
+      gathering: formData.get("gathering") || "Rebuild 2",
       newsletter: formData.get("newsletter") === "on",
       submittedAt: new Date().toISOString(),
     };
@@ -302,7 +401,10 @@ function parseFormData(formData, isPromotion) {
     if (!data.phone) errors.push("Phone is required");
     if (!data.platformLink) errors.push("Platform link is required");
     if (!data.country) errors.push("Country is required");
+    if (!data.group) errors.push("Group is required");
     if (!data.contribution) errors.push("Contribution is required");
+    if (data.contribution && data.contribution.length > 400)
+      errors.push("Contribution must be 400 characters or less");
 
     return { isValid: errors.length === 0, errors, data };
   }
@@ -499,6 +601,8 @@ function buildGatheringInvitationProperties(data) {
     Phone: { phone_number: data.phone !== "Not provided" ? data.phone : null },
     "Platform Link": { url: data.platformLink },
     Country: { select: { name: data.country } },
+    Group: { select: { name: data.group } },
+    Gathering: { select: { name: data.gathering } },
     Contribution: { rich_text: [{ text: { content: data.contribution } }] },
     Newsletter: { checkbox: data.newsletter },
     Status: { status: { name: "New" } },
@@ -661,12 +765,27 @@ async function sendToMailerLite(data) {
       fields: {},
     };
 
-    // Add name fields if provided
+    // Add name fields if provided (newsletter/form path)
     if (data.firstName) {
       subscriberData.fields.name = data.firstName;
     }
     if (data.lastName) {
       subscriberData.fields.last_name = data.lastName;
+    }
+
+    // contactName: full name string from Notion webhook — split into first/last
+    if (data.contactName) {
+      const spaceIndex = data.contactName.indexOf(" ");
+      if (spaceIndex === -1) {
+        subscriberData.fields.name = data.contactName;
+      } else {
+        subscriberData.fields.name = data.contactName.slice(0, spaceIndex);
+        subscriberData.fields.last_name = data.contactName.slice(spaceIndex + 1);
+      }
+    }
+
+    if (data.organisation) {
+      subscriberData.fields.organisation = data.organisation;
     }
 
     // Add interest field (required for newsletter forms)

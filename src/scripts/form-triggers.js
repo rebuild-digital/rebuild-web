@@ -14,6 +14,7 @@
     "builder-application": "/forms/builder-application.html",
     newsletter: "/forms/newsletter.html",
     "gathering-invitation": "/forms/gathering-invitation.html",
+    "gathering-invitation-rebuild3": "/forms/gathering-invitation-rebuild3.html",
     "application-rebuild1": "/forms/application-rebuild1.html",
   };
 

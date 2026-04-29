@@ -37,7 +37,7 @@ formMethod = method | default('POST') %}
         <input type="hidden" name="{{ field.name }}" value="{{ field.value }}"/>
       {% else %}
         <div
-      class="form-field mb-md {% if field.type == 'checkbox' %}flex items-start gap-sm{% endif %}"
+      class="form-field mb-md lg:mb-lg {% if field.type == 'checkbox' %}flex items-start gap-sm{% endif %}"
     >
           {% if field.type == 'checkbox' %}
             {# Checkbox layout: input first, then label #}
@@ -68,7 +68,8 @@ formMethod = method | default('POST') %}
               </label>
             {% endif %}
             {% if field.type == 'textarea' %}
-              <textarea
+              <div class="relative">
+                <textarea
         id="{{ field.id | default(field.name) }}"
         name="{{ field.name }}"
         rows="{{ field.rows | default(4) }}"
@@ -81,13 +82,28 @@ formMethod = method | default('POST') %}
         %}
         {%
         if
+        field.maxlength
+        %}maxlength="{{ field.maxlength }}"
+        data-char-limit="{{ field.maxlength }}"
+        {%
+        endif
+        %}
+        {%
+        if
         field.required
         %}required{%
         endif
         %}
-        class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue {{ field.class }}"
+        class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue {{ field.class }}{% if field.maxlength %} pb-lg{% endif %}"
         style="width: 100%; max-width: 100%"
       ></textarea>
+                {% if field.maxlength %}
+                  <span
+                    class="absolute bottom-sm right-sm text-xs text-muted pointer-events-none"
+                    data-char-counter="{{ field.id | default(field.name) }}"
+                  >0 / {{ field.maxlength }}</span>
+                {% endif %}
+              </div>
             {% elif field.type == 'select' %}
               <select
         id="{{ field.id | default(field.name) }}"
@@ -151,7 +167,8 @@ formMethod = method | default('POST') %}
               </div>
             {% else %}
               <input
-        type="{{ field.type | default('text') }}"
+        type="{{ 'text' if field.type == 'url' else field.type | default('text') }}"
+        {% if field.type == 'url' %}data-url-field{% endif %}
         id="{{ field.id | default(field.name) }}"
         name="{{ field.name }}"
         {%

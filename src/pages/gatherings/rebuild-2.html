@@ -95,6 +95,24 @@ permalink: /gatherings/rebuild-2/index.html
   </div>
 </section>
 
+{# Section 4 — Quotes from Rebuild 1 #}
+{% set quotes = [
+  {
+    text: "Getting to voice my appreciation [...] as well as sitting in a room full of 200 people who are not only dissenters but changemakers with a vision parallel to ours have been an emotional, activating experience.",
+    author: "Participant at Rebuild 1"
+  },
+  {
+    text: "[...] it felt like the kiss of a following wind to meet with more than 200 visionaries, builders, founders, experts, designers, developers and entrepreneurs to form an answer to one major question: How do we rebuild European social platforms?",
+    author: "Participant at Rebuild 1"
+  },
+  {
+    text: "It was one of the very few times that I was in an open heart space where people had not only a clear vision but also used their heads.",
+    author: "Participant at Rebuild 1"
+  }
+] %}
+{% set quoteInterval = 10000 %}
+{% include "components/quote-carousel.njk" %}
+
 {# Section 5 — FAQ #}
 <section class="py-xl sm:py-3xl">
   {% if event and event.faq %}

@@ -1,0 +1,103 @@
+{#
+  Quote Carousel Component
+
+  Usage:
+    {% set quotes = [
+      { text: "...", author: "..." }
+    ] %}
+    {% set quoteInterval = 7000 %}
+    {% include "components/quote-carousel.njk" %}
+#}
+
+<section
+  class="relative mt-3xl py-3xl lg:py-6xl overflow-hidden"
+  style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw;"
+  data-quote-carousel
+  data-interval="{{ quoteInterval | default(10000) }}"
+>
+
+  {# SVG circles — desktop only, half-visible at viewport edges #}
+  <svg
+    class="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none"
+    width="520" height="520" viewBox="0 0 520 520" fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <circle cx="260" cy="260" r="258" fill="#6ba1cc" fill-opacity="0.10"/>
+  </svg>
+  <svg
+    class="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 pointer-events-none"
+    width="520" height="520" viewBox="0 0 520 520" fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <circle cx="260" cy="260" r="258" fill="#6ba1cc" fill-opacity="0.10"/>
+  </svg>
+
+  {# Decorative quote marks #}
+  <span
+    class="absolute top-0 left-0 lg:top-12 lg:left-8 xl:top-24 xl:left-40 text-[120px] md:text-[240px] lg:text-[320px] text-blue leading-none select-none pointer-events-none"
+    aria-hidden="true"
+  >&#x201C;</span>
+  <span
+    class="absolute bottom-0 right-0 lg:right-8 xl:bottom-12 xl:right-40 text-[120px] md:text-[240px] lg:text-[320px] text-blue leading-none select-none pointer-events-none"
+    aria-hidden="true"
+  >&#x201D;</span>
+
+  {# Quote content — constrained to readable width, centered #}
+  <div class="w-full md:w-[70ch] lg:w-[100ch] mx-auto px-lg">
+    <div style="display: grid;">
+      {% for quote in quotes %}
+        <div
+          class="quote-carousel-slide"
+          style="grid-area: 1/1; opacity: {{ '1' if loop.first else '0' }}; transform: translateY({{ '0' if loop.first else '1rem' }}); pointer-events: {{ 'auto' if loop.first else 'none' }};"
+          aria-hidden="{{ 'true' if not loop.first else 'false' }}"
+        >
+          <p class="text-xl md:text-2xl lg:text-3xl font-normal leading-snug mb-md">{{ quote.text }}</p>
+          <p class="text-sm tracking-widest uppercase text-darker">— {{ quote.author }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const section = document.querySelector('[data-quote-carousel]');
+    if (!section) 
+      return;
+    const interval = parseInt(section.dataset.interval, 10) || 7000;
+    const dur = 700;
+    const slides = Array.from(section.querySelectorAll('.quote-carousel-slide'));
+    if (slides.length < 2) 
+      return;
+    let current = 0;
+
+    function advance() {
+      const prev = current;
+      current = (current + 1) % slides.length;
+
+      slides[prev].style.transition = 'opacity ' + dur + 'ms ease';
+      slides[prev].style.opacity = '0';
+      slides[prev].style.pointerEvents = 'none';
+      slides[prev].setAttribute('aria-hidden', 'true');
+
+      slides[current].style.transition = 'none';
+      slides[current].style.opacity = '0';
+      slides[current].style.transform = 'translateY(1rem)';
+      void slides[current].offsetHeight;
+      slides[current].style.transition = 'opacity ' + dur + 'ms ease, transform ' + dur + 'ms ease';
+      slides[current].style.opacity = '1';
+      slides[current].style.transform = 'translateY(0)';
+      slides[current].style.pointerEvents = 'auto';
+      slides[current].setAttribute('aria-hidden', 'false');
+
+      setTimeout(function () {
+        slides[prev].style.transition = 'none';
+        slides[prev].style.transform = 'translateY(1rem)';
+      }, dur);
+    }
+
+    setInterval(advance, interval);
+  })();
+</script>
