@@ -7,11 +7,13 @@ dist/
 # Cache
 .cache/
 
-# Cache
+# Claude
+CLAUDE.md
 .claude/
 
 # Environment variables
 .env
+.env-example
 
 # OS files
 .DS_Store
@@ -23,6 +25,7 @@ Thumbs.db
 *.swp
 *.swo
 *~
+.prettierrc
 
 # Logs
 npm-debug.log*

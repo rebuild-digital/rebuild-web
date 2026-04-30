@@ -1,0 +1,128 @@
+---
+layout: layouts/default.njk
+title: Rebuild 2
+description: The second gathering for the people building Europe's future social platforms. Helsinki, Finland — Aug 30 to Sep 01, 2026.
+permalink: /gatherings/rebuild-2/index.html
+---
+
+{% from "components/image-credit.njk" import imageCredit %}
+{% set event = null %}
+{% for e in events.events %}
+  {% if e.id == "rebuild-2" %}{% set event = e %}{% endif %}
+{% endfor %}
+
+{# Section 1 — Hero header #}
+<section class="pt-xl pb-lg">
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-md">
+    <div>
+      <h1 class="font-normal text-4xl md:text-5xl lg:text-7xl mb-xs">Rebuild 2</h1>
+      <div class="flex gap-8 lg:gap-16">
+        <p>Helsinki, Finland</p>
+        <p> Aug 30 – Sep 01</p>
+      </div>
+    </div>
+    <button data-form="gathering-invitation" class="
+            w-fit align-bottom px-lg py-sm bg-blue text-dark
+            sm:text-lg lg:text-2xl sm:w-auto sm:self-end sm:px-xl sm:py-md
+            hover:bg-blue-tint hover:text-dark 
+            transition-all whitespace-nowrap cursor-pointer
+            ">
+      Secure your spot
+    </button>
+  </div>
+</section>
+
+{# Section 2 — Hero image + tagline/countdown #}
+<section class="pb-xl sm:pb-3xl">
+  {# Full-width hero image #}
+  <div class="relative w-full aspect-auto md:aspect-video">
+    <img
+      src="/assets/images/helsinki.jpg"
+      alt="Helsinki, Finland"
+      class="w-full h-full object-cover"
+    />
+    {{ imageCredit("Kristaps Grundsteins") }}
+  </div>
+
+  {# Tagline + countdown row #}
+  <div class="mt-xl flex flex-col space-y-16 lg:space-y-0 lg:flex-row justify-between">
+    {# Left: tagline #}
+    <h2 class="text-xl md:text-2xl xl:text-3xl max-w-[45ch] leading-tight font-normal">
+      The second gathering for the people building Europe's future social platforms. The summer camp where we teach each other how to build, design, and scale social platforms.
+    </h2>
+
+    {# Right: countdown #}
+    <div class="w-[204px]">
+      <p class="text-xs tracking-widest uppercase mb-sm">Opening in</p>
+      <div data-countdown="2026-08-30T09:00:00Z" class="text-3xl md:text-4xl font-normal leading-tight">
+        <p><span data-countdown-days>—</span> days</p>
+        <p><span data-countdown-minutes>—</span> minutes</p>
+        <p><span data-countdown-seconds>—</span> seconds</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="/scripts/gathering-countdown.js"></script>
+
+{# Section 3 — Programme highlights #}
+<section class="py-xl sm:py-3xl" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw; background-color: rgba(107, 161, 204, 0.1)">
+  <div class="max-w-[1400px] mx-auto px-md">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-xl lg:gap-3xl">
+    {# Left: proof points #}
+    
+    <div class="space-y-2xl pr-8">
+
+      <h3 class="text-3xl mb-16">Programme highlights</h3>
+      {% if event and event.proofPoints %}
+        {% for point in event.proofPoints %}
+        <div>
+          <h3 class="text-xl mb-sm">{{ point.headline }}</h3>
+          <p class="text-base sm:text-lg">{{ point.description }}</p>
+        </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {# Right: stacked images #}
+    <div class="flex flex-col gap-sm">
+      <img src="/assets/images/rebuild1-pic.jpg" alt="Rebuild gathering"
+           class="w-full object-cover" style="aspect-ratio: 1/1" />
+      <img src="/assets/images/gatherings-main/gatherings-main-5.jpg" alt="Social lunch from Rebuild 1"
+           class="w-full object-cover hidden sm:block" style="aspect-ratio: 16/9" />
+    </div>
+  </div>
+  </div>
+</section>
+
+{# Section 4 — Quotes from Rebuild 1 #}
+{% set quotes = [
+  {
+    text: "Getting to voice my appreciation [...] as well as sitting in a room full of 200 people who are not only dissenters but changemakers with a vision parallel to ours have been an emotional, activating experience.",
+    author: "Participant at Rebuild 1"
+  },
+  {
+    text: "[...] it felt like the kiss of a following wind to meet with more than 200 visionaries, builders, founders, experts, designers, developers and entrepreneurs to form an answer to one major question: How do we rebuild European social platforms?",
+    author: "Participant at Rebuild 1"
+  },
+  {
+    text: "It was one of the very few times that I was in an open heart space where people had not only a clear vision but also used their heads.",
+    author: "Participant at Rebuild 1"
+  }
+] %}
+{% set quoteInterval = 10000 %}
+{% include "components/quote-carousel.njk" %}
+
+{# Section 5 — FAQ #}
+<section class="py-xl sm:py-3xl">
+  {% if event and event.faq %}
+    {% set faqItems = event.faq %}
+    {% set contactEmail = "hello@rebuild.net" %}
+    {% include "components/faq-accordion.njk" %}
+  {% endif %}
+</section>
+
+{# Section 6 — Engage #}
+<section class="pb-3xl">
+  {% include "components/engage.njk" %}
+</section>

@@ -1,13 +1,14 @@
 /* Tailwind CSS v4 */
 @import "tailwindcss";
 
+
 /* Font Face Declarations */
 @font-face {
   font-family: "ABC Social Mono";
   src: url("/fonts/ABCSocialMono-Book.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 /* Theme Configuration */
@@ -42,6 +43,7 @@
   --color-orange-tint: #d4a77a;
 
   /* Neutrals */
+  --color-white: #f7f8f9;
   --color-light: #e8e8e8;
   --color-lighter: #d9d9e0;
   --color-muted: #9c9cb4;
@@ -285,7 +287,7 @@
   /* Placeholder styling for form inputs */
   input::placeholder,
   textarea::placeholder {
-    color: var(--color-muted);
+    color: var(--color-darker);
     opacity: 1; /* Firefox applies opacity by default */
   }
 
@@ -420,7 +422,7 @@
   /* Filter Button Component */
   .filter-button {
     @apply inline-flex items-center gap-xs px-md lg:px-lg py-xs lg:py-sm text-sm rounded-4xl;
-    @apply border-2 border-dark bg-light text-dark;
+    @apply border-2 border-dark text-dark;
     @apply transition-colors duration-200 cursor-pointer;
     @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue;
   }
@@ -873,7 +875,7 @@
 
   /* Header Transitions */
   header {
-    @apply transition-all duration-300 bg-light;
+    @apply transition-all duration-300 bg-white;
   }
 
   header a,
@@ -898,14 +900,18 @@
     @apply border-light;
   }
 
-  header.transparent a,
-  header.transparent button,
-  header.transparent span,
-  header.transparent p {
+  header.transparent a:not(#mobile-menu a):not([role="menu"] a),
+  header.transparent button:not(#mobile-menu button),
+  header.transparent span:not(#mobile-menu span),
+  header.transparent p:not(#mobile-menu p) {
     @apply text-light;
   }
 
-  header.transparent img {
+  header.transparent ul[role="menu"] a {
+    @apply text-dark;
+  }
+
+  header.transparent img:not(#mobile-menu img) {
     filter: brightness(0) invert(1);
   }
 

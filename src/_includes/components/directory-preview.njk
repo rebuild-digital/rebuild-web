@@ -1,10 +1,11 @@
 {# Directory Preview Component Usage: {% include "components/directory-preview.njk" %} Displays 10
-randomly selected platforms from the directory #} {% set totalPlatforms = builders | length %} {%
-set randomPlatforms = builders | shuffle | limit(10) %}
+randomly selected platforms from the directory #}
+{% set totalPlatforms = builders | length %}
+{% set randomPlatforms = builders | shuffle | limit(10) %}
 
 <section
-  class="relative w-full py-4xl bg-blue"
-  style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw"
+  class="relative w-full py-4xl"
+  style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw; background-color: rgba(107, 161, 204, 0.1)"
 >
   <div class="max-w-[1400px] mx-auto px-md">
     {# Header #}
@@ -18,46 +19,52 @@ set randomPlatforms = builders | shuffle | limit(10) %}
       >
     </div>
 
-    {# Platform List #} {% if randomPlatforms and randomPlatforms | length > 0 %}
-    <div class="space-y-0">
-      {% for platform in randomPlatforms %}
-      <div
+    {# Platform List #}
+    {% if randomPlatforms and randomPlatforms | length > 0 %}
+      <div class="space-y-0">
+        {% for platform in randomPlatforms %}
+          <div
         class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-dark py-sm"
       >
-        {# Name #}
-        <h3 class="text-2xl md:mb-0 md:text-4xl font-normal text-dark">
-          <a
+            {# Name #}
+            <h3 class="text-2xl md:mb-0 md:text-4xl font-normal text-dark">
+              <a
             href="{{ platform.link }}"
             target="_blank"
             rel="noopener noreferrer"
             class="hover:underline transition-fast break-all"
           >
-            {{ platform.name }}
-          </a>
-        </h3>
+                {{ platform.name }}
+              </a>
+            </h3>
 
-        {# Categories #}
-        <div class="flex flex-wrap md:justify-end gap-xs">
-          {% for category in platform.category %}
-          <span class="text-sm text-dark">{{ category }} {% if not loop.last %}, {% endif %} </span>
-          {% endfor %}
-        </div>
+            {# Categories #}
+            <div class="flex flex-wrap md:justify-end gap-xs">
+              {% for category in platform.category %}
+                <span class="text-sm text-dark">{{ category }}
+                  {% if not loop.last %}, {% endif %}
+                </span>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
     {% else %}
-    <div class="py-xl">
-      <p class="text-lg text-dark">No platforms available. Total platforms: {{ totalPlatforms }}</p>
-    </div>
-    {% endif %} {# Footer #}
+      <div class="py-xl">
+        <p class="text-lg text-dark">No platforms available. Total platforms: {{ totalPlatforms }}</p>
+      </div>
+    {% endif %}
+    {# Footer #}
     <div
       class="mt-xl md:mt-3xl flex flex-col md:flex-row justify-end items-start md:items-center gap-lg"
     >
-      {# Count #} {#
+      {# Count #}
+      {#
       <p class="text-base max-w-96 md:text-lg text-dark">
         Among {{ totalPlatforms - 10 }} other social platforms we've listed, so far.
       </p>
-      #} {# CTAs #}
+      #}
+      {# CTAs #}
       <div class="flex gap-sm md:gap-md">
         <button
           data-form="builder-application"

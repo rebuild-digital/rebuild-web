@@ -11,27 +11,20 @@ permalink: /get-in-touch/index.html
 
 <section class="pt-4xl pb-0 lg:pb-6xl">
   <div class="max-w-[1400px] mx-auto">
+    {% set links = [
+      { label: "Email us",           href: "mailto:team@rebuild.net" },
+      { label: "Join the directory", href: "#", form: "builder-application" },
+      { label: "Suggest a platform", href: "#", form: "builder-promo" },
+      { label: "Follow us on Linkedin", href: "https://linkedin.com/company/rebuild-europe" },
+      { label: "Get the newsletter", href: "#", form: "newsletter" }
+    ] %}
     <div class="flex flex-col gap-y-xl">
+      {% for link in links %}
       <div class="flex flex-row items-center space-x-lg lg:space-x-2xl">
         <div class="w-8 h-8 lg:w-20 lg:h-20 rounded-full bg-dark"></div>
-        <a href="mailto:team@rebuild.net" class="text-xl lg:text-8xl hover:underline">Email us</a>
+        <a href="{{ link.href }}"{% if link.form %} data-form="{{ link.form }}"{% endif %} class="text-xl lg:text-8xl hover:underline">{{ link.label }}</a>
       </div>
-      <div class="flex flex-row items-center space-x-lg lg:space-x-2xl">
-        <div class="w-8 h-8 lg:w-20 lg:h-20 rounded-full bg-dark"></div>
-        <a href="#" data-form="builder-application" class="text-xl lg:text-8xl hover:underline">Join the directory</a>
-      </div>
-      <div class="flex flex-row items-center space-x-lg lg:space-x-2xl">
-        <div class="w-8 h-8 lg:w-20 lg:h-20 rounded-full bg-dark"></div>
-        <a href="#" data-form="builder-promo" class="text-xl lg:text-8xl hover:underline">Suggest a platform</a>
-      </div>
-      <div class="flex flex-row items-center space-x-lg lg:space-x-2xl">
-        <div class="w-8 h-8 lg:w-20 lg:h-20 rounded-full bg-dark"></div>
-        <a href="https://linkedin.com/company/rebuild-europe" class="text-xl lg:text-8xl hover:underline">Follow us on Linkedin</a>
-      </div>
-      <div class="flex flex-row items-center space-x-lg lg:space-x-2xl">
-        <div class="w-8 h-8 lg:w-20 lg:h-20 rounded-full bg-dark"></div>
-        <a href="#" data-form="newsletter" class="text-xl lg:text-8xl hover:underline">Get the newsletter</a>
-      </div>
+      {% endfor %}
     </div>
   </div>
 

@@ -1,3 +1,21 @@
+function initializeCharCounters(form) {
+  form.querySelectorAll("textarea[data-char-limit]").forEach((textarea) => {
+    const limit = parseInt(textarea.dataset.charLimit, 10);
+    const counter = form.querySelector(`[data-char-counter="${textarea.id}"]`);
+    if (!counter) return;
+
+    const update = () => {
+      const used = textarea.value.length;
+      counter.textContent = `${used} / ${limit}`;
+      counter.classList.toggle("text-red", used > limit);
+      counter.classList.toggle("text-muted", used <= limit);
+    };
+
+    textarea.addEventListener("input", update);
+    update();
+  });
+}
+
 // Form submission handler
 function initializeFormHandler(form) {
   const formId = form.id;
@@ -10,6 +28,7 @@ function initializeFormHandler(form) {
 
   console.log("Form handler initialized for:", formId);
   form.dataset.handlerInitialized = "true";
+  initializeCharCounters(form);
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -18,7 +37,7 @@ function initializeFormHandler(form) {
     console.log("Form submitting via JavaScript");
 
     // Normalize URL fields - add https:// if missing protocol
-    const urlInputs = form.querySelectorAll('input[type="url"]');
+    const urlInputs = form.querySelectorAll('input[data-url-field]');
     urlInputs.forEach((input) => {
       const value = input.value.trim();
       if (value && !value.match(/^https?:\/\//i)) {

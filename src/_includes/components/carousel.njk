@@ -3,45 +3,45 @@ controlled by /src/_data/carousel.json Each slide contains: - headline: Main tit
 Descriptive text - image: Image path - ctaText: Call-to-action button text - ctaLink: URL for the
 CTA button - bgColor: Background color (hex, rgb, or CSS color name) #}
 
-<section class="relative w-full overflow-hidden" style="height: 80vh">
+<section class="relative w-full overflow-hidden h-[80vh]">
   <div class="relative w-full h-full">
     {% for slide in carousel.slides %}
-    <div
+      <div
       class="carousel-slide absolute top-0 left-0 w-full h-full opacity-0 invisible pointer-events-none {% if loop.first %}opacity-100! visible! pointer-events-auto!{% endif %}"
       data-slide-id="{{ slide.id }}"
       data-bg-color="{{ slide.bgColor }}"
       style="background-color: {{ slide.bgColor }};"
     >
-      <div class="w-full max-w-[1400px] mx-auto h-full">
-        <div class="grid grid-cols-1 md:grid-cols-2 items-center h-full">
-          <!-- Image Column -->
-          <div class="w-full h-full order-1 md:order-1">
-            <img
+        <div class="w-full max-w-[1400px] mx-auto h-full">
+          <div class="grid grid-cols-1 lg:grid-cols-2 items-start lg:items-center h-full">
+            <!-- Image Column -->
+            <div class="w-full h-full max-h-[40vh] lg:max-h-full order-1 md:order-1">
+              <img
               src="{{ slide.image }}"
               alt="{{ slide.headline }}"
               loading="lazy"
-              class="w-full h-full max-h-[40vh] md:max-h-screen object-cover"
-            />
-          </div>
+              class="w-full h-full object-cover"
+/>
+            </div>
 
-          <!-- Content Column -->
-          <div class="order-2 md:order-2 flex flex-col justify-center px-sm md:px-3xl">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-normal mb-lg text-dark leading-tight">
-              {{ slide.headline }}
-            </h2>
-            <p class="text-lg md:text-xl text-dark mb-xl leading-tight max-w-[65ch]">
-              {{ slide.subheader }}
-            </p>
-            <a
+            <!-- Content Column -->
+            <div class="order-2 md:order-2 flex flex-col justify-center px-lg pt-lg lg:pt-0 lg:px-xl xl:px-3xl">
+              <h2 class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-normal mb-lg text-dark leading-tight">
+                {{ slide.headline }}
+              </h2>
+              <p class="text-base md:text-lg lg:text-xl text-dark mb-xl leading-normal max-w-[65ch]">
+                {{ slide.subheader }}
+              </p>
+              <a
               href="{{ slide.ctaLink }}"
-              class="inline-block px-sm py-xs bg-transparent border-2 border-dark text-dark hover:bg-dark hover:text-light transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue no-underline w-fit"
+              class="inline-block px-lg py-sm bg-transparent border-2 border-dark text-dark hover:bg-dark hover:text-light transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue no-underline w-fit"
             >
-              {{ slide.ctaText }}
-            </a>
+                {{ slide.ctaText }}
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     {% endfor %}
   </div>
 
@@ -49,7 +49,7 @@ CTA button - bgColor: Background color (hex, rgb, or CSS color name) #}
 </section>
 <div class="mt-sm md:mt-lg flex justify-center gap-sm z-10 mb-xl md:mb-0">
   {% for slide in carousel.slides %}
-  <button
+    <button
     class="carousel-dot w-3 h-3 bg-muted border-0 cursor-pointer transition-all duration-fast hover:bg-darker {% if loop.first %}bg-dark! w-8!{% endif %}"
     data-slide-index="{{ loop.index0 }}"
     aria-label="Go to slide {{ loop.index }}"

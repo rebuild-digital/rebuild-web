@@ -14,14 +14,14 @@ data-interval="3000" to the section element below #}
   {# Background Image Slideshow #}
   <div class="absolute top-0 left-0 w-full h-full z-10" aria-hidden="true">
     {% for image in splashImages %}
-    <div
+      <div
       class="splash-image absolute top-0 left-0 w-full h-full bg-cover bg-center {% if loop.first %}active{% endif %}"
       style="background-image: url('{{ image.src }}');"
       data-index="{{ loop.index0 }}"
       data-show-mobile="{{ image.showOnMobile }}"
     >
-      <img src="{{ image.src }}" alt="{{ image.alt }}" class="sr-only" />
-    </div>
+        <img src="{{ image.src }}" alt="{{ image.alt }}" class="sr-only"/>
+      </div>
     {% endfor %}
   </div>
 
@@ -72,12 +72,12 @@ data-interval="3000" to the section element below #}
             Stay involved
           </button>
 
-          <a
-            href="/journey/#rebuild-2"
+          <button
+            data-form="gathering-invitation"
             class="bg-splash-button border-2 border-light px-md py-sm text-light text-base no-underline transition-all duration-fast hover:bg-light hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue whitespace-nowrap"
           >
             Request invitation
-          </a>
+          </button>
 
           <a
             href="https://letter.rebuild.net"

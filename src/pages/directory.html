@@ -1,6 +1,6 @@
 ---
 layout: layouts/base.njk
-title: Social Platform Directory
+title: Directory
 description: We are mapping all the social platforms in Europe. This directory is growing every day based on input from people all around Europe. It is a collective piece of work. The platforms mapped are here because someone told us about their existence or directed us to a list, where they were mentioned. All are mapped as precisely as possible based on publicly available information. Is there a platform we should know about, or some information that should be adjusted? Let us know.
 permalink: /directory/index.html
 ---
@@ -40,10 +40,10 @@ permalink: /directory/index.html
 
       {# CTAs #}
       <div class="flex justify-end gap-sm md:gap-md md:w-1/2 h-16 md:h-20 leading-tight">
-        <button data-form="builder-application" class="inline-block px-sm md:px-lg py-xs bg-dark border-2 border-dark text-light hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
+        <button data-form="builder-application" class="inline-block px-sm md:px-lg py-xs bg-dark text-light hover:bg-darker transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
             Join the directory
           </button>
-        <button data-form="builder-promo" class="inline-block px-sm md:px-lg py-xs md:py-md bg-transparent border-2 border-dark text-dark hover:underline transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
+        <button data-form="builder-promo" class="inline-block px-sm md:px-lg py-xs md:py-md bg-light hover:bg-lighter text-dark transition-all duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue cursor-pointer">
             Suggest a platform
           </button>
       </div>
@@ -56,7 +56,7 @@ permalink: /directory/index.html
 
     {# Filters #}
     <div class="w-full lg:w-2/3">
-      <p class="text-sm text-muted">Filter by category</p>
+      <p class="text-sm text-darker">Filter by category</p>
       {% if builders and builders.length > 0 %}
         <div class="mt-lg mb-lg" id="category-filters-wrapper">
           <div class="flex gap-xs flex-wrap" id="category-filters">
@@ -87,5 +87,6 @@ permalink: /directory/index.html
 </section>
 
 {% block scripts %}
+  <script src="/scripts/category-colors.js"></script>
   <script src="/scripts/directory-filter.js"></script>
 {% endblock %}

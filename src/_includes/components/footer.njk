@@ -1,14 +1,14 @@
-<footer class="max-w-[800px] lg:max-w-[1400px] mx-auto px-md pb-md">
+<footer class="max-w-[800px] md:max-w-full lg:max-w-[1400px] mx-auto px-md pb-md">
   <div class="mx-auto pt-md">
-    <div class="flex flex-col md:flex-row justify-between">
+    <div class="flex flex-col lg:flex-row justify-between">
       <div class="flex flex-col">
         <div class="py-2 h-12">
-          <img src="{{site.logo}}" alt="Rebuild logo." />
+          <img class="h-6 w-auto" src="{{site.logo}}" alt="Rebuild logo."/>
         </div>
         <p class="text-sm">{{site.description }}</p>
 
         {# Newsletter signup form #}
-        <div class="text-sm mt-lg">
+        {# <div class="text-sm mt-lg">
           <p class="text-sm mb-xs">
             Get our newsletter or
             <a class="underline hover:text-blue" href="https://linkedin.com/company/rebuild-europe"
@@ -27,28 +27,26 @@
                 name="email"
                 placeholder="Email"
                 required
-                class="px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-              />
+                class="px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"/>
 
               <div class="flex flex-col sm:flex-row gap-xs">
                 <input
                   type="text"
                   name="first_name"
                   placeholder="First name"
-                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-                />
+                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"/>
                 <input
                   type="text"
                   name="last_name"
                   placeholder="Last name"
-                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"
-                />
+                  class="flex-1 px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue"/>
               </div>
 
               <select
                 name="interest"
                 required
-                class="px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue bg-light text-muted"
+                class="appearance-none px-sm py-xs border-2 border-dark text-sm focus:outline-none focus:ring-2 focus:ring-blue text-darker"
+                style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%231a1a2e' stroke-width='2' fill='none'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;"
               >
                 <option value="">Keep me up to date as...</option>
                 <option value="entrepreneur">an entrepreneur</option>
@@ -64,17 +62,15 @@
                   name="consent"
                   id="footer-consent"
                   required
-                  class="mt-1 w-6 h-6 border-2 border-dark focus:ring-2 focus:ring-blue"
-                />
+                  class="mt-1 w-6 h-6 border-2 border-dark focus:ring-2 focus:ring-blue"/>
                 <label for="footer-consent" class="text-xs text-dark">
                   I consent to receive newsletters and updates from Rebuild. I can unsubscribe at
                   any time.
                 </label>
               </div>
-
               <button
                 type="submit"
-                class="text-sm px-sm py-xs border-2 border-dark bg-darker text-light hover:bg-dark text-left self-start"
+                class="text-sm px-sm py-xs border-2 border-dark bg-dark text-light hover:bg-darker text-left self-start"
               >
                 Subscribe now
               </button>
@@ -92,41 +88,42 @@
               <p class="text-xs font-semibold">Something went wrong. Please try again.</p>
             </div>
           </form>
-        </div>
+        </div> #}
       </div>
 
       {# NAVIGATION #}
       <nav class="flex text-sm flex-row gap-xl mt-xl md:mt-0" aria-label="Footer Navigation">
         <ul class="flex flex-col gap-sm md:gap-md list-none md:flex-wrap md:justify-top">
           {% for item in site.main_navigation %}
-          <li>
-            <a
+            <li>
+              <a
               href="{{ item.url }}"
               class="text-dark hover:underline transition-fast hover:text-blue focus:text-blue"
               >{{ item.name }}</a
             >
-          </li>
+            </li>
           {% endfor %}
         </ul>
         <ul class="flex text-xs flex-col gap-sm list-none md:flex-wrap md:justify-top">
           {% for item in site.second_navigation %}
-          <li>
-            {% if item.clickable %}
-            <a
+            <li>
+              {% if item.clickable %}
+                <a
               href="{{ item.url }}"
               class="hover:underline transition-fast hover:text-blue focus:text-blue"
               >{{ item.name }}</a
             >
-            {% else %}
-            <span class="text-muted cursor-not-allowed">{{ item.name }}</span>
-            {% endif %}
-          </li>
+              {% else %}
+                <span class="text-darker cursor-not-allowed">{{ item.name }}</span>
+              {% endif %}
+            </li>
           {% endfor %}
         </ul>
       </nav>
     </div>
     <p class="text-dark text-xs mt-xl">
-      &copy; <span id="footer-year"></span> {{ site.title }} All rights reserved.
+      &copy; <span id="footer-year"></span>
+      {{ site.title }} All rights reserved.
     </p>
   </div>
 </footer>
@@ -143,23 +140,29 @@
   // Footer newsletter form submission handler
   (function () {
     const form = document.getElementById("footer-newsletter-form");
-    if (!form) return;
-
+    if (!form) 
+      return;
+    
     let fadeTimeout;
 
     function showMessage(element) {
       // Clear any existing timeout
-      if (fadeTimeout) clearTimeout(fadeTimeout);
-
+      if (fadeTimeout) 
+        clearTimeout(fadeTimeout);
+      
       // Show the message
-      element.classList.remove("hidden");
+      element
+        .classList
+        .remove("hidden");
       element.style.opacity = "1";
 
       // Fade out after 3 seconds
       fadeTimeout = setTimeout(() => {
         element.style.opacity = "0";
         setTimeout(() => {
-          element.classList.add("hidden");
+          element
+            .classList
+            .add("hidden");
         }, 300); // Wait for fade transition to complete
       }, 3000);
     }
@@ -172,8 +175,12 @@
       const errorEl = document.getElementById("footer-newsletter-error");
 
       // Hide both messages
-      successEl.classList.add("hidden");
-      errorEl.classList.add("hidden");
+      successEl
+        .classList
+        .add("hidden");
+      errorEl
+        .classList
+        .add("hidden");
 
       submitBtn.disabled = true;
       const originalText = submitBtn.textContent;
@@ -185,8 +192,8 @@
           method: "POST",
           body: formData,
           headers: {
-            Accept: "application/json",
-          },
+            Accept: "application/json"
+          }
         });
 
         if (response.ok) {
