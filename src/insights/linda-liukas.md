@@ -1,6 +1,6 @@
 ---
 title: "Public space computing"
-date: 2026-07-30
+date: 2026-07-09
 author: "Matt Muir"
 tags:
   - Stories
