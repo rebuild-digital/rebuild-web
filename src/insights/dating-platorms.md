@@ -1,5 +1,5 @@
 ---
-title: Love at Rebuild"
+title: Love at Rebuild
 date: 2026-06-30
 author: "Sophia Epstein"
 tags:
