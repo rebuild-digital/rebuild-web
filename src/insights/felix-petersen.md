@@ -1,6 +1,6 @@
 ---
 title: "Building home-cooked social"
-date: 2026-07-30
+date: 2026-07-14
 author: "Sophia Epstein"
 tags:
   - Stories
@@ -42,4 +42,4 @@ Another benefit of this lower bar for builders, he says, is “if things are rea
 
 That echoes one of the best pieces of advice Petersen says he’s ever been given: “have the intellectual honestly to admit to yourself that it’s not working.” The other piece is about user retention. “Retention is the only thing that matters in the beginning to understand if something works or it doesn’t,” he says. It doesn’t matter how many people are participating, how much press attention you’re getting or if your design or UX is nominated for awards, all builders need to achieve is 30-day retention, he specifies, “is someone who signed up 30 days ago still here?”
 
-In the vibe-coded world, this means builders can iterate, see what sticks, and kill what doesn’t incredibly quickly. Petersen himself is building an app every month (though when he hears that vibe-coding collective Danger Testing is doing one a week, he says he’s going to up his game). That’s the thing about Petersen, he’s not stuck in the past, he’s moving – quickly – with the times.
+In the vibe-coded world, this means builders can iterate, see what sticks, and kill what doesn’t incredibly quickly. Petersen himself is building an app every month (though when he hears that vibe-coding collective [Danger Testing](https://www.dangertesting.com/) is doing one a week, he says he’s going to up his game). That’s the thing about Petersen, he’s not stuck in the past, he’s moving – quickly – with the times.
