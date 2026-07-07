@@ -12,17 +12,20 @@ module.exports = async function (eleventyConfig) {
 
 	// Collections
 	eleventyConfig.addCollection("insights", (collection) => {
+		const now = new Date();
 		return collection
 			.getFilteredByGlob("src/insights/**/*.md")
+			.filter((post) => post.date <= now)
 			.sort((a, b) => b.date - a.date);
 	});
 
 	eleventyConfig.addCollection(
 		"featuredInsights",
 		(collection) => {
+			const now = new Date();
 			return collection
 				.getFilteredByGlob("src/insights/**/*.md")
-				.filter((post) => post.data.featured === true)
+				.filter((post) => post.data.featured === true && post.date <= now)
 				.sort((a, b) => b.date - a.date);
 		}
 	);
