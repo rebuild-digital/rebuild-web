@@ -5,7 +5,7 @@ author: "Sophia Epstein"
 tags:
   - Stories
 excerpt: "The story of Adegga, how it scaled to 50,000 users across half the world's countries and why André Ribeirinho believes offline is where online gets real."
-featured_image: "/assets/images/andre-0.jpg"
+featured_image: "/assets/images/andre-0.png"
 published: true
 ---
 
