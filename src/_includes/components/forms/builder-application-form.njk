@@ -5,9 +5,9 @@ description: Form description (optional, default provided) #} {% set formTitle =
 default('Join the directory') %} {% set formDescription = description | default('Are you building a
 social platform in Europe? Join our directory.') %} {% set builderApplicationFields = [ { type:
 'text', name: 'builder_name', label: 'Platform name', required: true }, { type: 'email', name:
-'email', label: 'Email', required: true }, { type: 'tel', name: 'phone', label: 'Phone number',
-required: false, helpText: 'Optional: In case we need to reach you.' }, { type: 'url', name:
-'website', label: 'Website or LinkedIn', required: true, helpText: 'Where can people learn more
+'email', label: 'Email', required: true, autocomplete: 'email' }, { type: 'tel', name: 'phone', label: 'Phone number',
+required: false, helpText: 'Optional: In case we need to reach you.', autocomplete: 'tel' }, { type: 'url', name:
+'website', label: 'Website or LinkedIn', required: true, autocomplete: 'url', helpText: 'Where can people learn more
 about your work?' }, { type: 'select', name: 'category', label: 'Primary category', required: true,
 options: [ 'Bundled', 'Community', 'Creator platform', 'Dating', 'Events', 'Forum', 'Groups',
 'Location', 'Social marketplace', 'Messaging', 'Microblogging', 'Networking', 'Photo sharing',

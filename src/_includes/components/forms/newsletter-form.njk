@@ -20,6 +20,7 @@ set isInline = inline | default(false) %} {% if isInline %} {# Inline compact la
         name="email"
         placeholder="your@email.com"
         required
+        autocomplete="email"
         class="w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue"
       />
     </div>
@@ -30,11 +31,12 @@ set isInline = inline | default(false) %} {% if isInline %} {# Inline compact la
       {{ formSubmitText }}
     </button>
   </form>
-  <div id="newsletter-form-inline-success" class="hidden mt-sm bg-green border-2 border-dark p-sm">
+  <div id="newsletter-form-inline-success" role="alert" class="hidden mt-sm bg-green border-2 border-dark p-sm">
     <p class="text-dark text-sm font-semibold">Thanks for subscribing!</p>
   </div>
   <div
     id="newsletter-form-inline-error"
+    role="alert"
     class="hidden mt-sm bg-red text-light border-2 border-dark p-sm"
   >
     <p class="text-sm font-semibold">Something went wrong. Please try again.</p>
@@ -88,9 +90,9 @@ set isInline = inline | default(false) %} {% if isInline %} {# Inline compact la
 </script>
 
 {% else %} {# Standard full-width layout #} {% set newsletterFields = [ { type: 'email', name:
-'email', label: 'Email', placeholder: 'your@email.com', required: true }, { type: 'text', name:
-'first_name', label: 'First name', placeholder: 'Jane', required: false }, { type: 'text', name:
-'last_name', label: 'Last name', placeholder: 'Doe', required: false }, { type: 'select', name:
+'email', label: 'Email', placeholder: 'your@email.com', required: true, autocomplete: 'email' }, { type: 'text', name:
+'first_name', label: 'First name', placeholder: 'Jane', required: false, autocomplete: 'given-name' }, { type: 'text', name:
+'last_name', label: 'Last name', placeholder: 'Doe', required: false, autocomplete: 'family-name' }, { type: 'select', name:
 'interest', label: 'Keep me up to date as...', placeholder: 'Keep me up to date as...', required:
 true, options: [ { value: 'entrepreneur', label: 'an entrepreneur' }, { value: 'investor', label:
 'an investor' }, { value: 'fund', label: 'a public fund manager' }, { value: 'media', label: 'a
