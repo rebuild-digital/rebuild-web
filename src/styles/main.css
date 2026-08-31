@@ -280,6 +280,10 @@
     outline-offset: 2px;
   }
 
+  #main-content:focus {
+    outline: none;
+  }
+
   *,
   *::before,
   *::after {
