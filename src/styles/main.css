@@ -46,7 +46,7 @@
   --color-white: #f7f8f9;
   --color-light: #e8e8e8;
   --color-lighter: #d9d9e0;
-  --color-muted: #6e6e82;
+  --color-muted: #9c9cb4;
   --color-darker: #5f5f79;
   --color-dark: #22223e;
 
@@ -501,7 +501,7 @@
   }
 
   .rich-text h6 {
-    @apply text-lg text-muted;
+    @apply text-lg text-darker;
   }
 
   /* Paragraphs and text formatting */
@@ -519,7 +519,7 @@
   }
 
   .rich-text small {
-    @apply text-sm text-muted block mt-md;
+    @apply text-sm text-darker block mt-md;
   }
 
   /* Lists */
@@ -572,7 +572,7 @@
   }
 
   .rich-text figcaption {
-    @apply text-sm text-muted mt-xs text-center;
+    @apply text-sm text-darker mt-xs text-center;
   }
 
   /* Blockquotes */
@@ -678,7 +678,7 @@
   }
 
   .rich-text dd {
-    @apply ml-lg mb-md text-muted;
+    @apply ml-lg mb-md text-darker;
   }
 
   /* Keyboard and abbreviation elements */

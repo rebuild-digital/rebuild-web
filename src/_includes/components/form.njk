@@ -99,7 +99,7 @@ formMethod = method | default('POST') %}
       ></textarea>
                 {% if field.maxlength %}
                   <span
-                    class="absolute bottom-sm right-sm text-xs text-muted pointer-events-none"
+                    class="absolute bottom-sm right-sm text-xs text-darker pointer-events-none"
                     data-char-counter="{{ field.id | default(field.name) }}"
                   >0 / {{ field.maxlength }}</span>
                 {% endif %}

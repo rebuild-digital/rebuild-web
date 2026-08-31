@@ -15,7 +15,7 @@ top-right corner (optional) #}
 />
     {% else %}
       <div class="bg-lighter aspect-video w-full flex items-center justify-center">
-        <span class="text-muted text-sm">No preview available</span>
+        <span class="text-darker text-sm">No preview available</span>
       </div>
     {% endif %}
     {# Label #}
@@ -30,7 +30,7 @@ top-right corner (optional) #}
   <div class="p-md flex flex-col flex-grow">
     {# Version #}
     {% if version %}
-      <p class="text-xs text-muted mb-xs">{{ version }}</p>
+      <p class="text-xs text-darker mb-xs">{{ version }}</p>
     {% endif %}
     {# Title #}
     <h3 class="text-xl md:text-2xl font-normal mb-sm">{{ title }}</h3>
