@@ -62,15 +62,17 @@
     {% block head %}{% endblock %}
   </head>
   <body class="bg-white">
+    {# Skip to main content link #}
+    <a href="#main-content" class="skip-link">
+      Skip to main content
+    </a>
     {# Header #}
     {% include "components/header.njk" %}
-    {# Homepage: content outside main wrapper for
-    full-width splash #}
     {% if page.url == "/" %}
+      {# Homepage: full-width content, main wraps everything #}
       {{ content | safe }}
     {% else %}
-      {# Other pages:
-    content inside main wrapper #}
+      {# Other pages: content inside constrained main wrapper #}
       <main id="main-content" class="lg:max-w-[1400px] mx-auto px-md pt-48">
         {{ content | safe }}
       </main>

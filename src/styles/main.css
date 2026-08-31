@@ -258,6 +258,28 @@
 
 /* Base Layer - Global styles and resets */
 @layer base {
+  /* Skip Navigation Link */
+  .skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 9999;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    border: 2px solid var(--color-light);
+    text-decoration: none;
+    font-size: 1rem;
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--color-blue);
+    outline-offset: 2px;
+  }
+
   *,
   *::before,
   *::after {
