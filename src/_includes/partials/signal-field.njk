@@ -1,0 +1,13 @@
+{% macro signalField(options={}) %}
+<canvas
+  class="signal-field {{ options.className | default('') }}"
+  data-signal-field
+  data-cols="{{ options.cols | default(13) }}"
+  data-rows="{{ options.rows | default(13) }}"
+  data-dot-gap="{{ options.dotGap | default(0.35) }}"
+  data-speed="{{ options.speed | default(1) }}"
+  data-frequency="{{ options.frequency | default(1) }}"
+  {% if options.seed %}data-seed="{{ options.seed }}"{% endif %}
+  aria-hidden="true"
+></canvas>
+{% endmacro %}
