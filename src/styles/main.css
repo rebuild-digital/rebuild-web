@@ -343,6 +343,10 @@
     font-family: inherit;
   }
 
+  button:focus-visible {
+    @apply outline-2 outline-blue outline-offset-2;
+  }
+
   /* Checkboxes */
   input[type="checkbox"] {
     appearance: none;

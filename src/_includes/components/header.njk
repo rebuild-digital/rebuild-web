@@ -16,14 +16,14 @@
               href="{{ item.url }}"
               class="no-underline hover:underline px-sm last:pl-0 py-xs transition-fast"
               {% if page.url == item.url %}aria-current="page"{% endif %}
-              {% if item.subItems %}aria-haspopup="true"{% endif %}
+              {% if item.subItems %}aria-haspopup="true" aria-expanded="false"{% endif %}
             >
                 {{ item.name }}
               </a>
 
               {% if item.subItems %}
                 <ul role="menu"
-                class="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 bg-white border-2 border-dark py-sm px-md mx-auto min-w-40 list-none hidden group-hover:block focus-within:block z-50">
+                class="desktop-submenu absolute top-full left-1/2 -translate-x-1/2 mt-1.5 bg-white border-2 border-dark py-sm px-md mx-auto min-w-40 list-none hidden group-hover:block focus-within:block z-50">
                   {% for sub in item.subItems %}
                     <li role="none" class="py-xs text-center">
                       {% if sub.url %}
@@ -123,3 +123,76 @@
     </div>
   </div>
 </header>
+
+<script>
+  (function () {
+    const triggers = document.querySelectorAll('[aria-haspopup="true"]');
+    triggers.forEach(function (trigger) {
+      const submenu = trigger.nextElementSibling;
+      if (!submenu || !submenu.classList.contains("desktop-submenu")) return;
+
+      function open() {
+        submenu.classList.add("block");
+        submenu.classList.remove("hidden");
+        trigger.setAttribute("aria-expanded", "true");
+      }
+
+      function close() {
+        submenu.classList.remove("block");
+        submenu.classList.add("hidden");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+
+      trigger.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
+          e.preventDefault();
+          open();
+          var first = submenu.querySelector('a[role="menuitem"]');
+          if (first) first.focus();
+        }
+      });
+
+      submenu.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          close();
+          trigger.focus();
+        }
+        var items = Array.from(submenu.querySelectorAll('a[role="menuitem"]'));
+        var idx = items.indexOf(document.activeElement);
+        if (e.key === "ArrowDown" && idx < items.length - 1) {
+          e.preventDefault();
+          items[idx + 1].focus();
+        } else if (e.key === "ArrowUp" && idx > 0) {
+          e.preventDefault();
+          items[idx - 1].focus();
+        } else if (e.key === "ArrowUp" && idx === 0) {
+          e.preventDefault();
+          close();
+          trigger.focus();
+        }
+      });
+
+      // Close when focus leaves the submenu
+      submenu.addEventListener("focusout", function (e) {
+        setTimeout(function () {
+          if (!submenu.contains(document.activeElement) && document.activeElement !== trigger) {
+            close();
+          }
+        }, 0);
+      });
+
+      // Sync aria-expanded with hover
+      var parent = trigger.closest(".group");
+      if (parent) {
+        parent.addEventListener("mouseenter", function () {
+          trigger.setAttribute("aria-expanded", "true");
+        });
+        parent.addEventListener("mouseleave", function () {
+          if (!submenu.contains(document.activeElement)) {
+            trigger.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
+    });
+  })();
+</script>
