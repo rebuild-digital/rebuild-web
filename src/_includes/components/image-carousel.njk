@@ -6,20 +6,31 @@ default(["/assets/images/social-1.jpg", "/assets/images/social-2.jpg",
 "/assets/images/social-3.jpg"]) %} {% set imageCredits = carouselImageCredits | default(["Egor
 Myznik", "Mathias Reding", "Sebastien Lavalaye"]) %}
 
-<div class="image-carousel relative w-full overflow-hidden" style="aspect-ratio: 3/4">
+<div class="image-carousel relative w-full overflow-hidden" style="aspect-ratio: 3/4" role="region" aria-roledescription="carousel" aria-label="Image gallery">
   {% for image in images %}
   <div
     class="carousel-slide absolute inset-0 transition-opacity duration-1000 {{ 'opacity-100' if loop.first else 'opacity-0' }}"
+    role="group"
+    aria-roledescription="slide"
+    aria-label="Image {{ loop.index }} of {{ images | length }}"
+    aria-hidden="{{ 'false' if loop.first else 'true' }}"
     data-index="{{ loop.index0 }}"
   >
     <img
       src="{{ image }}"
-      alt="Gallery image {{ loop.index }}"
+      alt="{% if imageCredits[loop.index0] %}Photo by {{ imageCredits[loop.index0] }}{% endif %}"
       class="w-full h-full object-cover"
     />
     {{ imageCredit(imageCredits[loop.index0]) }}
   </div>
   {% endfor %}
+  <button
+    class="image-carousel-pause absolute bottom-sm right-sm z-10 bg-dark/70 text-light border-0 px-sm py-xs text-xs cursor-pointer transition-all duration-fast hover:bg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
+    aria-label="Pause image slideshow"
+    data-playing="true"
+  >
+    <span aria-hidden="true">❚❚</span>
+  </button>
 </div>
 
 <script>
@@ -28,23 +39,42 @@ Myznik", "Mathias Reding", "Sebastien Lavalaye"]) %}
 
     carousels.forEach((carousel) => {
       const slides = carousel.querySelectorAll(".carousel-slide");
+      const pauseBtn = carousel.querySelector(".image-carousel-pause");
       let currentIndex = 0;
+      let isPlaying = true;
 
       function showNextImage() {
-        // Fade out current slide
         slides[currentIndex].classList.remove("opacity-100");
         slides[currentIndex].classList.add("opacity-0");
+        slides[currentIndex].setAttribute("aria-hidden", "true");
 
-        // Move to next slide
         currentIndex = (currentIndex + 1) % slides.length;
 
-        // Fade in next slide
         slides[currentIndex].classList.remove("opacity-0");
         slides[currentIndex].classList.add("opacity-100");
+        slides[currentIndex].setAttribute("aria-hidden", "false");
       }
 
-      // Change image every 4 seconds
-      setInterval(showNextImage, 4000);
+      let timer = setInterval(showNextImage, 4000);
+
+      if (pauseBtn) {
+        pauseBtn.addEventListener("click", function () {
+          if (isPlaying) {
+            clearInterval(timer);
+            timer = null;
+            isPlaying = false;
+            pauseBtn.setAttribute("aria-label", "Play image slideshow");
+            pauseBtn.setAttribute("data-playing", "false");
+            pauseBtn.querySelector("span").textContent = "▶";
+          } else {
+            timer = setInterval(showNextImage, 4000);
+            isPlaying = true;
+            pauseBtn.setAttribute("aria-label", "Pause image slideshow");
+            pauseBtn.setAttribute("data-playing", "true");
+            pauseBtn.querySelector("span").textContent = "❚❚";
+          }
+        });
+      }
     });
   })();
 </script>
