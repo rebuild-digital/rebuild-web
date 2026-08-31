@@ -99,7 +99,7 @@ formMethod = method | default('POST') %}
       ></textarea>
                 {% if field.maxlength %}
                   <span
-                    class="absolute bottom-sm right-sm text-xs text-muted pointer-events-none"
+                    class="absolute bottom-sm right-sm text-xs text-darker pointer-events-none"
                     data-char-counter="{{ field.id | default(field.name) }}"
                   >0 / {{ field.maxlength }}</span>
                 {% endif %}
@@ -184,6 +184,7 @@ formMethod = method | default('POST') %}
         %}required{%
         endif
         %}
+        {% if field.autocomplete %}autocomplete="{{ field.autocomplete }}"{% endif %}
         class="w-full max-w-full px-sm py-sm border-2 border-dark focus:outline-none focus:ring-2 focus:ring-blue {{ field.class }}"
         style="width: 100%; max-width: 100%"
 />
@@ -223,13 +224,14 @@ formMethod = method | default('POST') %}
     <div class="form-status my-md">
       <div
         id="{{ formId }}-success"
+        role="alert"
         class="hidden bg-green -translate-y-md border-2 border-dark p-md"
       >
         <p class="text-dark">
           {{ successMessage | default('Thank you! Your submission has been received.') }}
         </p>
       </div>
-      <div id="{{ formId }}-error" class="hidden bg-red text-light border-2 border-dark p-md">
+      <div id="{{ formId }}-error" role="alert" class="hidden bg-red text-light border-2 border-dark p-md">
         <p class="">
           {{ errorMessage | default('Sorry, there was an error submitting the form. Please try
           again.') }}

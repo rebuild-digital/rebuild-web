@@ -44,6 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // Update dots aria-current
+    updateDotsCurrent();
+
     // Update announcer
     updateAnnouncer();
   }
@@ -87,11 +90,42 @@ document.addEventListener("DOMContentLoaded", () => {
     startAutoplay();
   }
 
+  // Update dots aria-current
+  function updateDotsCurrent() {
+    dots.forEach((dot, i) => {
+      if (i === currentSlide) {
+        dot.setAttribute("aria-current", "true");
+      } else {
+        dot.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  // Pause/Play button
+  const pauseBtn = document.querySelector(".carousel-pause");
+  let isPlaying = true;
+
+  if (pauseBtn) {
+    pauseBtn.addEventListener("click", () => {
+      if (isPlaying) {
+        stopAutoplay();
+        isPlaying = false;
+        pauseBtn.setAttribute("data-playing", "false");
+        pauseBtn.textContent = "Start carousel";
+      } else {
+        startAutoplay();
+        isPlaying = true;
+        pauseBtn.setAttribute("data-playing", "true");
+        pauseBtn.textContent = "Stop carousel";
+      }
+    });
+  }
+
   // Navigation: Dots
   dots.forEach((dot, index) => {
     dot.addEventListener("click", () => {
       goToSlide(index);
-      restartAutoplay();
+      if (isPlaying) restartAutoplay();
     });
   });
 
@@ -106,10 +140,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (e.key === "ArrowLeft") {
       prevSlide();
-      restartAutoplay();
+      if (isPlaying) restartAutoplay();
     } else if (e.key === "ArrowRight") {
       nextSlide();
-      restartAutoplay();
+      if (isPlaying) restartAutoplay();
     }
   });
 
@@ -144,13 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Math.abs(swipeDistance) < minSwipeDistance) return;
 
     if (swipeDistance > 0) {
-      // Swipe right - go to previous slide
       prevSlide();
-      restartAutoplay();
+      if (isPlaying) restartAutoplay();
     } else {
-      // Swipe left - go to next slide
       nextSlide();
-      restartAutoplay();
+      if (isPlaying) restartAutoplay();
     }
   }
 

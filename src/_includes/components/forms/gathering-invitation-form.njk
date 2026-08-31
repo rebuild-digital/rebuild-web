@@ -6,18 +6,21 @@ to join Rebuild 2 #}
     type: 'text',
     name: 'name',
     label: 'What is your name?',
-    required: true
+    required: true,
+    autocomplete: 'name'
   }, {
     type: 'email',
     name: 'email',
     label: 'What is your email address?',
-    required: true
+    required: true,
+    autocomplete: 'email'
   }, {
     type: 'tel',
     name: 'phone',
     label: 'And your phone number?',
     required: true,
-    helpText: 'It will help us reach you more easily during the gathering.'
+    helpText: 'It will help us reach you more easily during the gathering.',
+    autocomplete: 'tel'
   }, {
     type: 'url',
     name: 'platform_link',

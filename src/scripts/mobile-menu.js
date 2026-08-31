@@ -25,7 +25,8 @@
     mobileMenu.classList.remove("hidden");
     mobileMenu.setAttribute("aria-hidden", "false");
     menuToggle.setAttribute("aria-expanded", "true");
-    body.style.overflow = "hidden"; // Prevent scrolling when menu is open
+    body.style.overflow = "hidden";
+    menuClose.focus();
   }
 
   /**

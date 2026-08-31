@@ -1,8 +1,8 @@
 {# Simple Registration Form Usage: {% include "components/forms/simple-registration-form.njk" %} A
 simplified registration form with basic attendee information #} {% set simpleRegistrationFields = [
-{ type: 'text', name: 'name', label: 'Name', required: true }, { type: 'email', name: 'email',
-label: 'Email', required: true }, { type: 'text', name: 'organisation', label: 'Organisation',
-required: true, helpText: 'What is your organisation called?' }, { type: 'text', name: 'role',
+{ type: 'text', name: 'name', label: 'Name', required: true, autocomplete: 'name' }, { type: 'email', name: 'email',
+label: 'Email', required: true, autocomplete: 'email' }, { type: 'text', name: 'organisation', label: 'Organisation',
+required: true, helpText: 'What is your organisation called?', autocomplete: 'organization' }, { type: 'text', name: 'role',
 label: 'Role', required: false, helpText: 'What is your role in the organisation?' }, { type:
 'select', name: 'country', label: 'Country', required: true, options: [ 'Albania', 'Andorra',
 'Armenia', 'Austria', 'Azerbaijan', 'Belarus', 'Belgium', 'Bosnia and Herzegovina', 'Bulgaria',

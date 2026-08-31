@@ -28,7 +28,7 @@ to true) #} {% set isPublished = published if published != undefined else true %
     {% endif %} {# {% if author %}
     <p class="{% if not isPublished %}text-muted{% else %}text-dark{% endif %}">— {{ author }}</p>
     {% endif %} #} {% if not isPublished %}
-    <p class="text-sm text-muted mt-xs italic">Coming soon</p>
+    <p class="text-sm text-darker mt-xs italic">Coming soon</p>
     {% endif %}
   </div>
 </article>

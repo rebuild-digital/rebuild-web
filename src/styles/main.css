@@ -258,6 +258,32 @@
 
 /* Base Layer - Global styles and resets */
 @layer base {
+  /* Skip Navigation Link */
+  .skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 9999;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    border: 2px solid var(--color-light);
+    text-decoration: none;
+    font-size: 1rem;
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--color-blue);
+    outline-offset: 2px;
+  }
+
+  #main-content:focus {
+    outline: none;
+  }
+
   *,
   *::before,
   *::after {
@@ -319,6 +345,15 @@
   button {
     @apply cursor-pointer bg-transparent;
     font-family: inherit;
+  }
+
+  button:focus-visible {
+    @apply outline-2 outline-blue outline-offset-2;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   /* Checkboxes */
@@ -470,7 +505,7 @@
   }
 
   .rich-text h6 {
-    @apply text-lg text-muted;
+    @apply text-lg text-darker;
   }
 
   /* Paragraphs and text formatting */
@@ -488,7 +523,7 @@
   }
 
   .rich-text small {
-    @apply text-sm text-muted block mt-md;
+    @apply text-sm text-darker block mt-md;
   }
 
   /* Lists */
@@ -541,7 +576,7 @@
   }
 
   .rich-text figcaption {
-    @apply text-sm text-muted mt-xs text-center;
+    @apply text-sm text-darker mt-xs text-center;
   }
 
   /* Blockquotes */
@@ -647,7 +682,7 @@
   }
 
   .rich-text dd {
-    @apply ml-lg mb-md text-muted;
+    @apply ml-lg mb-md text-darker;
   }
 
   /* Keyboard and abbreviation elements */
