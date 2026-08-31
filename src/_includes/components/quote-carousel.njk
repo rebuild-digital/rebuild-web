@@ -66,12 +66,9 @@
     </div>
     <div class="flex justify-center mt-lg">
       <button
-        class="quote-carousel-pause bg-transparent border-2 border-dark text-dark px-md py-xs text-sm cursor-pointer transition-all duration-fast hover:bg-dark hover:text-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
-        aria-label="Pause quotes"
+        class="quote-carousel-pause bg-transparent border-0 text-muted px-sm py-xxs text-xs cursor-pointer transition-all duration-fast hover:text-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
         data-playing="true"
-      >
-        <span aria-hidden="true">❚❚</span> <span class="quote-pause-text">Pause</span>
-      </button>
+      >Stop carousel</button>
     </div>
   </div>
 </section>
@@ -120,16 +117,12 @@
         if (timer) {
           clearInterval(timer);
           timer = null;
-          pauseBtn.setAttribute('aria-label', 'Play quotes');
           pauseBtn.setAttribute('data-playing', 'false');
-          pauseBtn.querySelector('[aria-hidden]').textContent = '▶';
-          pauseBtn.querySelector('.quote-pause-text').textContent = 'Play';
+          pauseBtn.textContent = 'Start carousel';
         } else {
           timer = setInterval(advance, interval);
-          pauseBtn.setAttribute('aria-label', 'Pause quotes');
           pauseBtn.setAttribute('data-playing', 'true');
-          pauseBtn.querySelector('[aria-hidden]').textContent = '❚❚';
-          pauseBtn.querySelector('.quote-pause-text').textContent = 'Pause';
+          pauseBtn.textContent = 'Stop carousel';
         }
       });
     }

@@ -110,15 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isPlaying) {
         stopAutoplay();
         isPlaying = false;
-        pauseBtn.setAttribute("aria-label", "Play carousel");
         pauseBtn.setAttribute("data-playing", "false");
-        pauseBtn.querySelector("span").textContent = "▶";
+        pauseBtn.textContent = "Start carousel";
       } else {
         startAutoplay();
         isPlaying = true;
-        pauseBtn.setAttribute("aria-label", "Pause carousel");
         pauseBtn.setAttribute("data-playing", "true");
-        pauseBtn.querySelector("span").textContent = "❚❚";
+        pauseBtn.textContent = "Stop carousel";
       }
     });
   }

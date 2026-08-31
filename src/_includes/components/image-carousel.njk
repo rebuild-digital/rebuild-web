@@ -25,12 +25,9 @@ Myznik", "Mathias Reding", "Sebastien Lavalaye"]) %}
   </div>
   {% endfor %}
   <button
-    class="image-carousel-pause absolute bottom-sm right-sm z-10 bg-dark/70 text-light border-0 px-sm py-xs text-xs cursor-pointer transition-all duration-fast hover:bg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
-    aria-label="Pause image slideshow"
+    class="image-carousel-pause absolute bottom-sm right-sm z-10 bg-dark/50 text-light border-0 px-sm py-xs text-xs cursor-pointer transition-all duration-fast hover:bg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
     data-playing="true"
-  >
-    <span aria-hidden="true">❚❚</span>
-  </button>
+  >Stop carousel</button>
 </div>
 
 <script>
@@ -63,15 +60,13 @@ Myznik", "Mathias Reding", "Sebastien Lavalaye"]) %}
             clearInterval(timer);
             timer = null;
             isPlaying = false;
-            pauseBtn.setAttribute("aria-label", "Play image slideshow");
             pauseBtn.setAttribute("data-playing", "false");
-            pauseBtn.querySelector("span").textContent = "▶";
+            pauseBtn.textContent = "Start carousel";
           } else {
             timer = setInterval(showNextImage, 4000);
             isPlaying = true;
-            pauseBtn.setAttribute("aria-label", "Pause image slideshow");
             pauseBtn.setAttribute("data-playing", "true");
-            pauseBtn.querySelector("span").textContent = "❚❚";
+            pauseBtn.textContent = "Stop carousel";
           }
         });
       }
