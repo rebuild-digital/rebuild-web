@@ -10,34 +10,59 @@
  */
 
 module.exports = [
-  {
-    src: "/assets/images/splash-0.jpg",
-    alt: "Rebuild gathering participants collaborating",
-    showOnMobile: true,
-  },
-  {
-    src: "/assets/images/splash-2.jpg",
-    alt: "European social platforms ecosystem",
-    showOnMobile: true,
-  },
-  {
-    src: "/assets/images/splash-3.jpg",
-    alt: "Rebuild community building connections",
-    showOnMobile: false,
-  },
-  {
-    src: "/assets/images/splash-4.jpg",
-    alt: "Social platform builders in action",
-    showOnMobile: false,
-  },
-  {
-    src: "/assets/images/splash-5.jpg",
-    alt: "Collaborative innovation at Rebuild",
-    showOnMobile: true,
-  },
-  {
-    src: "/assets/images/splash-6.jpg",
-    alt: "More collaborative innovation at Rebuild",
-    showOnMobile: true,
-  },
+	{
+		src: "/assets/images/splash-7.jpeg",
+		alt: "Rebuild gathering participants collaborating",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-9.jpeg",
+		alt: "Rebuild community building connections",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-11.jpeg",
+		alt: "Collaborative innovation at Rebuild",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-13.jpeg",
+		alt: "More collaborative innovation at Rebuild",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-0.jpg",
+		alt: "Rebuild gathering participants collaborating",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-8.jpeg",
+		alt: "European social platforms ecosystem",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-9.jpeg",
+		alt: "Rebuild community building connections",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-10.jpeg",
+		alt: "Social platform builders in action",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-11.jpeg",
+		alt: "Collaborative innovation at Rebuild",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-12.jpeg",
+		alt: "More collaborative innovation at Rebuild",
+		showOnMobile: true,
+	},
+	{
+		src: "/assets/images/splash-13.jpeg",
+		alt: "More collaborative innovation at Rebuild",
+		showOnMobile: true,
+	},
 ];
