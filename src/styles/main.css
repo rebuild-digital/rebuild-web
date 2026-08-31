@@ -46,7 +46,7 @@
   --color-white: #f7f8f9;
   --color-light: #e8e8e8;
   --color-lighter: #d9d9e0;
-  --color-muted: #9c9cb4;
+  --color-muted: #6e6e82;
   --color-darker: #5f5f79;
   --color-dark: #22223e;
 
@@ -345,6 +345,11 @@
 
   button:focus-visible {
     @apply outline-2 outline-blue outline-offset-2;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   /* Checkboxes */

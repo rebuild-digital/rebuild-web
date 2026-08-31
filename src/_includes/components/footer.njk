@@ -114,7 +114,7 @@
               >{{ item.name }}</a
             >
               {% else %}
-                <span class="text-darker cursor-not-allowed">{{ item.name }}</span>
+                <span class="text-darker cursor-not-allowed" aria-disabled="true">{{ item.name }}</span>
               {% endif %}
             </li>
           {% endfor %}
