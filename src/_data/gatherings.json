@@ -18,15 +18,12 @@
       "slug": "rebuild-2",
       "title": "Rebuild 2",
       "overlayText": "Rebuild 2",
-      "status": "current",
+      "status": "past",
       "location": "Helsinki, Finland",
       "startDate": "Aug 30",
       "endDate": "Sep 01",
-      "image": "/assets/images/helsinki.jpg",
-      "imageCredit": "Kristaps Grundsteins",
-      "titleColor": "#6ba1cc",
-      "pageUrl": "/gatherings/rebuild-2/",
-      "ctaPrimary": { "text": "Learn more", "url": "/gatherings/rebuild-2/" }
+      "image": "/assets/images/splash-7.jpeg",
+      "titleColor": "#6ba1cc"
     },
     {
       "id": "rebuild-3",

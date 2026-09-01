@@ -910,7 +910,8 @@
 
   /* Header Transitions */
   header {
-    @apply transition-all duration-300 bg-white;
+    @apply bg-white;
+    transition: background-color 300ms ease, border-color 300ms ease;
   }
 
   header a,
@@ -958,7 +959,7 @@
     @apply text-light;
   }
 
-  /* Ensure smooth transitions */
+  /* Ensure smooth transitions — only animate color-related properties, never layout */
   header a,
   header button,
   header span,
@@ -967,7 +968,7 @@
   header .border-b-2,
   header .beta-banner,
   header .marquee-text {
-    @apply transition-all duration-300;
+    transition: color 300ms ease, border-color 300ms ease, filter 300ms ease, background-color 300ms ease;
   }
 }
 

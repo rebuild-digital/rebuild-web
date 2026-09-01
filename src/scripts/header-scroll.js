@@ -29,7 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Initial check - run on load and after a short delay to ensure layout is ready
+  // Suppress transitions during initial state calculation to avoid FOUC
+  header.style.transition = "none";
   handleScroll();
-  setTimeout(handleScroll, 100);
+  // Force reflow so the transitionless state is painted before re-enabling
+  header.offsetHeight; // eslint-disable-line no-unused-expressions
+  requestAnimationFrame(function () {
+    header.style.transition = "";
+  });
 });
