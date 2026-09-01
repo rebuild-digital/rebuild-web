@@ -36,6 +36,10 @@ module.exports = {
 			url: "/tools/",
 		},
 		{
+			name: "Data",
+			url: "/data/",
+		},
+		{
 			name: "Insights",
 			url: "/insights/",
 		},
