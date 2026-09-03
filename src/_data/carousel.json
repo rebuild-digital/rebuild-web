@@ -2,11 +2,11 @@
 	"slides": [
 		{
 			"id": "slide-1",
-			"headline": "Rebuild 2 is up next",
-			"subheader": "48 hours in Helsinki, the summer camp where we teach each other how to build, design, and scale social platforms.",
-			"image": "/assets/images/helsinki.jpg",
-			"ctaText": "Secure your spot",
-			"ctaLink": "/gatherings/rebuild-2",
+			"headline": "Sign the Rebuild Letter",
+			"subheader": "Add your public support to European Social Platforms by signing the Rebuild Letter - today!",
+			"image": "/assets/images/letter-rb1.jpg",
+			"ctaText": "Sign here",
+			"ctaLink": "https://letter.rebuild.net",
 			"bgColor": "#E7ECF0"
 		},
 		{
