@@ -728,10 +728,11 @@
     }
   }
 
-  /* Category Filters Wrapper - clips overflow on mobile */
+  /* Category Filters Wrapper - horizontal scroll on mobile */
   #category-filters-wrapper {
     @media (max-width: 767px) {
       overflow-x: auto;
+      overflow-y: hidden;
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE and Edge */
     }
@@ -746,10 +747,9 @@
 
   /* Category Filters Component */
   #category-filters {
-    /* Mobile only: wider container to allow wrapping beyond viewport */
     @media (max-width: 767px) {
-      width: 200vw; /* Make container twice the screen width */
-      max-height: 180px; /* Approximately 3 rows of filter buttons */
+      width: max-content;
+      min-width: 100%;
     }
   }
 

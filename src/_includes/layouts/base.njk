@@ -47,6 +47,12 @@
     {# Favicon #}
     <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 
+    {# Critical CSS — prevents FOUC on mobile nav before Tailwind loads #}
+    <style>
+      @media (max-width: 1023px) { nav[aria-label="Main navigation"] { display: none !important; } }
+      @media (min-width: 1024px) { #mobile-menu-toggle { display: none !important; } }
+    </style>
+
     {# Stylesheets #}
     <link rel="stylesheet" href="/styles/main.css"/>
 
