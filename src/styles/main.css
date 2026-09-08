@@ -732,7 +732,6 @@
   #category-filters-wrapper {
     @media (max-width: 767px) {
       overflow-x: auto;
-      overflow-y: hidden;
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE and Edge */
     }
@@ -748,8 +747,7 @@
   /* Category Filters Component */
   #category-filters {
     @media (max-width: 767px) {
-      width: max-content;
-      min-width: 100%;
+      width: 200vw;
     }
   }
 
