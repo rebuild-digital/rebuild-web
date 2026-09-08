@@ -32,7 +32,7 @@ set isInline = inline | default(false) %} {% if isInline %} {# Inline compact la
     </button>
   </form>
   <div id="newsletter-form-inline-success" role="alert" class="hidden mt-sm bg-green border-2 border-dark p-sm">
-    <p class="text-dark text-sm font-semibold">Thanks for subscribing!</p>
+    <p class="text-dark text-sm font-semibold">Success, you signed up! Check your email soon for the latest update from the Rebuild team.</p>
   </div>
   <div
     id="newsletter-form-inline-error"
@@ -101,6 +101,5 @@ media representative' }, { value: 'curious', label: 'a curious individual' } ] }
 unsubscribe at any time.', required: true } ] %} {% set formId = 'newsletter-form' %} {% set action
 = site.apiUrl + '/api/newsletter-signup' %} {% set method = 'POST' %} {% set title = formTitle %} {%
 set description = formDescription %} {% set submitText = formSubmitText %} {% set submitVariant =
-'primary' %} {% set fields = newsletterFields %} {% set successMessage = 'Thank you for subscribing!
-Check your email to confirm your subscription.' %} {% set errorMessage = 'Oops! There was an error
+'primary' %} {% set fields = newsletterFields %} {% set successMessage = 'Success, you signed up! Check your email soon for the latest update from the Rebuild team.' %} {% set errorMessage = 'Oops! There was an error
 processing your subscription. Please try again.' %} {% include "components/form.njk" %} {% endif %}
