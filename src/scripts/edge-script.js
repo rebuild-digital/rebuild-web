@@ -21,9 +21,25 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - MAILERLITE_API_KEY (for newsletter and rebuild1 confirmations)
  * - MAILERLITE_GROUP_ID (for general newsletter signups)
  * - MAILERLITE_REBUILD1_GROUP_ID (for rebuild1 event registrations - triggers confirmation email)
- * - NOTION_WEBHOOK_SECRET (optional, for validating Notion automation webhooks)
+ * - NOTION_WEBHOOK_SECRET (required, for validating Notion automation webhooks)
  * - MAILERLITE_NOTION_SYNC_GROUP_ID (for Notion→MailerLite synced subscribers)
  */
+
+function maskEmail(email) {
+  if (!email || typeof email !== "string") return "[no email]";
+  const [local, domain] = email.split("@");
+  if (!domain) return "[invalid]";
+  return local[0] + "***@" + domain;
+}
+
+function timingSafeEqual(a, b) {
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
 
 // Notion property names for the MailerLite sync webhook (case-sensitive)
 const CHECKBOX_PROPERTY_NAME = "PUBLISHED?";
@@ -47,8 +63,16 @@ BunnySDK.net.http
 
     // CORS headers
 
+    const allowedOrigins = [
+      "https://rebuild.net",
+      "https://www.rebuild.net",
+      "https://letter.rebuild.net",
+    ];
+    const origin = request.headers.get("Origin") || "";
+    const corsOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+
     const corsHeaders = {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": corsOrigin,
 
       "Access-Control-Allow-Methods": "POST, OPTIONS",
 
@@ -105,16 +129,21 @@ async function handleNotionMailerliteSync(request) {
     );
   }
 
-  // Optional shared secret verification
+  // Shared secret verification (required)
   const secret = Deno.env.get("NOTION_WEBHOOK_SECRET");
-  if (secret) {
-    const incoming = request.headers.get("X-Webhook-Secret");
-    if (incoming !== secret) {
-      return new Response(
-        JSON.stringify({ error: "Unauthorized" }),
-        { status: 401, headers: jsonHeaders }
-      );
-    }
+  if (!secret) {
+    console.error("NOTION_WEBHOOK_SECRET is not configured");
+    return new Response(
+      JSON.stringify({ error: "Server configuration error" }),
+      { status: 500, headers: jsonHeaders }
+    );
+  }
+  const incoming = request.headers.get("X-Webhook-Secret") || "";
+  if (incoming.length !== secret.length || !timingSafeEqual(incoming, secret)) {
+    return new Response(
+      JSON.stringify({ error: "Unauthorized" }),
+      { status: 401, headers: jsonHeaders }
+    );
   }
 
   let payload;
@@ -127,7 +156,7 @@ async function handleNotionMailerliteSync(request) {
     );
   }
 
-  console.log("Notion webhook received:", JSON.stringify(payload));
+  console.log("Notion webhook received");
 
   const props = payload?.data?.properties ?? payload?.properties ?? {};
 
@@ -147,9 +176,9 @@ async function handleNotionMailerliteSync(request) {
     null;
 
   if (!email) {
-    console.error("No email found in payload properties:", JSON.stringify(props));
+    console.error("No email found in payload properties");
     return new Response(
-      JSON.stringify({ error: `No email found in property "${EMAIL_PROPERTY_NAME}"` }),
+      JSON.stringify({ error: "No email found in expected property" }),
       { status: 422, headers: jsonHeaders }
     );
   }
@@ -164,14 +193,21 @@ async function handleNotionMailerliteSync(request) {
   const result = await sendToMailerLite({ email, organisation, contactName, groupId });
 
   if (!result.success) {
-    console.error("MailerLite error for", email, result.error);
+    if (result.subscriberInactive) {
+      console.log(`Subscriber ${maskEmail(email)} is inactive in MailerLite — skipping`);
+      return new Response(
+        JSON.stringify({ skipped: true, reason: "Subscriber inactive in MailerLite" }),
+        { status: 200, headers: jsonHeaders }
+      );
+    }
+    console.error("MailerLite error for", maskEmail(email));
     return new Response(
-      JSON.stringify({ error: result.error, details: result.details }),
+      JSON.stringify({ error: result.error }),
       { status: result.status || 500, headers: jsonHeaders }
     );
   }
 
-  console.log(`Successfully subscribed ${email} to MailerLite`);
+  console.log(`Successfully subscribed ${maskEmail(email)} to MailerLite`);
   return new Response(
     JSON.stringify({ success: true, subscriber: email }),
     { status: 200, headers: jsonHeaders }
@@ -198,16 +234,17 @@ async function handleFormSubmission(request, url, corsHeaders) {
 
     const submission = parseFormData(formData, isPromotion);
 
-    // Deduplicate rapid submissions based on email
+    // Deduplicate rapid submissions based on form type + email
     const email = submission.data?.email;
-    const dedupKey = email?.toLowerCase();
+    const formType = submission.data?.type || "unknown";
+    const dedupKey = email ? `${formType}:${email.toLowerCase()}` : null;
     if (dedupKey) {
       const lastSubmission = recentSubmissions.get(dedupKey);
       const now = Date.now();
 
       if (lastSubmission && now - lastSubmission < DEDUP_WINDOW_MS) {
         console.log(
-          `Duplicate submission blocked for: ${email} (within ${DEDUP_WINDOW_MS}ms)`
+          `Duplicate submission blocked for: ${maskEmail(email)} (within ${DEDUP_WINDOW_MS}ms)`
         );
         const successMessage =
           submission.data?.type === "application_rebuild1"
@@ -264,7 +301,7 @@ async function handleFormSubmission(request, url, corsHeaders) {
       const emailAddress = submission.data.email || submission.data.yourEmail;
 
       if (emailAddress && emailAddress !== "Not provided") {
-        console.log(`Newsletter signup requested for: ${emailAddress}`);
+        console.log(`Newsletter signup requested for: ${maskEmail(emailAddress)}`);
 
         // Prepare data for MailerLite
         const mailerliteData = {
@@ -288,10 +325,10 @@ async function handleFormSubmission(request, url, corsHeaders) {
         const mailerLiteResult = await sendToMailerLite(mailerliteData);
 
         if (mailerLiteResult.success) {
-          console.log(`Successfully added ${emailAddress} to MailerLite`);
+          console.log(`Successfully added ${maskEmail(emailAddress)} to MailerLite`);
         } else {
           // Log the error but don't fail the form submission
-          console.error(`Failed to add ${emailAddress} to MailerLite:`, mailerLiteResult.error);
+          console.error(`Failed to add ${maskEmail(emailAddress)} to MailerLite`);
         }
       } else {
         console.log('Newsletter signup requested but no valid email provided');
@@ -341,7 +378,7 @@ async function handleFormSubmission(request, url, corsHeaders) {
     return new Response(
       JSON.stringify({
         error: "Internal server error",
-        message: error.message,
+        message: "An error occurred while processing your submission",
       }),
 
       {
@@ -352,6 +389,8 @@ async function handleFormSubmission(request, url, corsHeaders) {
     );
   }
 }
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function parseFormData(formData, isPromotion) {
   const errors = [];
@@ -375,6 +414,7 @@ function parseFormData(formData, isPromotion) {
 
     if (!data.name) errors.push("Name is required");
     if (!data.email) errors.push("Email is required");
+    else if (!EMAIL_REGEX.test(data.email)) errors.push("Invalid email address");
     if (!data.organisation) errors.push("Organisation is required");
     if (!data.country) errors.push("Country is required");
 
@@ -398,6 +438,7 @@ function parseFormData(formData, isPromotion) {
 
     if (!data.name) errors.push("Name is required");
     if (!data.email) errors.push("Email is required");
+    else if (!EMAIL_REGEX.test(data.email)) errors.push("Invalid email address");
     if (!data.phone) errors.push("Phone is required");
     if (!data.platformLink) errors.push("Platform link is required");
     if (!data.country) errors.push("Country is required");
@@ -474,6 +515,7 @@ function parseFormData(formData, isPromotion) {
     if (!data.builderName) errors.push("Name/Organization is required");
 
     if (!data.email) errors.push("Email is required");
+    else if (!EMAIL_REGEX.test(data.email)) errors.push("Invalid email address");
 
     if (!data.website) errors.push("Website is required");
 
@@ -519,7 +561,7 @@ async function sendToNotion(data, isPromotion, request) {
     properties: properties,
   };
 
-  console.log("Sending to Notion:", JSON.stringify(notionPayload, null, 2));
+  console.log("Sending to Notion: form submission received");
 
   return fetch("https://api.notion.com/v1/pages", {
     method: "POST",
@@ -730,7 +772,7 @@ async function handleNewsletterSubmission(formData, corsHeaders) {
     return new Response(
       JSON.stringify({
         error: "Internal server error",
-        message: error.message,
+        message: "An error occurred while processing your subscription",
       }),
       {
         status: 500,
@@ -812,10 +854,7 @@ async function sendToMailerLite(data) {
       subscriberData.groups = [groupId];
     }
 
-    console.log(
-      "Sending to MailerLite:",
-      JSON.stringify(subscriberData, null, 2)
-    );
+    console.log("Sending to MailerLite:", maskEmail(subscriberData.email));
 
     // Make API request to MailerLite
     const response = await fetch(
@@ -834,7 +873,7 @@ async function sendToMailerLite(data) {
 
     // Handle success
     if (response.ok) {
-      console.log("MailerLite subscription successful:", data.email);
+      console.log("MailerLite subscription successful:", maskEmail(data.email));
       return {
         success: true,
         data: responseData,
@@ -842,7 +881,21 @@ async function sendToMailerLite(data) {
     }
 
     // Handle MailerLite API errors
-    console.error("MailerLite API error:", response.status, responseData);
+    console.error("MailerLite API error:", response.status);
+
+    // Inactive/unsubscribed subscriber — can't be re-imported via API
+    if (response.status === 422) {
+      const errors = responseData?.errors?.email || [];
+      const isInactive = errors.some((e) => /not active|cannot be imported/i.test(e));
+      if (isInactive) {
+        return {
+          success: false,
+          subscriberInactive: true,
+          error: "Subscriber inactive",
+          status: 422,
+        };
+      }
+    }
 
     // Check for specific error cases
     if (response.status === 400) {

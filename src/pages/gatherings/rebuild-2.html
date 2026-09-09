@@ -21,14 +21,17 @@ permalink: /gatherings/rebuild-2/index.html
         <p> Aug 30 – Sep 01</p>
       </div>
     </div>
+    {% set isPastEvent = "2026-09-01T18:00:00Z" | isPast %}
+    {% if not isPastEvent %}
     <button data-form="gathering-invitation" class="
             w-fit align-bottom px-lg py-sm bg-blue text-dark
             sm:text-lg lg:text-2xl sm:w-auto sm:self-end sm:px-xl sm:py-md
-            hover:bg-blue-tint hover:text-dark 
+            hover:bg-blue-tint hover:text-dark
             transition-all whitespace-nowrap cursor-pointer
             ">
       Secure your spot
     </button>
+    {% endif %}
   </div>
 </section>
 
@@ -51,7 +54,8 @@ permalink: /gatherings/rebuild-2/index.html
       The second gathering for the people building Europe's future social platforms. The summer camp where we teach each other how to build, design, and scale social platforms.
     </h2>
 
-    {# Right: countdown #}
+    {# Right: countdown (hidden for past events) #}
+    {% if not isPastEvent %}
     <div class="w-[204px]">
       <p class="text-xs tracking-widest uppercase mb-sm">Opening in</p>
       <div data-countdown="2026-08-30T09:00:00Z" class="text-3xl md:text-4xl font-normal leading-tight">
@@ -60,6 +64,7 @@ permalink: /gatherings/rebuild-2/index.html
         <p><span data-countdown-seconds>—</span> seconds</p>
       </div>
     </div>
+    {% endif %}
   </div>
 </section>
 
@@ -117,7 +122,7 @@ permalink: /gatherings/rebuild-2/index.html
 <section class="py-xl sm:py-3xl">
   {% if event and event.faq %}
     {% set faqItems = event.faq %}
-    {% set contactEmail = "hello@rebuild.net" %}
+    {% set contactEmail = "team@rebuild.net" %}
     {% include "components/faq-accordion.njk" %}
   {% endif %}
 </section>

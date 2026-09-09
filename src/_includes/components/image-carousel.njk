@@ -52,7 +52,9 @@ Myznik", "Mathias Reding", "Sebastien Lavalaye"]) %}
         slides[currentIndex].setAttribute("aria-hidden", "false");
       }
 
-      let timer = setInterval(showNextImage, 4000);
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let timer = prefersReducedMotion ? null : setInterval(showNextImage, 4000);
+      if (prefersReducedMotion) isPlaying = false;
 
       if (pauseBtn) {
         pauseBtn.addEventListener("click", function () {

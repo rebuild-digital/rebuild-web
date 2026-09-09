@@ -138,6 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!isInViewport) return;
 
+    const tag = e.target.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || e.target.isContentEditable) return;
+
     if (e.key === "ArrowLeft") {
       prevSlide();
       if (isPlaying) restartAutoplay();

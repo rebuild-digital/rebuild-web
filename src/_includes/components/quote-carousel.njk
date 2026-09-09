@@ -110,7 +110,8 @@
       }, dur);
     }
 
-    let timer = setInterval(advance, interval);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timer = prefersReducedMotion ? null : setInterval(advance, interval);
     const pauseBtn = section.querySelector('.quote-carousel-pause');
     if (pauseBtn) {
       pauseBtn.addEventListener('click', function () {
