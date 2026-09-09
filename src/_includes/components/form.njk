@@ -101,6 +101,8 @@ formMethod = method | default('POST') %}
                   <span
                     class="absolute bottom-sm right-sm text-xs text-darker pointer-events-none"
                     data-char-counter="{{ field.id | default(field.name) }}"
+                    aria-live="polite"
+                    role="status"
                   >0 / {{ field.maxlength }}</span>
                 {% endif %}
               </div>

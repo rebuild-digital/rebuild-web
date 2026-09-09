@@ -62,6 +62,7 @@ it with forms On desktop: Slides in from right, pushes content left On mobile: F
       // On desktop, push page content left
       if (window.innerWidth >= 768) {
         body.style.transition = "transform 300ms ease-in-out";
+        body.style.transform = "translateX(-250px)";
       }
 
       // Prevent body scroll

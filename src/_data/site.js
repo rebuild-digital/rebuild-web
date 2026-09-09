@@ -7,6 +7,7 @@ module.exports = {
 	logo: "/assets/images/logo.svg",
 	author: "Rebuild",
 	language: "en",
+	newsletterSuccessMessage: "Success, you signed up! Check your email soon for the latest update from the Rebuild team.",
 
 	// Navigation
 	main_navigation: [
@@ -18,7 +19,7 @@ module.exports = {
 				{
 					name: "Rebuild 2",
 					url: "/gatherings/rebuild-2/",
-					status: "current",
+					status: "past",
 				},
 				{
 					name: "Rebuild 3",

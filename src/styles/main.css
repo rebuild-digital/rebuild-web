@@ -69,22 +69,6 @@
   --spacing-8xl: 24rem; /* 384px */
   --spacing-9xl: 32rem; /* 512px */
 
-  /* Max-width scale using spacing values */
-  --max-width-xxs: var(--spacing-xxs);
-  --max-width-xs: var(--spacing-xs);
-  --max-width-sm: var(--spacing-sm);
-  --max-width-md: var(--spacing-md);
-  --max-width-lg: var(--spacing-lg);
-  --max-width-xl: var(--spacing-xl);
-  --max-width-2xl: var(--spacing-2xl);
-  --max-width-3xl: var(--spacing-3xl);
-  --max-width-4xl: var(--spacing-4xl);
-  --max-width-5xl: var(--spacing-5xl);
-  --max-width-6xl: var(--spacing-6xl);
-  --max-width-7xl: var(--spacing-7xl);
-  --max-width-8xl: var(--spacing-8xl);
-  --max-width-9xl: var(--spacing-9xl);
-
   /* ===========================================
      TYPOGRAPHY
      =========================================== */
@@ -215,7 +199,7 @@
      CONTAINER
      =========================================== */
 
-  --container-max-width: 1200px;
+  --container-max-width: 1400px;
   --container-padding: 1.5rem;
 
   /* ===========================================
@@ -433,7 +417,7 @@
   } */
 
   /* Responsive typography */
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     h1 {
       @apply text-3xl;
     }
@@ -665,7 +649,7 @@
   }
 
   .rich-text .callout-error {
-    @apply bg-red-tint border-red;
+    @apply bg-blush border-red;
   }
 
   .rich-text .callout-success {
@@ -701,7 +685,7 @@
   }
 
   /* Responsive adjustments */
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .rich-text h1 {
       @apply text-4xl;
     }
@@ -772,33 +756,6 @@
   /* Pause animation on hover */
   .beta-banner:hover .marquee-content {
     animation-play-state: paused;
-  }
-
-  /* Hero Splash Component */
-  .hero-splash {
-    @apply relative overflow-hidden;
-    height: 90vh;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    z-index: 1; /* Below header (z-50) but above body content */
-  }
-
-  .hero-video {
-    @apply absolute top-0 left-0 w-full h-full object-cover;
-    z-index: 1;
-  }
-
-  .hero-content {
-    @apply relative flex flex-col items-start justify-center h-full;
-    @apply max-w-[1400px] mx-auto px-md;
-    padding-top: 192px; /* Account for header height */
-    z-index: 2; /* Above video */
-  }
-
-  .hero-title {
-    @apply text-light w-full mx-auto text-5xl md:text-6xl lg:text-8xl font-normal leading-none mb-md md:mb-3xl text-center;
-    max-width: 1000px;
   }
 
   /* Hero Splash Alternative Component */

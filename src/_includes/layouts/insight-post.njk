@@ -25,7 +25,7 @@ layout: layouts/base.njk
 
       <div class="flex gap-md text-sm items-center mb-md text-darker">
         {% if date %}
-        <time datetime="{{ date | dateFormat }}">{{ date | dateFormat }}</time>
+        <time datetime="{{ date | isoDate }}">{{ date | dateFormat }}</time>
         {% endif %}
         <p class="text-dark">|</p>
         {% if author %}

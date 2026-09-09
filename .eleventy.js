@@ -43,6 +43,10 @@ module.exports = async function (eleventyConfig) {
 		);
 	});
 
+	eleventyConfig.addFilter("isoDate", (date) => {
+		return new Date(date).toISOString().split("T")[0];
+	});
+
 	eleventyConfig.addFilter("shortDate", (date) => {
 		const options = { month: "short", day: "numeric" };
 		return new Date(date).toLocaleDateString(
@@ -122,8 +126,7 @@ module.exports = async function (eleventyConfig) {
 		"src/public/assets/images/README.md"
 	);
 
-	// Watch targets
-	eleventyConfig.addWatchTarget("src/styles/");
+	// Watch targets (CSS is handled by the separate Tailwind CLI watcher)
 	eleventyConfig.addWatchTarget("src/scripts/");
 
 	return {

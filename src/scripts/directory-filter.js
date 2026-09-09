@@ -231,12 +231,14 @@ function initInfoTooltip() {
   trigger.addEventListener("click", (e) => {
     e.stopPropagation();
     tooltip.classList.toggle("hidden");
+    trigger.setAttribute("aria-expanded", !tooltip.classList.contains("hidden"));
   });
 
   // Close tooltip when clicking outside
   document.addEventListener("click", (e) => {
     if (!tooltip.contains(e.target) && !trigger.contains(e.target)) {
       tooltip.classList.add("hidden");
+      trigger.setAttribute("aria-expanded", "false");
     }
   });
 
@@ -244,6 +246,7 @@ function initInfoTooltip() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !tooltip.classList.contains("hidden")) {
       tooltip.classList.add("hidden");
+      trigger.setAttribute("aria-expanded", "false");
       trigger.focus();
     }
   });

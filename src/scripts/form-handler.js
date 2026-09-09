@@ -53,6 +53,8 @@ function initializeFormHandler(form) {
     if (successEl) successEl.classList.add("hidden");
     if (errorEl) errorEl.classList.add("hidden");
 
+    if (!submitBtn) return;
+
     // Disable submit button
     submitBtn.disabled = true;
     const originalText = submitBtn.textContent;

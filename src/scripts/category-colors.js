@@ -25,7 +25,7 @@ const categoryColors = {
   "Resource sharing": { bg: "bg-blonde-tint", text: "text-dark" },
   "Photo sharing": { bg: "bg-blush-tint", text: "text-dark" },
   "Video sharing": { bg: "bg-blonde-tint", text: "text-dark" },
-  "Creator Platform": { bg: "bg-blue-tint", text: "text-dark" },
+  "Creator platform": { bg: "bg-blue-tint", text: "text-dark" },
   "Social marketplace": { bg: "bg-orange-tint", text: "text-dark" },
 
   // Fallback

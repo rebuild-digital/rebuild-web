@@ -7,6 +7,7 @@
       const targetDate = new Date(targetDateStr).getTime();
       const textElement = element.querySelector("[data-countdown-text]");
       const daysEl = element.querySelector("[data-countdown-days]");
+      const hoursEl = element.querySelector("[data-countdown-hours]");
       const minutesEl = element.querySelector("[data-countdown-minutes]");
       const secondsEl = element.querySelector("[data-countdown-seconds]");
       const isStacked = daysEl && minutesEl && secondsEl;
@@ -20,6 +21,7 @@
         if (distance < 0) {
           if (isStacked) {
             daysEl.textContent = "0";
+            if (hoursEl) hoursEl.textContent = "0";
             minutesEl.textContent = "0";
             secondsEl.textContent = "0";
           } else if (textElement) {
@@ -35,6 +37,7 @@
 
         if (isStacked) {
           daysEl.textContent = days;
+          if (hoursEl) hoursEl.textContent = hours;
           minutesEl.textContent = minutes;
           secondsEl.textContent = seconds;
         } else if (element.hasAttribute("data-countdown-days-only")) {
