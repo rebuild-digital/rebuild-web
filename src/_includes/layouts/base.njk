@@ -62,6 +62,7 @@
     {% block head %}{% endblock %}
   </head>
   <body class="bg-white">
+    <div id="page-content" class="transition-transform duration-300 ease-in-out overflow-x-hidden">
     {# Skip to main content link #}
     <a href="#main-content" class="skip-link" onclick="event.preventDefault();var t=document.getElementById('main-content');if(t){t.focus();t.scrollIntoView();}">
       Skip to main content
@@ -83,7 +84,8 @@
     {#
     <div class="fixed bottom-0 left-0 w-full z-40">{% include "components/banner.njk" %}</div>
     #}
-    {# Form Sidebar/Modal #}
+    </div>
+    {# Form Sidebar/Modal — outside #page-content so body transform doesn't affect its fixed positioning #}
     {% include "components/form-sidebar.njk" %}
     {# Mobile menu script #}
     <script src="/scripts/mobile-menu.js"></script>
