@@ -36,82 +36,75 @@ it with forms On desktop: Slides in from right, pushes content left On mobile: F
     const overlay = document.getElementById("form-sidebar-overlay");
     const closeBtn = document.getElementById("form-sidebar-close");
     const content = document.getElementById("form-sidebar-content");
+    const pageContent = document.getElementById("page-content");
     const body = document.body;
 
     let triggerElement = null;
 
+    function pushPage() {
+      if (window.innerWidth >= 768) {
+        const sidebarWidth = sidebar.offsetWidth;
+        pageContent.style.transform = "translateX(-" + sidebarWidth + "px)";
+        overlay.classList.add("hidden");
+      } else {
+        pageContent.style.transform = "";
+        overlay.classList.remove("hidden");
+        overlay.style.opacity = "1";
+      }
+    }
+
     function openSidebar(formContent) {
       triggerElement = document.activeElement;
 
-      // Set content
       content.innerHTML = formContent;
 
-      // Reinitialize form handlers for dynamically loaded forms
       const form = content.querySelector("form[data-ajax-form]");
       if (form && window.initializeFormHandler) {
         window.initializeFormHandler(form);
       }
 
-      // Show overlay on mobile
       overlay.classList.remove("hidden");
       setTimeout(() => (overlay.style.opacity = "1"), 10);
 
-      // Slide in sidebar
       sidebar.classList.remove("translate-x-full");
 
-      // On desktop, push page content left
-      if (window.innerWidth >= 768) {
-        body.style.transition = "transform 300ms ease-in-out";
-        body.style.transform = "translateX(-250px)";
-      }
+      pushPage();
 
-      // Prevent body scroll
       body.style.overflow = "hidden";
 
-      // Move focus into sidebar after transition
       setTimeout(() => closeBtn.focus(), 350);
     }
 
     function closeSidebar() {
-      // Hide overlay
       overlay.style.opacity = "0";
       setTimeout(() => overlay.classList.add("hidden"), 300);
 
-      // Slide out sidebar
       sidebar.classList.add("translate-x-full");
 
-      // Reset page position
-      body.style.transform = "";
+      pageContent.style.transform = "";
 
-      // Restore body scroll
       body.style.overflow = "";
 
-      // Clear content after animation
       setTimeout(() => {
         content.innerHTML = "";
       }, 300);
 
-      // Return focus to the element that opened the sidebar
       if (triggerElement && triggerElement.focus) {
         triggerElement.focus();
         triggerElement = null;
       }
     }
 
-    // Close button click
     closeBtn.addEventListener("click", closeSidebar);
 
-    // Overlay click (mobile)
     overlay.addEventListener("click", closeSidebar);
 
-    // Escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !sidebar.classList.contains("translate-x-full")) {
         closeSidebar();
       }
     });
 
-    // Focus trap
     document.addEventListener("keydown", (e) => {
       if (e.key !== "Tab" || sidebar.classList.contains("translate-x-full")) return;
       const focusable = sidebar.querySelectorAll(
@@ -129,25 +122,16 @@ it with forms On desktop: Slides in from right, pushes content left On mobile: F
       }
     });
 
-    // Handle window resize
     let resizeTimer;
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         if (!sidebar.classList.contains("translate-x-full")) {
-          if (window.innerWidth >= 768) {
-            body.style.transform = "translateX(-250px)";
-            overlay.classList.add("hidden");
-          } else {
-            body.style.transform = "";
-            overlay.classList.remove("hidden");
-            overlay.style.opacity = "1";
-          }
+          pushPage();
         }
       }, 250);
     });
 
-    // Expose global function to open sidebar
     window.openFormSidebar = openSidebar;
     window.closeFormSidebar = closeSidebar;
   })();
