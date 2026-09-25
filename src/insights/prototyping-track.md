@@ -14,6 +14,8 @@ published: true
 
 #### Seven prototypes, two days and one question: what if AI was a social experience rather than a personal one?
 
+[Check out the prototypes on GitHub](https://github.com/rebuild-digital/Rebuild-2-Prototypes)
+
 Just 24 hours into Rebuild 2, our Prototyping track had already developed a product that Margrethe Vestager wants to test at the European Commission. She hinted at its benefits – real social collaboration – at the end of day two, and by the closing ceremony on day three, all the attendees got to experience a fully fledged demo.
 
 > “Imagine that AI was not a personal experience, but was something social.”
@@ -57,3 +59,5 @@ Every prototype was aiming to solve a moonshot that Thomas Madsen-Mygdal had lai
 “There’s certainly more trust in society, there’s certainly more trust in each other, there’s a lot of things that are working in our favour, we just haven’t been able to articulate them in how we build social media,” Christensen continues, “or we haven’t been able to put enough value on it to have people pick the social media that we’re building… which is damning.”
 
 The prototyping team weren’t trying to solve all of Europe’s social platform problems – as Christensen says: “It's important to have the geeky group in a corner that are trying to come up with not the perfect or the right answers, but the quick ones” – but going through the process of building brought up new questions. “How does the whole design in Europe, with European values, not become a stick to beat people with?” asks Christensen, “How is it actually something where the actual trust and society, all the things we value, become part of how we build apps?” He didn’t have the answer, but it’s exactly what Rebuild is building towards.
+
+[Explore all the prototypes made during Rebuild2 on Github](https://github.com/rebuild-digital/Rebuild-2-Prototypes)
