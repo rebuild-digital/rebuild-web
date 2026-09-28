@@ -1,0 +1,80 @@
+[
+	{
+		"title": "Rebuild1",
+		"status": "done",
+		"color": "green",
+		"note": "The first gathering for European social platforms. Hosted in Copenhagen, it became the first seed in an expanding movement."
+	},
+	{
+		"title": "Social Need Framework",
+		"status": "done",
+		"color": "green",
+		"note": "Built during Rebuild1, the Social Need Framework is a tool for social platforms to identify and prioritise the social needs they address."
+	},
+	{
+		"title": "Social Design Framework",
+		"status": "done",
+		"color": "green",
+		"href": "https://socialdesignframework.eu/",
+		"note": "The Social Design Framework is a tool for social platforms to audit and design their services and products in a way that leverages best practices and decades of knowledge on how to design for social."
+	},
+	{
+		"title": "Rebuild2",
+		"status": "done",
+		"color": "green",
+		"href": "/gatherings/rebuild-2/",
+		"note": "The second gathering for European social platforms. Hosted in Helsinki, it turned mobilisation into action and knowledge sharing with a summer camp format."
+	},
+	{
+		"title": "European Social Platform Directory",
+		"status": "in-progress",
+		"color": "orange",
+		"href": "/directory/",
+		"note": "The Social Platform Directory lists every European social platform there is."
+	},
+	{
+		"title": "Ecosystem Platform",
+		"status": "in-progress",
+		"color": "orange",
+		"note": "The Ecosystem Platform is the next iteration of Rebuild's digital presence, providing a blueprint and platform for continental ecosystem formation within the social platform sector and beyond."
+	},
+	{
+		"title": "Investor Whitepaper",
+		"status": "in-progress",
+		"color": "orange",
+		"note": "A first of its kind whitepaper outlining the investment opportunities and strategies for European social platforms."
+	},
+	{
+		"title": "Investor & Journalist Mobilisation",
+		"status": "in-progress",
+		"color": "orange",
+		"note": "The mobilisation of investors and journalists to support the European social platform sector."
+	},
+	{
+		"title": "European Social Platform Economy Analysis",
+		"status": "in-progress",
+		"color": "orange",
+		"note": "A first of its kind analysis of the European social platform economy, providing insights into the sector's size and growth potential."
+	},
+	{
+		"title": "Directing European Funding",
+		"status": "in-progress",
+		"color": "orange",
+		"note": "Helping to direct European funding towards social platforms."
+	},
+	{
+		"title": "Rebuild3",
+		"status": "planned",
+		"href": "/gatherings/rebuild-3/",
+		"note": "The third gathering for European social platforms. Hosted in Paris, it will be a showcase of the platforms and mark the end of Rebuild as an organisation, but not as a movement."
+	},
+	{
+		"title": "Facilitation of a European Social Platform Industry Organisation",
+		"status": "planned",
+		"note": "The facilitation of a European Social Platform Industry Organisation to support the sector's growth and development."
+	},
+	{
+		"title": "Education Materials",
+		"status": "planned"
+	}
+]

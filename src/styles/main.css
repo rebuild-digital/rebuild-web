@@ -21,26 +21,32 @@
   --color-red: #ac1d24;
   --color-red-shade: #8a1f1f;
   --color-red-tint: #d16b6b;
+  --color-red-light: #EDDFE0;
 
   --color-blue: #6ba1cc;
   --color-blue-shade: #3d5f83;
   --color-blue-tint: #8fb5d9;
+  --color-blue-light: #E7ECF0;
 
   --color-green: #669e67;
   --color-green-shade: #316139;
   --color-green-tint: #73b088;
+  --color-green-light: #E6ECE6;
 
   --color-blush: #e1aeb0;
   --color-blush-shade: #b17d7d;
   --color-blush-tint: #e8cdcd;
+  --color-blush-light: #F3EDEE;
 
   --color-blonde: #f4e2d2;
   --color-blonde-shade: #d4b59a;
   --color-blonde-tint: #f7ebe0;
+  --color-blonde-light: #F4F3F1;
 
   --color-orange: #bf6e36;
   --color-orange-shade: #9a5e2e;
   --color-orange-tint: #d4a77a;
+  --color-orange-light: #EFE7E1;
 
   /* Neutrals */
   --color-white: #f7f8f9;

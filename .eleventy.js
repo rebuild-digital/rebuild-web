@@ -2,6 +2,7 @@ const Image = require("@11ty/eleventy-img");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const rss = require("@11ty/eleventy-plugin-rss");
 const { getMultipleCategoryColors } = require("./src/scripts/category-colors.js");
+const { parseProgressItems } = require("./lib/progress-items.js");
 
 module.exports = async function (eleventyConfig) {
 	// Plugins
@@ -93,6 +94,9 @@ module.exports = async function (eleventyConfig) {
 
 	// Category colors filter
 	eleventyConfig.addFilter("categoryColors", getMultipleCategoryColors);
+
+	// Validates progress board content; a bad item fails the build
+	eleventyConfig.addFilter("progressItems", parseProgressItems);
 
 	// Image shortcode using Eleventy Image
 	eleventyConfig.addShortcode(

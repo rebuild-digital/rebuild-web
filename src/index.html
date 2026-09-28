@@ -7,6 +7,7 @@ image: /assets/images/social-3.jpg
 
 {% from "components/text-section.njk" import render as textSection %}
 {% from "components/outcomes.njk" import render as outcomes %}
+{% from "components/progress-board.njk" import render as progressBoard %}
 
 <main>
   <!-- Alternative Splash with Image Rotation -->
@@ -33,6 +34,10 @@ image: /assets/images/social-3.jpg
   </section>
 
   <section class="">{% include "components/gatherings-preview.njk" %}</section>
+
+  <div class="pb-3xl md:pb-6xl">
+    {{ progressBoard("What We Are Shipping", "Rebuild is about moving from talk to action. These are the concrete things we're shipping.", shipping | progressItems) }}
+  </div>
 
   <section class="pb-3xl md:pb-6xl">{% include "components/engage.njk" %}</section>
 
