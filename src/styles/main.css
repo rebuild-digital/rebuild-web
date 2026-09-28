@@ -29,6 +29,7 @@
   --color-green: #669e67;
   --color-green-shade: #316139;
   --color-green-tint: #73b088;
+  --color-green-light: #E6ECE6;
 
   --color-blush: #e1aeb0;
   --color-blush-shade: #b17d7d;
@@ -41,6 +42,7 @@
   --color-orange: #bf6e36;
   --color-orange-shade: #9a5e2e;
   --color-orange-tint: #d4a77a;
+  --color-orange-light: #EFE7E1;
 
   /* Neutrals */
   --color-white: #f7f8f9;

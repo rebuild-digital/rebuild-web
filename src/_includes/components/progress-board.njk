@@ -1,0 +1,108 @@
+{#
+  Progress Board Component
+  A set of outcomes, each marked done, in progress or planned, in the order
+  given: a compact accordion list on phones, a tile grid from md. Mirrors
+  ProgressBoard in the SolidStart rebuild; keep the two in step until cutover.
+  Usage:
+    {% from "components/progress-board.njk" import render as progressBoard %}
+    {{ progressBoard("What We Are Shipping", "Intro…", shipping | progressItems) }}
+  Props:
+    title  — section heading (h2)
+    intro  — optional sentence under the heading
+    items  — array of { title, status, note?, href?, image?, imageAlt? },
+             validated by the progressItems filter (lib/progress-items.js)
+#}
+
+{% macro render(title, intro, items) %}
+{% set status = {
+  "done": { "label": "Shipped", "badge": "bg-green-tint", "tint": "bg-green-light" },
+  "in-progress": { "label": "In progress", "badge": "bg-orange-tint", "tint": "bg-orange-light" },
+  "planned": { "label": "Planned", "badge": "bg-lighter", "tint": "bg-white" }
+} %}
+{% set headingId = title | slugify %}
+{% set checkboxClass = "size-lg shrink-0 flex items-center justify-center bg-white border-2 border-dark text-xl leading-none text-dark" %}
+{% set badgeClass = "inline-block rounded-full text-dark text-sm px-3 py-[6px]" %}
+{% set focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-shade" %}
+
+<section aria-labelledby="{{ headingId }}">
+  <div class="mb-2xl space-y-sm">
+    <h2 id="{{ headingId }}" class="text-4xl md:text-5xl font-normal text-dark">{{ title }}</h2>
+    {% if intro %}
+      <p class="text-lg md:text-xl text-dark max-w-[55ch]">{{ intro }}</p>
+    {% endif %}
+  </div>
+
+  {# Phone: a compact list; rows with a note, link or image expand #}
+  <ol class="md:hidden border-2 border-dark divide-y-2 divide-dark">
+    {% for item in items %}
+      {% set s = status[item.status] %}
+      {% set summary %}
+        <span aria-hidden="true" class="{{ checkboxClass }}">{% if item.status == "done" %}✓{% endif %}</span>
+        <span class="flex-1 min-w-0 space-y-xs">
+          <span class="block text-lg leading-tight text-dark">{{ item.title }}</span>
+          <span class="{{ badgeClass }} {{ s.badge }}">{{ s.label }}</span>
+        </span>
+      {% endset %}
+      <li>
+        {% if item.note or item.href or item.image %}
+          <details class="group">
+            <summary class="flex items-center gap-sm p-sm cursor-pointer list-none [&::-webkit-details-marker]:hidden {{ focusRing }}">
+              {{ summary | safe }}
+              <span class="text-3xl w-6 shrink-0 group-open:hidden" aria-hidden="true">+</span>
+              <span class="text-3xl w-6 shrink-0 hidden group-open:inline" aria-hidden="true">−</span>
+            </summary>
+            <div class="pl-2xl pr-sm pb-sm space-y-sm">
+              {% if item.image %}
+                <div class="relative w-full overflow-hidden aspect-video bg-lighter">
+                  <img src="{{ item.image }}" alt="{{ item.imageAlt or '' }}" loading="lazy" class="w-full h-full object-cover" />
+                </div>
+              {% endif %}
+              {% if item.note %}
+                <p class="text-base text-darker">{{ item.note }}</p>
+              {% endif %}
+              {% if item.href %}
+                <a href="{{ item.href }}" class="inline-block text-lg text-dark underline hover:text-blue-shade transition-fast {{ focusRing }}">
+                  View {{ item.title }}<span aria-hidden="true">&nbsp;→</span>
+                </a>
+              {% endif %}
+            </div>
+          </details>
+        {% else %}
+          <div class="flex items-center gap-sm p-sm">{{ summary | safe }}</div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+
+  {# Tablet and up: a tile grid #}
+  <ol class="hidden md:grid md:grid-cols-3 xl:grid-cols-5 gap-md">
+    {% for item in items %}
+      {% set s = status[item.status] %}
+      {% set tag = "a" if item.href else "div" %}
+      <li class="flex">
+        <{{ tag }}{% if item.href %} href="{{ item.href }}"{% endif %} class="group flex flex-col w-full no-underline bg-white border-2 border-dark {{ focusRing if item.href }}">
+          <div class="relative w-full overflow-hidden aspect-video bg-lighter">
+            {% if item.image %}
+              <img src="{{ item.image }}" alt="{{ item.imageAlt or '' }}" loading="lazy" class="w-full h-full object-cover" />
+            {% else %}
+              <span aria-hidden="true" class="absolute inset-0 flex items-end p-sm text-5xl leading-none text-dark {{ s.tint }}">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
+            {% endif %}
+            <span aria-hidden="true" class="{{ checkboxClass }} absolute top-sm right-sm">{% if item.status == "done" %}✓{% endif %}</span>
+          </div>
+          <div class="flex flex-col flex-1 gap-sm p-sm border-t-2 border-dark">
+            <h3 class="text-xl font-normal text-dark group-hover:underline transition-fast">
+              {{ item.title }}{% if item.href %}<span aria-hidden="true">&nbsp;→</span>{% endif %}
+            </h3>
+            <div class="mt-auto space-y-xs">
+              <span class="{{ badgeClass }} {{ s.badge }}">{{ s.label }}</span>
+              {% if item.note %}
+                <p class="text-sm text-darker">{{ item.note }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </{{ tag }}>
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endmacro %}
