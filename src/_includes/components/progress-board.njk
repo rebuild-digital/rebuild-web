@@ -94,18 +94,19 @@
             {% if item.image %}
               <img src="{{ item.image }}" alt="{{ item.imageAlt or '' }}" loading="lazy" class="w-full h-full object-cover" />
             {% else %}
-              <span aria-hidden="true" class="absolute inset-0 flex items-end p-md text-5xl leading-none text-dark {{ tileColor[item.color or 'blue'] }}">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
+              <span aria-hidden="true" class="absolute inset-0 flex items-end p-md text-lg lg:text-xl leading-none text-dark {{ tileColor[item.color or 'blue'] }}">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
             {% endif %}
           </div>
           <div class="flex flex-col flex-1 gap-sm p-md">
             <h3 class="text-xl font-normal text-dark{% if item.href %} group-hover:underline transition-fast{% endif %}">
               {{ item.title }}{% if item.href %}<span aria-hidden="true">&nbsp;→</span>{% endif %}
             </h3>
-            <div class="mt-auto space-y-xs">
+            {% if item.note %}
+              <p class="text-sm text-darker">{{ item.note }}</p>
+            {% endif %}
+            {# Pinned to the bottom so badges line up across a row #}
+            <div class="mt-auto pt-xs">
               <span class="{{ badgeClass }} {{ s.badge }}">{{ s.label }}</span>
-              {% if item.note %}
-                <p class="text-sm text-darker">{{ item.note }}</p>
-              {% endif %}
             </div>
           </div>
         </{{ tag }}>
