@@ -29,7 +29,6 @@
   "orange": "bg-orange-light"
 } %}
 {% set headingId = title | slugify %}
-{% set checkboxClass = "size-lg shrink-0 flex items-center justify-center bg-white border-2 border-dark text-xl leading-none text-dark" %}
 {% set badgeClass = "inline-block rounded-full text-dark text-sm px-3 py-[6px]" %}
 {% set focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-shade" %}
 
@@ -46,7 +45,6 @@
     {% for item in items %}
       {% set s = status[item.status] %}
       {% set summary %}
-        <span aria-hidden="true" class="{{ checkboxClass }}">{% if item.status == "done" %}✓{% endif %}</span>
         <span class="flex-1 min-w-0 space-y-xs">
           <span class="block text-lg leading-tight text-dark">{{ item.title }}</span>
           <span class="{{ badgeClass }} {{ s.badge }}">{{ s.label }}</span>
@@ -60,7 +58,7 @@
               <span class="text-3xl w-6 shrink-0 group-open:hidden" aria-hidden="true">+</span>
               <span class="text-3xl w-6 shrink-0 hidden group-open:inline" aria-hidden="true">−</span>
             </summary>
-            <div class="pl-2xl pr-sm pb-sm space-y-sm">
+            <div class="px-sm pb-sm space-y-sm">
               {% if item.image %}
                 <div class="relative w-full overflow-hidden aspect-video bg-lighter">
                   <img src="{{ item.image }}" alt="{{ item.imageAlt or '' }}" loading="lazy" class="w-full h-full object-cover" />
@@ -98,7 +96,6 @@
             {% else %}
               <span aria-hidden="true" class="absolute inset-0 flex items-end p-md text-5xl leading-none text-dark {{ tileColor[item.color or 'blue'] }}">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
             {% endif %}
-            <span aria-hidden="true" class="{{ checkboxClass }} absolute top-md right-md">{% if item.status == "done" %}✓{% endif %}</span>
           </div>
           <div class="flex flex-col flex-1 gap-sm p-md">
             <h3 class="text-xl font-normal text-dark{% if item.href %} group-hover:underline transition-fast{% endif %}">

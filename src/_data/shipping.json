@@ -1,50 +1,56 @@
 [
 	{
 		"title": "Rebuild1",
-		"status": "done"
+		"status": "done",
+		"color": "green"
 	},
 	{
 		"title": "Social Need Framework",
-		"status": "done"
+		"status": "done",
+		"color": "green"
 	},
 	{
 		"title": "Social Design Framework",
 		"status": "done",
+		"color": "green",
 		"href": "https://socialdesignframework.eu/"
 	},
 	{
 		"title": "Rebuild2",
 		"status": "done",
+		"color": "green",
 		"href": "/gatherings/rebuild-2/"
 	},
 	{
 		"title": "European Social Platform Directory",
 		"status": "in-progress",
+		"color": "orange",
 		"href": "/directory/"
 	},
 	{
 		"title": "Ecosystem Platform",
-		"status": "in-progress"
-	},
-	{
-		"title": "Education Materials",
-		"status": "planned"
+		"status": "in-progress",
+		"color": "orange"
 	},
 	{
 		"title": "Investor Whitepaper",
-		"status": "in-progress"
+		"status": "in-progress",
+		"color": "orange"
 	},
 	{
 		"title": "Investor & Journalist Mobilization",
-		"status": "in-progress"
+		"status": "in-progress",
+		"color": "orange"
 	},
 	{
 		"title": "European Social Platform Economy Analysis",
-		"status": "in-progress"
+		"status": "in-progress",
+		"color": "orange"
 	},
 	{
 		"title": "Directing European Funding",
-		"status": "in-progress"
+		"status": "in-progress",
+		"color": "orange"
 	},
 	{
 		"title": "Rebuild3",
@@ -53,6 +59,10 @@
 	},
 	{
 		"title": "Facilitation of a European Social Platform Industry Organization",
+		"status": "planned"
+	},
+	{
+		"title": "Education Materials",
 		"status": "planned"
 	}
 ]
