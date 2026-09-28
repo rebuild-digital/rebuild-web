@@ -1,54 +1,58 @@
 [
-  {
-    "title": "Rebuild 1",
-    "status": "planned"
-  },
-  {
-    "title": "Social Need Framework",
-    "status": "planned"
-  },
-  {
-    "title": "Social Design Framework",
-    "status": "planned"
-  },
-  {
-    "title": "Rebuild 2",
-    "status": "planned"
-  },
-  {
-    "title": "European Social Platform Directory",
-    "status": "planned"
-  },
-  {
-    "title": "Ecosystem Platform",
-    "status": "planned"
-  },
-  {
-    "title": "Education Materials",
-    "status": "planned"
-  },
-  {
-    "title": "Investor Whitepaper",
-    "status": "planned"
-  },
-  {
-    "title": "Investor & Journalist Mobilization",
-    "status": "planned"
-  },
-  {
-    "title": "European Social Platform Economy Analysis",
-    "status": "planned"
-  },
-  {
-    "title": "Directing European Funding",
-    "status": "planned"
-  },
-  {
-    "title": "Rebuild 3",
-    "status": "planned"
-  },
-  {
-    "title": "Facilitation of a European Social Platform Industry Organization",
-    "status": "planned"
-  }
+	{
+		"title": "Rebuild1",
+		"status": "done"
+	},
+	{
+		"title": "Social Need Framework",
+		"status": "done"
+	},
+	{
+		"title": "Social Design Framework",
+		"status": "done",
+		"href": "https://socialdesignframework.eu/"
+	},
+	{
+		"title": "Rebuild2",
+		"status": "done",
+		"href": "/gatherings/rebuild-2/"
+	},
+	{
+		"title": "European Social Platform Directory",
+		"status": "in-progress",
+		"href": "/directory/"
+	},
+	{
+		"title": "Ecosystem Platform",
+		"status": "in-progress"
+	},
+	{
+		"title": "Education Materials",
+		"status": "planned"
+	},
+	{
+		"title": "Investor Whitepaper",
+		"status": "in-progress"
+	},
+	{
+		"title": "Investor & Journalist Mobilization",
+		"status": "in-progress"
+	},
+	{
+		"title": "European Social Platform Economy Analysis",
+		"status": "in-progress"
+	},
+	{
+		"title": "Directing European Funding",
+		"status": "in-progress"
+	},
+	{
+		"title": "Rebuild3",
+		"status": "planned",
+		"href": "/gatherings/rebuild-3/"
+	},
+	{
+		"title": "Facilitation of a European Social Platform Industry Organization",
+		"status": "planned"
+	}
 ]

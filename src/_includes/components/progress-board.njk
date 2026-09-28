@@ -9,15 +9,24 @@
   Props:
     title  — section heading (h2)
     intro  — optional sentence under the heading
-    items  — array of { title, status, note?, href?, image?, imageAlt? },
+    items  — array of { title, status, note?, href?, image?, imageAlt?, color? },
              validated by the progressItems filter (lib/progress-items.js)
 #}
 
 {% macro render(title, intro, items) %}
 {% set status = {
-  "done": { "label": "Shipped", "badge": "bg-green-tint", "tint": "bg-green-light" },
-  "in-progress": { "label": "In progress", "badge": "bg-orange-tint", "tint": "bg-orange-light" },
-  "planned": { "label": "Planned", "badge": "bg-lighter", "tint": "bg-white" }
+  "done": { "label": "Shipped", "badge": "bg-green-tint" },
+  "in-progress": { "label": "In progress", "badge": "bg-orange-tint" },
+  "planned": { "label": "Planned", "badge": "bg-lighter" }
+} %}
+{# Light stop behind the number when a tile has no image #}
+{% set tileColor = {
+  "red": "bg-red-light",
+  "blue": "bg-blue-light",
+  "green": "bg-green-light",
+  "blush": "bg-blush-light",
+  "blonde": "bg-blonde-light",
+  "orange": "bg-orange-light"
 } %}
 {% set headingId = title | slugify %}
 {% set checkboxClass = "size-lg shrink-0 flex items-center justify-center bg-white border-2 border-dark text-xl leading-none text-dark" %}
@@ -74,23 +83,25 @@
     {% endfor %}
   </ol>
 
-  {# Tablet and up: a tile grid #}
-  <ol class="hidden md:grid md:grid-cols-3 xl:grid-cols-5 gap-md">
+  {# Tablet and up: a tile grid with no gap. The grid draws the top and left
+     edges and each tile its right and bottom, so borders don't double up. A
+     focused tile is lifted so its neighbours don't cover the focus ring. #}
+  <ol class="hidden md:grid md:grid-cols-3 xl:grid-cols-5 border-t-2 border-l-2 border-dark">
     {% for item in items %}
       {% set s = status[item.status] %}
       {% set tag = "a" if item.href else "div" %}
       <li class="flex">
-        <{{ tag }}{% if item.href %} href="{{ item.href }}"{% endif %} class="group flex flex-col w-full no-underline bg-white border-2 border-dark {{ focusRing if item.href }}">
+        <{{ tag }}{% if item.href %} href="{{ item.href }}"{% endif %} class="group flex flex-col w-full no-underline bg-white border-r-2 border-b-2 border-dark {{ (focusRing + ' focus-visible:relative focus-visible:z-10') if item.href }}">
           <div class="relative w-full overflow-hidden aspect-video bg-lighter">
             {% if item.image %}
               <img src="{{ item.image }}" alt="{{ item.imageAlt or '' }}" loading="lazy" class="w-full h-full object-cover" />
             {% else %}
-              <span aria-hidden="true" class="absolute inset-0 flex items-end p-sm text-5xl leading-none text-dark {{ s.tint }}">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
+              <span aria-hidden="true" class="absolute inset-0 flex items-end p-md text-5xl leading-none text-dark {{ tileColor[item.color or 'blue'] }}">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
             {% endif %}
-            <span aria-hidden="true" class="{{ checkboxClass }} absolute top-sm right-sm">{% if item.status == "done" %}✓{% endif %}</span>
+            <span aria-hidden="true" class="{{ checkboxClass }} absolute top-md right-md">{% if item.status == "done" %}✓{% endif %}</span>
           </div>
-          <div class="flex flex-col flex-1 gap-sm p-sm border-t-2 border-dark">
-            <h3 class="text-xl font-normal text-dark group-hover:underline transition-fast">
+          <div class="flex flex-col flex-1 gap-sm p-md">
+            <h3 class="text-xl font-normal text-dark{% if item.href %} group-hover:underline transition-fast{% endif %}">
               {{ item.title }}{% if item.href %}<span aria-hidden="true">&nbsp;→</span>{% endif %}
             </h3>
             <div class="mt-auto space-y-xs">
