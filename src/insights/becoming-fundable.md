@@ -48,7 +48,7 @@ Some VCs will say they want numbers, some say they want traction – you can’t
 People obsess about ‘decks’, but they will not be the determining factor in raising money (at an early stage at least). Neil points out that he often invests having never seen any slides – it’s hygiene, but not the be-all and end-all.
 
 <div class="relative my-2xl">
-  <img src="/assets/images/becoming-fundable-2.jpg" alt="Attendees seated in a timber-walled hall listen to the “How to Become Fundable” session at Rebuild 2." loading="lazy" class="block w-full my-0" />
+  <img src="/assets/images/becoming-fundable-2.jpg" alt="Attendees seated in a timber-walled hall listen to the “How to Become Fundable” session at Rebuild2." loading="lazy" class="block w-full my-0" />
   {{ imageCredit("Fernanda Cebrián") }}
 </div>
 
@@ -63,7 +63,7 @@ Investors can sense self-doubt – and that’s the kiss of death for any fundra
 Fundamentally speaking, funding is a human-to-human consideration; Neil says that being an investor is a privileged and selfish position, where he gets to choose who he works with. On that basis, liking the people you’re investing in is crucial – and that’s where finding investors who you connect with on a human level is a key component of securing the funding you need. Be your whole self, and you will find the right investors for your business.
 
 <div class="relative my-2xl">
-  <img src="/assets/images/becoming-fundable-4.jpg" alt="A speaker in a black cap and lanyard talks into a microphone inside the Rebuild 2 tent." loading="lazy" class="block w-full my-0" />
+  <img src="/assets/images/becoming-fundable-4.jpg" alt="A speaker in a black cap and lanyard talks into a microphone inside the Rebuild2 tent." loading="lazy" class="block w-full my-0" />
   {{ imageCredit("Fernanda Cebrián", "bottom-left", "dark") }}
 </div>
 
