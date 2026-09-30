@@ -1,7 +1,7 @@
 ---
 title: "Prototyping track: seven prototypes in 48 hours"
 date: 2026-09-25
-author: "Matt Muir"
+author: "Sophia Epstein"
 tags:
   - Stories
 excerpt: "Seven prototypes, two days and one question: what if AI was a social experience rather than a personal one?"
