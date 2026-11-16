@@ -9,6 +9,7 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - /api/gathering-invitation (Notion)
  * - /api/application-rebuild1 (Notion + MailerLite)
  * - /api/newsletter-signup (MailerLite)
+ * - /api/industry-org-contribution (MailerLite — "Building beyond Rebuild" list)
  *
  * Also handles Notion database automation webhooks:
  * - /api/notion-mailerlite-sync (Notion → MailerLite subscriber sync)
@@ -23,6 +24,7 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - MAILERLITE_REBUILD1_GROUP_ID (for rebuild1 event registrations - triggers confirmation email)
  * - NOTION_WEBHOOK_SECRET (required, for validating Notion automation webhooks)
  * - MAILERLITE_NOTION_SYNC_GROUP_ID (for Notion→MailerLite synced subscribers)
+ * - MAILERLITE_INDUSTRY_ORG_GROUP_ID (for /beyond contributions; needs a "contribution" text field in MailerLite)
  */
 
 function maskEmail(email) {
@@ -92,7 +94,8 @@ BunnySDK.net.http
       url.pathname.includes("/api/builder-promotion") ||
       url.pathname.includes("/api/gathering-invitation") ||
       url.pathname.includes("/api/application-rebuild1") ||
-      url.pathname.includes("/api/newsletter-signup");
+      url.pathname.includes("/api/newsletter-signup") ||
+      url.pathname.includes("/api/industry-org-contribution");
 
     // ✅ For NON-form paths, return void to let request pass through to origin
 
@@ -228,6 +231,11 @@ async function handleFormSubmission(request, url, corsHeaders) {
     // Handle newsletter separately (uses MailerLite, not Notion)
     if (isNewsletter) {
       return await handleNewsletterSubmission(formData, corsHeaders);
+    }
+
+    // Industry organisation contributions go straight to their own MailerLite group
+    if (url.pathname.includes("industry-org-contribution")) {
+      return await handleIndustryOrgContribution(formData, corsHeaders);
     }
 
     // Parse and validate (for Notion forms)
@@ -779,6 +787,86 @@ async function handleNewsletterSubmission(formData, corsHeaders) {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
+  }
+}
+
+const INDUSTRY_ORG_CONTRIBUTION_MAX = 1000;
+
+/**
+ * "Building beyond Rebuild" contribution form (/beyond).
+ * Adds the subscriber to a dedicated MailerLite group with their contribution
+ * stored in the "contribution" custom field. Never falls back to the general
+ * newsletter group — the consent given is specific to this list.
+ */
+async function handleIndustryOrgContribution(formData, corsHeaders) {
+  const json = (body, status) =>
+    new Response(JSON.stringify(body), {
+      status,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+
+  try {
+    const name = (formData.get("name") || "").toString().trim();
+    const email = (formData.get("email") || "").toString().trim();
+    const contribution = (formData.get("contribution") || "").toString().trim();
+    const consent = formData.get("consent") === "on";
+
+    const errors = [];
+    if (!name) errors.push("Name is required");
+    if (!email) errors.push("Email is required");
+    else if (!EMAIL_REGEX.test(email)) errors.push("Please provide a valid email address");
+    if (!contribution) errors.push("Please tell us how you would like to contribute");
+    else if (contribution.length > INDUSTRY_ORG_CONTRIBUTION_MAX)
+      errors.push(`Contribution must be ${INDUSTRY_ORG_CONTRIBUTION_MAX} characters or fewer`);
+    if (!consent) errors.push("Consent is required");
+    if (errors.length > 0) return json({ error: "Validation failed", details: errors }, 400);
+
+    // Deduplicate rapid double-submits
+    const dedupKey = `industry_org_contribution:${email.toLowerCase()}`;
+    const now = Date.now();
+    const last = recentSubmissions.get(dedupKey);
+    if (last && now - last < DEDUP_WINDOW_MS) {
+      return json({ success: true, message: "Contribution received" }, 200);
+    }
+    recentSubmissions.set(dedupKey, now);
+
+    const apiKey = Deno.env.get("MAILERLITE_API_KEY");
+    const groupId = Deno.env.get("MAILERLITE_INDUSTRY_ORG_GROUP_ID");
+    if (!apiKey || !groupId) {
+      console.error("Industry org contribution: MailerLite API key or group ID not configured");
+      return json({ error: "Service configuration error", details: ["Submissions are not available right now"] }, 500);
+    }
+
+    const fields = { contribution };
+    const spaceIndex = name.indexOf(" ");
+    if (spaceIndex === -1) {
+      fields.name = name;
+    } else {
+      fields.name = name.slice(0, spaceIndex);
+      fields.last_name = name.slice(spaceIndex + 1);
+    }
+
+    // Classic API v2: adding to a group goes through the group's subscribers endpoint
+    const response = await fetch(
+      `https://api.mailerlite.com/api/v2/groups/${encodeURIComponent(groupId)}/subscribers`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-MailerLite-ApiKey": apiKey },
+        body: JSON.stringify({ email, fields, resubscribe: true }),
+      }
+    );
+
+    if (!response.ok) {
+      console.error("Industry org contribution: MailerLite API error", response.status);
+      recentSubmissions.delete(dedupKey);
+      return json({ error: "Submission failed", details: ["Unable to save your contribution right now"] }, 500);
+    }
+
+    console.log(`Industry org contribution saved for: ${maskEmail(email)}`);
+    return json({ success: true, message: "Contribution received" }, 200);
+  } catch (error) {
+    console.error("Industry org contribution error:", error);
+    return json({ error: "Internal server error", message: "An error occurred while processing your submission" }, 500);
   }
 }
 

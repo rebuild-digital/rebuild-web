@@ -2,7 +2,7 @@
 identifier (required) - action: Form action URL (required) - method: Form method (default: 'POST') -
 title: Form title (optional) - description: Form description (optional) - submitText: Submit button
 text (default: 'Submit') - submitVariant: Button variant - 'primary', 'secondary', 'outline'
-(default: 'primary') - fields: Array of field objects (required) Each field object: - type: 'text',
+(default: 'primary') - formClass: Classes for the <form> background (default: 'bg-white') - fields: Array of field objects (required) Each field object: - type: 'text',
 'email', 'tel', 'url', 'textarea', 'select', 'checkbox', 'radio' - name: Field name attribute - id:
 Field id attribute (defaults to name) - label: Field label text - placeholder: Placeholder text
 (optional) - required: Boolean (default: false) - helpText: Help text below field (optional) - rows:
@@ -27,7 +27,7 @@ formMethod = method | default('POST') %}
     action="{{ action }}"
     method="{{ formMethod }}"
     data-ajax-form
-    class="form bg-white w-full max-w-full"
+    class="form {{ formClass | default('bg-white') }} w-full max-w-full"
     style="width: 100%; max-width: 100%"
   >
     {% for field in fields %}

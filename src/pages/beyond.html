@@ -1,0 +1,175 @@
+---
+layout: layouts/base.njk
+title: Building beyond Rebuild
+description: Imagine if 200 social platforms united to found their own European industry organisation — by social platforms, for social platforms.
+permalink: /beyond/index.html
+bodyClass: bg-blue text-dark beyond-page
+noindex: true
+eleventyExcludeFromCollections: true
+---
+
+{# Unlisted landing page: noindex (meta here + X-Robots-Tag in vercel.json), excluded from sitemap/collections, not in navigation. #}
+
+{% block head %}
+<style>
+  .signal-field { display: block; width: 100%; height: 100%; }
+  /* Dark-on-blue: rules and focus states follow the text colour instead of the default blue */
+  .beyond hr { border-color: var(--color-dark); }
+  /* Header and mobile menu take the page's blue instead of the default white */
+  .beyond-page header:not(.transparent),
+  .beyond-page #mobile-menu { background-color: var(--color-blue); }
+  .beyond-form .form { --tw-ring-color: var(--color-dark); }
+  .beyond-form input:not([type="checkbox"]),
+  .beyond-form textarea { background-color: color-mix(in srgb, var(--color-white) 25%, transparent); }
+  .beyond-form input::placeholder,
+  .beyond-form textarea::placeholder { color: var(--color-dark); opacity: 0.6; }
+  .beyond-form .text-red,
+  .beyond-form [data-char-counter] { color: var(--color-dark); }
+</style>
+{% endblock %}
+
+<div class="beyond">
+
+{# Hero — title left, signal field right (mirrors /data) #}
+<section class="pb-2xl" aria-label="Introduction">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-xl items-start">
+    <div>
+      <p class="text-sm uppercase tracking-wider mb-md">After Rebuild</p>
+      <h1 class="font-normal text-4xl md:text-5xl lg:text-7xl mb-lg">Building<br class="hidden lg:inline" /> beyond<br class="hidden lg:inline" /> Rebuild</h1>
+      <p class="max-w-[520px] text-xl">Rebuild is creating a spirit of hope, community and collaboration. We want to make sure this spirit keeps growing — and helps us all create a strong and dynamic European social platform industry.</p>
+    </div>
+    {% from "partials/signal-field.njk" import signalField %}
+    <div class="rounded-lg overflow-hidden aspect-square hidden lg:block">
+      {{ signalField({ cols: 13, rows: 13, dotGap: 0.35, speed: 0.6, frequency: 0.8, seed: 2026, colorSignal: '#22223e', colorAmbient: '#f7f8f9', mode: 'fill', fillDuration: 14, fillHold: 5 }) }}
+    </div>
+    <div class="rounded-lg overflow-hidden lg:hidden" style="aspect-ratio: 13/7;">
+      {{ signalField({ cols: 13, rows: 7, dotGap: 0.35, speed: 0.6, frequency: 0.8, seed: 2026, colorSignal: '#22223e', colorAmbient: '#f7f8f9', mode: 'fill', fillDuration: 14, fillHold: 5 }) }}
+    </div>
+  </div>
+</section>
+
+<hr aria-hidden="true" />
+
+{# Hero stat — the ambition #}
+<section class="py-4xl md:py-5xl" aria-label="The ambition">
+  <p class="text-sm uppercase tracking-wider mb-lg">Imagine</p>
+  <p class="font-normal leading-none" style="font-size: clamp(6rem, 12vw, 12rem);" data-animate-number="200">200</p>
+  <p class="text-xl md:text-2xl mt-md max-w-[560px]">social platforms uniting to found a new industry organisation of their own.</p>
+</section>
+
+<hr aria-hidden="true" />
+
+{# Founding principles #}
+<section class="py-4xl md:py-5xl" aria-labelledby="principles-heading">
+  <h2 id="principles-heading" class="text-sm uppercase tracking-wider font-normal mb-2xl">Principles</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3xl md:gap-4xl">
+    <div>
+      <p class="font-normal leading-none text-4xl xl:text-6xl">Democratic</p>
+      <p class="text-lg mt-md">Founded by social platforms, for social platforms in Europe.</p>
+    </div>
+    <div>
+      <p class="font-normal leading-none text-4xl xl:text-6xl">Inclusive</p>
+      <p class="text-lg mt-md">Representing all social platforms — big and small, new and established.</p>
+    </div>
+    <div>
+      <p class="font-normal leading-none text-4xl xl:text-6xl">Open</p>
+      <p class="text-lg mt-md">Born to support innovation and growth in a spirit of openness and collaboration, celebrating diversity and European values.</p>
+    </div>
+  </div>
+</section>
+
+<hr aria-hidden="true" />
+
+{# What the organisation does #}
+<section class="py-4xl md:py-5xl" aria-labelledby="organisation-heading">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl lg:gap-4xl">
+    <div>
+      <h2 id="organisation-heading" class="text-3xl md:text-4xl font-normal lg:sticky lg:top-48">An organisation that…</h2>
+    </div>
+    <ol class="lg:col-span-2 list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 gap-x-2xl gap-y-3xl">
+      <li class="border-t-2 border-dark pt-md">
+        <p class="text-sm mb-sm">01 — People</p>
+        <p class="text-lg">Has a <strong class="font-normal underline decoration-1 underline-offset-4">core staff</strong> led by a great, entrepreneurial leader.</p>
+      </li>
+      <li class="border-t-2 border-dark pt-md">
+        <p class="text-sm mb-sm">02 — Gathering</p>
+        <p class="text-lg">Continues the Rebuild spirit and format through an <strong class="font-normal underline decoration-1 underline-offset-4">annual gathering</strong> that becomes an icon of the industry.</p>
+      </li>
+      <li class="border-t-2 border-dark pt-md">
+        <p class="text-sm mb-sm">03 — Ecosystem</p>
+        <p class="text-lg">Helps build an <strong class="font-normal underline decoration-1 underline-offset-4">ecosystem</strong> where present and future social platform entrepreneurs and owners have the resources, knowledge and skills to realise their dreams and aspirations.</p>
+      </li>
+      <li class="border-t-2 border-dark pt-md">
+        <p class="text-sm mb-sm">04 — Voice</p>
+        <p class="text-lg">Creates <strong class="font-normal underline decoration-1 underline-offset-4">strong visibility</strong>, a clear voice and a powerful presence for a positive, responsible and competitive social platform industry.</p>
+      </li>
+      <li class="border-t-2 border-dark pt-md">
+        <p class="text-sm mb-sm">05 — Reinvention</p>
+        <p class="text-lg">Becomes an example of the <strong class="font-normal underline decoration-1 underline-offset-4">reinvention of industry associations</strong> for the 21st century — more democratic, more participatory, more dynamic.</p>
+      </li>
+      <li class="border-t-2 border-dark pt-md">
+        <p class="text-sm mb-sm">06 — Funding</p>
+        <p class="text-lg">Secures the <strong class="font-normal underline decoration-1 underline-offset-4">funding</strong> needed to create and maintain a strong presence in Europe.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<hr aria-hidden="true" />
+
+{# Closing question #}
+<section class="py-4xl md:py-5xl" aria-label="The question">
+  <p class="font-normal leading-tight text-3xl md:text-5xl lg:text-6xl max-w-[1100px]">What if more than 100 — or 200 — social platforms founded their own organisation?</p>
+</section>
+
+<hr aria-hidden="true" />
+
+{# Inline contribution form #}
+<section class="py-4xl md:py-5xl" id="contribute" aria-labelledby="contribute-heading">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl lg:gap-4xl">
+    <div>
+      <h2 id="contribute-heading" class="text-3xl md:text-4xl font-normal mb-md">Help build it</h2>
+      <p class="text-lg">The organisation will be shaped by the people and platforms who take part. If you want to contribute — with time, expertise, a network, funding or an idea — tell us how.</p>
+    </div>
+    <div class="beyond-form lg:col-span-2 max-w-[720px]">
+      {% set formId = 'industry-org-contribution' %}
+      {% set action = site.apiUrl + '/api/industry-org-contribution' %}
+      {% set method = 'POST' %}
+      {% set title = false %}
+      {% set description = false %}
+      {% set formClass = 'bg-transparent' %}
+      {% set submitText = 'Send my contribution' %}
+      {% set submitVariant = 'primary' %}
+      {% set fields = [
+        { type: 'text', name: 'name', label: 'Name', required: true, autocomplete: 'name' },
+        { type: 'email', name: 'email', label: 'Email', required: true, autocomplete: 'email' },
+        { type: 'textarea', name: 'contribution', label: 'How would you like to contribute?', required: true, rows: 6, maxlength: 1000, placeholder: 'Time, expertise, a network, funding, a venue, an idea…' },
+        { type: 'checkbox', name: 'consent', label: 'I agree that Rebuild can store my name, email and contribution in a list hosted on MailerLite so we can contact me about the new industry organisation. I can withdraw my consent at any time.', required: true },
+        { type: 'hidden', name: 'form_type', value: 'industry_org_contribution' }
+      ] %}
+      {% set successMessage = 'Thank you! We have received your contribution and will be in touch.' %}
+      {% set errorMessage = 'Sorry, we could not submit your contribution. Please try again or write to Michael directly at michaeltgdthomsen@gmail.com.' %}
+      {% include "components/form.njk" %}
+    </div>
+  </div>
+</section>
+
+<hr aria-hidden="true" />
+
+{# Contact #}
+<section class="py-4xl pb-6xl" aria-labelledby="contact-heading">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl lg:gap-4xl">
+    <h2 id="contact-heading" class="text-2xl md:text-3xl font-normal">Contact</h2>
+    <div class="lg:col-span-2 text-lg">
+      <p>Questions, ideas or want to talk first? Get in touch with Michael Thomsen.</p>
+      <p class="mt-md"><a href="mailto:michaeltgdthomsen@gmail.com" class="underline decoration-1 underline-offset-4 hover:no-underline">michaeltgdthomsen@gmail.com</a></p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+{% block scripts %}
+<script src="/scripts/animate-numbers.js"></script>
+<script src="/scripts/signal-field.js" defer></script>
+{% endblock %}

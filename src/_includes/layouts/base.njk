@@ -16,6 +16,11 @@
       content="{{ description | default(excerpt) | default(site.description) }}"
 />
 
+    {# Robots — pages can opt out of indexing with `noindex: true` in front matter #}
+    {% if noindex %}
+      <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, noai, noimageai"/>
+    {% endif %}
+
     {# Open Graph #}
     <meta property="og:title" content="{{ title | default(site.title) }}"/>
     <meta
@@ -61,7 +66,7 @@
     {# Block for additional head content #}
     {% block head %}{% endblock %}
   </head>
-  <body class="bg-white">
+  <body class="{{ bodyClass | default('bg-white') }}">
     <div id="page-content" class="transition-transform duration-300 ease-in-out overflow-x-hidden">
     {# Skip to main content link #}
     <a href="#main-content" class="skip-link" onclick="event.preventDefault();var t=document.getElementById('main-content');if(t){t.focus();t.scrollIntoView();}">

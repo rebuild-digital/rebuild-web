@@ -8,6 +8,11 @@
   data-speed="{{ options.speed | default(1) }}"
   data-frequency="{{ options.frequency | default(1) }}"
   {% if options.seed %}data-seed="{{ options.seed }}"{% endif %}
+  {% if options.colorSignal %}data-color-signal="{{ options.colorSignal }}"{% endif %}
+  {% if options.mode %}data-mode="{{ options.mode }}"{% endif %}
+  {% if options.fillDuration %}data-fill-duration="{{ options.fillDuration }}"{% endif %}
+  {% if options.fillHold %}data-fill-hold="{{ options.fillHold }}"{% endif %}
+  {% if options.colorAmbient %}data-color-ambient="{{ options.colorAmbient }}"{% endif %}
   aria-hidden="true"
 ></canvas>
 {% endmacro %}
