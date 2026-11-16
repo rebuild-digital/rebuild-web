@@ -17,6 +17,14 @@
  *   data-frequency="1"
  *   data-seed="2025"
  * ></canvas>
+ *
+ * Optional:
+ *   data-color-signal / data-color-ambient  hex overrides
+ *   data-mode="fill"        dots light up one by one in random order until the
+ *                           whole grid is filled, hold, fade out, then start
+ *                           again with a new order (new order on every load too)
+ *   data-fill-duration="14" seconds to fill the grid
+ *   data-fill-hold="5"      seconds to hold the full grid before refreshing
  */
 (function () {
   'use strict';
@@ -24,6 +32,12 @@
   var COLOR_AMBIENT = [217, 217, 224]; // #D9D9E0
   var COLOR_SIGNAL = [107, 161, 204]; // #6BA1CC
   var AMBIENT_ALPHA = 0.3;
+
+  // Optional per-canvas colour overrides: data-color-signal / data-color-ambient (hex, e.g. "#22223e")
+  function hexToRgb(hex, fallback) {
+    var m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex || '');
+    return m ? [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)] : fallback;
+  }
 
   function initField(canvas) {
     var ctx = canvas.getContext('2d');
@@ -36,7 +50,14 @@
     var dotGap = parseFloat(canvas.dataset.dotGap) || 0.35;
     var speedMul = parseFloat(canvas.dataset.speed) || 1;
     var frequency = parseFloat(canvas.dataset.frequency) || 1;
+    var colorSignal = hexToRgb(canvas.dataset.colorSignal, COLOR_SIGNAL);
+    var colorAmbient = hexToRgb(canvas.dataset.colorAmbient, COLOR_AMBIENT);
     var seed = canvas.dataset.seed ? parseInt(canvas.dataset.seed, 10) : 2025;
+    var mode = canvas.dataset.mode === 'fill' ? 'fill' : 'streams';
+    var fillDuration = parseFloat(canvas.dataset.fillDuration) || 14;
+    var fillHold = parseFloat(canvas.dataset.fillHold) || 5;
+    var FILL_FADE_IN = 0.4; // seconds for each dot to appear
+    var FILL_FADE_OUT = 1.5; // seconds for the full grid to clear
 
     var prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
@@ -63,6 +84,34 @@
     var lastSpawn = 0;
     var prevTime = null;
     var raf = 0;
+
+    // Fill mode: rank[cellIndex] = position in this cycle's random fill order
+    var fillRank = [];
+    var fillStart = null;
+    function newFillCycle(now) {
+      var n = gridCols * gridRows;
+      var order = [];
+      for (var i = 0; i < n; i++) order.push(i);
+      for (var j = n - 1; j > 0; j--) {
+        var k = Math.floor(Math.random() * (j + 1));
+        var tmp = order[j]; order[j] = order[k]; order[k] = tmp;
+      }
+      fillRank = new Array(n);
+      for (var r = 0; r < n; r++) fillRank[order[r]] = r;
+      fillStart = now;
+    }
+
+    // 0..1 opacity of the signal dot at cell index i in fill mode
+    function fillAlpha(i, now) {
+      if (prefersReducedMotion) return 1;
+      var elapsed = (now - fillStart) / 1000;
+      var n = gridCols * gridRows;
+      var appearAt = (fillRank[i] / n) * fillDuration;
+      var a = Math.max(0, Math.min(1, (elapsed - appearAt) / FILL_FADE_IN));
+      var fadeOutAt = fillDuration + FILL_FADE_IN + fillHold;
+      if (elapsed > fadeOutAt) a *= Math.max(0, 1 - (elapsed - fadeOutAt) / FILL_FADE_OUT);
+      return a;
+    }
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -103,7 +152,40 @@
       }
     }
 
+    function drawFill(now) {
+      ctx.clearRect(0, 0, width, height);
+      if (fillStart == null) newFillCycle(now);
+      var cycle = fillDuration + FILL_FADE_IN + fillHold + FILL_FADE_OUT + 0.6;
+      if (!prefersReducedMotion && (now - fillStart) / 1000 > cycle) newFillCycle(now);
+
+      for (var r = 0; r < gridRows; r++) {
+        for (var c = 0; c < gridCols; c++) {
+          var x = offsetX + c * cellSize + cellSize / 2;
+          var y = offsetY + r * cellSize + cellSize / 2;
+
+          // Every cell shows an ambient dot so the full grid is visible from the start
+          var phase = hash2(c, r) * Math.PI * 2;
+          var speedN = 0.15 + hash2(r, c) * 0.25;
+          var wave = prefersReducedMotion ? Math.sin(phase) : Math.sin(now * 0.001 * speedN + phase);
+          var ambientAlpha = (0.6 + 0.4 * wave) * AMBIENT_ALPHA;
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(' + colorAmbient[0] + ',' + colorAmbient[1] + ',' + colorAmbient[2] + ',' + ambientAlpha.toFixed(3) + ')';
+          ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
+          ctx.fill();
+
+          var a = fillAlpha(r * gridCols + c, now);
+          if (a > 0) {
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(' + colorSignal[0] + ',' + colorSignal[1] + ',' + colorSignal[2] + ',' + a.toFixed(3) + ')';
+            ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+    }
+
     function draw(now) {
+      if (mode === 'fill') return drawFill(now);
       ctx.clearRect(0, 0, width, height);
 
       var active = {};
@@ -128,7 +210,7 @@
 
           if (isOn) {
             ctx.beginPath();
-            ctx.fillStyle = 'rgba(' + COLOR_SIGNAL[0] + ',' + COLOR_SIGNAL[1] + ',' + COLOR_SIGNAL[2] + ',1)';
+            ctx.fillStyle = 'rgba(' + colorSignal[0] + ',' + colorSignal[1] + ',' + colorSignal[2] + ',1)';
             ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
             ctx.fill();
           } else if (showAmbient) {
@@ -141,7 +223,7 @@
             var alpha = presence * breathing * AMBIENT_ALPHA;
 
             ctx.beginPath();
-            ctx.fillStyle = 'rgba(' + COLOR_AMBIENT[0] + ',' + COLOR_AMBIENT[1] + ',' + COLOR_AMBIENT[2] + ',' + alpha.toFixed(3) + ')';
+            ctx.fillStyle = 'rgba(' + colorAmbient[0] + ',' + colorAmbient[1] + ',' + colorAmbient[2] + ',' + alpha.toFixed(3) + ')';
             ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
             ctx.fill();
           }
@@ -153,7 +235,7 @@
       if (prevTime == null) prevTime = now;
       var dt = Math.min((now - prevTime) / 1000, 0.05);
       prevTime = now;
-      stepStreams(dt, now);
+      if (mode !== 'fill') stepStreams(dt, now);
       draw(now);
       raf = requestAnimationFrame(loop);
     }

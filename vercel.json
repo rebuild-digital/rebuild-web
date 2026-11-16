@@ -47,6 +47,15 @@
 			]
 		},
 		{
+			"source": "/beyond(/.*)?",
+			"headers": [
+				{
+					"key": "X-Robots-Tag",
+					"value": "noindex, nofollow, noarchive, nosnippet, noimageindex, noai, noimageai"
+				}
+			]
+		},
+		{
 			"source": "/includes/(.*)",
 			"headers": [
 				{
