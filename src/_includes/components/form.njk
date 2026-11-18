@@ -7,7 +7,10 @@ text (default: 'Submit') - submitVariant: Button variant - 'primary', 'secondary
 Field id attribute (defaults to name) - label: Field label text - placeholder: Placeholder text
 (optional) - required: Boolean (default: false) - helpText: Help text below field (optional) - rows:
 Number of rows for textarea (default: 4) - options: Array of options for select/radio (array of
-strings or {value, label} objects) - class: Additional CSS classes (optional) - successMessage:
+strings or {value, label} objects) - class: Additional CSS classes (optional) - type 'heading':
+renders label as a sub-heading inside the form, helpText as its intro - showWhen: { field, value } shows
+the field only while another field has that value (hidden fields are disabled, so neither validated nor
+sent) - requiredWith: name of another field; this field becomes required once that one has a value - successMessage:
 Message to show on success (optional) - errorMessage: Message to show on error (optional) #}
 {% set
 formMethod = method | default('POST') %}
@@ -35,9 +38,16 @@ formMethod = method | default('POST') %}
         {# Hidden fields don't need wrapping
     div #}
         <input type="hidden" name="{{ field.name }}" value="{{ field.value }}"/>
+      {% elif field.type == 'heading' %}
+        <div class="form-heading mt-xl mb-md lg:mb-lg">
+          <h3 class="text-2xl font-normal">{{ field.label }}</h3>
+          {% if field.helpText %}<p class="text-dark mt-xs">{{ field.helpText }}</p>{% endif %}
+        </div>
       {% else %}
         <div
-      class="form-field mb-md lg:mb-lg {% if field.type == 'checkbox' %}flex items-start gap-sm{% endif %}"
+      class="form-field mb-md lg:mb-lg {% if field.type == 'checkbox' %}flex items-start gap-sm{% endif %}{% if field.showWhen %} hidden{% endif %}"
+      {% if field.showWhen %}data-show-when-field="{{ field.showWhen.field }}" data-show-when-value="{{ field.showWhen.value }}"{% endif %}
+      {% if field.requiredWith %}data-required-with="{{ field.requiredWith }}"{% endif %}
     >
           {% if field.type == 'checkbox' %}
             {# Checkbox layout: input first, then label #}
