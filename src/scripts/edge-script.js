@@ -75,8 +75,11 @@ BunnySDK.net.http
       "https://www.rebuild.net",
       "https://letter.rebuild.net",
     ];
+    // This project's Vercel preview deployments (branch and commit URLs) only
+    const vercelPreviewOrigin = /^https:\/\/rebuild-web-[a-z0-9-]+-derail-design\.vercel\.app$/;
     const origin = request.headers.get("Origin") || "";
-    const corsOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+    const corsOrigin =
+      allowedOrigins.includes(origin) || vercelPreviewOrigin.test(origin) ? origin : allowedOrigins[0];
 
     const corsHeaders = {
       "Access-Control-Allow-Origin": corsOrigin,
