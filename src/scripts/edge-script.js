@@ -9,7 +9,7 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - /api/gathering-invitation (Notion)
  * - /api/application-rebuild1 (Notion + MailerLite)
  * - /api/newsletter-signup (MailerLite)
- * - /api/industry-org-contribution (MailerLite — "Building beyond Rebuild" list)
+ * - /api/industry-org-contribution (Notion — "Building beyond Rebuild" contributions)
  *
  * Also handles Notion database automation webhooks:
  * - /api/notion-mailerlite-sync (Notion → MailerLite subscriber sync)
@@ -24,7 +24,12 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - MAILERLITE_REBUILD1_GROUP_ID (for rebuild1 event registrations - triggers confirmation email)
  * - NOTION_WEBHOOK_SECRET (required, for validating Notion automation webhooks)
  * - MAILERLITE_NOTION_SYNC_GROUP_ID (for Notion→MailerLite synced subscribers)
- * - MAILERLITE_INDUSTRY_ORG_GROUP_ID (for /beyond contributions; needs a "contribution" text field in MailerLite)
+ * - NOTION_INDUSTRY_ORG_DB_ID (for /beyond contributions; database shared with the NOTION_TOKEN integration)
+ *   Properties (case-sensitive): Name (title), Email (email),
+ *   Working group (select: Overall organization | Investments | Social Design Principles |
+ *   Technology and data | Lobbying | Other), Working group (other) (text), Recommended person (text),
+ *   Recommended for (select: Board member | CEO | Supporter), Comments (text), Consent (checkbox),
+ *   Status (status, with a "New" option), Submitted At (date)
  */
 
 function maskEmail(email) {
@@ -233,7 +238,7 @@ async function handleFormSubmission(request, url, corsHeaders) {
       return await handleNewsletterSubmission(formData, corsHeaders);
     }
 
-    // Industry organisation contributions go straight to their own MailerLite group
+    // Industry organisation contributions go to their own Notion database
     if (url.pathname.includes("industry-org-contribution")) {
       return await handleIndustryOrgContribution(formData, corsHeaders);
     }
@@ -790,13 +795,24 @@ async function handleNewsletterSubmission(formData, corsHeaders) {
   }
 }
 
-const INDUSTRY_ORG_CONTRIBUTION_MAX = 1000;
+const INDUSTRY_ORG_COMMENT_MAX = 1000;
+const INDUSTRY_ORG_SHORT_MAX = 200;
+// Must match the select options on the /beyond form and in the Notion database
+const INDUSTRY_ORG_WORKING_GROUPS = [
+  "Overall organization",
+  "Investments",
+  "Social Design Principles",
+  "Technology and data",
+  "Lobbying",
+  "Other",
+];
+const INDUSTRY_ORG_POSITIONS = ["Board member", "CEO", "Supporter"];
 
 /**
  * "Building beyond Rebuild" contribution form (/beyond).
- * Adds the subscriber to a dedicated MailerLite group with their contribution
- * stored in the "contribution" custom field. Never falls back to the general
- * newsletter group — the consent given is specific to this list.
+ * Each submission becomes a row in its own Notion database (NOTION_INDUSTRY_ORG_DB_ID):
+ * a working group to join and/or a recommendation (a person + a position).
+ * At least one of the two is required.
  */
 async function handleIndustryOrgContribution(formData, corsHeaders) {
   const json = (body, status) =>
@@ -804,20 +820,40 @@ async function handleIndustryOrgContribution(formData, corsHeaders) {
       status,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
+  const field = (key) => (formData.get(key) || "").toString().trim();
+  const text = (content) => ({ rich_text: content ? [{ text: { content } }] : [] });
 
   try {
-    const name = (formData.get("name") || "").toString().trim();
-    const email = (formData.get("email") || "").toString().trim();
-    const contribution = (formData.get("contribution") || "").toString().trim();
+    const name = field("name");
+    const email = field("email");
+    const workingGroup = field("working_group");
+    const workingGroupOther = workingGroup === "Other" ? field("working_group_other") : "";
+    const recommendationName = field("recommendation_name");
+    const recommendationPosition = field("recommendation_position");
+    const comments = field("comments");
     const consent = formData.get("consent") === "on";
 
     const errors = [];
     if (!name) errors.push("Name is required");
+    else if (name.length > INDUSTRY_ORG_SHORT_MAX) errors.push("Name is too long");
     if (!email) errors.push("Email is required");
     else if (!EMAIL_REGEX.test(email)) errors.push("Please provide a valid email address");
-    if (!contribution) errors.push("Please tell us how you would like to contribute");
-    else if (contribution.length > INDUSTRY_ORG_CONTRIBUTION_MAX)
-      errors.push(`Contribution must be ${INDUSTRY_ORG_CONTRIBUTION_MAX} characters or fewer`);
+    if (workingGroup && !INDUSTRY_ORG_WORKING_GROUPS.includes(workingGroup))
+      errors.push("Please choose a working group from the list");
+    if (workingGroup === "Other" && !workingGroupOther)
+      errors.push("Please describe the working group you have in mind");
+    if (workingGroupOther.length > INDUSTRY_ORG_SHORT_MAX) errors.push("Working group description is too long");
+    if (recommendationName.length > INDUSTRY_ORG_SHORT_MAX) errors.push("Recommended name is too long");
+    if (recommendationPosition && !INDUSTRY_ORG_POSITIONS.includes(recommendationPosition))
+      errors.push("Please choose a position from the list");
+    if (recommendationName && !recommendationPosition)
+      errors.push("Please choose a position for the person you recommend");
+    if (recommendationPosition && !recommendationName)
+      errors.push("Please add the name of the person you recommend");
+    if (!workingGroup && !recommendationName)
+      errors.push("Please choose a working group or recommend someone");
+    if (comments.length > INDUSTRY_ORG_COMMENT_MAX)
+      errors.push(`Comments must be ${INDUSTRY_ORG_COMMENT_MAX} characters or fewer`);
     if (!consent) errors.push("Consent is required");
     if (errors.length > 0) return json({ error: "Validation failed", details: errors }, 400);
 
@@ -830,34 +866,41 @@ async function handleIndustryOrgContribution(formData, corsHeaders) {
     }
     recentSubmissions.set(dedupKey, now);
 
-    const apiKey = Deno.env.get("MAILERLITE_API_KEY");
-    const groupId = Deno.env.get("MAILERLITE_INDUSTRY_ORG_GROUP_ID");
-    if (!apiKey || !groupId) {
-      console.error("Industry org contribution: MailerLite API key or group ID not configured");
+    const apiKey = Deno.env.get("NOTION_TOKEN");
+    const databaseId = Deno.env.get("NOTION_INDUSTRY_ORG_DB_ID");
+    if (!apiKey || !databaseId) {
+      console.error("Industry org contribution: NOTION_TOKEN or NOTION_INDUSTRY_ORG_DB_ID not configured");
+      recentSubmissions.delete(dedupKey);
       return json({ error: "Service configuration error", details: ["Submissions are not available right now"] }, 500);
     }
 
-    const fields = { contribution };
-    const spaceIndex = name.indexOf(" ");
-    if (spaceIndex === -1) {
-      fields.name = name;
-    } else {
-      fields.name = name.slice(0, spaceIndex);
-      fields.last_name = name.slice(spaceIndex + 1);
-    }
+    const properties = {
+      Name: { title: [{ text: { content: name } }] },
+      Email: { email },
+      "Working group": { select: workingGroup ? { name: workingGroup } : null },
+      "Working group (other)": text(workingGroupOther),
+      "Recommended person": text(recommendationName),
+      "Recommended for": { select: recommendationPosition ? { name: recommendationPosition } : null },
+      Comments: text(comments),
+      Consent: { checkbox: true },
+      Status: { status: { name: "New" } },
+      "Submitted At": { date: { start: new Date().toISOString() } },
+    };
 
-    // Classic API v2: adding to a group goes through the group's subscribers endpoint
-    const response = await fetch(
-      `https://api.mailerlite.com/api/v2/groups/${encodeURIComponent(groupId)}/subscribers`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "X-MailerLite-ApiKey": apiKey },
-        body: JSON.stringify({ email, fields, resubscribe: true }),
-      }
-    );
+    const response = await fetch("https://api.notion.com/v1/pages", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        "Notion-Version": "2022-06-28",
+      },
+      body: JSON.stringify({ parent: { database_id: databaseId }, properties }),
+    });
 
     if (!response.ok) {
-      console.error("Industry org contribution: MailerLite API error", response.status);
+      // Log only Notion's error code: validation messages can echo submitted values (e.g. the email)
+      const notionError = await response.json().catch(() => ({}));
+      console.error("Industry org contribution: Notion API error", response.status, notionError.code || "unknown");
       recentSubmissions.delete(dedupKey);
       return json({ error: "Submission failed", details: ["Unable to save your contribution right now"] }, 500);
     }

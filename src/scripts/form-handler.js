@@ -16,6 +16,38 @@ function initializeCharCounters(form) {
   });
 }
 
+// showWhen: reveal a field only while another field has a given value. Hidden inputs are
+// disabled so they are neither validated nor submitted.
+// requiredWith: make a field required once another field has a value (e.g. a name + position pair).
+function initializeConditionalFields(form) {
+  const shown = form.querySelectorAll("[data-show-when-field]");
+  const paired = form.querySelectorAll("[data-required-with]");
+  if (!shown.length && !paired.length) return;
+
+  const controlValue = (name) => {
+    const control = form.elements.namedItem(name);
+    return control ? (control.value || "").trim() : "";
+  };
+
+  const update = () => {
+    shown.forEach((wrapper) => {
+      const visible = controlValue(wrapper.dataset.showWhenField) === wrapper.dataset.showWhenValue;
+      wrapper.classList.toggle("hidden", !visible);
+      wrapper.querySelectorAll("input, select, textarea").forEach((el) => (el.disabled = !visible));
+    });
+    paired.forEach((wrapper) => {
+      const required = controlValue(wrapper.dataset.requiredWith) !== "";
+      wrapper.querySelectorAll("input, select, textarea").forEach((el) => (el.required = required));
+    });
+  };
+
+  form.addEventListener("input", update);
+  form.addEventListener("change", update);
+  // form.reset() doesn't fire input/change; re-sync once the reset has applied
+  form.addEventListener("reset", () => setTimeout(update, 0));
+  update();
+}
+
 // Form submission handler
 function initializeFormHandler(form) {
   const formId = form.id;
@@ -29,6 +61,7 @@ function initializeFormHandler(form) {
   console.log("Form handler initialized for:", formId);
   form.dataset.handlerInitialized = "true";
   initializeCharCounters(form);
+  initializeConditionalFields(form);
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
