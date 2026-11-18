@@ -151,7 +151,7 @@ eleventyExcludeFromCollections: true
         { type: 'text', name: 'recommendation_name', label: 'Recommended person', placeholder: 'Who do you recommend?', requiredWith: 'recommendation_position' },
         { type: 'select', name: 'recommendation_position', label: 'Position', placeholder: 'Choose a position', options: ['Board member', 'CEO', 'Supporter'], requiredWith: 'recommendation_name' },
         { type: 'textarea', name: 'comments', label: 'Anything else?', rows: 4, maxlength: 1000, placeholder: 'Time, expertise, a network, funding, a venue, an idea…' },
-        { type: 'checkbox', name: 'consent', label: 'I agree that Rebuild can store my name, email and contribution in a database hosted on Notion so we can contact me about the new industry organisation. I can withdraw my consent at any time.', required: true },
+        { type: 'checkbox', name: 'consent', label: 'I agree that Rebuild can store my name, email and contribution in a database so we can contact me about the new industry organisation. I can withdraw my consent at any time.', required: true },
         { type: 'hidden', name: 'form_type', value: 'industry_org_contribution' }
       ] %}
       {% set successMessage = 'Thank you! We have received your contribution and will be in touch.' %}
