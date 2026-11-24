@@ -150,9 +150,9 @@ eleventyExcludeFromCollections: true
         { type: 'text', name: 'name', label: 'Name', required: true, autocomplete: 'name' },
         { type: 'email', name: 'email', label: 'Email', required: true, autocomplete: 'email' },
         { type: 'heading', label: 'How would you like to contribute?', helpText: 'Join a working group, recommend someone — or both.' },
-        { type: 'radio-cards', name: 'working_group', label: 'Working group', required: true, options: workingGroups.concat([
-          { value: 'Other', label: 'Other', description: 'Missing a working group? Propose one — give it a name and a short description.' },
-          { value: 'Maybe later', label: "I'd like to join later, maybe", description: 'Not ready to pick a group yet — we will keep you posted as the groups take shape.' }
+        { type: 'radio-cards', name: 'working_group', label: 'Working group', required: true, liveOptionsUrl: (site.apiUrl + '/api/industry-org-working-groups') if site.apiUrl else false, options: workingGroups.concat([
+          { value: 'Other', label: 'Other', fixed: true, description: 'Missing a working group? Propose one — give it a name and a short description.' },
+          { value: 'Maybe later', label: "I'd like to join later, maybe", fixed: true, description: 'Not ready to pick a group yet — we will keep you posted as the groups take shape.' }
         ]) },
         { type: 'text', name: 'working_group_other_title', label: 'Name of the working group', required: true, placeholder: 'E.g. Trust and safety', showWhen: { field: 'working_group', value: 'Other' } },
         { type: 'textarea', name: 'working_group_other_description', label: 'What would it work on?', required: true, rows: 3, maxlength: 300, placeholder: 'A sentence or two about its purpose', showWhen: { field: 'working_group', value: 'Other' } },

@@ -51,6 +51,71 @@ function initializeConditionalFields(form) {
   update();
 }
 
+// liveOptionsUrl on radio-cards: replace the built-in (non-fixed) cards with the current list from
+// the endpoint. On any failure the built-in cards stay. A choice already made is kept if still listed.
+function buildRadioCard(name, id, option, required) {
+  const card = document.createElement("label");
+  card.htmlFor = id;
+  card.className = "radio-card flex items-start gap-sm p-sm border-2 border-dark cursor-pointer";
+
+  const input = document.createElement("input");
+  input.type = "radio";
+  input.id = id;
+  input.name = name;
+  input.value = option.value;
+  input.required = required;
+  input.className = "mt-1 h-5 w-5 shrink-0 border-2 border-dark focus:ring-2 focus:ring-blue";
+
+  const text = document.createElement("span");
+  text.className = "flex flex-col";
+  const label = document.createElement("span");
+  label.className = "text-dark";
+  label.textContent = option.label || option.value;
+  text.appendChild(label);
+
+  if (option.description) {
+    const description = document.createElement("span");
+    description.id = `${id}-description`;
+    description.className = "text-sm text-dark opacity-80 mt-xxs";
+    description.textContent = option.description;
+    input.setAttribute("aria-describedby", description.id);
+    text.appendChild(description);
+  }
+
+  card.append(input, text);
+  return card;
+}
+
+function initializeLiveOptions(form) {
+  form.querySelectorAll("[data-live-options]").forEach(async (fieldset) => {
+    try {
+      const response = await fetch(fieldset.dataset.liveOptions, { headers: { Accept: "application/json" } });
+      if (!response.ok) return;
+      const { options } = await response.json();
+      const valid = Array.isArray(options)
+        ? options.filter((o) => o && typeof o.value === "string" && o.value.trim())
+        : [];
+      if (!valid.length) return;
+
+      const grid = fieldset.querySelector("[data-radio-cards]");
+      const firstInput = grid && grid.querySelector("input[type=radio]");
+      if (!firstInput) return;
+      const checked = grid.querySelector("input:checked");
+      const checkedValue = checked ? checked.value : null;
+      const firstFixed = grid.querySelector(".radio-card[data-fixed]");
+
+      grid.querySelectorAll(".radio-card:not([data-fixed])").forEach((card) => card.remove());
+      valid.forEach((option, i) => {
+        const card = buildRadioCard(firstInput.name, `${fieldset.dataset.fieldId}-live-${i + 1}`, option, firstInput.required);
+        if (option.value === checkedValue) card.querySelector("input").checked = true;
+        grid.insertBefore(card, firstFixed);
+      });
+    } catch (error) {
+      console.warn("Live options unavailable, keeping the built-in list");
+    }
+  });
+}
+
 // Form submission handler
 function initializeFormHandler(form) {
   const formId = form.id;
@@ -65,6 +130,7 @@ function initializeFormHandler(form) {
   form.dataset.handlerInitialized = "true";
   initializeCharCounters(form);
   initializeConditionalFields(form);
+  initializeLiveOptions(form);
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
