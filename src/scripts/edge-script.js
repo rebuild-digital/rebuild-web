@@ -34,7 +34,7 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - NOTION_INDUSTRY_ORG_GROUPS_DB_ID (optional; the /beyond working groups catalogue, shared with the
  *   NOTION_TOKEN integration). Without it the form keeps its built-in list and proposals stay text only.
  *   Properties (case-sensitive): Name (title), Description (text),
- *   Status (select: Proposed | Approved | Declined), Order (number, optional), Proposed by (email)
+ *   Status (select or status: Proposed | Approved | Declined), Order (number, optional), Proposed by (email)
  *   Approved groups are listed publicly (name + description only) via GET /api/industry-org-working-groups.
  */
 
@@ -839,7 +839,7 @@ const INDUSTRY_ORG_FIXED_CHOICES = ["Other", "Maybe later"];
 const WORKING_GROUPS_CACHE_MS = 5 * 60 * 1000;
 const WORKING_GROUP_APPROVED = "Approved";
 const WORKING_GROUP_PROPOSED = "Proposed";
-let workingGroupsCache = null; // { at, groups: [{ name, description, status }] }
+let workingGroupsCache = null; // { at, groups: [{ name, description, status }], statusType, titleName }
 
 const notionHeaders = (apiKey) => ({
   Authorization: `Bearer ${apiKey}`,
@@ -847,6 +847,9 @@ const notionHeaders = (apiKey) => ({
   "Notion-Version": "2022-06-28",
 });
 const plainText = (richText) => (richText || []).map((t) => t.plain_text).join("").trim();
+// Status may be a select or a Notion status property; the title may have any name
+const optionName = (property) => (property && (property.select || property.status) ? (property.select || property.status).name : "");
+const titleOf = (properties) => plainText(Object.values(properties).find((p) => p.type === "title")?.title);
 const sameName = (a, b) => a.trim().toLowerCase() === b.trim().toLowerCase();
 
 /**
@@ -862,6 +865,19 @@ async function loadWorkingGroups() {
   }
 
   try {
+    // The schema tells whether Status is a select or a status property (needed to write proposals)
+    const schemaResponse = await fetch(`https://api.notion.com/v1/databases/${databaseId}`, {
+      headers: notionHeaders(apiKey),
+    });
+    if (!schemaResponse.ok) {
+      const notionError = await schemaResponse.json().catch(() => ({}));
+      throw new Error(`Notion API error ${schemaResponse.status} ${notionError.code || "unknown"}`);
+    }
+    const schema = await schemaResponse.json();
+    const statusType = schema.properties?.Status?.type === "status" ? "status" : "select";
+    const titleName =
+      Object.entries(schema.properties || {}).find(([, property]) => property.type === "title")?.[0] || "Name";
+
     const pages = [];
     let cursor;
     do {
@@ -881,9 +897,9 @@ async function loadWorkingGroups() {
 
     const groups = pages
       .map((page) => ({
-        name: plainText(page.properties.Name?.title),
+        name: titleOf(page.properties),
         description: plainText(page.properties.Description?.rich_text),
-        status: page.properties.Status?.select?.name || "",
+        status: optionName(page.properties.Status),
         order: page.properties.Order?.number ?? Infinity,
         created: page.created_time || "",
       }))
@@ -891,7 +907,7 @@ async function loadWorkingGroups() {
       .sort((a, b) => a.order - b.order || a.created.localeCompare(b.created))
       .map(({ name, description, status }) => ({ name, description, status }));
 
-    workingGroupsCache = { at: Date.now(), groups };
+    workingGroupsCache = { at: Date.now(), groups, statusType, titleName };
     return groups;
   } catch (error) {
     if (workingGroupsCache) {
@@ -935,9 +951,9 @@ async function proposeWorkingGroup(name, description, email) {
       body: JSON.stringify({
         parent: { database_id: databaseId },
         properties: {
-          Name: { title: [{ text: { content: name } }] },
+          [workingGroupsCache?.titleName || "Name"]: { title: [{ text: { content: name } }] },
           Description: { rich_text: description ? [{ text: { content: description } }] : [] },
-          Status: { select: { name: WORKING_GROUP_PROPOSED } },
+          Status: { [workingGroupsCache?.statusType || "select"]: { name: WORKING_GROUP_PROPOSED } },
           "Proposed by": { email },
         },
       }),
