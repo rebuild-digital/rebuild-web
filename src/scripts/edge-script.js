@@ -31,6 +31,11 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  *   Recommended person (text),
  *   Recommended for (select: Board member | CEO | Supporter), Comments (text), Consent (checkbox),
  *   Status (status, with a "New" option), Submitted At (date)
+ * - NOTION_INDUSTRY_ORG_GROUPS_DB_ID (optional; the /beyond working groups catalogue, shared with the
+ *   NOTION_TOKEN integration). Without it the form keeps its built-in list and proposals stay text only.
+ *   Properties (case-sensitive): Name (title), Description (text),
+ *   Status (select or status: Proposed | Approved | Declined), Order (number, optional), Proposed by (email)
+ *   Approved groups are listed publicly (name + description only) via GET /api/industry-org-working-groups.
  */
 
 function maskEmail(email) {
@@ -85,7 +90,7 @@ BunnySDK.net.http
     const corsHeaders = {
       "Access-Control-Allow-Origin": corsOrigin,
 
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
 
       "Access-Control-Allow-Headers": "Content-Type",
     };
@@ -94,6 +99,17 @@ BunnySDK.net.http
 
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
+    }
+
+    // Public list of approved /beyond working groups (read-only)
+    if (url.pathname.includes("/api/industry-org-working-groups")) {
+      if (request.method !== "GET") {
+        return new Response(JSON.stringify({ error: "Method not allowed. Please use GET." }), {
+          status: 405,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      return await handleWorkingGroupsList(corsHeaders);
     }
 
     // Check if this is a form endpoint
@@ -815,6 +831,151 @@ const INDUSTRY_ORG_WORKING_GROUPS = [
   "Maybe later",
 ];
 const INDUSTRY_ORG_POSITIONS = ["Board member", "CEO", "Supporter"];
+// Fixed choices on the form that are not working groups themselves
+const INDUSTRY_ORG_FIXED_CHOICES = ["Other", "Maybe later"];
+
+// Working groups catalogue (NOTION_INDUSTRY_ORG_GROUPS_DB_ID), cached per edge instance.
+// Approving a group in Notion shows it on the form within WORKING_GROUPS_CACHE_MS.
+const WORKING_GROUPS_CACHE_MS = 5 * 60 * 1000;
+const WORKING_GROUP_APPROVED = "Approved";
+const WORKING_GROUP_PROPOSED = "Proposed";
+let workingGroupsCache = null; // { at, groups: [{ name, description, status }], statusType, titleName }
+
+const notionHeaders = (apiKey) => ({
+  Authorization: `Bearer ${apiKey}`,
+  "Content-Type": "application/json",
+  "Notion-Version": "2022-06-28",
+});
+const plainText = (richText) => (richText || []).map((t) => t.plain_text).join("").trim();
+// Status may be a select or a Notion status property; the title may have any name
+const optionName = (property) => (property && (property.select || property.status) ? (property.select || property.status).name : "");
+const titleOf = (properties) => plainText(Object.values(properties).find((p) => p.type === "title")?.title);
+const sameName = (a, b) => a.trim().toLowerCase() === b.trim().toLowerCase();
+
+/**
+ * All working groups in the catalogue (any status), sorted by Order, then creation time.
+ * Returns null when the catalogue is not configured. Serves a stale copy if Notion is unreachable.
+ */
+async function loadWorkingGroups() {
+  const apiKey = Deno.env.get("NOTION_TOKEN");
+  const databaseId = Deno.env.get("NOTION_INDUSTRY_ORG_GROUPS_DB_ID");
+  if (!apiKey || !databaseId) return null;
+  if (workingGroupsCache && Date.now() - workingGroupsCache.at < WORKING_GROUPS_CACHE_MS) {
+    return workingGroupsCache.groups;
+  }
+
+  try {
+    // The schema tells whether Status is a select or a status property (needed to write proposals)
+    const schemaResponse = await fetch(`https://api.notion.com/v1/databases/${databaseId}`, {
+      headers: notionHeaders(apiKey),
+    });
+    if (!schemaResponse.ok) {
+      const notionError = await schemaResponse.json().catch(() => ({}));
+      throw new Error(`Notion API error ${schemaResponse.status} ${notionError.code || "unknown"}`);
+    }
+    const schema = await schemaResponse.json();
+    const statusType = schema.properties?.Status?.type === "status" ? "status" : "select";
+    const titleName =
+      Object.entries(schema.properties || {}).find(([, property]) => property.type === "title")?.[0] || "Name";
+
+    const pages = [];
+    let cursor;
+    do {
+      const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
+        method: "POST",
+        headers: notionHeaders(apiKey),
+        body: JSON.stringify({ page_size: 100, ...(cursor ? { start_cursor: cursor } : {}) }),
+      });
+      if (!response.ok) {
+        const notionError = await response.json().catch(() => ({}));
+        throw new Error(`Notion API error ${response.status} ${notionError.code || "unknown"}`);
+      }
+      const data = await response.json();
+      pages.push(...data.results);
+      cursor = data.has_more ? data.next_cursor : undefined;
+    } while (cursor);
+
+    const groups = pages
+      .map((page) => ({
+        name: titleOf(page.properties),
+        description: plainText(page.properties.Description?.rich_text),
+        status: optionName(page.properties.Status),
+        order: page.properties.Order?.number ?? Infinity,
+        created: page.created_time || "",
+      }))
+      .filter((group) => group.name && !INDUSTRY_ORG_FIXED_CHOICES.some((fixed) => sameName(fixed, group.name)))
+      .sort((a, b) => a.order - b.order || a.created.localeCompare(b.created))
+      .map(({ name, description, status }) => ({ name, description, status }));
+
+    workingGroupsCache = { at: Date.now(), groups, statusType, titleName };
+    return groups;
+  } catch (error) {
+    if (workingGroupsCache) {
+      console.error("Working groups: refresh failed, serving cached list:", error.message);
+      return workingGroupsCache.groups;
+    }
+    throw error;
+  }
+}
+
+/**
+ * GET /api/industry-org-working-groups: approved groups only, name + description only.
+ * Public, read-only and cached by the CDN, which does not vary on Origin: answer every origin with "*"
+ * so a cached copy made for one origin does not block the others.
+ */
+async function handleWorkingGroupsList(corsHeaders) {
+  const headers = { ...corsHeaders, "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" };
+  try {
+    const groups = await loadWorkingGroups();
+    if (!groups) {
+      return new Response(JSON.stringify({ error: "Not configured" }), { status: 503, headers });
+    }
+    const options = groups
+      .filter((group) => group.status === WORKING_GROUP_APPROVED)
+      .map((group) => ({ value: group.name, label: group.name, description: group.description }));
+    return new Response(JSON.stringify({ options }), {
+      status: 200,
+      headers: { ...headers, "Cache-Control": "public, max-age=300" },
+    });
+  } catch (error) {
+    console.error("Working groups list error:", error.message);
+    return new Response(JSON.stringify({ error: "Unavailable" }), { status: 503, headers });
+  }
+}
+
+/** Add a group proposed under "Other" to the catalogue for review. Failures are logged, never fatal. */
+async function proposeWorkingGroup(name, description, email) {
+  const apiKey = Deno.env.get("NOTION_TOKEN");
+  const databaseId = Deno.env.get("NOTION_INDUSTRY_ORG_GROUPS_DB_ID");
+  if (!apiKey || !databaseId) return;
+  try {
+    const response = await fetch("https://api.notion.com/v1/pages", {
+      method: "POST",
+      headers: notionHeaders(apiKey),
+      body: JSON.stringify({
+        parent: { database_id: databaseId },
+        properties: {
+          [workingGroupsCache?.titleName || "Name"]: { title: [{ text: { content: name } }] },
+          Description: { rich_text: description ? [{ text: { content: description } }] : [] },
+          Status: { [workingGroupsCache?.statusType || "select"]: { name: WORKING_GROUP_PROPOSED } },
+          "Proposed by": { email },
+        },
+      }),
+    });
+    if (!response.ok) {
+      const notionError = await response.json().catch(() => ({}));
+      console.error("Working group proposal: Notion API error", response.status, notionError.code || "unknown");
+      return;
+    }
+    // Keep the cached list in step so a quick second proposal of the same name is not duplicated
+    if (workingGroupsCache) {
+      workingGroupsCache.groups.push({ name, description, status: WORKING_GROUP_PROPOSED });
+    }
+    console.log("Working group proposal saved");
+  } catch (error) {
+    console.error("Working group proposal error:", error.message);
+  }
+}
 
 /**
  * "Building beyond Rebuild" contribution form (/beyond).
@@ -835,12 +996,24 @@ async function handleIndustryOrgContribution(formData, corsHeaders) {
     const name = field("name");
     const email = field("email");
     // Required on the current form; an older cached form could leave it empty
-    const workingGroup = field("working_group");
+    let workingGroup = field("working_group");
     const isOther = workingGroup === "Other";
     // working_group_other is the single text field of the previous form version
     const otherTitle = isOther ? field("working_group_other_title") || field("working_group_other") : "";
     const otherDescription = isOther ? field("working_group_other_description") : "";
-    const workingGroupOther = [otherTitle, otherDescription].filter(Boolean).join(" — ");
+    let workingGroupOther = [otherTitle, otherDescription].filter(Boolean).join(" — ");
+
+    // Approved groups from the Notion catalogue are valid choices next to the built-in list
+    let catalogue = null;
+    try {
+      catalogue = await loadWorkingGroups();
+    } catch (error) {
+      console.error("Industry org contribution: working groups lookup failed:", error.message);
+    }
+    const allowedGroups = new Set(INDUSTRY_ORG_WORKING_GROUPS);
+    (catalogue || [])
+      .filter((group) => group.status === WORKING_GROUP_APPROVED)
+      .forEach((group) => allowedGroups.add(group.name));
     const wantsRecommendation = field("wants_recommendation") === "yes";
     const recommendationName = field("recommendation_name");
     const recommendationPosition = field("recommendation_position");
@@ -852,7 +1025,7 @@ async function handleIndustryOrgContribution(formData, corsHeaders) {
     else if (name.length > INDUSTRY_ORG_SHORT_MAX) errors.push("Name is too long");
     if (!email) errors.push("Email is required");
     else if (!EMAIL_REGEX.test(email)) errors.push("Please provide a valid email address");
-    if (workingGroup && !INDUSTRY_ORG_WORKING_GROUPS.includes(workingGroup))
+    if (workingGroup && !allowedGroups.has(workingGroup))
       errors.push("Please choose a working group from the list");
     if (isOther && !otherTitle) errors.push("Please give the working group you propose a name");
     if (otherTitle.length > INDUSTRY_ORG_GROUP_TITLE_MAX) errors.push("Working group name is too long");
@@ -873,6 +1046,19 @@ async function handleIndustryOrgContribution(formData, corsHeaders) {
       errors.push(`Comments must be ${INDUSTRY_ORG_COMMENT_MAX} characters or fewer`);
     if (!consent) errors.push("Consent is required");
     if (errors.length > 0) return json({ error: "Validation failed", details: errors }, 400);
+
+    // A proposal that matches a group already in the catalogue is not proposed again;
+    // if that group is approved, the contribution simply joins it
+    // (proposeWorkingGroup is a no-op when the catalogue is not configured)
+    let proposeGroup = isOther;
+    const existingGroup = isOther && catalogue ? catalogue.find((group) => sameName(group.name, otherTitle)) : null;
+    if (existingGroup) {
+      proposeGroup = false;
+      if (existingGroup.status === WORKING_GROUP_APPROVED) {
+        workingGroup = existingGroup.name;
+        workingGroupOther = "";
+      }
+    }
 
     // Deduplicate rapid double-submits
     const dedupKey = `industry_org_contribution:${email.toLowerCase()}`;
@@ -923,6 +1109,7 @@ async function handleIndustryOrgContribution(formData, corsHeaders) {
     }
 
     console.log(`Industry org contribution saved for: ${maskEmail(email)}`);
+    if (proposeGroup) await proposeWorkingGroup(otherTitle, otherDescription, email);
     return json({ success: true, message: "Contribution received" }, 200);
   } catch (error) {
     console.error("Industry org contribution error:", error);

@@ -9,7 +9,8 @@ Field id attribute (defaults to name) - label: Field label text - placeholder: P
 Number of rows for textarea (default: 4) - options: Array of options for select/radio (array of
 strings or {value, label} objects) - class: Additional CSS classes (optional) - type 'heading':
 renders label as a sub-heading inside the form, helpText as its intro - type 'radio-cards': a
-fieldset of selectable cards; options are {value, label, description} objects - showWhen: { field, value } shows
+fieldset of selectable cards; options are {value, label, description, fixed} objects; liveOptionsUrl: JSON
+endpoint returning {options: [...]} that replaces the non-fixed cards in the browser - showWhen: { field, value } shows
 the field (or heading) only while another field has that value; for a checkbox that is its value while checked
 (hidden fields are disabled, so neither validated nor sent) - value: for a checkbox, the value sent when checked
 (default 'on') - requiredWith: name of another field; this field becomes required once that one has a value - successMessage:
@@ -53,6 +54,7 @@ formMethod = method | default('POST') %}
         <fieldset
           class="form-field radio-cards mb-md lg:mb-lg border-0 p-0 m-0 min-w-0{% if field.showWhen %} hidden{% endif %}"
           {% if field.showWhen %}data-show-when-field="{{ field.showWhen.field }}" data-show-when-value="{{ field.showWhen.value }}"{% endif %}
+          {% if field.liveOptionsUrl %}data-live-options="{{ field.liveOptionsUrl }}" data-field-id="{{ field.id | default(field.name) }}"{% endif %}
         >
           {% if field.label %}
             <legend class="block text-dark mb-xs">
@@ -64,10 +66,10 @@ formMethod = method | default('POST') %}
           {% if field.helpText %}
             <p class="text-sm text-dark mb-sm">{{ field.helpText }}</p>
           {% endif %}
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-sm">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-sm" data-radio-cards>
             {% for option in field.options %}
               {% set optionId = (field.id | default(field.name)) + '-' + loop.index %}
-              <label for="{{ optionId }}" class="radio-card flex items-start gap-sm p-sm border-2 border-dark cursor-pointer {{ field.class }}">
+              <label for="{{ optionId }}" {% if option.fixed %}data-fixed{% endif %} class="radio-card flex items-start gap-sm p-sm border-2 border-dark cursor-pointer {{ field.class }}">
                 <input
                   type="radio"
                   id="{{ optionId }}"
