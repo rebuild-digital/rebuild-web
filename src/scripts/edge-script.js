@@ -27,7 +27,8 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11";
  * - NOTION_INDUSTRY_ORG_DB_ID (for /beyond contributions; database shared with the NOTION_TOKEN integration)
  *   Properties (case-sensitive): Name (title), Email (email),
  *   Working group (select: Overall organization | Investments | Social Design Principles |
- *   Technology and data | Lobbying | Other), Working group (other) (text), Recommended person (text),
+ *   Technology and data | Lobbying | Other | Maybe later), Working group (other) (text: "name — description"),
+ *   Recommended person (text),
  *   Recommended for (select: Board member | CEO | Supporter), Comments (text), Consent (checkbox),
  *   Status (status, with a "New" option), Submitted At (date)
  */
@@ -800,7 +801,10 @@ async function handleNewsletterSubmission(formData, corsHeaders) {
 
 const INDUSTRY_ORG_COMMENT_MAX = 1000;
 const INDUSTRY_ORG_SHORT_MAX = 200;
-// Must match the select options on the /beyond form and in the Notion database
+const INDUSTRY_ORG_GROUP_TITLE_MAX = 80;
+const INDUSTRY_ORG_GROUP_DESCRIPTION_MAX = 300;
+// Must match src/_data/workingGroups.json (+ "Other" and "Maybe later" on the /beyond form)
+// and the select options in the Notion database
 const INDUSTRY_ORG_WORKING_GROUPS = [
   "Overall organization",
   "Investments",
@@ -808,6 +812,7 @@ const INDUSTRY_ORG_WORKING_GROUPS = [
   "Technology and data",
   "Lobbying",
   "Other",
+  "Maybe later",
 ];
 const INDUSTRY_ORG_POSITIONS = ["Board member", "CEO", "Supporter"];
 
@@ -829,8 +834,14 @@ async function handleIndustryOrgContribution(formData, corsHeaders) {
   try {
     const name = field("name");
     const email = field("email");
+    // Required on the current form; an older cached form could leave it empty
     const workingGroup = field("working_group");
-    const workingGroupOther = workingGroup === "Other" ? field("working_group_other") : "";
+    const isOther = workingGroup === "Other";
+    // working_group_other is the single text field of the previous form version
+    const otherTitle = isOther ? field("working_group_other_title") || field("working_group_other") : "";
+    const otherDescription = isOther ? field("working_group_other_description") : "";
+    const workingGroupOther = [otherTitle, otherDescription].filter(Boolean).join(" — ");
+    const wantsRecommendation = field("wants_recommendation") === "yes";
     const recommendationName = field("recommendation_name");
     const recommendationPosition = field("recommendation_position");
     const comments = field("comments");
@@ -843,18 +854,21 @@ async function handleIndustryOrgContribution(formData, corsHeaders) {
     else if (!EMAIL_REGEX.test(email)) errors.push("Please provide a valid email address");
     if (workingGroup && !INDUSTRY_ORG_WORKING_GROUPS.includes(workingGroup))
       errors.push("Please choose a working group from the list");
-    if (workingGroup === "Other" && !workingGroupOther)
-      errors.push("Please describe the working group you have in mind");
-    if (workingGroupOther.length > INDUSTRY_ORG_SHORT_MAX) errors.push("Working group description is too long");
+    if (isOther && !otherTitle) errors.push("Please give the working group you propose a name");
+    if (otherTitle.length > INDUSTRY_ORG_GROUP_TITLE_MAX) errors.push("Working group name is too long");
+    if (otherDescription.length > INDUSTRY_ORG_GROUP_DESCRIPTION_MAX)
+      errors.push(`Working group description must be ${INDUSTRY_ORG_GROUP_DESCRIPTION_MAX} characters or fewer`);
     if (recommendationName.length > INDUSTRY_ORG_SHORT_MAX) errors.push("Recommended name is too long");
     if (recommendationPosition && !INDUSTRY_ORG_POSITIONS.includes(recommendationPosition))
       errors.push("Please choose a position from the list");
-    if (recommendationName && !recommendationPosition)
+    if (wantsRecommendation && !recommendationName && !recommendationPosition)
+      errors.push("Please add the person you recommend and their position");
+    else if (recommendationName && !recommendationPosition)
       errors.push("Please choose a position for the person you recommend");
-    if (recommendationPosition && !recommendationName)
+    else if (recommendationPosition && !recommendationName)
       errors.push("Please add the name of the person you recommend");
-    if (!workingGroup && !recommendationName)
-      errors.push("Please choose a working group or recommend someone");
+    if (!workingGroup && !recommendationName && !comments)
+      errors.push("Please choose a working group, recommend someone or leave a comment");
     if (comments.length > INDUSTRY_ORG_COMMENT_MAX)
       errors.push(`Comments must be ${INDUSTRY_ORG_COMMENT_MAX} characters or fewer`);
     if (!consent) errors.push("Consent is required");

@@ -8,9 +8,11 @@ Field id attribute (defaults to name) - label: Field label text - placeholder: P
 (optional) - required: Boolean (default: false) - helpText: Help text below field (optional) - rows:
 Number of rows for textarea (default: 4) - options: Array of options for select/radio (array of
 strings or {value, label} objects) - class: Additional CSS classes (optional) - type 'heading':
-renders label as a sub-heading inside the form, helpText as its intro - showWhen: { field, value } shows
-the field only while another field has that value (hidden fields are disabled, so neither validated nor
-sent) - requiredWith: name of another field; this field becomes required once that one has a value - successMessage:
+renders label as a sub-heading inside the form, helpText as its intro - type 'radio-cards': a
+fieldset of selectable cards; options are {value, label, description} objects - showWhen: { field, value } shows
+the field (or heading) only while another field has that value; for a checkbox that is its value while checked
+(hidden fields are disabled, so neither validated nor sent) - value: for a checkbox, the value sent when checked
+(default 'on') - requiredWith: name of another field; this field becomes required once that one has a value - successMessage:
 Message to show on success (optional) - errorMessage: Message to show on error (optional) #}
 {% set
 formMethod = method | default('POST') %}
@@ -39,10 +41,52 @@ formMethod = method | default('POST') %}
     div #}
         <input type="hidden" name="{{ field.name }}" value="{{ field.value }}"/>
       {% elif field.type == 'heading' %}
-        <div class="form-heading mt-xl mb-md lg:mb-lg">
+        <div
+          class="form-heading mt-xl mb-md lg:mb-lg{% if field.showWhen %} hidden{% endif %}"
+          {% if field.showWhen %}data-show-when-field="{{ field.showWhen.field }}" data-show-when-value="{{ field.showWhen.value }}"{% endif %}
+        >
           <h3 class="text-2xl font-normal">{{ field.label }}</h3>
           {% if field.helpText %}<p class="text-dark mt-xs">{{ field.helpText }}</p>{% endif %}
         </div>
+      {% elif field.type == 'radio-cards' %}
+        {# One selectable card per option, with an optional description under the label #}
+        <fieldset
+          class="form-field radio-cards mb-md lg:mb-lg border-0 p-0 m-0 min-w-0{% if field.showWhen %} hidden{% endif %}"
+          {% if field.showWhen %}data-show-when-field="{{ field.showWhen.field }}" data-show-when-value="{{ field.showWhen.value }}"{% endif %}
+        >
+          {% if field.label %}
+            <legend class="block text-dark mb-xs">
+              {{ field.label }}
+              {% if field.required %}
+                <span class="text-red">*</span>{% endif %}
+            </legend>
+          {% endif %}
+          {% if field.helpText %}
+            <p class="text-sm text-dark mb-sm">{{ field.helpText }}</p>
+          {% endif %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-sm">
+            {% for option in field.options %}
+              {% set optionId = (field.id | default(field.name)) + '-' + loop.index %}
+              <label for="{{ optionId }}" class="radio-card flex items-start gap-sm p-sm border-2 border-dark cursor-pointer {{ field.class }}">
+                <input
+                  type="radio"
+                  id="{{ optionId }}"
+                  name="{{ field.name }}"
+                  value="{{ option.value }}"
+                  {% if field.required %}required{% endif %}
+                  {% if option.description %}aria-describedby="{{ optionId }}-description"{% endif %}
+                  class="mt-1 h-5 w-5 shrink-0 border-2 border-dark focus:ring-2 focus:ring-blue"
+                />
+                <span class="flex flex-col">
+                  <span class="text-dark">{{ option.label }}</span>
+                  {% if option.description %}
+                    <span id="{{ optionId }}-description" class="text-sm text-dark opacity-80 mt-xxs">{{ option.description }}</span>
+                  {% endif %}
+                </span>
+              </label>
+            {% endfor %}
+          </div>
+        </fieldset>
       {% else %}
         <div
       class="form-field mb-md lg:mb-lg {% if field.type == 'checkbox' %}flex items-start gap-sm{% endif %}{% if field.showWhen %} hidden{% endif %}"
@@ -55,6 +99,7 @@ formMethod = method | default('POST') %}
         type="checkbox"
         id="{{ field.id | default(field.name) }}"
         name="{{ field.name }}"
+        {% if field.value %}value="{{ field.value }}"{% endif %}
         {%
         if
         field.required

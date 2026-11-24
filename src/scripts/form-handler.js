@@ -24,9 +24,12 @@ function initializeConditionalFields(form) {
   const paired = form.querySelectorAll("[data-required-with]");
   if (!shown.length && !paired.length) return;
 
+  // A checkbox only has a value while checked; a radio group (RadioNodeList) reports its checked value
   const controlValue = (name) => {
     const control = form.elements.namedItem(name);
-    return control ? (control.value || "").trim() : "";
+    if (!control) return "";
+    if (control.type === "checkbox") return control.checked ? control.value : "";
+    return (control.value || "").trim();
   };
 
   const update = () => {
