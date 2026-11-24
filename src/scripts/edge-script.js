@@ -918,9 +918,13 @@ async function loadWorkingGroups() {
   }
 }
 
-/** GET /api/industry-org-working-groups: approved groups only, name + description only. */
+/**
+ * GET /api/industry-org-working-groups: approved groups only, name + description only.
+ * Public, read-only and cached by the CDN, which does not vary on Origin: answer every origin with "*"
+ * so a cached copy made for one origin does not block the others.
+ */
 async function handleWorkingGroupsList(corsHeaders) {
-  const headers = { ...corsHeaders, "Content-Type": "application/json" };
+  const headers = { ...corsHeaders, "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" };
   try {
     const groups = await loadWorkingGroups();
     if (!groups) {
