@@ -24,6 +24,11 @@ eleventyExcludeFromCollections: true
   .beyond-form textarea { background-color: color-mix(in srgb, var(--color-white) 25%, transparent); }
   .beyond-form input::placeholder,
   .beyond-form textarea::placeholder { color: var(--color-dark); opacity: 0.6; }
+  .beyond-form input[type="radio"],
+  .beyond-form input[type="checkbox"] { accent-color: var(--color-dark); }
+  .beyond-form .radio-card { background-color: color-mix(in srgb, var(--color-white) 25%, transparent); }
+  .beyond-form .radio-card:has(:checked) { background-color: color-mix(in srgb, var(--color-white) 60%, transparent); }
+  .beyond-form .radio-card:has(:focus-visible) { outline: 2px solid var(--color-dark); outline-offset: 2px; }
   .beyond-form .text-red,
   .beyond-form [data-char-counter] { color: var(--color-dark); }
 </style>
@@ -145,11 +150,16 @@ eleventyExcludeFromCollections: true
         { type: 'text', name: 'name', label: 'Name', required: true, autocomplete: 'name' },
         { type: 'email', name: 'email', label: 'Email', required: true, autocomplete: 'email' },
         { type: 'heading', label: 'How would you like to contribute?', helpText: 'Join a working group, recommend someone — or both.' },
-        { type: 'select', name: 'working_group', label: 'Working group', placeholder: 'Choose a working group', options: ['Overall organization', 'Investments', 'Social Design Principles', 'Technology and data', 'Lobbying', 'Other'] },
-        { type: 'text', name: 'working_group_other', label: 'Which working group?', required: true, placeholder: 'Describe the working group you have in mind', showWhen: { field: 'working_group', value: 'Other' } },
-        { type: 'heading', label: 'Recommendations', helpText: 'You are welcome to recommend yourself :)' },
-        { type: 'text', name: 'recommendation_name', label: 'Recommended person', placeholder: 'Who do you recommend?', requiredWith: 'recommendation_position' },
-        { type: 'select', name: 'recommendation_position', label: 'Position', placeholder: 'Choose a position', options: ['Board member', 'CEO', 'Supporter'], requiredWith: 'recommendation_name' },
+        { type: 'radio-cards', name: 'working_group', label: 'Working group', required: true, options: workingGroups.concat([
+          { value: 'Other', label: 'Other', description: 'Missing a working group? Propose one — give it a name and a short description.' },
+          { value: 'Maybe later', label: "I'd like to join later, maybe", description: 'Not ready to pick a group yet — we will keep you posted as the groups take shape.' }
+        ]) },
+        { type: 'text', name: 'working_group_other_title', label: 'Name of the working group', required: true, placeholder: 'E.g. Trust and safety', showWhen: { field: 'working_group', value: 'Other' } },
+        { type: 'textarea', name: 'working_group_other_description', label: 'What would it work on?', required: true, rows: 3, maxlength: 300, placeholder: 'A sentence or two about its purpose', showWhen: { field: 'working_group', value: 'Other' } },
+        { type: 'heading', label: 'Recommendations' },
+        { type: 'checkbox', name: 'wants_recommendation', value: 'yes', label: 'I would like to recommend someone for the board, as CEO or as a supporter — you are welcome to recommend yourself :)' },
+        { type: 'text', name: 'recommendation_name', label: 'Recommended person', required: true, placeholder: 'Who do you recommend?', showWhen: { field: 'wants_recommendation', value: 'yes' } },
+        { type: 'select', name: 'recommendation_position', label: 'Position', required: true, placeholder: 'Choose a position', options: ['Board member', 'CEO', 'Supporter'], showWhen: { field: 'wants_recommendation', value: 'yes' } },
         { type: 'textarea', name: 'comments', label: 'Anything else?', rows: 4, maxlength: 1000, placeholder: 'Time, expertise, a network, funding, a venue, an idea…' },
         { type: 'checkbox', name: 'consent', label: 'I agree that Rebuild can store my name, email and contribution in a database so we can contact me about the new industry organisation. I can withdraw my consent at any time.', required: true },
         { type: 'hidden', name: 'form_type', value: 'industry_org_contribution' }
