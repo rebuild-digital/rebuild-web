@@ -150,7 +150,7 @@ eleventyExcludeFromCollections: true
         { type: 'text', name: 'name', label: 'Name', required: true, autocomplete: 'name' },
         { type: 'email', name: 'email', label: 'Email', required: true, autocomplete: 'email' },
         { type: 'heading', label: 'How would you like to contribute?', helpText: 'Join a working group, recommend someone — or both.' },
-        { type: 'radio-cards', name: 'working_group', label: 'Working group', required: true, liveOptionsUrl: (site.apiUrl + '/api/industry-org-working-groups') if site.apiUrl else false, options: workingGroups.concat([
+        { type: 'radio-cards', name: 'working_group', label: 'Working group', required: true, helpText: 'By joining a working group you confirm that it is ok to share your name and email address with the group.', liveOptionsUrl: (site.apiUrl + '/api/industry-org-working-groups') if site.apiUrl else false, options: workingGroups.concat([
           { value: 'Other', label: 'Other', fixed: true, description: 'Missing a working group? Propose one — give it a name and a short description.' },
           { value: 'Maybe later', label: "I'd like to join later, maybe", fixed: true, description: 'Not ready to pick a group yet — we will keep you posted as the groups take shape.' }
         ]) },
